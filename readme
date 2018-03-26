@@ -1,0 +1,76 @@
+base_laravel 使用说明
+
+1. 命令行模式下，进入项目目录，执行"composer install"（composer请自行安装，如果网络环境不佳，也可解压vendor.zip到项目目录）
+2. 将 .env.example 复制并重命名为 .env，修改其中的数据库相关配置
+3. 命令行模式下，进入项目目录，执行"php artisan migrate"生成基本表结构
+4. 执行"php artisan db:seed"装载基本数据，默认后台登录用户名admin，密码111111
+5. 修改nginx配置文件，配置项目指向 /public
+	例如：
+server {
+    listen          8x;  # 自定义端口
+    server_name     www.xxx.com;
+    root            d:/WXMP/www/laravel/public;
+    include nginx.host;  # 引入fast-cgi配置文件
+
+    location ~* \.(auto)\.(jpg|gif|png|jpeg)?$ {
+            if (!-f $request_filename) {
+                    rewrite ^/.*$ /autoimg.php;
+            }
+            expires max;
+    }
+
+    location / {
+            try_files $uri $uri/ /index.php?$query_string;
+    }
+}
+6. 主要文件及目录说明
+配置文件 .env
+路由 routes/web.php
+控制器 app/Http/Controllers/
+模型 app/Models/
+业务模型 app/Dao/
+视图 resources/views/
+语言文件 resources/lang/
+和业务相关的公共方法 app/Libraries/helpers.php
+和业务无关的类库 app/Utilities/
+和业务无关的公共方法 app/Utilities/helpers.php
+错误及SQL日志 storage/logs/
+资源及上传文件 public/
+数据库结构迁移 database/migrations/
+数据库数据填充 database/seeds/
+7. 第三方类库优先使用composer
+
+更新 autoloader：composer dump-autoload
+
+创建数据库迁移命令：php artisan make:migration create_xxx_table
+运行数据库迁移：php artisan migrate
+填充数据：php artisan db:seed
+数据库回滚并重新创建和填充数据：php artisan migrate:refresh --seed
+创建数据填充：php artisan make:seeder XxxxTableSeeder
+运行某个数据填充：php artisan db:seed --class=XxxxTableSeeder
+
+********** ApiDoc 相关 *********
+生成Apidoc，在项目目录下执行：php artisan apidoc
+
+1. 修改apidoc对accept json的支持
+修改path_to_apidoc/template/main.js，在"// Setup jQuery Ajax"前（85行左右）添加：
+if (apiProject.jQueryAjaxSetup) {
+    apiProject.template.jQueryAjaxSetup = apiProject.jQueryAjaxSetup;
+}
+2. 屏蔽标签未找到提示
+修改path_to_apidoc/node_modules/apidoc-core/lib/parser.js，注释掉180行
+
+********** 计划任务相关 *********
+在crontab中添加如下命令，每分钟运行一次
+* * * * * php /path/to/artisan schedule:run >> /dev/null 2>&1
+
+********** PHPWORD修改 *********
+修改文件 vendor/phpoffice/phpword/src/PhpWord/Shared/Html.php
+52行：替换为
+    $html = str_replace(array('_lt_', '_gt_', '_amp_'), array('<![CDATA[&lt;]]>', '&gt;', '<![CDATA[&amp;]]>'), $html);
+61行：替换为
+	$dom->loadXML($html, LIBXML_NOCDATA);
+365行：在 case 'text-align': 后添加
+    if ($cValue == 'justify') {
+        break;
+    }

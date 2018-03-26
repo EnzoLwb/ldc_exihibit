@@ -1,0 +1,282 @@
+body{
+	font-family: "Microsoft Yahei"!important;
+	font-size: 14px;
+}
+/*系统框架*/
+#logo-img {
+  height: 40px;
+  margin-left: 10px;
+  margin-top: 10px;
+  vertical-align: top;
+}
+#wrapper {
+  background-color: #373d41;
+}
+#page-wrapper {
+  margin-left: 200px;
+  height: calc(100% - 60px) !important;
+  margin-top: 60px;
+}
+.nav-header {
+  padding: 0;
+}
+#side-menu {
+  position: absolute;
+  width: auto;
+  min-width: 110px;
+  right: 84px;
+  top: 0;
+  line-height: 60px;
+}
+.nav-header a {
+  color: #fff;
+}
+.content-tabs {
+  margin-left: 0;
+  margin-right: 0;
+}
+.content-tabs .roll-nav {
+  right: 0px;
+  height: 60px;
+  width: 84px;
+  color: #fff;
+  padding: 0 18px;
+}
+.search-nav {
+  position: absolute;
+  right: 200px;
+  top: 10px;
+  height: 60px;
+  width: 340px;
+  color: #fff;
+  padding: 0 18px;
+}
+.search-nav .btn,
+.search-nav .btn:hover {
+  background-color: #02aadb;
+  color: #fff;
+  width: 80px;
+}
+.search-nav input {
+  color: #666;
+  width: 200px;
+  display: inline-block;
+  height: 40px;
+}
+#header .glyphicon {
+  line-height: 60px;
+  margin-right: 5px;
+}
+.fresh {
+  position: relative;
+  top: -1px;
+}
+.content-tabs .roll-nav:hover {
+  background: #02aadb;
+  color: #fff;
+}
+.nav-header .text-muted {
+  color: #fff;
+}
+.content-tabs .title {
+  color: #fff;
+  margin-left: 10px;
+  display: inline-block;
+  line-height: 60px;
+  font-size: 24px;
+}
+.clear {
+  padding: 0 18px;
+  height: 60px;
+  text-align: center;
+  border-right: 1px solid #02aadb;
+  border-left: 1px solid #02aadb;
+}
+.clear:hover {
+  background: #02aadb;
+}
+.m-t-xs-2 {
+  margin-top: 7px;
+}
+.dropdown-menu {
+  width: 110px;
+  right: 0!important;
+  min-width: 110px;
+  left: auto;
+}
+.dropdown-menu > li > a {
+  font-size: 14px;
+}
+.content-tabs {
+  background: #3d92ab;
+  position: fixed;
+  top: 0;
+  height: 60px;
+  width: 100%;
+  border-bottom: none;
+}
+body.canvas-menu .navbar-static-side,
+body.fixed-sidebar .navbar-static-side {
+  width: 200px;
+  height: calc(100% - 60px);
+  margin-top: 60px;
+  padding-top: 16px;
+}
+/*系统框架结束*/
+/*checkbox radio通用样式开始*/
+input[type="checkbox"],
+input[type="radio"] {
+    -webkit-appearance: none;
+    background: #ffffff url(green.png);
+    width: 20px;
+    height: 20px;
+    margin-top: 0;
+    margin-right: 5px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+input[type="checkbox"]:focus,
+input[type="checkbox"]:hover {
+    background-position: -24px 0;
+    outline: none;
+}
+
+input[type="checkbox"]:checked {
+    background-position: -48px 0;
+}
+
+input[type="checkbox"][disabled] {
+    background-position: -72px 0;
+}
+
+input[type="checkbox"][disabled]:checked {
+    background-position: -96px 0;
+}
+
+input[type="radio"] {
+    background-position: -120px 0;
+    outline: none;
+}
+
+input[type="radio"]:focus,
+input[type="radio"]:hover {
+    background-position: -144px 0;
+    outline: none;
+}
+
+input[type="radio"]:checked {
+    background-position: -168px 0;
+}
+
+input[type="radio"][disabled] {
+    background-position: -192px 0;
+}
+
+input[type="radio"][disabled]:checked {
+    background-position: -216px 0;
+}
+/*checkbox radio通用样式结束*/
+/*项目中checkbox radio样式*/
+.form-group input[type="checkbox"]:nth-child(n+2),
+.form-group input[type="radio"]:nth-child(n+2) {
+  margin-left: 20px;
+}
+.checkbox-inline,
+.radio-inline {
+  cursor: default;
+}
+/*项目中checkbox radio样式结束*/
+
+.showmsg-div {
+    width: 400px;
+    padding-top: 100px;
+    padding: 20px;
+    height: auto;
+    min-height: 300px;
+}
+
+.showmsg-div h1 {
+    margin-top: 50px;
+    font-size: 40px;
+    letter-spacing: 5px;
+}
+
+.showmsg-div h1.number {
+    font-size: 75px;
+}
+
+.showmsg-div p {
+    display: table;
+    margin-top: 20px;
+    text-align: justify;
+    word-break: break-all;
+}
+
+.showmsg-div .green {
+    color: #18a689;
+}
+
+.showmsg-div .red {
+    color: red;
+}
+
+.showmsg-div #backBtn {
+    background-color: #00b7ee;
+    border: 1px solid #00b7ee;
+    margin-top: 50px;
+    width: 100px;
+}
+
+/*菜单*/
+.navbar-default {
+    background: #d3d3d3;
+}
+.navbar-default .nav > li > a:focus,
+.navbar-default .nav > li > a:hover {
+  background: #b6b6b6;
+  color: #000;
+}
+.navbar-default .nav > li > a {
+  color: #666;
+}
+.navbar-default .nav > li > a.active {
+  color: #000;
+}
+.navbar-default .nav > li.active {
+  border-left: 4px solid #b3353a;
+  background: #b6b6b6;
+}
+.navbar-default .nav > li.active > a {
+  color: #000;
+}
+.navbar-default .nav > li > a:active {
+  color: #000;
+}
+.navbar-default .nav > li.li-active > a {
+  color: #000;
+}
+.navbar-default .child-li a {
+  display: inline-block;
+  width: 180px;
+}
+/*layer.photo 复写*/
+.layui-layer{
+  box-shadow:none!important;
+  /*max-height: 90%!important;
+  max-width:90%!important;*/
+}
+.layui-layer-imgsee{
+  display: none;
+}
+.layui-layer-photos .layui-layer-phimg img {
+  width: auto!important;
+  height: 100%;
+  max-height: 700px;
+}
+.layui-layer-photos {
+  width: auto!important;
+  max-width: 80%!important;
+  height: auto!important;
+  max-height: 80%!important;
+}
