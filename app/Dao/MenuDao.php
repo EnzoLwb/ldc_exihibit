@@ -33,6 +33,340 @@ class MenuDao extends BaseMdl
 	 */
 	public static function get_admin_menu()
 	{
+	    return [
+	        [
+                  'text' => '藏品征集',
+                  'priv' => 'exhibitcollect',
+                  'icon' => 'fa fa-cog',
+                  'nodes' => [
+                      [
+                          'text' => '征集申请',
+                          'url' => route('admin.exhibitcollect.apply'),
+                          'priv' => 'admin-exhibitcollect-apply'
+                      ],
+                      [
+                          'text' => '接收入馆',
+                          'url' => route('admin.exhibitcollect.getin'),
+                          'priv' => 'admin-exhibitcollect-getin'
+                      ]
+                  ]
+            ],
+            [
+                'text' => '藏品鉴定',
+                'priv' => 'exhibitidentify',
+                'icon' => 'fa fa-cog',
+                'nodes' => [
+                    [
+                        'text' => '鉴定申请',
+                        'url' => route('admin.exhibitidentify.apply'),
+                        'priv' => 'admin-exhibitidentify-apply'
+                    ],
+                    [
+                        'text' => '鉴定管理',
+                        'url' => route('admin.exhibitidentify.manage'),
+                        'priv' => 'admin-exhibitidentify-manage'
+                    ],
+                    [
+                        'text' => '鉴定专家管理',
+                        'url' => route('admin.exhibitidentify.expert'),
+                        'priv' => 'admin-exhibitidentify-expert'
+                    ]
+                ]
+            ],
+            [
+                'text' => '信息登记',
+                'priv' => 'inforegister',
+                'icon' => 'fa fa-cog',
+                'nodes' => [
+                    [
+                        'text' => '馆藏文物管理',
+                        'url' => route('admin.inforegister.exhibitmanage'),
+                        'priv' => 'admin-inforegister-exhibitmanage'
+                    ],
+                    [
+                        'text' => '选择辅助账种类',
+                        'url' => route('admin.inforegister.subsidiary'),
+                        'priv' => 'admin-inforegister-subsidiary'
+                    ]
+                ]
+            ],
+            [
+                'text' => '账目管理',
+                'priv' => 'accountmanage',
+                'icon' => 'fa fa-cog',
+                'nodes' => [
+                    [
+                        'text' => '总账',
+                        'url' => route('admin.accountmanage.sumaccount'),
+                        'priv' => 'admin-accountmanage-sumaccount'
+                    ],
+                    [
+                        'text' => '辅助账',
+                        'url' => route('admin.accountmanage.subsidiary'),
+                        'priv' => 'admin-accountmanage-subsidiary'
+                    ]
+                ]
+            ],
+
+            [
+                'text' => '藏品保管',
+                'priv' => 'exhibitmanage',
+                'icon' => 'fa fa-cog',
+                'nodes' => [
+                    [
+                        'text' => '库房管理',
+                        'url' => route('admin.exhibitmanage.storageroom'),
+                        'priv' => 'admin-exhibitmanage-storageroom'
+                    ],
+                    [
+                        'text' => '消毒登记',
+                        'url' => route('admin.exhibitmanage.disinfection'),
+                        'priv' => 'admin-exhibitmanage-disinfection'
+                    ],
+                    [
+                        'text' => '入库管理',
+                        'url' => route('admin.exhibitmanage.instorageroom'),
+                        'priv' => 'admin-exhibitmanage-instorageroom'
+                    ],
+                    [
+                        'text' => '藏品出库',
+                        'url' => route('admin.exhibitmanage.outstorageroom'),
+                        'priv' => 'admin-exhibitmanage-outstorageroom'
+                    ],
+                    [
+                        'text' => '藏品提用',
+                        'url' => route('admin.exhibitmanage.exhibituse'),
+                        'priv' => 'admin-exhibitmanage-exhibituse'
+                    ],
+                    [
+                        'text' => '藏品观摩',
+                        'url' => route('admin.exhibitmanage.exhibitlook'),
+                        'priv' => 'admin-exhibitmanage-exhibitlook'
+                    ],
+                    [
+                        'text' => '藏品回库',
+                        'url' => route('admin.exhibitmanage.exhibitbackroom'),
+                        'priv' => 'admin-exhibitmanage-exhibitbackroom'
+                    ],
+                    [
+                        'text' => '移库管理',
+                        'url' => route('admin.exhibitmanage.transfer'),
+                        'priv' => 'admin-exhibitmanage-transfer'
+                    ],
+                    [
+                        'text' => '事故登记',
+                        'url' => route('admin.exhibitmanage.accidentregistration'),
+                        'priv' => 'admin-exhibitmanage-accidentregistration'
+                    ],
+                ]
+            ],
+            [
+                'text' => '库房日常管理',
+                'priv' => 'storageroommanage',
+                'icon' => 'fa fa-cog',
+                'nodes' => [
+                    [
+                        'text' => '人员出入管理',
+                        'url' => route('admin.storageroommanage.peopleinoutmanage'),
+                        'priv' => 'admin-storageroommanage-peopleinoutmanage'
+                    ],
+                    [
+                        'text' => '库房环境',
+                        'url' => route('admin.storageroommanage.roomenv'),
+                        'priv' => 'admin-storageroommanage-roomenv'
+                    ],
+                    [
+                        'text' => '库房结构管理',
+                        'url' => route('admin.storageroommanage.roomstruct'),
+                        'priv' => 'admin-storageroommanage-roomstruct'
+                    ]
+                    ,
+                    [
+                        'text' => '库房盘点',
+                        'url' => route('admin.storageroommanage.roomlist'),
+                        'priv' => 'admin-storageroommanage-roomlist'
+                    ]
+                ]
+            ],
+            [
+                'text' => '藏品展览',
+                'priv' => 'exhibitshow',
+                'icon' => 'fa fa-cog',
+                'nodes' => [
+                    [
+                        'text' => '展览申请',
+                        'url' => route('admin.exhibitshow.apply'),
+                        'priv' => 'admin-exhibitshow-apply'
+                    ],
+                    [
+                        'text' => '展品展览',
+                        'url' => route('admin.exhibitshow.show'),
+                        'priv' => 'admin-exhibitshow-show'
+                    ],
+                    [
+                        'text' => '展位管理',
+                        'url' => route('admin.exhibitshow.position'),
+                        'priv' => 'admin-exhibitshow-position'
+                    ]
+
+                ]
+            ],
+            [
+                'text' => '复仿制管理',
+                'priv' => 'copymanage',
+                'icon' => 'fa fa-cog',
+                'nodes' => [
+                    [
+                        'text' => '复仿制申请（本）',
+                        'url' => route('admin.copymanage.selfapply'),
+                        'priv' => 'admin-copymanage-selfapply'
+                    ],
+                    [
+                        'text' => '复仿制申请（外）',
+                        'url' => route('admin.copymanage.otherapply'),
+                        'priv' => 'admin-copymanage-otherapply'
+                    ],
+                    [
+                        'text' => '复仿制登记',
+                        'url' => route('admin.copymanage.register'),
+                        'priv' => 'admin-copymanage-register'
+                    ]
+
+                ]
+            ],
+            [
+                'text' => '藏品修复',
+                'priv' => 'repaireexhibit',
+                'icon' => 'fa fa-cog',
+                'nodes' => [
+                    [
+                        'text' => '修复申请',
+                        'url' => route('admin.repaireexhibit.apply'),
+                        'priv' => 'admin-repaireexhibit-apply'
+                    ],
+                    [
+                        'text' => '藏品修复',
+                        'url' => route('admin.repaireexhibit.index'),
+                        'priv' => 'admin-repaireexhibit-index'
+                    ],
+                ]
+            ],
+            [
+                'text' => '藏品注销',
+                'priv' => 'exhibitlogout',
+                'icon' => 'fa fa-cog',
+                'nodes' => [
+                    [
+                        'text' => '新增',
+                        'url' => route('admin.exhibitlogout.add'),
+                        'priv' => 'admin-exhibitlogout-add'
+                    ],
+                    [
+                        'text' => '修改',
+                        'url' => route('admin.exhibitlogout.modify'),
+                        'priv' => 'admin-exhibitlogout-modify'
+                    ],
+                    [
+                        'text' => '提交',
+                        'url' => route('admin.exhibitlogout.submit'),
+                        'priv' => 'admin-exhibitlogout-submit'
+                    ],
+                    [
+                        'text' => '导出',
+                        'url' => route('admin.exhibitlogout.export'),
+                        'priv' => 'admin-exhibitlogout-export'
+                    ],
+                    [
+                        'text' => '打印',
+                        'url' => route('admin.exhibitlogout.print'),
+                        'priv' => 'admin-exhibitlogout-print'
+                    ],
+                    [
+                        'text' => '图文模式',
+                        'url' => route('admin.exhibitlogout.picturemode'),
+                        'priv' => 'admin-exhibitlogout-picturemode'
+                    ],
+                    [
+                        'text' => '查询',
+                        'url' => route('admin.exhibitlogout.query'),
+                        'priv' => 'admin-exhibitlogout-query'
+                    ],
+                ]
+            ],
+            [
+                'text' => '综合查询',
+                'priv' => 'sumquery',
+                'icon' => 'fa fa-cog',
+                'nodes' => [
+                    [
+                        'text' => '藏品查询',
+                        'url' => route('admin.sumquery.exhibitquery'),
+                        'priv' => 'admin-sumquery-exhibitquery'
+                    ],
+                    [
+                        'text' => '藏品查询(一普)',
+                        'url' => route('admin.sumquery.exhibitqueryfor'),
+                        'priv' => 'admin-sumquery-exhibitqueryfor'
+                    ],
+                    [
+                        'text' => '授权查询',
+                        'url' => route('admin.sumquery.authorityquery'),
+                        'priv' => 'admin-sumquery-authorityquery'
+                    ],
+                ]
+            ],
+            [
+                'text' => '数字资源管理',
+                'priv' => 'digitalmanage',
+                'icon' => 'fa fa-cog',
+                'nodes' => [
+                    [
+                        'text' => '文档管理',
+                        'url' => route('admin.digitalmanage.document'),
+                        'priv' => 'admin-digitalmanage-document'
+                    ],
+                    [
+                        'text' => '图片管理',
+                        'url' => route('admin.digitalmanage.picture'),
+                        'priv' => 'admin-digitalmanage-picture'
+                    ],
+                    [
+                        'text' => '视频管理',
+                        'url' => route('admin.digitalmanage.video'),
+                        'priv' => 'admin-digitalmanage-video'
+                    ],
+                ]
+            ],
+            [
+                'text' => '统计分析',
+                'priv' => 'statics',
+                'icon' => 'fa fa-cog',
+                'nodes' => [
+                    [
+                        'text' => '鉴定统计',
+                        'url' => route('admin.statics.identify'),
+                        'priv' => 'admin-statics-identify'
+                    ],
+                    [
+                        'text' => '修复统计',
+                        'url' => route('admin.statics.repaire'),
+                        'priv' => 'admin-statics-repaire'
+                    ],
+                    [
+                        'text' => '复仿制统计',
+                        'url' => route('admin.statics.copy'),
+                        'priv' => 'admin-statics-copy'
+                    ],
+                    [
+                        'text' => '藏品统计',
+                        'url' => route('admin.statics.exhibit'),
+                        'priv' => 'admin-statics-exhibit'
+                    ],
+                ]
+            ],
+        ];
+
+	    /*
 		return [
 			[
 				'text' => '主页',
@@ -124,6 +458,8 @@ class MenuDao extends BaseMdl
 					]
 				]
 			]
+
 		];
+	    */
 	}
 }
