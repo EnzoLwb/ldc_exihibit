@@ -5,6 +5,10 @@ Route::group([
     'prefix' => 'accountmanage',
     'namespace' => 'AccountManage',
 ], function () {
-    Route::get('sumaccount', 'LoginController@showLoginForm')->name('admin.accountmanage.sumaccount');
-    Route::get('subsidiary', 'LoginController@logout')->name('admin.accountmanage.subsidiary');
+    Route::get('sumaccount', 'IndexController@sumaccount')->name('admin.accountmanage.sumaccount');
+    Route::get('add_sumaccount', 'IndexController@add_sumaccount')->name('admin.accountmanage.add_sumaccount');
+
+    Route::get('subsidiary', 'IndexController@subsidiary')->name('admin.accountmanage.subsidiary');
+    Route::get('add_subsidiary', 'IndexController@add_subsidiary')->name('admin.accountmanage.add_subsidiary');
+
 });
