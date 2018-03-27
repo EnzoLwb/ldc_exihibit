@@ -10,16 +10,14 @@
             <div class="col-sm-12">
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="{{route('admin.exhibitidentify.apply')}}">查询</a></li>
-                        <li><a href="{{route('admin.exhibitidentify.apply')}}">修改</a></li>
-                        <li><a href="{{route('admin.exhibitidentify.apply')}}">删除</a></li>
-                        <li><a href="{{route('admin.exhibitidentify.apply')}}">提交</a></li>
-                        <li><a href="{{route('admin.exhibitidentify.add_identify_result')}}">录入鉴定结果</a></li>
-                        <li><a href="{{route('admin.exhibitidentify.apply')}}">查看鉴定结果</a></li>
-                        <li><a href="{{route('admin.exhibitidentify.apply')}}">导出</a></li>
-                        <li><a href="{{route('admin.exhibitidentify.apply')}}">打印</a></li>
-                        <li><a href="{{route('admin.exhibitidentify.apply')}}">图文模式</a></li>
-                        <li ><a href="{{route('admin.exhibitidentify.add')}}">新增</a></li>
+                        <li class="active"><a href="{{route('admin.exhibitidentify.manage')}}">查询</a></li>
+                        <li><a href="{{route('admin.exhibitidentify.manage')}}">修改</a></li>
+                        <li><a href="{{route('admin.exhibitidentify.manage')}}">删除</a></li>
+                        <li><a href="{{route('admin.exhibitidentify.manage')}}">提交</a></li>
+                        <li><a href="{{route('admin.exhibitidentify.manage')}}">导出</a></li>
+                        <li><a href="{{route('admin.exhibitidentify.manage')}}">打印</a></li>
+                        <li><a href="{{route('admin.exhibitidentify.manage')}}">图文模式</a></li>
+
                     </ul>
                 </div>
             </div>
@@ -30,7 +28,7 @@
                     <div class="ibox-title">
                         <form role="form" class="form-inline" method="get" action="{{route('admin.exhibitidentify.apply')}}">
                             <div class="form-group">
-                                <input type="text" name="title" placeholder="征集申请单号" class="form-control" value="{{request('title')}}">
+                                <input type="text" name="title" placeholder="登记日期" class="form-control" value="{{request('title')}}">
                             </div>
                             &nbsp;&nbsp;
                             <button type="submit" class="btn btn-primary">搜索</button>
@@ -79,5 +77,3 @@
         </div>
     </div>
 @endsection
-
-
