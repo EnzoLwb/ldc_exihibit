@@ -5,20 +5,6 @@ Route::get('/', function () {
 	return redirect('/' . env('ADMIN_ENTRANCE', 'admin'));
 });
 
-// 首页
-Route::get('/', 'HomeController@index');
-Route::get('/home', 'HomeController@welcome');
-
-// 前台登录注册路由
-Auth::routes();
-
-// 前台需要登录验证的路由
-Route::group([
-	'middleware' => 'auth'
-], function () {
-
-});
-
 // 后台登录路由
 Route::group([
 	'prefix' => env('ADMIN_ENTRANCE', 'admin'),
