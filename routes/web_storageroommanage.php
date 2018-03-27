@@ -14,5 +14,9 @@ Route::group([
 	Route::post('roomstruct/save', 'RoomStructController@save')->name('admin.storageroommanage.roomstruct.save');
 	Route::get('roomstruct/delete/{id}', 'RoomStructController@delete')->name('admin.storageroommanage.roomstruct.delete');
 
-	Route::get('roomlist', 'LoginController@showLoginForm')->name('admin.storageroommanage.roomlist');
+	Route::get('roomlist', 'RoomlistController@index')->name('admin.storageroommanage.roomlist');
+	Route::get('roomlist/add', 'RoomlistController@add')->name('admin.storageroommanage.roomlist.add');
+	Route::get('roomlist/edit/{id}', 'RoomlistController@edit')->name('admin.storageroommanage.roomlist.edit');
+	Route::post('roomlist/save', 'RoomlistController@save')->name('admin.storageroommanage.roomlist.save');
+	Route::get('roomlist/delete/{id}', 'RoomlistController@delete')->name('admin.storageroommanage.roomlist.delete');
 });
