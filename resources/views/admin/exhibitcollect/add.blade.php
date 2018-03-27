@@ -75,8 +75,9 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">申请部门</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="distancea"  name="distancea"
-                                           value="{{$info['distancea'] or ''}}" required/>
+                                    <select class="form-control">
+                                        <option>陈展部</option>
+                                    </select>
                                 </div>
                             </div>
 

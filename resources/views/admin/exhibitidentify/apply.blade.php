@@ -61,14 +61,15 @@
                             </thead>
                             @foreach($exhibit_list as $exhibit)
                                 <tr class="gradeA">
-                                    <td>{{$exhibit->exhibit_num}}</td>
-                                    <td>{{$exhibit->title}}</td>
-                                    <td><img width="50px" heighy='60px'src="{{$exhibit->squar_list_img}}"/></td>
-                                    <td>
-                                        <a href="{{url('/admin/data/exhibit_add?exhibit_id=' . $exhibit->exhibit_id)}}">编辑</a>
-                                        | <a class="ajaxBtn" href="javascript:void(0);" uri="{{url('/admin/data/exhibit_del?exhibit_id=' . $exhibit->exhibit_id)}}" msg="是否删除该文物？">删除</a>
+                                  <td> <input type="radio"></td>
+                                    <td>{{$exhibit['date']}}</td>
+                                    <td>{{$exhibit['depart_name']}}</td>
+                                    <td>{{$exhibit['identify_date']}}</td>
+                                    <td>{{$exhibit['identify_author']}}</td>
+                                    <td>{{$exhibit['identify_danwei']}}</td>
 
-                                    </td>
+                                    <td>{{$exhibit['status']}}</td>
+                                    <td>{{$exhibit['author']}}</td>
                                 </tr>
                             @endforeach
                         </table>

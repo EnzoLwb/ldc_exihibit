@@ -78,8 +78,10 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">状态</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="distancea"  name="distancea"
-                                           value="{{$info['distancea'] or ''}}" required/>
+                                   <select class="form-control">
+                                       <option>等待审核</option>
+                                       <option>审核通过</option>
+                                   </select>
                                 </div>
                             </div>
 

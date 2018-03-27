@@ -61,14 +61,17 @@
                             </thead>
                             @foreach($exhibit_list as $exhibit)
                                 <tr class="gradeA">
-                                    <td>{{$exhibit->exhibit_num}}</td>
-                                    <td>{{$exhibit->title}}</td>
-                                    <td><img width="50px" heighy='60px'src="{{$exhibit->squar_list_img}}"/></td>
-                                    <td>
-                                        <a href="{{url('/admin/data/exhibit_add?exhibit_id=' . $exhibit->exhibit_id)}}">编辑</a>
-                                        | <a class="ajaxBtn" href="javascript:void(0);" uri="{{url('/admin/data/exhibit_del?exhibit_id=' . $exhibit->exhibit_id)}}" msg="是否删除该文物？">删除</a>
-
-                                    </td>
+                                    <td><input type="radio"></td>
+                                    <td>{{$exhibit['num']}}</td>
+                                    <td>{{$exhibit['depart_name']}}</td>
+                                    <td>{{$exhibit['depart_object']}}</td>
+                                    <td>{{$exhibit['depart_project_name']}} </td>
+                                    <td>{{$exhibit['apply_depart']}} </td>
+                                    <td>{{$exhibit['apply_money']}} </td>
+                                    <td>{{$exhibit['apply_count']}} </td>
+                                    <td>{{$exhibit['applyer']}} </td>
+                                    <td>{{$exhibit['project_desc']}} </td>
+                                    <td>{{$exhibit['project_reason']}} </td>
                                 </tr>
                             @endforeach
                         </table>

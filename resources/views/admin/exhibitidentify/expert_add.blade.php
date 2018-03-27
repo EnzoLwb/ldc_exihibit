@@ -51,8 +51,10 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">性别</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="major"  name="major"
-                                           value="{{$info['major'] or ''}}" required/>
+                                   <select class="form-control">
+                                       <option>男</option>
+                                       <option>女</option>
+                                   </select>
                                 </div>
                             </div>
 
@@ -67,8 +69,10 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">状态</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="rssii" name="rssii"
-                                           value="{{$info['rssii'] or ''}}" required/>
+                                    <select class="form-control">
+                                        <option>启用</option>
+                                        <option>停用</option>
+                                    </select>
                                 </div>
                             </div>
 

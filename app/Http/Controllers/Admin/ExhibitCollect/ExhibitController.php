@@ -11,7 +11,29 @@ class ExhibitController extends BaseAdminController
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function apply(){
-        $res['exhibit_list'] = array();
+        $item1['num'] = 'ZJS2018...';
+        $item1['depart_name'] = '关于三星...';
+        $item1['depart_object'] = '三星他拉玉龙';
+        $item1['depart_project_name'] = '三星他拉玉龙...';
+        $item1['apply_depart'] = '展陈部';
+        $item1['apply_money'] = '20万';
+        $item1['apply_count'] = '1';
+        $item1['applyer'] = '李海勇';
+        $item1['project_desc'] = '收集该藏品是为了...';
+        $item1['project_reason'] = '收集该藏品是为了...';
+
+        $item2['num'] = 'ZJS2018...';
+        $item2['depart_name'] = '关于司母...';
+        $item2['depart_object'] = '后母戍鼎';
+        $item2['depart_project_name'] = '后母...';
+        $item2['apply_depart'] = '展陈部';
+        $item2['apply_money'] = '11万';
+        $item2['apply_count'] = '1';
+        $item2['applyer'] = '李海勇';
+        $item2['project_desc'] = '收集该藏品是为了...';
+        $item2['project_reason'] = '收集该藏品是为了...';
+
+        $res['exhibit_list'] = array($item1,$item2);
         return view('admin.exhibitcollect.apply', $res);
     }
 
@@ -31,7 +53,17 @@ class ExhibitController extends BaseAdminController
     }
 
     public function getin(){
-        $res['exhibit_list'] = array();
+        $item['num'] ='RG20180326';
+        $item['name'] ='子龙铜棺';
+        $item['date'] ='20180326';
+        $item['recipe_num'] ='0003';
+        $item['mark'] ='暂无备注';
+        $item1['num'] ='RG20180326';
+        $item1['name'] ='祺皇贵太妃';
+        $item1['date'] ='20180327';
+        $item1['recipe_num'] ='0001';
+        $item1['mark'] ='暂无备注';
+        $res['exhibit_list'] = array($item, $item1);
         return view('admin.exhibitcollect.getin',$res);
     }
 
