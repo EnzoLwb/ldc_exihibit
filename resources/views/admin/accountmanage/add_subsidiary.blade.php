@@ -1,6 +1,7 @@
 @extends('layouts.public')
 
 @section('bodyattr')class="gray-bg"@endsection
+<link rel="stylesheet" href="{{cdn('js/plugins/webuploader/single.css')}}">
 
 @section('body')
 
@@ -186,6 +187,24 @@
 
 
     </div>
+    <script src="{{cdn('js/plugins/webuploader/webuploader.nolog.min.js')}}"></script>
+    <script src="{{cdn('js/plugins/webuploader/webuploader_public.js')}}"></script>
+
+    <script>
+        //方形列表图
+        singleUpload({
+            _token: '{{csrf_token()}}',
+            type_key: 'FT_ONE_RESOURCE',
+            item_id: '{{$exhibit['exhibit_id'] or 0}}',
+            pick: 'poi_4_picker',
+            boxid: 'poi_4_box',
+            file_path: 'squar_list_img',
+
+        });
+        $('#poi_4_box').find('.img-div>span').click(function () {
+            sUploadDel($(this), 'poi_4')
+        });
+    </script>
 @endsection
 
 
