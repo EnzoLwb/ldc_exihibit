@@ -10,14 +10,15 @@
             <div class="col-sm-12">
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="{{route('admin.exhibitcollect.apply')}}">查询</a></li>
-                        <li><a href="{{route('admin.exhibitcollect.apply')}}">修改</a></li>
-                        <li><a href="{{route('admin.exhibitcollect.apply')}}">删除</a></li>
-                        <li><a href="{{route('admin.exhibitcollect.apply')}}">送鉴定</a></li>
-                        <li><a href="{{route('admin.exhibitcollect.apply')}}">导出</a></li>
-                        <li><a href="{{route('admin.exhibitcollect.apply')}}">打印</a></li>
-                        <li><a href="{{route('admin.exhibitcollect.apply')}}">图文模式</a></li>
-                        <li ><a href="{{route('admin.exhibitcollect.add')}}">新增</a></li>
+                        <li class="active"><a href="{{route('admin.exhibitcollect.getin')}}">查询</a></li>
+                        <li><a href="{{route('admin.exhibitcollect.getin')}}">修改</a></li>
+                        <li><a href="{{route('admin.exhibitcollect.getin')}}">删除</a></li>
+                        <li><a href="{{route('admin.exhibitcollect.getin')}}">提交</a></li>
+                        <li><a href="{{route('admin.exhibitcollect.getin')}}">送鉴定</a></li>
+                        <li><a href="{{route('admin.exhibitcollect.getin')}}">导出</a></li>
+                        <li><a href="{{route('admin.exhibitcollect.getin')}}">打印</a></li>
+                        <li><a href="{{route('admin.exhibitcollect.getin')}}">图文模式</a></li>
+                        <li ><a href="{{route('admin.exhibitcollect.getin_add')}}">新增</a></li>
                     </ul>
                 </div>
             </div>
@@ -26,13 +27,12 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <form role="form" class="form-inline" method="get" action="{{url('admin/data/exhibit')}}">
-                            <div class="form-group">
-                                <input type="text" name="title" placeholder="申请单号" class="form-control" value="{{request('title')}}">
-                            </div>
-                            &nbsp;&nbsp;
-                            <button type="submit" class="btn btn-primary">搜索</button>
-                            <button type="button" class="btn btn-white" onclick="location.href='{{route('admin.exhibitcollect.apply')}}'">重置</button>
+                        <form role="form" class="form-inline" method="get" action="{{route('admin.exhibitcollect.getin')}}">
+                            <select class="form-control">
+                                <option value="apply_in">征集入馆</option>
+                                <option value="direct_in">直接入馆</option>
+                            </select>
+                            <button type="submit" class="btn btn-primary">查询</button>
                         </form>
                     </div>
                 </div>

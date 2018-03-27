@@ -11,6 +11,7 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li ><a href="{{route('admin.exhibitcollect.apply')}}">查询</a></li>
+                        <li><a href="{{route('admin.exhibitcollect.apply')}}">修改</a></li>
                         <li><a href="{{route('admin.exhibitcollect.apply')}}">删除</a></li>
                         <li><a href="{{route('admin.exhibitcollect.apply')}}">送鉴定</a></li>
                         <li><a href="{{route('admin.exhibitcollect.apply')}}">导出</a></li>
