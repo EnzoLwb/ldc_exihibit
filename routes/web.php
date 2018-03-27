@@ -35,6 +35,21 @@ Route::group([
 	'namespace' => 'Admin',
 	'middleware' => 'auth.admin',
 ], function () {
+    include "web_exhibitcollect.php";
+    include "web_exhibitidentify.php";
+    include "web_inforegister.php";
+    include "web_accountmanage.php";
+    include "web_exhibitmanage.php";
+    include "web_storageroommanage.php";
+    include "web_exhibitshow.php";
+    include "web_copymanage.php";
+    include "web_repaireexhibit.php";
+    include "web_exhibitlogout.php";
+    include "web_sumquery.php";
+    include "web_digitalmanage.php";
+    include "web_statics.php";
+
+
 	// Ajax上传图片 - 后台通用
 	Route::post('upload', 'UploadController@uploadimg')->name('admin.upload');
 	// 管理员修改密码
