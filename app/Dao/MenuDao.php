@@ -246,29 +246,29 @@ class MenuDao extends BaseMdl
 
 				]
 			],
-			[
-				'text' => '复仿制管理',
-				'priv' => 'copymanage',
-				'icon' => 'fa fa-cog',
-				'nodes' => [
-					[
-						'text' => '复仿制申请（本）',
-						'url' => route('admin.copymanage.selfapply'),
-						'priv' => 'admin-copymanage-selfapply'
-					],
-					[
-						'text' => '复仿制申请（外）',
-						'url' => route('admin.copymanage.otherapply'),
-						'priv' => 'admin-copymanage-otherapply'
-					],
-					[
-						'text' => '复仿制登记',
-						'url' => route('admin.copymanage.register'),
-						'priv' => 'admin-copymanage-register'
-					]
-
-				]
-			],
+			//			[
+			//				'text' => '复仿制管理',
+			//				'priv' => 'copymanage',
+			//				'icon' => 'fa fa-cog',
+			//				'nodes' => [
+			//					[
+			//						'text' => '复仿制申请（本）',
+			//						'url' => route('admin.copymanage.selfapply'),
+			//						'priv' => 'admin-copymanage-selfapply'
+			//					],
+			//					[
+			//						'text' => '复仿制申请（外）',
+			//						'url' => route('admin.copymanage.otherapply'),
+			//						'priv' => 'admin-copymanage-otherapply'
+			//					],
+			//					[
+			//						'text' => '复仿制登记',
+			//						'url' => route('admin.copymanage.register'),
+			//						'priv' => 'admin-copymanage-register'
+			//					]
+			//
+			//				]
+			//			],
 			[
 				'text' => '藏品修复',
 				'priv' => 'repaireexhibit',
@@ -281,8 +281,8 @@ class MenuDao extends BaseMdl
 					],
 					[
 						'text' => '藏品修复',
-						'url' => route('admin.repaireexhibit.index'),
-						'priv' => 'admin-repaireexhibit-index'
+						'url' => route('admin.repaireexhibit.repairin'),
+						'priv' => 'admin-repaireexhibit-repairin'
 					],
 				]
 			],
@@ -290,66 +290,30 @@ class MenuDao extends BaseMdl
 				'text' => '藏品注销',
 				'priv' => 'exhibitlogout',
 				'icon' => 'fa fa-cog',
-				'nodes' => [
-					[
-						'text' => '新增',
-						'url' => route('admin.exhibitlogout.add'),
-						'priv' => 'admin-exhibitlogout-add'
-					],
-					[
-						'text' => '修改',
-						'url' => route('admin.exhibitlogout.modify'),
-						'priv' => 'admin-exhibitlogout-modify'
-					],
-					[
-						'text' => '提交',
-						'url' => route('admin.exhibitlogout.submit'),
-						'priv' => 'admin-exhibitlogout-submit'
-					],
-					[
-						'text' => '导出',
-						'url' => route('admin.exhibitlogout.export'),
-						'priv' => 'admin-exhibitlogout-export'
-					],
-					[
-						'text' => '打印',
-						'url' => route('admin.exhibitlogout.print'),
-						'priv' => 'admin-exhibitlogout-print'
-					],
-					[
-						'text' => '图文模式',
-						'url' => route('admin.exhibitlogout.picturemode'),
-						'priv' => 'admin-exhibitlogout-picturemode'
-					],
-					[
-						'text' => '查询',
-						'url' => route('admin.exhibitlogout.query'),
-						'priv' => 'admin-exhibitlogout-query'
-					],
-				]
+				'url' => route('admin.exhibitlogout')
 			],
-			[
-				'text' => '综合查询',
-				'priv' => 'sumquery',
-				'icon' => 'fa fa-cog',
-				'nodes' => [
-					[
-						'text' => '藏品查询',
-						'url' => route('admin.sumquery.exhibitquery'),
-						'priv' => 'admin-sumquery-exhibitquery'
-					],
-					[
-						'text' => '藏品查询(一普)',
-						'url' => route('admin.sumquery.exhibitqueryfor'),
-						'priv' => 'admin-sumquery-exhibitqueryfor'
-					],
-					[
-						'text' => '授权查询',
-						'url' => route('admin.sumquery.authorityquery'),
-						'priv' => 'admin-sumquery-authorityquery'
-					],
-				]
-			],
+			//			[
+			//				'text' => '综合查询',
+			//				'priv' => 'sumquery',
+			//				'icon' => 'fa fa-cog',
+			//				'nodes' => [
+			//					[
+			//						'text' => '藏品查询',
+			//						'url' => route('admin.sumquery.exhibitquery'),
+			//						'priv' => 'admin-sumquery-exhibitquery'
+			//					],
+			//					[
+			//						'text' => '藏品查询(一普)',
+			//						'url' => route('admin.sumquery.exhibitqueryfor'),
+			//						'priv' => 'admin-sumquery-exhibitqueryfor'
+			//					],
+			//					[
+			//						'text' => '授权查询',
+			//						'url' => route('admin.sumquery.authorityquery'),
+			//						'priv' => 'admin-sumquery-authorityquery'
+			//					],
+			//				]
+			//			],
 			[
 				'text' => '数字资源管理',
 				'priv' => 'digitalmanage',
