@@ -1,6 +1,6 @@
 <?php
 
-// 账目管理的相关路由
+// 仓库的相关路由
 Route::group([
 	'prefix' => 'storageroommanage',
 	'namespace' => 'Storageroommanage',

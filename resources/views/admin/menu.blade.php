@@ -22,7 +22,7 @@
                                         <ul class="nav nav-third-level">
                                             @foreach($submenu['nodes'] as $childmenu)
                                                 @can('priv', $childmenu['priv'])
-                                                    <li class="child-li"><a class="J_menuItem data-a" data-href="{{$submenu['url'] or 'javascript:void(0);'}}">{{$childmenu['text']}}</a></li>
+                                                    <li class="child-li"><a class="J_menuItem data-a" data-href="{{$childmenu['url'] or 'javascript:void(0);'}}">{{$childmenu['text']}}</a></li>
                                                 @endcan
                                             @endforeach
                                         </ul>

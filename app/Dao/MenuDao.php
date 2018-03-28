@@ -130,18 +130,54 @@ class MenuDao extends BaseMdl
 					],
 					[
 						'text' => '藏品出库',
-						'url' => route('admin.exhibitmanage.outstorageroom'),
-						'priv' => 'admin-exhibitmanage-outstorageroom'
+                        'url' => route('admin.exhibitmanage.outstorageroom.oustorageapply'),
+						'priv' => 'admin-exhibitmanage-outstorageroom',
+                        'nodes'=>[
+                            [
+                                'text' => '出库申请',
+                                'url' => route('admin.exhibitmanage.outstorageroom.oustorageapply'),
+                                'priv' => 'admin-exhibitmanage-outstorageroom-oustorageapply'
+                            ],
+                            [
+                                'text' => '藏品出库',
+                                'url' => route('admin.exhibitmanage.outstorageroom.exhibitout'),
+                                'priv' => 'admin-exhibitmanage-storageroom-exhibitout'
+                            ],
+                        ]
 					],
 					[
 						'text' => '藏品提用',
 						'url' => route('admin.exhibitmanage.exhibituse'),
-						'priv' => 'admin-exhibitmanage-exhibituse'
+						'priv' => 'admin-exhibitmanage-exhibituse',
+                        'nodes'=>[
+                            [
+                                'text' => '出库申请',
+                                'url' => route('admin.exhibitmanage.outstorageroom.oustorageapply'),
+                                'priv' => 'admin-exhibitmanage-outstorageroom-oustorageapply'
+                            ],
+                            [
+                                'text' => '藏品出库',
+                                'url' => route('admin.exhibitmanage.outstorageroom.exhibitout'),
+                                'priv' => 'admin-exhibitmanage-storageroom-exhibitout'
+                            ],
+                        ]
 					],
 					[
 						'text' => '藏品观摩',
 						'url' => route('admin.exhibitmanage.exhibitlook'),
-						'priv' => 'admin-exhibitmanage-exhibitlook'
+						'priv' => 'admin-exhibitmanage-exhibitlook',
+                        'nodes'=>[
+                            [
+                                'text' => '出库申请',
+                                'url' => route('admin.exhibitmanage.outstorageroom.oustorageapply'),
+                                'priv' => 'admin-exhibitmanage-outstorageroom-oustorageapply'
+                            ],
+                            [
+                                'text' => '藏品出库',
+                                'url' => route('admin.exhibitmanage.outstorageroom.exhibitout'),
+                                'priv' => 'admin-exhibitmanage-storageroom-exhibitout'
+                            ],
+                        ]
 					],
 					[
 						'text' => '藏品回库',
