@@ -245,8 +245,8 @@ class MenuDao extends BaseMdl
 					],
 					[
 						'text' => '藏品修复',
-						'url' => route('admin.repaireexhibit.index'),
-						'priv' => 'admin-repaireexhibit-index'
+						'url' => route('admin.repaireexhibit.repairin'),
+						'priv' => 'admin-repaireexhibit-repairin'
 					],
 				]
 			],
