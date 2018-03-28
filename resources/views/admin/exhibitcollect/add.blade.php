@@ -88,6 +88,14 @@
                                            value="{{$info['distancei'] or ''}}" required/>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">申请征集数量</label>
+                                <div class="col-sm-4">
+                                    <input type="number" class="form-control" id="distancei" name="distancei"
+                                           value="{{$info['distancei'] or ''}}" required/>
+                                </div>
+                            </div>
+
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">申请人</label>

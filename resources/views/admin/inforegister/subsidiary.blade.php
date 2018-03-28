@@ -47,7 +47,6 @@
                             <thead>
                             <tr role="row">
                                 <th>选择</th>
-                                <th>图片</th>
                                 <th>收藏单位</th>
                                 <th>总登记号</th>
                                 <th>分类号</th>
@@ -62,16 +61,15 @@
                             @foreach($exhibit_list as $exhibit)
                                 <tr class="gradeA">
                                     <td><input type="radio"></td>
-                                    <td>{{$exhibit['num']}}</td>
-                                    <td>{{$exhibit['depart_name']}}</td>
-                                    <td>{{$exhibit['depart_object']}}</td>
-                                    <td>{{$exhibit['depart_project_name']}} </td>
-                                    <td>{{$exhibit['apply_depart']}} </td>
-                                    <td>{{$exhibit['apply_money']}} </td>
-                                    <td>{{$exhibit['apply_count']}} </td>
-                                    <td>{{$exhibit['applyer']}} </td>
-                                    <td>{{$exhibit['project_desc']}} </td>
-                                    <td>{{$exhibit['project_reason']}} </td>
+                                    <td>{{$exhibit['collect_depart']}}</td>
+                                    <td>{{$exhibit['sum_num']}}</td>
+                                    <td>{{$exhibit['class_num']}}</td>
+                                    <td>{{$exhibit['in_museum_num']}} </td>
+                                    <td>{{$exhibit['name']}} </td>
+                                    <td>{{$exhibit['ori_name']}} </td>
+                                    <td>{{$exhibit['niandai_leixing']}} </td>
+                                    <td>{{$exhibit['juti_niandai']}} </td>
+                                    <td>{{$exhibit['history_']}} </td>
                                 </tr>
                             @endforeach
                         </table>

@@ -67,8 +67,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">备注</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="rssii" name="rssii"
-                                           value="{{$info['rssii'] or ''}}" required/>
+                                    <textarea class="form-control"></textarea>
                                 </div>
                             </div>
 
@@ -218,19 +217,21 @@
                     </div>
                     <br>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">实际数量单位</label>
+                        <label class="col-sm-2 control-label">数量单位</label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" id="rssii" name="rssii"
                                    value="{{$info['rssii'] or ''}}" required/>
                         </div>
                     </div>
                     <br>
+                    <div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">长宽高</label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" id="rssii" name="rssii"
                                    value="{{$info['rssii'] or ''}}" required/>
                         </div>
+                    </div>
                     </div>
                     <br>
                     <div class="form-group">
