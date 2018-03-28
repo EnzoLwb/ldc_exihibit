@@ -194,23 +194,23 @@ Route::group([
 		'namespace' => 'File'
 	], function () {
 		// 文件列表
-		Route::get('/file', 'FileController@index');
+		Route::get('/file', 'FileController@index')->name('admin.file.file');
 		// 下载文件
-		Route::get('/file/download/{file_id}', 'FileController@download');
+		Route::get('/file/download/{file_id}', 'FileController@download')->name('admin.file.file.download');
 		// 删除文件
-		Route::get('/file/delete/{file_ids}', 'FileController@delete');
+		Route::get('/file/delete/{file_ids?}', 'FileController@delete')->name('admin.file.file.delete');
 		// 上传文件
 		Route::match([
 			'get',
 			'post'
-		], '/file/upload', 'FileController@upload');
+		], '/file/upload', 'FileController@upload')->name('admin.file.file.upload');
 		// 分片上传文件
 		Route::match([
 			'get',
 			'post'
-		], '/file/multiupload', 'FileController@multiUpload');
+		], '/file/multiupload', 'FileController@multiUpload')->name('admin.file.file.multiupload');
 		// 检查文件分片
-		Route::get('/file/checkmfile', 'FileController@checkMfile');
+		Route::get('/file/checkmfile', 'FileController@checkMfile')->name('admin.file.file.checkmfile');
 	});
 });
 
