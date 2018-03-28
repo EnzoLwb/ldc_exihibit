@@ -14,7 +14,18 @@ class IndexController extends BaseAdminController
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function sumaccount(){
-        $res['exhibit_list'] = array();
+        $item['apply_num'] = 'WW2301';
+        $item['apply_depart_name'] = '001';
+        $item['apply_buy_object'] = '001';
+        $item['project_name'] = 'RGDJ009';
+        $item['depart_name'] = '大玉龙';
+        $item['need_money'] = '大玉龙';
+        $item['need_count'] = '出土年代';
+        $item['applyer'] = '新石器时代';
+        $item['project_desc'] = '';
+        $item['apply_reason'] = '宝玉石';
+        $item['...'] = '...';
+        $res['exhibit_list'] = array($item);
         return view('admin.accountmanage.sumaccount', $res);
     }
 
@@ -24,6 +35,7 @@ class IndexController extends BaseAdminController
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function add_sumaccount(){
+
         return view('admin.accountmanage.add_sumaccount');
     }
 

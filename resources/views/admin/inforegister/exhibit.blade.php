@@ -62,16 +62,16 @@
                             @foreach($exhibit_list as $exhibit)
                                 <tr class="gradeA">
                                     <td><input type="radio"></td>
-                                    <td>{{$exhibit['num']}}</td>
-                                    <td>{{$exhibit['depart_name']}}</td>
-                                    <td>{{$exhibit['depart_object']}}</td>
-                                    <td>{{$exhibit['depart_project_name']}} </td>
-                                    <td>{{$exhibit['apply_depart']}} </td>
-                                    <td>{{$exhibit['apply_money']}} </td>
-                                    <td>{{$exhibit['apply_count']}} </td>
-                                    <td>{{$exhibit['applyer']}} </td>
-                                    <td>{{$exhibit['project_desc']}} </td>
-                                    <td>{{$exhibit['project_reason']}} </td>
+                                    <td>{{$exhibit['sum_num']}}</td>
+                                    <td>{{$exhibit['ori_num']}}</td>
+                                    <td>{{$exhibit['last_num']}}</td>
+                                    <td>{{$exhibit['in_museum_num']}} </td>
+                                    <td>{{$exhibit['name']}} </td>
+                                    <td>{{$exhibit['last_name']}} </td>
+                                    <td>{{$exhibit['history_']}} </td>
+                                    <td>{{$exhibit['juti_history']}} </td>
+                                    <td>{{$exhibit['history_jieduan']}} </td>
+                                    <td>{{$exhibit['zhidi_leixing']}} </td>
                                 </tr>
                             @endforeach
                         </table>

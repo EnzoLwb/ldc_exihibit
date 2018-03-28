@@ -349,8 +349,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">备注</label>
                                 <div class="col-sm-4">
-                                    <input type="textarea" class="form-control" rows="2" cols="20" id="distancei" name="distancei"
-                                           value="{{$info['distancei'] or ''}}" required/>
+                                    <textarea  class="form-control"></textarea>
                                 </div>
                             </div>
                             <div class="form-group">

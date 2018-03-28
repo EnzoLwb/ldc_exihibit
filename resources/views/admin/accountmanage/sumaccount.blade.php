@@ -47,31 +47,33 @@
                             <thead>
                             <tr role="row">
                                 <th>选择</th>
-                                <th>征集申请单号</th>
-                                <th>征集申请单位名称</th>
-                                <th>征集采购对象</th>
-                                <th>申请征集项目名称</th>
-                                <th>申请部门</th>
-                                <th>所需征集经费</th>
-                                <th>申请征集数量</th>
-                                <th>申请人</th>
-                                <th>具体征集项目介绍</th>
-                                <th>征集原因</th>
+                                <th>总登记号</th>
+                                <th>原编号</th>
+                                <th>曾用号</th>
+                                <th>入馆凭证号</th>
+                                <th>现用名</th>
+                                <th>曾用名</th>
+                                <th>年代类型</th>
+                                <th>具体年代</th>
+                                <th>历史阶段</th>
+                                <th>质地类型1</th>
+                                <th>...</th>
                             </tr>
                             </thead>
                             @foreach($exhibit_list as $exhibit)
                                 <tr class="gradeA">
                                     <td><input type="radio"></td>
-                                    <td>{{$exhibit['num']}}</td>
-                                    <td>{{$exhibit['depart_name']}}</td>
-                                    <td>{{$exhibit['depart_object']}}</td>
-                                    <td>{{$exhibit['depart_project_name']}} </td>
-                                    <td>{{$exhibit['apply_depart']}} </td>
-                                    <td>{{$exhibit['apply_money']}} </td>
-                                    <td>{{$exhibit['apply_count']}} </td>
+                                    <td>{{$exhibit['apply_num']}}</td>
+                                    <td>{{$exhibit['apply_depart_name']}}</td>
+                                    <td>{{$exhibit['apply_buy_object']}}</td>
+                                    <td>{{$exhibit['project_name']}} </td>
+                                    <td>{{$exhibit['depart_name']}} </td>
+                                    <td>{{$exhibit['need_money']}} </td>
+                                    <td>{{$exhibit['need_count']}} </td>
                                     <td>{{$exhibit['applyer']}} </td>
                                     <td>{{$exhibit['project_desc']}} </td>
-                                    <td>{{$exhibit['project_reason']}} </td>
+                                    <td>{{$exhibit['apply_reason']}} </td>
+                                    <td>{{$exhibit['...']}} </td>
                                 </tr>
                             @endforeach
                         </table>
