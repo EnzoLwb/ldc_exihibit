@@ -358,14 +358,26 @@ class MenuDao extends BaseMdl
 					],
 				]
 			],
-		];
-
-		/*
-		return [
 			[
-				'text' => '主页',
-				'priv' => 'home',
-				'url' => '/welcome'
+				'text' => '用户',
+				'priv' => 'user',
+				'nodes' => [
+					//					[
+					//						'text' => '用户管理',
+					//						'url' => route('admin.user.users'),
+					//						'priv' => 'admin-user-users'
+					//					],
+					[
+						'text' => '管理员管理',
+						'url' => route('admin.setting.adminusers'),
+						'priv' => 'admin-setting-adminusers'
+					],
+					[
+						'text' => '用户组管理',
+						'url' => route('admin.setting.admingroup'),
+						'priv' => 'admin-setting-admingroup'
+					]
+				]
 			],
 			[
 				'text' => '设置',
@@ -384,27 +396,16 @@ class MenuDao extends BaseMdl
 					]
 				]
 			],
+		];
+
+		/*
+		return [
 			[
-				'text' => '用户',
-				'priv' => 'user',
-				'nodes' => [
-					[
-						'text' => '用户管理',
-						'url' => route('admin.user.users'),
-						'priv' => 'admin-user-users'
-					],
-					[
-						'text' => '管理员管理',
-						'url' => route('admin.setting.adminusers'),
-						'priv' => 'admin-setting-adminusers'
-					],
-					[
-						'text' => '用户组管理',
-						'url' => route('admin.setting.admingroup'),
-						'priv' => 'admin-setting-admingroup'
-					]
-				]
+				'text' => '主页',
+				'priv' => 'home',
+				'url' => '/welcome'
 			],
+
 			[
 				'text' => '文件管理',
 				'priv' => 'file',
