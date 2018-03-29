@@ -87,7 +87,7 @@
 
             var uploader = WebUploader.create({
                 swf: '/js/plugins/webuploader/Uploader.swf',
-                server: '/admin/file/file/multiupload',
+                server: '{{route('admin.file.file.multiupload')}}',
                 pick: '#picker',
                 compress: false,
                 chunked: true,

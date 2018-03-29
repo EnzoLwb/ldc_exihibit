@@ -9,7 +9,7 @@
             <div class="col-sm-12">
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="{{url('/admin/file/file')}}">文件列表</a></li>
+                        <li class="active"><a href="{{route('admin.file.file')}}">文件列表</a></li>
                         {{--<li><a href="{{url('/admin/file/file/unsave')}}">游离文件列表</a></li>--}}
                     </ul>
                 </div>
@@ -44,7 +44,7 @@
                             </div>
                             &nbsp;&nbsp;
                             <button type="submit" class="btn btn-primary">搜索</button>
-                            <button type="button" class="btn btn-white" onclick="location.href='/admin/file/file'">重置</button>
+                            <button type="button" class="btn btn-white" onclick="location.href='{{route('admin.file.file')}}'">重置</button>
                         </form>
                     </div>
                 </div>
@@ -81,9 +81,9 @@
                                     {{--<td>{{$fileStatus[$file['file_status']]}}</td>--}}
                                     <td>
                                         <a href="{{url('/admin/file/file/download/' . $file['file_id'])}}" target="_self">下载</a>
-                                        | <a class="ajaxBtn" href="javascript:void(0);" uri="{{url('/admin/file/file/delete/' . $file['file_id'])}}" msg="是否删除此文件？">删除</a>
+                                        | <a class="ajaxBtn" href="javascript:void(0);" uri="{{route('admin.file.file.delete',[$file['file_id']])}}" msg="是否删除此文件？">删除</a>
                                         {{--@if($file['file_status'] == '0')--}}
-                                            {{--| <a class="ajaxBtn" href="javascript:void(0);" uri="{{url('/admin/file/file/check/' . $file['file_id'])}}">验证</a>--}}
+                                        {{--| <a class="ajaxBtn" href="javascript:void(0);" uri="{{url('/admin/file/file/check/' . $file['file_id'])}}">验证</a>--}}
                                         {{--@endif--}}
                                     </td>
                                 </tr>
@@ -91,7 +91,7 @@
                         </table>
                         <div class="row">
                             <div class="col-sm-12">
-                                <button type="button" class="btn btn-danger btn-sm checkBtn" uri="{{url('/admin/file/file/delete')}}" msg="是否要删除这些文件？删除后不可恢复">删除</button>
+                                <button type="button" class="btn btn-danger btn-sm checkBtn" uri="{{route('admin.file.file.delete')}}" msg="是否要删除这些文件？删除后不可恢复">删除</button>
                                 {{--<button type="button" class="btn btn-success btn-sm checkBtn" uri="{{url('/admin/file/file/check')}}">验证</button>--}}
                             </div>
                         </div>

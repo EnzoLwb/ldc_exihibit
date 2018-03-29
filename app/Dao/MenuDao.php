@@ -130,54 +130,54 @@ class MenuDao extends BaseMdl
 					],
 					[
 						'text' => '藏品出库',
-                        'url' => route('admin.exhibitmanage.outstorageroom.oustorageapply'),
+						'url' => route('admin.exhibitmanage.outstorageroom.oustorageapply'),
 						'priv' => 'admin-exhibitmanage-outstorageroom',
-                        'nodes'=>[
-                            [
-                                'text' => '出库申请',
-                                'url' => route('admin.exhibitmanage.outstorageroom.oustorageapply'),
-                                'priv' => 'admin-exhibitmanage-outstorageroom-oustorageapply'
-                            ],
-                            [
-                                'text' => '藏品出库',
-                                'url' => route('admin.exhibitmanage.outstorageroom.exhibitout'),
-                                'priv' => 'admin-exhibitmanage-storageroom-exhibitout'
-                            ],
-                        ]
+						'nodes' => [
+							[
+								'text' => '出库申请',
+								'url' => route('admin.exhibitmanage.outstorageroom.oustorageapply'),
+								'priv' => 'admin-exhibitmanage-outstorageroom-oustorageapply'
+							],
+							[
+								'text' => '藏品出库',
+								'url' => route('admin.exhibitmanage.outstorageroom.exhibitout'),
+								'priv' => 'admin-exhibitmanage-storageroom-exhibitout'
+							],
+						]
 					],
 					[
 						'text' => '藏品提用',
 						'url' => route('admin.exhibitmanage.exhibituse'),
 						'priv' => 'admin-exhibitmanage-exhibituse',
-                        'nodes'=>[
-                            [
-                                'text' => '出库申请',
-                                'url' => route('admin.exhibitmanage.outstorageroom.oustorageapply'),
-                                'priv' => 'admin-exhibitmanage-outstorageroom-oustorageapply'
-                            ],
-                            [
-                                'text' => '藏品出库',
-                                'url' => route('admin.exhibitmanage.outstorageroom.exhibitout'),
-                                'priv' => 'admin-exhibitmanage-storageroom-exhibitout'
-                            ],
-                        ]
+						'nodes' => [
+							[
+								'text' => '出库申请',
+								'url' => route('admin.exhibitmanage.outstorageroom.oustorageapply'),
+								'priv' => 'admin-exhibitmanage-outstorageroom-oustorageapply'
+							],
+							[
+								'text' => '藏品出库',
+								'url' => route('admin.exhibitmanage.outstorageroom.exhibitout'),
+								'priv' => 'admin-exhibitmanage-storageroom-exhibitout'
+							],
+						]
 					],
 					[
 						'text' => '藏品观摩',
 						'url' => route('admin.exhibitmanage.exhibitlook'),
 						'priv' => 'admin-exhibitmanage-exhibitlook',
-                        'nodes'=>[
-                            [
-                                'text' => '出库申请',
-                                'url' => route('admin.exhibitmanage.outstorageroom.oustorageapply'),
-                                'priv' => 'admin-exhibitmanage-outstorageroom-oustorageapply'
-                            ],
-                            [
-                                'text' => '藏品出库',
-                                'url' => route('admin.exhibitmanage.outstorageroom.exhibitout'),
-                                'priv' => 'admin-exhibitmanage-storageroom-exhibitout'
-                            ],
-                        ]
+						'nodes' => [
+							[
+								'text' => '出库申请',
+								'url' => route('admin.exhibitmanage.outstorageroom.oustorageapply'),
+								'priv' => 'admin-exhibitmanage-outstorageroom-oustorageapply'
+							],
+							[
+								'text' => '藏品出库',
+								'url' => route('admin.exhibitmanage.outstorageroom.exhibitout'),
+								'priv' => 'admin-exhibitmanage-storageroom-exhibitout'
+							],
+						]
 					],
 					[
 						'text' => '藏品回库',
@@ -320,20 +320,15 @@ class MenuDao extends BaseMdl
 				'icon' => 'fa fa-cog',
 				'nodes' => [
 					[
-						'text' => '文档管理',
-						'url' => route('admin.digitalmanage.document'),
-						'priv' => 'admin-digitalmanage-document'
+						'text' => '资源管理',
+						'url' => route('admin.file.file'),
+						'priv' => 'admin-file-file'
 					],
 					[
-						'text' => '图片管理',
-						'url' => route('admin.digitalmanage.picture'),
-						'priv' => 'admin-digitalmanage-picture'
-					],
-					[
-						'text' => '视频管理',
-						'url' => route('admin.digitalmanage.video'),
-						'priv' => 'admin-digitalmanage-video'
-					],
+						'text' => '资源上传',
+						'url' => route('admin.file.file.multiupload'),
+						'priv' => 'admin-file-multiupload'
+					]
 				]
 			],
 			[
