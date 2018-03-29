@@ -13,6 +13,8 @@
                         <li class="active"><a href="{{route('admin.exhibitidentify.manage')}}">查询</a></li>
                         <li><a href="{{route('admin.exhibitidentify.manage')}}">修改</a></li>
                         <li><a href="{{route('admin.exhibitidentify.manage')}}">删除</a></li>
+                        <li ><a href="{{route('admin.exhibitidentify.add_identify_result')}}">录入鉴定结果</a></li>
+                        <li><a href="{{route('admin.exhibitidentify.apply')}}">查看鉴定结果</a></li>
                         <li><a href="{{route('admin.exhibitidentify.manage')}}">提交</a></li>
                         <li><a href="{{route('admin.exhibitidentify.manage')}}">导出</a></li>
                         <li><a href="{{route('admin.exhibitidentify.manage')}}">打印</a></li>

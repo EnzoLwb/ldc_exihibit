@@ -14,7 +14,7 @@
                         <li><a href="{{route('admin.exhibitcollect.getin')}}">修改</a></li>
                         <li><a href="{{route('admin.exhibitcollect.getin')}}">删除</a></li>
                         <li><a href="{{route('admin.exhibitcollect.getin')}}">提交</a></li>
-                        <li><a href="{{route('admin.exhibitcollect.getin')}}">送鉴定</a></li>
+
                         <li><a href="{{route('admin.exhibitcollect.getin')}}">导出</a></li>
                         <li><a href="{{route('admin.exhibitcollect.getin')}}">打印</a></li>
                         <li><a href="{{route('admin.exhibitcollect.getin')}}">图文模式</a></li>

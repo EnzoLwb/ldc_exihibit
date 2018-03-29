@@ -14,7 +14,7 @@
                         <li ><a href="{{route('admin.accountmanage.sumaccount')}}">查询</a></li>
 
                         <li><a href="{{route('admin.accountmanage.sumaccount')}}">总账复核</a></li>
-                        <li><a href="{{route('admin.accountmanage.sumaccount')}}">送鉴定</a></li>
+                        
                         <li><a href="{{route('admin.accountmanage.sumaccount')}}">导出</a></li>
                         <li><a href="{{route('admin.accountmanage.sumaccount')}}">打印</a></li>
                         <li><a href="{{route('admin.accountmanage.sumaccount')}}">图文模式</a></li>

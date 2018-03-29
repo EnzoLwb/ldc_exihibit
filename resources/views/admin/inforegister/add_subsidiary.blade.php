@@ -30,6 +30,17 @@
                         <form method="post" action="{{route('admin.exhibitcollect.apply_save')}}" class="form-horizontal ajaxForm">
                             <table  class="table" style="margin-left:8%;width:40%">
                                 <tbody>
+                                <tr><td>类型</td><td>
+                                        <select class="form-control">
+                                            <option>未定级文物登记账</option>
+                                            <option>复制品登记账</option>
+                                            <option>仿制品登记账</option>
+                                            <option>资料登记账</option>
+                                            <option>借入文物登记账</option>
+                                            <option>代管文物登记账</option>
+                                            <option>外借文物登记账</option>
+                                        </select>
+                                    </td></tr>
                                 <tr>
                                     <td>收藏单位</td>
                                     <td colspan="3">
@@ -96,17 +107,7 @@
                                 </tr>
                                 <tr><td>类别范围</td><td><input type="text" class="form-control" name="id" id="id"
                                                             value="{{$info['id'] or ''}}" required/></td></tr>
-                                <tr><td>类型</td><td>
-                                        <select class="form-control">
-                                            <option>未定级文物登记账</option>
-                                            <option>复制品登记账</option>
-                                            <option>仿制品登记账</option>
-                                            <option>资料登记账</option>
-                                            <option>借入文物登记账</option>
-                                            <option>代管文物登记账</option>
-                                            <option>外借文物登记账</option>
-                                        </select>
-                                    </td></tr>
+
                                 </tbody>
                             </table>
 

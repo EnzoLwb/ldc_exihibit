@@ -14,7 +14,7 @@
                         <li><a href="{{route('admin.exhibitidentify.apply')}}">修改</a></li>
                         <li><a href="{{route('admin.exhibitidentify.apply')}}">删除</a></li>
                         <li><a href="{{route('admin.exhibitidentify.apply')}}">提交</a></li>
-                        <li><a href="{{route('admin.exhibitidentify.add_identify_result')}}">录入鉴定结果</a></li>
+
                         <li><a href="{{route('admin.exhibitidentify.apply')}}">查看鉴定结果</a></li>
                         <li><a href="{{route('admin.exhibitidentify.apply')}}">导出</a></li>
                         <li><a href="{{route('admin.exhibitidentify.apply')}}">打印</a></li>
