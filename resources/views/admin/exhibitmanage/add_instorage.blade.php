@@ -29,136 +29,57 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
                         <form method="post" action="{{route('admin.exhibitcollect.apply_save')}}" class="form-horizontal ajaxForm">
+                            <table  class="table" style="margin-left:8%;width:40%">
+                                <tbody>
 
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">入馆凭证号</label>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="id" id="id"
-                                           value="{{$info['id'] or ''}}" required/>
-                                    <input type="hidden" name="_token"
-                                           value="{{csrf_token()}}" />
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">总登记号</label>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="id" id="id"
-                                           value="{{$info['id'] or ''}}" required/>
-
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">名称</label>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="id" id="id"
-                                           value="{{$info['id'] or ''}}" required/>
-
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">数量</label>
-                                <div class="col-sm-4">
-                                    <input type="number" class="form-control" name="id" id="id"
-                                           value="{{$info['id'] or ''}}" required/>
-
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">年代</label>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="id" id="id"
-                                           value="{{$info['id'] or ''}}" required/>
-
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">级别</label>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="id" id="id"
-                                           value="{{$info['id'] or ''}}" required/>
-
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">尺寸</label>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="id" id="id"
-                                           value="{{$info['id'] or ''}}" required/>
-
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">重量</label>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="id" id="id"
-                                           value="{{$info['id'] or ''}}" required/>
-
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">完残情况</label>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="id" id="id"
-                                           value="{{$info['id'] or ''}}" required/>
-
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">分库号</label>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="id" id="id"
-                                           value="{{$info['id'] or ''}}" required/>
-
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">备注</label>
-                                <div class="col-sm-4">
-                                    <textarea class="form-control" name="id" id="id"></textarea>
-
-                                </div>
-                            </div>
+                                <tr ><td colspan="4"><label class="control-label edit-title">登记号</label></td></tr>
+                                <tr><td>总登记号</td><td><input type="text" class="form-control" name="id" id="id"
+                                                            value="{{$info['id'] or ''}}" required/></td>
+                                    <td>入馆凭证号</td><td><input type="text" class="form-control" name="id" id="id"
+                                                           value="{{$info['id'] or ''}}" required/></td>
+                                </tr>
 
 
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">入馆日期</label>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="id" id="id"
-                                           value="{{$info['id'] or ''}}" required/>
+                                <tr ><td colspan="4"><label class="control-label edit-title">文物详细</label></td></tr>
 
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">来源</label>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="id" id="id"
-                                           value="{{$info['id'] or ''}}" required/>
-
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">收据号</label>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="id" id="id"
-                                           value="{{$info['id'] or ''}}" required/>
-
-                                </div>
-                            </div>
+                                <tr><td>名称</td><td><input type="text" class="form-control" name="id" id="id"
+                                                          value="{{$info['id'] or ''}}" required/></td>
+                                    <td>数量</td><td><input type="number" class="form-control" name="id" id="id"
+                                                          value="{{$info['id'] or ''}}" required/></td>
+                                </tr>
 
 
 
+                                <tr><td>年代</td><td><input type="text" class="form-control" name="id" id="id"
+                                                            value="{{$info['id'] or ''}}" required/></td>
+                                    <td>级别</td><td><input type="text" class="form-control" name="id" id="id"
+                                                            value="{{$info['id'] or ''}}" required/></td>
+                                </tr>
+                                <tr><td>尺寸</td><td><input type="text" class="form-control" name="id" id="id"
+                                                            value="{{$info['id'] or ''}}" required/></td>
+                                    <td >重量</td><td><input type="text" class="form-control" name="id" id="id"
+                                                           value="{{$info['id'] or ''}}" required/></td></tr>
 
+                                <tr><td>完残情况</td><td><input type="text" class="form-control" name="id" id="id"
+                                                             value="{{$info['id'] or ''}}" required/></td>
+                                    <td>分库号</td><td><input type="text" class="form-control" name="id" id="id"
+                                                             value="{{$info['id'] or ''}}" required/></td>
+                                </tr>
 
+                                <tr><td>备注</td><td colspan="3"><textarea class="form-control"></textarea></td>
+
+                                </tr>
+                                <tr ><td colspan="4"><label class="control-label edit-title">入库信息</label></td></tr>
+
+                                <tr><td>入馆日期</td><td><input type="text" class="form-control" name="id" id="id"
+                                                          value="{{$info['id'] or ''}}" required/></td>
+                                    <td>来源</td><td><input type="number" class="form-control" name="id" id="id"
+                                                          value="{{$info['id'] or ''}}" required/></td>
+                                </tr>
+                                <tr><td>收据号</td><td><input type="text" class="form-control"></td></tr>
+
+                                </tbody>
+                            </table>
 
 
                             <div class="form-group">
