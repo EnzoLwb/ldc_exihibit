@@ -151,12 +151,12 @@ class MenuDao extends BaseMdl
 						'priv' => 'admin-exhibitmanage-exhibituse',
 						'nodes' => [
 							[
-								'text' => '出库申请',
+								'text' => '提用申请',
 								'url' => route('admin.exhibitmanage.outstorageroom.oustorageapply'),
 								'priv' => 'admin-exhibitmanage-outstorageroom-oustorageapply'
 							],
 							[
-								'text' => '藏品出库',
+								'text' => '藏品提用',
 								'url' => route('admin.exhibitmanage.outstorageroom.exhibitout'),
 								'priv' => 'admin-exhibitmanage-storageroom-exhibitout'
 							],
@@ -168,12 +168,12 @@ class MenuDao extends BaseMdl
 						'priv' => 'admin-exhibitmanage-exhibitlook',
 						'nodes' => [
 							[
-								'text' => '出库申请',
+								'text' => '观摩申请',
 								'url' => route('admin.exhibitmanage.outstorageroom.oustorageapply'),
 								'priv' => 'admin-exhibitmanage-outstorageroom-oustorageapply'
 							],
 							[
-								'text' => '藏品出库',
+								'text' => '藏品观摩',
 								'url' => route('admin.exhibitmanage.outstorageroom.exhibitout'),
 								'priv' => 'admin-exhibitmanage-storageroom-exhibitout'
 							],

@@ -224,7 +224,7 @@
                         </div>
                     </div>
                     <br>
-                    <div>
+                    
                     <div class="form-group">
                         <label class="col-sm-2 control-label">长宽高</label>
                         <div class="col-sm-4">
@@ -232,7 +232,7 @@
                                    value="{{$info['rssii'] or ''}}" required/>
                         </div>
                     </div>
-                    </div>
+
                     <br>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">质量</label>
