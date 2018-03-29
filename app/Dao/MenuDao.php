@@ -84,7 +84,7 @@ class MenuDao extends BaseMdl
 						'priv' => 'admin-inforegister-exhibitmanage'
 					],
 					[
-						'text' => '选择辅助账种类',
+						'text' => '其他文物信息登记',
 						'url' => route('admin.inforegister.subsidiary'),
 						'priv' => 'admin-inforegister-subsidiary'
 					]
