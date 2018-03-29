@@ -147,127 +147,49 @@
                     <h4 class="modal-title" id="myModalLabel">添加新的藏品记录</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">总登记号</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="rssii" name="rssii"
-                                   value="{{$info['rssii'] or ''}}" required/>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">分类号</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="rssii" name="rssii"
-                                   value="{{$info['rssii'] or ''}}" required/>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">名称</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="rssii" name="rssii"
-                                   value="{{$info['rssii'] or ''}}" required/>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">类别</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="rssii" name="rssii"
-                                   value="{{$info['rssii'] or ''}}" required/>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">年代</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="rssii" name="rssii"
-                                   value="{{$info['rssii'] or ''}}" required/>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">实际数量</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="rssii" name="rssii"
-                                   value="{{$info['rssii'] or ''}}" required/>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">数量单位</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="rssii" name="rssii"
-                                   value="{{$info['rssii'] or ''}}" required/>
-                        </div>
-                    </div>
-                    <br>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td colspan="4"><label class="control-label edit-title"> 登记号</label></td>
+                            </tr>
+                            <tr><td>总登记号</td><td><input type="text" class="form-control"></td>
+                                <td>分类号</td><td><input type="text" class="form-control"></td>
+                            </tr>
+                            <tr><td>名称</td><td><input type="text" class="form-control"></td>
+                                <td>类别</td><td><input type="text" class="form-control"></td>
+                            </tr>
+                            <tr><td>年代</td><td><input type="text" class="form-control"></td>
+                                <td>实际数量</td><td><input type="text" class="form-control"></td>
+                            </tr>
+                            <tr><td>数量单位</td><td><input type="text" class="form-control"></td>
+                                <td>长宽高</td><td><input type="text" class="form-control"></td>
+                            </tr>
+                            <tr><td>质量</td><td><input type="text" class="form-control"></td>
+                                <td>完残情况</td><td><input type="text" class="form-control"></td>
+                            </tr>
 
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">长宽高</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" id="rssii" name="rssii"
-                                       value="{{$info['rssii'] or ''}}" required/>
-                            </div>
-                        </div>
+                            <tr><td>藏品级别</td><td><input type="text" class="form-control"></td>
+                                <td>分类单号</td><td><input type="text" class="form-control"></td>
+                            </tr>
+                            <tr><td>拓片号</td><td><input type="text" class="form-control"></td>
+                                <td>附件</td>
+                                <td>
 
 
-                    <br>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">质量</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="rssii" name="rssii"
-                                   value="{{$info['rssii'] or ''}}" required/>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">完残情况</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="rssii" name="rssii"
-                                   value="{{$info['rssii'] or ''}}" required/>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">藏品级别</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="rssii" name="rssii"
-                                   value="{{$info['rssii'] or ''}}" required/>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">分类单号</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="rssii" name="rssii"
-                                   value="{{$info['rssii'] or ''}}" required/>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">拓片号</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="rssii" name="rssii"
-                                   value="{{$info['rssii'] or ''}}" required/>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">附件</label>
-                        <div class="col-sm-10" id="poi_4_box">
+                                    <div id="poi_4_picker">选择附件</div>
+                                    @if(isset($exhibit) && $exhibit['squar_list_img'] != '')
+                                        <div class="img-div">
+                                            <img src="{{get_file_url($exhibit['squar_list_img'])}}"/>
+                                            <span class="cancel">×</span>
+                                        </div>
+                                    @endif
 
-                            <div id="poi_4_picker">选择附件</div>
-                            @if(isset($exhibit) && $exhibit['squar_list_img'] != '')
-                                <div class="img-div">
-                                    <img src="{{get_file_url($exhibit['squar_list_img'])}}"/>
-                                    <span class="cancel">×</span>
-                                </div>
-                            @endif
-                        </div>
-                        <input type="hidden" id="squar_list_img" name="squar_list_img" value="{{$exhibit['squar_list_img']  or ''}}"/>
-                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>

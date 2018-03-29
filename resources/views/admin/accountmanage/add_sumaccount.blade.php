@@ -167,22 +167,18 @@
                             <tr ><td colspan="4"><label class="control-label edit-title">其他信息</label></td></tr>
                             <tr><td>具体存放地点</td><td><input type="text" class="form-control" name="id" id="id"
                                                           value="{{$info['id'] or ''}}" required/></td>
-                            </tr>
-
-                            <tr><td>原展厅具体位置</td><td><input type="text" class="form-control" name="id" id="id"
+                            <td>原展厅具体位置</td><td><input type="text" class="form-control" name="id" id="id"
                                                            value="{{$info['id'] or ''}}" required/></td>
-                            </tr>
-                            <tr><td>展厅柜号</td><td><input type="text" class="form-control" name="id" id="id"
+                                <tr>
+                            <td>展厅柜号</td><td><input type="text" class="form-control" name="id" id="id"
                                                         value="{{$info['id'] or ''}}" required/></td>
-                            </tr>
-                            <tr><td>藏品性质</td><td><input type="text" class="form-control" name="id" id="id"
+                            <td>藏品性质</td><td><input type="text" class="form-control" name="id" id="id"
                                                         value="{{$info['id'] or ''}}" required/></td>
                             </tr>
 
                             <tr><td>注销凭证号</td><td><input type="text" class="form-control" name="id" id="id"
                                                          value="{{$info['id'] or ''}}" required/></td>
-                            </tr>
-                            <tr><td>藏品状态</td><td>
+                           <td>藏品状态</td><td>
                                     <select class="form-control">
                                         <option>拨交</option>
                                         <option>观摩</option>
