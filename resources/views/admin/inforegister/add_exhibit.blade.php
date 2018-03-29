@@ -216,11 +216,8 @@
                             </div>
                         </form>
                     </div>
-                </div>
-            </div>
-        </div>
-
     </div>
+
     <script src="{{cdn('js/plugins/webuploader/webuploader.nolog.min.js')}}"></script>
     <script src="{{cdn('js/plugins/webuploader/webuploader_public.js')}}"></script>
 
