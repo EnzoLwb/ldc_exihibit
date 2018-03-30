@@ -47,27 +47,38 @@
                             <thead>
                             <tr role="row">
                                 <th>选择</th>
-                                <th>藏品名称</th>
                                 <th>总登记号</th>
-                                <th>清洁方式</th>
-                                <th>消毒方式</th>
-                                <th>申请部门</th>
-                                <th>清洁日期</th>
+                                <th>入馆凭证号</th>
+                                <th>名称</th>
+                                <th>数量</th>
+                                <th>年代</th>
+                                <th>级别</th>
+                                <th>尺寸</th>
+                                <th>重量</th>
+                                <th>完残情况</th>
+                                <th>分库号</th>
+                                <th>入馆日期</th>
+                                <th>来源</th>
+                                <th>收据号</th>
+                                <th>备注</th>
                             </tr>
                             </thead>
                             @foreach($exhibit_list as $exhibit)
                                 <tr class="gradeA">
                                     <td><input type="radio"></td>
-                                    <td>{{$exhibit['num']}}</td>
-                                    <td>{{$exhibit['depart_name']}}</td>
-                                    <td>{{$exhibit['depart_object']}}</td>
-                                    <td>{{$exhibit['depart_project_name']}} </td>
-                                    <td>{{$exhibit['apply_depart']}} </td>
-                                    <td>{{$exhibit['apply_money']}} </td>
-                                    <td>{{$exhibit['apply_count']}} </td>
-                                    <td>{{$exhibit['applyer']}} </td>
-                                    <td>{{$exhibit['project_desc']}} </td>
-                                    <td>{{$exhibit['project_reason']}} </td>
+                                    <td>{{$exhibit['sum_register_num']}}</td>
+                                    <td>{{$exhibit['enter_museum_num']}}</td>
+                                    <td>{{$exhibit['name']}}</td>
+                                    <td>{{$exhibit['count']}} </td>
+                                    <td>{{$exhibit['age']}} </td>
+                                    <td>{{$exhibit['class']}} </td>
+                                    <td>{{$exhibit['size']}} </td>
+                                    <td>{{$exhibit['weight']}} </td>
+                                    <td>{{$exhibit['current_info']}} </td>
+                                    <td>{{$exhibit['room_num']}} </td>
+                                    <td>{{$exhibit['enter_museum_date']}} </td>
+                                    <td>{{$exhibit['src']}} </td>
+                                    <td>{{$exhibit['recipe_num']}} </td>
                                 </tr>
                             @endforeach
                         </table>
