@@ -27,9 +27,24 @@ class ShowController extends BaseAdminController
 	 */
 	public function index()
 	{
+        $item['show_num'] = 'UDS0001';
+        $item['show_name'] = '西晋文化展';
+        $item['show_start_date'] = '2018-01-01';
+        $item['show_end_date'] = '2018-02-01';
+        $item['show_theme'] = '西晋文化展';
+        $item['register'] = '张三';
+        $item['register_date'] = '2017-12-30';
+
+        $item1['show_num'] = 'UDS0002';
+        $item1['show_name'] = '西晋文化展续';
+        $item1['show_start_date'] = '2018-01-01';
+        $item1['show_end_date'] = '2018-02-01';
+        $item1['show_theme'] = '西晋文化展续';
+        $item1['register'] = '李四';
+        $item1['register_date'] = '2017-12-30';
 
 		return view('admin.exhibitshow.show', [
-			'data' => []
+			'data' => [$item, $item1]
 		]);
 	}
 

@@ -44,14 +44,20 @@
                                 <th>展览主题</th>
                                 <th>参展人员</th>
                                 <th>展览编号</th>
-                                <th>展览主题</th>
                                 <th>展览开始日期</th>
                                 <th>展览结束日期</th>
                                 <th>展位</th>
                             </tr>
                             @foreach($data as $k => $v)
                                 <tr class="gradeA">
-                                    <td></td>
+                                    <td>{{$v['applyer']}}</td>
+                                    <td>{{$v['apply_date']}}</td>
+                                    <td>{{$v['show_theme']}}</td>
+                                    <td>{{$v['show_iner']}}</td>
+                                    <td>{{$v['show_num']}}</td>
+                                    <td>{{$v['show_start_date']}}</td>
+                                    <td>{{$v['show_end_date']}}</td>
+                                    <td>{{$v['position']}}</td>
                                 </tr>
                             @endforeach
                         </table>

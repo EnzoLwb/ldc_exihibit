@@ -48,7 +48,11 @@
                             </tr>
                             @foreach($data as $k => $v)
                                 <tr class="gradeA">
-                                    <td></td>
+                                    <td>{{$v['repair_num']}}</td>
+                                    <td>{{$v['repair_name']}}</td>
+                                    <td>{{$v['fee']}}</td>
+                                    <td>{{$v['status']}}</td>
+                                    <td>{{$v['register_date']}}</td>
                                 </tr>
                             @endforeach
                         </table>

@@ -27,9 +27,27 @@ class RepairInController extends BaseAdminController
 	 */
 	public function index()
 	{
+        $item['file_num'] = 'ERE001';
+        $item['exhibit_name'] = '玉龙玉玺';
+        $item['take_date'] = '2018-03-01';
+        $item['repair_date'] = '2018-03-11';
+        $item['back_date'] = '2018-03-20';
+        $item['responser'] = '张三';
+        $item['repairer'] = '李四';
+        $item['exhibit_status'] = '修复完成';
 
-		return view('admin.repaireexhibit.repairin', [
-			'data' => []
+
+        $item1['file_num'] = 'ERE002';
+        $item1['exhibit_name'] = '诚王兵符';
+        $item1['take_date'] = '2018-03-06';
+        $item1['repair_date'] = '2018-03-16';
+        $item1['back_date'] = '2018-03-26';
+        $item1['responser'] = '张三';
+        $item1['repairer'] = '李四';
+        $item1['exhibit_status'] = '修复完成';
+
+        return view('admin.repaireexhibit.repairin', [
+			'data' => [$item, $item1]
 		]);
 	}
 

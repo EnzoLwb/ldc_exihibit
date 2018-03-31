@@ -49,7 +49,13 @@
                             </tr>
                             @foreach($data as $k => $v)
                                 <tr class="gradeA">
-                                    <td></td>
+                                    <td>{{$v['show_num']}}</td>
+                                    <td>{{$v['show_name']}}</td>
+                                    <td>{{$v['show_start_date']}}</td>
+                                    <td>{{$v['show_end_date']}}</td>
+                                    <td>{{$v['show_theme']}}</td>
+                                    <td>{{$v['register']}}</td>
+                                    <td>{{$v['register_date']}}</td>
                                 </tr>
                             @endforeach
                         </table>

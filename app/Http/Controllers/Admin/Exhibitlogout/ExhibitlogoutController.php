@@ -27,9 +27,25 @@ class ExhibitlogoutController extends BaseAdminController
 	 */
 	public function index()
 	{
+	    $item['logout_num'] = 'ADAD0001';
+        $item['logout_name'] = '兵符注销';
+        $item['logout_date'] = '2018-02-09';
+        $item['logout_pizhun_num'] = '3535123';
+        $item['logout_reason'] = '文物损坏';
+        $item['logout_desc'] = '文物损坏严重';
+        $item['register'] = '张三';
+        $item['register_date'] = '2018-02-01';
 
+        $item1['logout_num'] = 'ADAD0001';
+        $item1['logout_name'] = '玉玺注销';
+        $item1['logout_date'] = '2018-02-09';
+        $item1['logout_pizhun_num'] = '3535123';
+        $item1['logout_reason'] = '文物损坏';
+        $item1['logout_desc'] = '文物损坏严重';
+        $item1['register'] = '李四';
+        $item1['register_date'] = '2018-02-01';
 		return view('admin.exhibitlogout.exhibitlogout', [
-			'data' => []
+			'data' => [$item, $item1]
 		]);
 	}
 

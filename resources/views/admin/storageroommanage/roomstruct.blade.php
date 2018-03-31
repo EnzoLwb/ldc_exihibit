@@ -51,7 +51,15 @@
                             </tr>
                             @foreach($data as $k => $v)
                                 <tr class="gradeA">
-                                    <td></td>
+                                    <td>{{$v['name']}}</td>
+                                    <td>{{$v['num']}}</td>
+                                    <td>{{$v['is_kuwei']}}</td>
+                                    <td>{{$v['kufang_type']}}</td>
+                                    <td>{{$v['storage_way']}}</td>
+                                    <td>{{$v['kufang_size']}}</td>
+                                    <td>{{$v['is_valid']}}</td>
+                                    <td>{{$v['position']}}</td>
+                                    <td>{{$v['charity']}}</td>
                                 </tr>
                             @endforeach
                         </table>
@@ -67,4 +75,5 @@
         </div>
     </div>
 @endsection
+
 

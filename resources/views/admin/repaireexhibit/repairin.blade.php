@@ -52,7 +52,14 @@
                             </tr>
                             @foreach($data as $k => $v)
                                 <tr class="gradeA">
-                                    <td></td>
+                                    <td>{{$v['file_num']}}</td>
+                                    <td>{{$v['exhibit_name']}}</td>
+                                    <td>{{$v['take_date']}}</td>
+                                    <td>{{$v['repair_date']}}</td>
+                                    <td>{{$v['back_date']}}</td>
+                                    <td>{{$v['responser']}}</td>
+                                    <td>{{$v['repairer']}}</td>
+                                    <td>{{$v['exhibit_status']}}</td>
                                 </tr>
                             @endforeach
                         </table>

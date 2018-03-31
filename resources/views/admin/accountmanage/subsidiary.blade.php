@@ -75,16 +75,24 @@
                             @foreach($exhibit_list as $exhibit)
                                 <tr class="gradeA">
                                     <td><input type="radio"></td>
-                                    <td>{{$exhibit['num']}}</td>
-                                    <td>{{$exhibit['depart_name']}}</td>
-                                    <td>{{$exhibit['depart_object']}}</td>
-                                    <td>{{$exhibit['depart_project_name']}} </td>
-                                    <td>{{$exhibit['apply_depart']}} </td>
-                                    <td>{{$exhibit['apply_money']}} </td>
-                                    <td>{{$exhibit['apply_count']}} </td>
-                                    <td>{{$exhibit['applyer']}} </td>
-                                    <td>{{$exhibit['project_desc']}} </td>
-                                    <td>{{$exhibit['project_reason']}} </td>
+                                    <td>{{$exhibit['pic']}}</td>
+                                    <td>{{$exhibit['collect_depart']}}</td>
+                                    <td>{{$exhibit['sum_register_num']}} </td>
+                                    <td>{{$exhibit['ori_num']}} </td>
+                                    <td>{{$exhibit['class_num']}} </td>
+                                    <td>{{$exhibit['enter_museum_num']}} </td>
+                                    <td>{{$exhibit['name']}} </td>
+                                    <td>{{$exhibit['ori_name']}} </td>
+                                    <td>{{$exhibit['age_type']}} </td>
+                                    <td>{{$exhibit['juti_age']}} </td>
+                                    <td>{{$exhibit['history_age']}} </td>
+                                    <td>{{$exhibit['zhidi']}} </td>
+                                    <td>{{$exhibit['zhidi_type1']}} </td>
+                                    <td>{{$exhibit['zhidi_type2']}} </td>
+                                    <td>{{$exhibit['common_zhidi']}} </td>
+                                    <td>{{$exhibit['juti_zhidi']}} </td>
+                                    <td>{{$exhibit['type_range']}} </td>
+
                                 </tr>
                             @endforeach
                         </table>
@@ -95,5 +103,6 @@
         </div>
     </div>
 @endsection
+
 
 
