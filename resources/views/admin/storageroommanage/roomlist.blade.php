@@ -48,7 +48,13 @@
                             </tr>
                             @foreach($data as $k => $v)
                                 <tr class="gradeA">
-                                    <td></td>
+                                    <td>{{$v['charity_people']}}</td>
+                                    <td>{{$v['check_date']}}</td>
+                                    <td>{{$v['check_exhibit_count']}}</td>
+                                    <td>{{$v['whole_exhibit_count']}}</td>
+                                    <td>{{$v['half_exhibit_count']}}</td>
+                                    <td>{{$v['mark']}}</td>
+
                                 </tr>
                             @endforeach
                         </table>

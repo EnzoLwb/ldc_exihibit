@@ -27,9 +27,19 @@ class ApplyController extends BaseAdminController
 	 */
 	public function index()
 	{
+        $item['repair_num'] = 'DSA001';
+        $item['repair_name'] = '陈展部';
+        $item['fee'] = '10万';
+        $item['status'] = '未审批';
+        $item['register_date'] = '2018-03-01';
 
+        $item1['repair_num'] = 'DSA002';
+        $item1['repair_name'] = '文化部';
+        $item1['fee'] = '12万';
+        $item1['status'] = '未审批';
+        $item1['register_date'] = '2018-03-11';
 		return view('admin.repaireexhibit.apply', [
-			'data' => []
+			'data' => [$item, $item1]
 		]);
 	}
 

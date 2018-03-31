@@ -27,9 +27,24 @@ class RoomlistController extends BaseAdminController
 	 */
 	public function index()
 	{
+	    $item['charity_people'] = '张三';
+        $item['check_date'] = '2018-03-10';
+        $item['check_exhibit_count'] = '1';
+        $item['whole_exhibit_count'] = '1';
+        $item['half_exhibit_count'] = '0';
+        $item['mark'] = '';
 
-		return view('admin.storageroommanage.roomlist', [
-			'data' => []
+
+        $item1['charity_people'] = '李四';
+        $item1['check_date'] = '2018-03-10';
+        $item1['check_exhibit_count'] = '2';
+        $item1['whole_exhibit_count'] = '1';
+        $item1['half_exhibit_count'] = '1';
+        $item1['mark'] = '';
+
+
+        return view('admin.storageroommanage.roomlist', [
+			'data' => [$item, $item1]
 		]);
 	}
 

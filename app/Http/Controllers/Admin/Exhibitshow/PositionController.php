@@ -27,9 +27,26 @@ class PositionController extends BaseAdminController
 	 */
 	public function index()
 	{
+        $item['position_name'] = '1号展位';
+        $item['position_num'] = '0001';
+        $item['exhibit_way'] = '陈列展示';
+        $item['is_class'] = '是';
+        $item['is_valid'] = '是';
+        $item['position'] = '一楼';
+        $item['responser'] = '张三';
+
+
+
+        $item1['position_name'] = '2号展位';
+        $item1['position_num'] = '0002';
+        $item1['exhibit_way'] = '陈列展示';
+        $item1['is_class'] = '是';
+        $item1['is_valid'] = '是';
+        $item1['position'] = '一楼';
+        $item1['responser'] = '李四';
 
 		return view('admin.exhibitshow.position', [
-			'data' => []
+			'data' => [$item, $item1]
 		]);
 	}
 

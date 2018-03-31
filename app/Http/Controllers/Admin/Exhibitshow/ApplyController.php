@@ -27,9 +27,25 @@ class ApplyController extends BaseAdminController
 	 */
 	public function index()
 	{
+        $item['applyer'] = '张三';
+        $item['apply_date'] = '2018-03-10';
+        $item['show_theme'] = '西晋文化展览';
+        $item['show_iner'] = '李四...';
+        $item['show_num'] = 'NIK001';
+        $item['show_start_date'] = '2018-01-01';
+        $item['show_end_date'] = '2018-01-01';
+        $item['position'] = '3号展位';
 
+        $item1['applyer'] = '李四';
+        $item1['apply_date'] = '2018-03-10';
+        $item1['show_theme'] = '文化展览';
+        $item1['show_iner'] = '李四...';
+        $item1['show_num'] = 'NIK001';
+        $item1['show_start_date'] = '2018-01-01';
+        $item1['show_end_date'] = '2018-01-01';
+        $item1['position'] = '4号展位';
 		return view('admin.exhibitshow.apply', [
-			'data' => []
+			'data' => [$item, $item1]
 		]);
 	}
 
