@@ -23,7 +23,7 @@ Route::group([
 	Route::get('roomstruct/edit/{id}', 'RoomStructController@edit')->name('admin.storageroommanage.roomstruct.edit');
 	Route::post('roomstruct/save', 'RoomStructController@save')->name('admin.storageroommanage.roomstruct.save');
 	Route::get('roomstruct/delete/{id}', 'RoomStructController@delete')->name('admin.storageroommanage.roomstruct.delete');
-
+	//库房盘点
 	Route::get('roomlist', 'RoomlistController@index')->name('admin.storageroommanage.roomlist');
 	Route::get('roomlist/add', 'RoomlistController@add')->name('admin.storageroommanage.roomlist.add');
 	Route::get('roomlist/edit/{id}', 'RoomlistController@edit')->name('admin.storageroommanage.roomlist.edit');

@@ -30,7 +30,12 @@ class PeopleInOutManageController extends BaseAdminController
 	 */
 	public function index(Request $request)
 	{
-		$pio_data=PeopleinoutManage::paginate(15);
+		//搜索项 搜索库房编号
+		if (!empty( $request->storeroom_id)){
+			$pio_data=PeopleinoutManage::where('storeroom_id','like',"%{$request->storeroom_id}%")->paginate(15);
+		}else{
+			$pio_data=PeopleinoutManage::paginate(15);
+		}
 		return view('admin.storageroommanage.peopleInOutManage', [
 			'data' => $pio_data
 		]);

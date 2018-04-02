@@ -24,10 +24,11 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <form role="form" class="form-inline" method="get">
+                        <form role="form" class="form-inline" method="get" action="{{route('admin.storageroommanage.peopleinoutmanage')}}">
                             <div class="form-group">
                                 <label class="sr-only">库房编号</label>
-                                <input type="text" name="" placeholder="库房编号" class="form-control" value="">
+                                <input type="text" name="storeroom_id" placeholder="库房编号" class="form-control" value="">
+{{--                                <input type="hidden" value="{{csrf_token()}}">--}}
                             </div>
                             &nbsp;&nbsp;
                             <button type="submit" class="btn btn-primary">搜索</button>

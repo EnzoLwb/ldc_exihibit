@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\Admin\Storageroommanage;
 
 use App\Http\Controllers\Admin\BaseAdminController;
+use App\Http\Requests\RoomStructPost;
+use App\Models\Storageroommanage\StorageRoom;
 use Illuminate\Http\Request;
 
 /**
  * Class RoomStructController
  *
  * @author lxp
- * @package App\Http\Controllers\Admin\Setting
+ * @package App\Http\Controllers\Admin\Storageroommanage
  */
 class RoomStructController extends BaseAdminController
 {
@@ -23,88 +25,95 @@ class RoomStructController extends BaseAdminController
 	 * index
 	 *
 	 * @author lxp
+	 * @param  Request $request
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
-	public function index()
+	public function index(Request $request)
 	{
-        $item['name'] = '珍贵文物库房';
-        $item['num'] = 'TDF110';
-        $item['is_kuwei'] = '是';
-        $item['kufang_type'] = '一级库房';
-        $item['storage_way'] = '';
-        $item['kufang_size'] = '50平';
-        $item['is_valid'] = '生效';
-        $item['position'] = '一楼';
-        $item['charity'] = '张三';
-
-        $item1['name'] = '珍贵文物库房2';
-        $item1['num'] = 'TDF111';
-        $item1['is_kuwei'] = '是';
-        $item1['kufang_type'] = '一级库房';
-        $item1['storage_way'] = '';
-        $item1['kufang_size'] = '50平';
-        $item1['is_valid'] = '生效';
-        $item1['position'] = '一楼';
-        $item1['charity'] = '张三';
-
+		//搜索项 搜索库房编号
+		if (!empty( $request->room_name)){
+			$room_data=StorageRoom::where('room_name','like',"%{$request->room_name}%")->paginate(15);
+		}else{
+			$room_data=StorageRoom::paginate(15);
+		}
 		return view('admin.storageroommanage.roomstruct', [
-			'data' => [$item, $item1]
+			'data' => $room_data
 		]);
 	}
 
 	/**
 	 * add
 	 *
-	 * @author lxp
+	 * @author lwb 20180402
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
 	public function add()
 	{
+
 		return view('admin.storageroommanage.roomstruct_form');
 	}
 
 	/**
 	 * edit
 	 *
-	 * @author lxp
-	 * @param $id
+	 * @author lwb
+	 * @param $id 2018 0402 库房id
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
 	public function edit($id)
 	{
+		$storage_detail=StorageRoom::find($id);
 		return view('admin.storageroommanage.roomstruct_form', [
-			'data' => []
+			'data' => $storage_detail
 		]);
 	}
 
 	/**
 	 * save
 	 *
-	 * @author lxp
-	 * @param Request $request
+	 * @author lwb 20180402
+	 * @param RoomStructPost $request
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
 	 */
-	public function save(Request $request)
+	public function save(RoomStructPost $request)
 	{
-		// 验证
-		$this->validate($request, []);
 
 		// 保存数据
-
+		try {
+			$rs = StorageRoom::find($request->room_id);
+			if(!$rs){
+				$rs=new StorageRoom();
+				$rs::create($request->all());
+			}else{
+				$rs->update($request->except('room_id','_token'));
+			}
+		} catch (\Exception $e) {
+			//写入日志 保存失败
+			report($e);
+			return $this->error('保存失败');
+		}
 		return $this->success(get_session_url('index'));
 	}
 
 	/**
 	 * delete
 	 *
-	 * @author lxp
+	 * @author lwb 201800402
 	 * @param $id
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
 	 */
 	public function delete($id)
 	{
 		// 删除
-
-		return $this->success('', 's_del');
+		try {
+			if (StorageRoom::destroy($id)){
+				return redirect(route('admin.storageroommanage.roomstruct'));
+			}
+		} catch (\Exception $e) {
+			//写入日志 保存失败
+			report($e);
+		}
+		return $this->error('删除失败');
 	}
+
 }
