@@ -26,7 +26,7 @@
                         <form role="form" class="form-inline" method="get">
                             <div class="form-group">
                                 <label class="sr-only">库房编号</label>
-                                <input type="text" name="" placeholder="库房编号" class="form-control" value="">
+                                <input type="text" name="room_number" placeholder="库房编号" class="form-control" value="">
                             </div>
                             &nbsp;&nbsp;
                             <button type="submit" class="btn btn-primary">搜索</button>
@@ -51,17 +51,30 @@
                                 <th>登记人</th>
                                 <th>登记日期</th>
                                 <th>备注</th>
+                                <th>操作</th>
                             </tr>
                             @foreach($data as $k => $v)
                                 <tr class="gradeA">
-                                    <td></td>
+                                    <td>{{$v['room_number']}}</td>
+                                    <td>{{$v['temp']}}</td>
+                                    <td>{{$v['damp']}}</td>
+                                    <td>{{$v['air']}}</td>
+                                    <td>{{$v['light']}}</td>
+                                    <td>{{$v['booker']}}</td>
+                                    <td>{{$v['book_time']}}</td>
+                                    <td width="20%">{{$v['remark']}}</td>
+                                    <td>
+                                        <a href="{{route('admin.storageroommanage.roomenv.delete',['book_id'=>$v['book_id']])}}"
+                                           onclick="if (confirm('确定要删除此记录吗？')==false) return false">删除</a>
+                                        <a href="{{route('admin.storageroommanage.roomenv.edit',['book_id'=>$v['book_id']])}}">修改</a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </table>
                         <div class="row">
                             <div class="col-sm-12">
-                                {{--<div>共 {{ $data->total() }} 条记录</div>--}}
-                                {{--{!! $data->links() !!}--}}
+                                <div style="text-align: right">共 {{ $data->total() }} 条记录</div>
+                                <div style="text-align: center">{!! $data->links() !!}</div>
                             </div>
                         </div>
                     </div>

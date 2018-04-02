@@ -21,8 +21,8 @@
                     <div class="ibox-title">
                         <form role="form" class="form-inline" method="get" action="{{route('admin.storageroommanage.roomstruct')}}">
                             <div class="form-group">
-                                <label class="sr-only">库房库位名称</label>
-                                <input type="text" name="room_name" placeholder="库房库位名称" class="form-control" value="">
+                                <label class="sr-only">库房编号</label>
+                                <input type="text" name="room_number" placeholder="库房编号" class="form-control" value="">
                             </div>
                             <button type="submit" class="btn btn-primary">搜索</button>
                             <button type="button" class="btn btn-white" onclick="location.href='{{route('admin.storageroommanage.roomstruct')}}'">重置</button>

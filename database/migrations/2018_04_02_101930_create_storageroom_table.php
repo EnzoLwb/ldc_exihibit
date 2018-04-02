@@ -17,10 +17,10 @@ class CreateStorageroomTable extends Migration
 	{
 		Schema::create($this->tableName, function (Blueprint $table) {
 			$table->increments('room_id')->comment('库房id');
-			$table->string('room_number',50)->index()->comment('库房库位编号');
+			$table->string('room_number',50)->unique()->comment('库房库位编号');
 			$table->string('room_name',50)->commment('库房库位名称');
-			$table->tinyInteger('ifstorage',false)->commment('是否库位');
-			$table->tinyInteger('status',false)->commment('是否生效 1为生效 0为不生效');
+			$table->tinyInteger('ifstorage',false,true)->commment('是否库位');
+			$table->tinyInteger('status',false,true)->commment('是否生效 1为生效 0为不生效');
 			$table->string('room_type',50)->commment('库房类型')->default('一级库房');
 			$table->string('save_type',50)->commment('存储方式')->nullable();
 			$table->string('room_size',50)->commment('库房大小')->nullable();
