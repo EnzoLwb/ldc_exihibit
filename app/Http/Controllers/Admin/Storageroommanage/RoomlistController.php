@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\Admin\Storageroommanage;
 
 use App\Http\Controllers\Admin\BaseAdminController;
+use App\Models\Storageroommanage\RoomList;
+use App\Models\Storageroommanage\StorageRoom;
 use Illuminate\Http\Request;
 
 /**
  * Class RoomlistController
- *
- * @author lxp
- * @package App\Http\Controllers\Admin\Setting
+ * 库房盘点任务
+ * @author lwb 2018 0403
+ * @package App\Http\Controllers\Admin\Storageroommanage
  */
 class RoomlistController extends BaseAdminController
 {
@@ -21,48 +23,43 @@ class RoomlistController extends BaseAdminController
 
 	/**
 	 * index
-	 *
-	 * @author lxp
+	 * 库房盘点申请列表
+	 * @author lwb 20180403
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
-	public function index()
+	public function index(Request $request)
 	{
-	    $item['charity_people'] = '张三';
-        $item['check_date'] = '2018-03-10';
-        $item['check_exhibit_count'] = '1';
-        $item['whole_exhibit_count'] = '1';
-        $item['half_exhibit_count'] = '0';
-        $item['mark'] = '';
-
-
-        $item1['charity_people'] = '李四';
-        $item1['check_date'] = '2018-03-10';
-        $item1['check_exhibit_count'] = '2';
-        $item1['whole_exhibit_count'] = '1';
-        $item1['half_exhibit_count'] = '1';
-        $item1['mark'] = '';
-
-
-        return view('admin.storageroommanage.roomlist', [
-			'data' => [$item, $item1]
+		//搜索项 搜索库房编号
+		if (!empty( $request->plan_member)){
+			$room_data=RoomList::where('plan_member','like',"%{$request->plan_member}%")->paginate(15);
+		}else{
+			$room_data=RoomList::paginate(15);
+		}
+		return view('admin.storageroommanage.roomlist', [
+			'data' => $room_data
 		]);
 	}
 
 	/**
 	 * add
 	 *
-	 * @author lxp
+	 * @author lwb 20180403
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
 	public function add()
 	{
-		return view('admin.storageroommanage.roomlist_form');
+		//库房编号显示供选择(查库房表)
+		$room_number=StorageRoom::groupBy('room_number')->pluck('room_number');
+
+		return view('admin.storageroommanage.roomlist_form',[
+			'storage'=>$room_number
+		]);
 	}
 
 	/**
 	 * edit
 	 *
-	 * @author lxp
+	 * @author lwb
 	 * @param $id
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
@@ -76,16 +73,41 @@ class RoomlistController extends BaseAdminController
 	/**
 	 * save
 	 *
-	 * @author lxp
+	 * @author lwb 20180403
 	 * @param Request $request
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
 	 */
 	public function save(Request $request)
 	{
 		// 验证
-		$this->validate($request, []);
-
+		$this->validate($request,[
+			'room_number'=>'required',
+			'plan_member'=>'required',
+			'plan_date'=>'required|date',
+		],[
+			'required'=>':attribute 为必填项',
+			'date'=>':attribute 规范日期格式',
+		],[
+			'room_number'=>'库房编号',
+			'plan_member'=>'计划盘点人员',
+			'book_time'=>'登记时间',
+		]);
 		// 保存数据
+		try {
+			$roomList = RoomList::find($request->check_id);
+			if(!$roomList){
+				//新增
+				$roomList=new RoomList();
+				$roomList::create($request->all());
+			}else{
+				//更改
+				$roomList->update($request->except('check_id','_token'));
+			}
+		} catch (\Exception $e) {
+			//写入日志 保存失败
+			report($e);
+			return $this->error('保存失败');
+		}
 
 		return $this->success(get_session_url('index'));
 	}
