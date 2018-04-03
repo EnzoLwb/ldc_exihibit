@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\Admin\Storageroommanage;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\RoomStructPost;
-use App\Models\Storageroommanage\StorageRoom;
+use App\Http\Requests\PeopleinoutManagePost;
+use App\Models\Storageroommanage\PeopleinoutManage;
 use Illuminate\Http\Request;
 
 /**
- * Class RoomStructController
- *
- * @author lxp
+ * Class PeopleInOutManageController
+ * 人员出入管理
+ * @author lwb 2018 0330
  * @package App\Http\Controllers\Admin\Storageroommanage
  */
-class RoomStructController extends BaseAdminController
+class PeopleInOutManageController extends BaseAdminController
 {
 
 	public function __construct()
@@ -22,70 +22,68 @@ class RoomStructController extends BaseAdminController
 	}
 
 	/**
-	 * index
+	 * 人员出入管理列表
 	 *
-	 * @author lxp
+	 * @author lwb 2018 0330
 	 * @param  Request $request
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
 	public function index(Request $request)
 	{
 		//搜索项 搜索库房编号
-		if (!empty( $request->room_name)){
-			$room_data=StorageRoom::where('room_name','like',"%{$request->room_name}%")->paginate(15);
+		if (!empty( $request->storeroom_id)){
+			$pio_data=PeopleinoutManage::where('storeroom_id','like',"%{$request->storeroom_id}%")->paginate(15);
 		}else{
-			$room_data=StorageRoom::paginate(15);
+			$pio_data=PeopleinoutManage::paginate(15);
 		}
-		return view('admin.storageroommanage.roomstruct', [
-			'data' => $room_data
+		return view('admin.storageroommanage.peopleInOutManage', [
+			'data' => $pio_data
 		]);
 	}
 
 	/**
-	 * add
+	 * 新增
 	 *
-	 * @author lwb 20180402
+	 * @author lxp
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
 	public function add()
 	{
-
-		return view('admin.storageroommanage.roomstruct_form');
+		return view('admin.storageroommanage.peopleinpout_form');
 	}
 
 	/**
 	 * edit
 	 *
 	 * @author lwb
-	 * @param $id 2018 0402 库房id
+	 * @param $id 2018 0331
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
 	public function edit($id)
 	{
-		$storage_detail=StorageRoom::find($id);
-		return view('admin.storageroommanage.roomstruct_form', [
-			'data' => $storage_detail
+		$pio_detail=PeopleinoutManage::find($id);
+		return view('admin.storageroommanage.peopleinpout_form', [
+			'data' => $pio_detail
 		]);
 	}
 
 	/**
 	 * save
 	 *
-	 * @author lwb 20180402
-	 * @param RoomStructPost $request
+	 * @author lwb 2018 0331
+	 * @param  PeopleinoutManagePost $request 人员出入管理的表单验证
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
 	 */
-	public function save(RoomStructPost $request)
+	public function save(PeopleinoutManagePost $request)
 	{
-
 		// 保存数据
 		try {
-			$rs = StorageRoom::find($request->room_id);
-			if(!$rs){
-				$rs=new StorageRoom();
-				$rs::create($request->all());
+			$pio = PeopleinoutManage::find($request->pio_id);
+			if(!$pio){
+				$pio=new PeopleinoutManage();
+				$pio::create($request->all());
 			}else{
-				$rs->update($request->except('room_id','_token'));
+				$pio->update($request->except('pio_id','_token'));
 			}
 		} catch (\Exception $e) {
 			//写入日志 保存失败
@@ -98,7 +96,7 @@ class RoomStructController extends BaseAdminController
 	/**
 	 * delete
 	 *
-	 * @author lwb 201800402
+	 * @author lwb 20180331
 	 * @param $id
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
 	 */
@@ -106,8 +104,8 @@ class RoomStructController extends BaseAdminController
 	{
 		// 删除
 		try {
-			if (StorageRoom::destroy($id)){
-				return redirect(route('admin.storageroommanage.roomstruct'));
+			if (PeopleinoutManage::destroy($id)){
+				return redirect(route('admin.storageroommanage.peopleinoutmanage'));
 			}
 		} catch (\Exception $e) {
 			//写入日志 保存失败
@@ -115,5 +113,4 @@ class RoomStructController extends BaseAdminController
 		}
 		return $this->error('删除失败');
 	}
-
 }

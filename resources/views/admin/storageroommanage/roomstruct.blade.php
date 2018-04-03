@@ -19,12 +19,11 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <form role="form" class="form-inline" method="get">
+                        <form role="form" class="form-inline" method="get" action="{{route('admin.storageroommanage.roomstruct')}}">
                             <div class="form-group">
                                 <label class="sr-only">库房库位名称</label>
-                                <input type="text" name="username" placeholder="库房库位名称" class="form-control" value="">
+                                <input type="text" name="room_name" placeholder="库房库位名称" class="form-control" value="">
                             </div>
-                            &nbsp;&nbsp;
                             <button type="submit" class="btn btn-primary">搜索</button>
                             <button type="button" class="btn btn-white" onclick="location.href='{{route('admin.storageroommanage.roomstruct')}}'">重置</button>
                         </form>
@@ -48,25 +47,33 @@
                                 <th>是否生效</th>
                                 <th>位置</th>
                                 <th>负责人</th>
+                                <th>操作</th>
                             </tr>
                             @foreach($data as $k => $v)
                                 <tr class="gradeA">
-                                    <td>{{$v['name']}}</td>
-                                    <td>{{$v['num']}}</td>
-                                    <td>{{$v['is_kuwei']}}</td>
-                                    <td>{{$v['kufang_type']}}</td>
-                                    <td>{{$v['storage_way']}}</td>
-                                    <td>{{$v['kufang_size']}}</td>
-                                    <td>{{$v['is_valid']}}</td>
+                                    <td>{{$v['room_name']}}</td>
+                                    <td>{{$v['room_number']}}</td>
+                                    <td>{{$v['ifstorage']=='1'?'是':'否'}}</td>
+                                    <td>{{$v['room_type']}}</td>
+                                    <td>{{$v['save_type']}}</td>
+                                    <td>{{$v['room_size']}}</td>
+                                    <td>{{$v['status']=='1'?'是':'否'}}</td>
                                     <td>{{$v['position']}}</td>
-                                    <td>{{$v['charity']}}</td>
+                                    <td>{{$v['leader']}}</td>
+                                    <td>
+                                        <a href="{{route('admin.storageroommanage.roomstruct.delete',['room_id'=>$v['room_id']])}}"
+                                           onclick="if (confirm('确定要删除此记录吗？')==false) return false">删除</a>
+                                        <a href="{{route('admin.storageroommanage.roomstruct.edit',['room_id'=>$v['room_id']])}}">修改</a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </table>
                         <div class="row">
                             <div class="col-sm-12">
-                                {{--<div>共 {{ $data->total() }} 条记录</div>--}}
-                                {{--{!! $data->links() !!}--}}
+                                <div class=".col-sm-6 .col-sm-offset-3">
+                                    <div style="text-align: right">共 {{ $data->total() }} 条记录</div>
+                                    <div style="text-align: center">{!! $data->links() !!}</div>
+                                </div>
                             </div>
                         </div>
                     </div>
