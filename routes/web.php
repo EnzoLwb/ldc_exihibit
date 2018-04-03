@@ -72,6 +72,7 @@ Route::group([
 	include "web_sumquery.php";
 	include "web_digitalmanage.php";
 	include "web_statics.php";
+    include "web_xls.php";
 
 	Route::group([
 		'prefix' => 'user',

@@ -10,12 +10,13 @@
             <div class="col-sm-12">
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="{{route('admin.exhibitcollect.apply')}}">查询</a></li>
-
+                        <li ><a href="{{route('admin.exhibitcollect.apply')}}">查询</a></li>
+                        <li><a href="javascript:void(0)" onclick="modify_item()">修改</a></li>
+                        <li><a href="javascript:void(0)" onclick="del_item()">删除</a></li>
                         <li><a href="javascript:void(0)" onclick="do_submit()">提交申请</a></li>
-                        <li><a href="javascript:void(0)" onclick="export_list()">导出</a></li>
+                        <li><a href="{{route('admin.exhibitcollect.apply')}}">导出</a></li>
                         <li><a href="javascript:void(0)" onclick="do_print()">打印</a></li>
-                        <li><a href="{{route('admin.exhibitcollect.pic_mode')}}">图文模式</a></li>
+                        <li class="active"><a href="{{route('admin.exhibitcollect.pic_mode')}}">图文模式</a></li>
                         <li ><a href="{{route('admin.exhibitcollect.add')}}">新增</a></li>
                     </ul>
                 </div>
@@ -47,6 +48,7 @@
                             <tr role="row">
                                 <th>选择</th>
                                 <th>征集申请单号</th>
+                                <th>图片展示</th>
                                 <th>征集申请单位名称</th>
                                 <th>征集采购对象</th>
                                 <th>申请征集项目名称</th>
@@ -56,13 +58,13 @@
                                 <th>申请人</th>
                                 <th>具体征集项目介绍</th>
                                 <th>征集原因</th>
-                                <th>操作</th>
                             </tr>
                             </thead>
                             @foreach($exhibit_list as $exhibit)
                                 <tr class="gradeA">
                                     <td><input type="radio" name="collect_apply_id" value="{{$exhibit['collect_apply_id']}}"></td>
                                     <td>{{$exhibit['collect_apply_num']}}</td>
+                                    <td><img width="50px" height="50px" src="{{$exhibit['files']}}"></td>
                                     <td>{{$exhibit['collect_apply_depart_name']}}</td>
                                     <td>{{$exhibit['collect_buy_object']}}</td>
                                     <td>{{$exhibit['collect_apply_project_name']}} </td>
@@ -72,8 +74,6 @@
                                     <td>{{$exhibit['applyer']}} </td>
                                     <td>{{$exhibit['collect_project_desc']}} </td>
                                     <td>{{$exhibit['collect_reason']}} </td>
-                                    <td><a href="{{route('admin.exhibitcollect.add')."?collect_apply_id=".$exhibit['collect_apply_id']}}">修改</a>
-                                        <a href="{{route("admin.exhibitcollect.apply_del")."?collect_apply_ids=".$exhibit['collect_apply_id']}}">删除</a></td>
                                 </tr>
                             @endforeach
                         </table>
@@ -85,8 +85,6 @@
     </div>
 @endsection
 <script>
-
-
     //修改内容
     function modify_item(){
         collect_apply_ids = get_collect_checked_ids();
@@ -114,22 +112,19 @@
 
             });
     }
-    //打印功能
     function do_print() {
-        window.document.body.innerHTML==window.document.body.innerHTML; //把需要打印的指定内容赋给body.innerHTML
-        window.print(); //调用浏览器的打印功能打印指定区域
     }
 
     //功能函数，收集选中的申请项
     function get_collect_checked_ids() {
         checkd_list = $('input[name="collect_apply_id"]:checked')
+
         collect_apply_ids = []
         for(i = 0; i<checkd_list.length;i++){
             collect_apply_ids.push($(checkd_list[i]).val())
         }
         return collect_apply_ids;
     }
-
     /**
      * 提交审核
      */
@@ -147,22 +142,6 @@
             layer.alert(response.msg)
             setTimeout("location.reload();", 3000)
         });
-    }
-
-    /**
-     * 导出申请列表
-     */
-    function export_list() {
-        apply_ids = get_collect_checked_ids();
-        if(checkd_list.length==0){
-            layer.alert("请至少选择一项")
-            return
-        }
-        url = '{{route("admin.excel.export_collect_apply")}}' +"?";
-        for(i=0;i<apply_ids.length;i++){
-            url += "collect_apply_ids["+i.toString()+"]="+apply_ids[i]
-        }
-        location.href=url
     }
 </script>
 
