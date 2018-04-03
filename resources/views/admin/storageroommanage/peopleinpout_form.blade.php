@@ -1,11 +1,7 @@
 @extends('layouts.public')
 
 @section('bodyattr')class="gray-bg"@endsection
-@section('head')
-    <style>
-        .help-block{color: #ed5565;}
-    </style>
-@endsection
+
 @section('body')
     <div class="wrapper wrapper-content">
 

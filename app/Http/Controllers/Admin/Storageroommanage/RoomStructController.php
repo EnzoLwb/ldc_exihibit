@@ -31,10 +31,10 @@ class RoomStructController extends BaseAdminController
 	public function index(Request $request)
 	{
 		//搜索项 搜索库房编号
-		if (!empty( $request->room_name)){
-			$room_data=StorageRoom::where('room_name','like',"%{$request->room_name}%")->paginate(15);
+		if (!empty( $request->room_number)){
+			$room_data=StorageRoom::where('room_number','like',"%{$request->room_number}%")->paginate(parent::PERPAGE);
 		}else{
-			$room_data=StorageRoom::paginate(15);
+			$room_data=StorageRoom::paginate(parent::PERPAGE);
 		}
 		return view('admin.storageroommanage.roomstruct', [
 			'data' => $room_data

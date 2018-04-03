@@ -24,6 +24,7 @@
         .placeholder {
             color: #aaa;
         }
+
     </style>
     <![endif]-->
 
@@ -43,7 +44,7 @@
     @yield('head')
 </head>
 <body @yield('bodyattr')>
-
+<style>.help-block{color: #ed5565;}</style>
 @yield('body')
 
 <!--[if lte IE 9]>

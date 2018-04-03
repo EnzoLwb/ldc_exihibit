@@ -1,11 +1,7 @@
 @extends('layouts.public')
 
 @section('bodyattr')class="gray-bg"@endsection
-@section('head')
-    <style>
-        .help-block{color: #ed5565;}
-    </style>
-@endsection
+
 @section('body')
     <div class="wrapper wrapper-content">
 
@@ -27,7 +23,7 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
-                        <form action="{{route('admin.storageroommanage.roomstruct.save')}}" method="post" class="form-horizontal">
+                        <form action="{{route('admin.storageroommanage.roomstruct.save')}}" method="post" class="form-horizontal ajaxForm">
                             <input type="hidden" name="_token" value="{{csrf_token()}}">
                             <input type="hidden" name="room_id" value="{{$data['room_id']??''}}">
                             <div class="form-group">

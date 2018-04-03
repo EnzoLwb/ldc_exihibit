@@ -19,10 +19,10 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <form role="form" class="form-inline" method="get">
+                        <form role="form" class="form-inline" method="get" action="{{route('admin.storageroommanage.roomlist')}}">
                             <div class="form-group">
                                 <label class="sr-only">计划盘点人员</label>
-                                <input type="text" name="" placeholder="计划盘点人员" class="form-control" value="">
+                                <input type="text" name="plan_member" placeholder="计划盘点人员" class="form-control" value="">
                             </div>
                             &nbsp;&nbsp;
                             <button type="submit" class="btn btn-primary">搜索</button>
@@ -39,29 +39,40 @@
                     <div class="ibox-content">
                         <table class="table table-striped table-bordered table-hover">
                             <tr class="gradeA">
+                                <th>库房编号</th>
                                 <th>计划盘点人员</th>
                                 <th>计划盘点日期</th>
                                 <th>盘点文物数量</th>
                                 <th>完整文物数量</th>
                                 <th>残缺文物数量</th>
+                                <th>申请状态</th>
+                                <th>盘点状态</th>
                                 <th>备注</th>
+                                <th>操作</th>
                             </tr>
                             @foreach($data as $k => $v)
                                 <tr class="gradeA">
-                                    <td>{{$v['charity_people']}}</td>
-                                    <td>{{$v['check_date']}}</td>
-                                    <td>{{$v['check_exhibit_count']}}</td>
-                                    <td>{{$v['whole_exhibit_count']}}</td>
-                                    <td>{{$v['half_exhibit_count']}}</td>
-                                    <td>{{$v['mark']}}</td>
-
+                                    <td>{{$v['room_number']}}</td>
+                                    <td>{{$v['plan_member']}}</td>
+                                    <td>{{$v['plan_date']}}</td>
+                                    <td>{{$v['goods_count']}}</td>
+                                    <td>{{$v['completed_count']}}</td>
+                                    <td>{{$v['imcompleted_count']}}</td>
+                                    <td>{{$v->applyStatus($v['apply_status'])}}</td>
+                                    <td>{{$v->checkStatus($v['check_status'])}}</td>
+                                    <td width="20%">{{$v['apply_remark']}}</td>
+                                    <td>
+                                        <a href="{{route('admin.storageroommanage.roomlist.delete',['check_id'=>$v['check_id']])}}"
+                                           onclick="if (confirm('确定要删除此记录吗？')==false) return false">删除</a>
+                                        <a href="{{route('admin.storageroommanage.roomlist.edit',['check_id'=>$v['check_id']])}}">修改</a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </table>
                         <div class="row">
                             <div class="col-sm-12">
-                                {{--<div>共 {{ $data->total() }} 条记录</div>--}}
-                                {{--{!! $data->links() !!}--}}
+                                <div style="text-align: right">共 {{ $data->total() }} 条记录</div>
+                                <div style="text-align: center">{!! $data->links() !!}</div>
                             </div>
                         </div>
                     </div>
