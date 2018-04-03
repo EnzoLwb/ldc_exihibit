@@ -31,9 +31,9 @@ class RoomlistController extends BaseAdminController
 	{
 		//搜索项 搜索库房编号
 		if (!empty( $request->plan_member)){
-			$room_data=RoomList::where('plan_member','like',"%{$request->plan_member}%")->paginate(15);
+			$room_data=RoomList::where('plan_member','like',"%{$request->plan_member}%")->paginate(parent::PERPAGE);
 		}else{
-			$room_data=RoomList::paginate(15);
+			$room_data=RoomList::paginate(parent::PERPAGE);
 		}
 		return view('admin.storageroommanage.roomlist', [
 			'data' => $room_data
@@ -59,14 +59,18 @@ class RoomlistController extends BaseAdminController
 	/**
 	 * edit
 	 *
-	 * @author lwb
+	 * @author lwb 20180403
 	 * @param $id
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
 	public function edit($id)
 	{
+		$roomlist = RoomList::find($id);
+		//库房编号显示供选择(查库房表)
+		$room_number = StorageRoom::groupBy('room_number')->pluck('room_number');
 		return view('admin.storageroommanage.roomlist_form', [
-			'data' => []
+			'data' => $roomlist,
+			'storage' => $room_number
 		]);
 	}
 
@@ -115,14 +119,21 @@ class RoomlistController extends BaseAdminController
 	/**
 	 * delete
 	 *
-	 * @author lxp
+	 * @author lwb 2018 0403
 	 * @param $id
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
 	 */
 	public function delete($id)
 	{
 		// 删除
-
+		try {
+			if (RoomList::destroy($id)){
+				return redirect(route('admin.storageroommanage.roomlist'));
+			}
+		} catch (\Exception $e) {
+			//写入日志 删除失败
+			report($e);
+		}
 		return $this->success('', 's_del');
 	}
 }

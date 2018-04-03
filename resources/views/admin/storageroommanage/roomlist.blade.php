@@ -48,6 +48,7 @@
                                 <th>申请状态</th>
                                 <th>盘点状态</th>
                                 <th>备注</th>
+                                <th>操作</th>
                             </tr>
                             @foreach($data as $k => $v)
                                 <tr class="gradeA">
@@ -60,6 +61,11 @@
                                     <td>{{$v->applyStatus($v['apply_status'])}}</td>
                                     <td>{{$v->checkStatus($v['check_status'])}}</td>
                                     <td width="20%">{{$v['apply_remark']}}</td>
+                                    <td>
+                                        <a href="{{route('admin.storageroommanage.roomlist.delete',['check_id'=>$v['check_id']])}}"
+                                           onclick="if (confirm('确定要删除此记录吗？')==false) return false">删除</a>
+                                        <a href="{{route('admin.storageroommanage.roomlist.edit',['check_id'=>$v['check_id']])}}">修改</a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </table>

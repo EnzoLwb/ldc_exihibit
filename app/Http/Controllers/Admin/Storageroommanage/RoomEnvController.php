@@ -33,9 +33,9 @@ class RoomEnvController extends BaseAdminController
 
 		//搜索项 搜索库房编号
 		if (!empty( $request->room_number)){
-			$room_data=RoomEnv::where('room_number','like',"%{$request->room_number}%")->paginate(15);
+			$room_data=RoomEnv::where('room_number','like',"%{$request->room_number}%")->paginate(parent::PERPAGE);
 		}else{
-			$room_data=RoomEnv::paginate(15);
+			$room_data=RoomEnv::paginate(parent::PERPAGE);
 		}
 		return view('admin.storageroommanage.roomenv', [
 			'data' => $room_data
