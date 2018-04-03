@@ -11,14 +11,10 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="{{route('admin.exhibitidentify.apply')}}">查询</a></li>
-                        <li><a href="{{route('admin.exhibitidentify.apply')}}">修改</a></li>
-                        <li><a href="{{route('admin.exhibitidentify.apply')}}">删除</a></li>
-                        <li><a href="{{route('admin.exhibitidentify.apply')}}">提交</a></li>
-
+                        <li><a href="javascript:void(0)" onclick="do_submit()">提交</a></li>
                         <li><a href="{{route('admin.exhibitidentify.apply')}}">查看鉴定结果</a></li>
-                        <li><a href="{{route('admin.exhibitidentify.apply')}}">导出</a></li>
+                        <li><a href="javascript:void(0)" onclick="export_xls()">导出</a></li>
                         <li><a href="{{route('admin.exhibitidentify.apply')}}">打印</a></li>
-                        <li><a href="{{route('admin.exhibitidentify.apply')}}">图文模式</a></li>
                         <li ><a href="{{route('admin.exhibitidentify.add')}}">新增</a></li>
                     </ul>
                 </div>
@@ -34,7 +30,7 @@
                             </div>
                             &nbsp;&nbsp;
                             <button type="submit" class="btn btn-primary">搜索</button>
-                            <button type="button" class="btn btn-white" onclick="location.href='{{route('admin.exhibitcollect.apply')}}'">重置</button>
+                            <button type="button" class="btn btn-white" onclick="location.href='{{route('admin.exhibitidentify.apply')}}'">重置</button>
                         </form>
                     </div>
                 </div>
@@ -56,20 +52,24 @@
                                 <th>拟鉴定单位</th>
                                 <th>状态</th>
                                 <th>登记人</th>
-
+                                <th>操作</th>
                             </tr>
                             </thead>
                             @foreach($exhibit_list as $exhibit)
                                 <tr class="gradeA">
-                                  <td> <input type="radio"></td>
-                                    <td>{{$exhibit['date']}}</td>
-                                    <td>{{$exhibit['depart_name']}}</td>
+                                  <td> <input type="radio" name="identify_ids" value="{{$exhibit['identify_apply_id']}}"></td>
+                                    <td>{{$exhibit['register_date']}}</td>
+                                    <td>{{$exhibit['identify_apply_depart']}}</td>
                                     <td>{{$exhibit['identify_date']}}</td>
-                                    <td>{{$exhibit['identify_author']}}</td>
-                                    <td>{{$exhibit['identify_danwei']}}</td>
-
-                                    <td>{{$exhibit['status']}}</td>
-                                    <td>{{$exhibit['author']}}</td>
+                                    <td>{{$exhibit['identify_expert']}}</td>
+                                    <td>{{$exhibit['identify_depart']}}</td>
+                                    <td>{{\App\Dao\ConstDao::$identify_desc[$exhibit['status']]}}</td>
+                                    <td>{{$exhibit['register']}}</td>
+                                    <td>
+                                        @if($exhibit['status'] == \App\Dao\ConstDao::EXHIBIT_IDENTIFY_APPLY_DRAFT)
+                                            <a href="{{route('admin.exhibitidentify.apply_del')."?identify_apply_id=".$exhibit['identify_apply_id']}}">删除</a>
+                                            <a href="{{route('admin.exhibitidentify.add')."?identify_apply_id=".$exhibit['identify_apply_id']}}">修改</a></td>
+                                        @endif
                                 </tr>
                             @endforeach
                         </table>
@@ -80,5 +80,49 @@
         </div>
     </div>
 @endsection
+<script>
+//功能函数，收集选中的申请项
+function get_collect_checked_ids() {
+    checkd_list = $('input[name="identify_ids"]:checked')
+    collect_apply_ids = []
+    for(i = 0; i<checkd_list.length;i++){
+        collect_apply_ids.push($(checkd_list[i]).val())
+    }
+    return collect_apply_ids;
+}
 
+/**
+* 提交审核
+*/
+function do_submit() {
+    collect_apply_ids = get_collect_checked_ids();
+    if(collect_apply_ids.length==0){
+        layer.alert("请至少选择一项")
+        return
+    }
+    $.ajax('{{route("admin.exhibitidentify.apply_submit")}}', {
+        method: 'POST',
+        data: {'identify_apply_id':collect_apply_ids,"_token":"{{csrf_token()}}"},
+        dataType: 'json'
+        }).done(function (response) {
+            layer.alert(response.msg)
+            setTimeout("location.reload();", 3000)
+    });
+}
 
+/**
+ * 导出申请表
+ */
+function export_xls() {
+    apply_ids = get_collect_checked_ids();
+    if(apply_ids.length==0){
+        layer.alert("请至少选择一项");
+        return
+    }
+    url = '{{route("admin.excel.export_identify_apply")}}' +"?";
+    for(i=0;i<apply_ids.length;i++){
+        url += "identify_apply_ids["+i.toString()+"]="+apply_ids[i];
+    }
+    window.open(url)
+}
+</script>

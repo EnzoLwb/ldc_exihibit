@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin\Excel;
 
+use App\Dao\ConstDao;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Models\CollectApply;
 use App\Models\CollectExhibit;
 use App\Models\CollectRecipe;
+use App\Models\IdentifyApply;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
@@ -40,7 +42,6 @@ class ExcelController extends BaseAdminController
                 $item['collect_reason'],
             );
         }
-
         Excel::create('展品征集申请表', function ($excel) use ($xls_data) {
             $excel->sheet('score', function ($sheet) use ($xls_data) {
                 $sheet->setWidth(array(
@@ -104,6 +105,44 @@ class ExcelController extends BaseAdminController
                     'I'     =>  25,
                     'J'     =>  25,
                     'K'     =>  25,
+                ));
+                $sheet->rows($xls_data);
+            });
+        })->export('xls');
+    }
+
+
+    public function  export_identify_apply(){
+        $collect_apply_ids = request('identify_apply_ids');
+        $res = IdentifyApply::whereIn("identify_apply_id", $collect_apply_ids)->get()->toArray();
+        $xls_data = array();
+        $header = ['登记日期','鉴定申请单位名称','拟检定日期',
+            '拟鉴定专家','拟鉴定单位','状态','登记人'
+            ];
+        $xls_data[] = $header;
+        foreach($res as $key=> $item)
+        {
+            $xls_data[] = array(
+                $item['register_date'],
+                $item['identify_apply_depart'],
+                $item['identify_date'],
+                $item['identify_expert'],
+                $item['identify_depart'],
+                ConstDao::$identify_desc[$item['status']],
+                $item['register'],
+            );
+        }
+        Excel::create('鉴定申请表', function ($excel) use ($xls_data) {
+            $excel->sheet('score', function ($sheet) use ($xls_data) {
+                $sheet->setWidth(array(
+                    'A'     => 20,
+                    'B'     =>  25,
+                    'C'     =>  25,
+                    'D'     =>  25,
+                    'E'     =>  25,
+                    'F'     =>  25,
+                    'G'     =>  25,
+                    'H'     =>  25,
                 ));
                 $sheet->rows($xls_data);
             });

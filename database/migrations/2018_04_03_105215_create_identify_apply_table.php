@@ -23,6 +23,7 @@ class CreateIdentifyApplyTable extends Migration
             $table->string('identify_apply_depart', 50)->nullable()->comment('鉴定申请单位名称');
             $table->string('identify_date', 50)->nullable()->comment('鉴定日期');
             $table->string('identify_expert', 50)->nullable()->comment('鉴定专家');
+            $table->string('identify_depart', 50)->nullable()->comment('鉴定部门');
             $table->string('status', 50)->nullable()->comment('状态');
             $table->string('register', 50)->nullable()->comment('登记人');
             $table->timestamps();

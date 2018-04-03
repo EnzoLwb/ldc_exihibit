@@ -51,6 +51,18 @@ class MenuDao extends BaseMdl
 					]
 				]
 			],
+            [
+                'text' => '申请管理',
+                'priv' => 'applymanage',
+                'icon' => 'fa fa-cog',
+                'nodes' => [
+                    [
+                        'text' => '申请列表',
+                        'url' => route('admin.applymanage.export_collect_apply'),
+                        'priv' => 'admin-applymanage-export_collect_apply'
+                    ]
+                ]
+            ],
 			[
 				'text' => '藏品鉴定',
 				'priv' => 'exhibitidentify',

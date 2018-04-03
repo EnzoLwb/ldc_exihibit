@@ -12,10 +12,7 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li ><a href="{{route('admin.exhibitidentify.apply')}}">查询</a></li>
-                        <li><a href="{{route('admin.exhibitidentify.apply')}}">修改</a></li>
-                        <li><a href="{{route('admin.exhibitidentify.apply')}}">删除</a></li>
                         <li><a href="{{route('admin.exhibitidentify.apply')}}">提交</a></li>
-
                         <li><a href="{{route('admin.exhibitidentify.apply')}}">查看鉴定结果</a></li>
                         <li><a href="{{route('admin.exhibitidentify.apply')}}">导出</a></li>
                         <li><a href="{{route('admin.exhibitidentify.apply')}}">打印</a></li>
@@ -30,14 +27,17 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
-                        <form method="post" action="{{route('admin.exhibitcollect.apply_save')}}" class="form-horizontal ajaxForm">
+                        <form method="post" action="{{route('admin.exhibitidentify.apply_save')}}" class="form-horizontal ajaxForm">
 
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">登记日期</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="id" id="id"
-                                           value="{{$info['id'] or ''}}" required/>
+                                    <input type="text" class="form-control" name="register_date" id="register_date"
+                                           value="{{$info['register_date'] or ''}}" required/>
+
+                                    <input type="hidden" class="form-control" name="identify_apply_id" id="identify_apply_id"
+                                           value="{{$info['identify_apply_id'] or 0}}" required/>
                                     <input type="hidden" name="_token"
                                            value="{{csrf_token()}}" />
                                 </div>
@@ -46,50 +46,40 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">鉴定申请单名称</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="minor" id="minor"
-                                           value="{{$info['minor'] or ''}}" required/>
+                                    <input type="text" class="form-control" name="identify_apply_depart" id="identify_apply_depart"
+                                           value="{{$info['identify_apply_depart'] or ''}}" required/>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">拟鉴定日期</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="major"  name="major"
-                                           value="{{$info['major'] or ''}}" required/>
+                                    <input type="text" class="form-control" id="identify_date"  name="identify_date"
+                                           value="{{$info['identify_date'] or ''}}" required/>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">拟鉴定专家</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="rssia" name="rssia"
-                                           value="{{$info['rssia'] or ''}}" required/>
+                                    <input type="text" class="form-control" id="identify_expert" name="identify_expert"
+                                           value="{{$info['identify_expert'] or ''}}" required/>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">拟鉴定单位</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="rssii" name="rssii"
-                                           value="{{$info['rssii'] or ''}}" required/>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">状态</label>
-                                <div class="col-sm-4">
-                                   <select class="form-control">
-                                       <option>等待审核</option>
-                                       <option>审核通过</option>
-                                   </select>
+                                    <input type="text" class="form-control" id="identify_depart" name="identify_depart"
+                                           value="{{$info['identify_depart'] or ''}}" required/>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">登记人</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="distancei" name="distancei"
-                                           value="{{$info['distancei'] or ''}}" required/>
+                                    <input type="text" class="form-control" id="register" name="register"
+                                           value="{{$info['register'] or ''}}" required/>
                                 </div>
                             </div>
 

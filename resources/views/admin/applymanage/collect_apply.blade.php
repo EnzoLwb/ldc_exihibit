@@ -10,13 +10,9 @@
             <div class="col-sm-12">
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="{{route('admin.exhibitcollect.apply')}}">查询</a></li>
-
-                        <li><a href="javascript:void(0)" onclick="do_submit()">提交申请</a></li>
-                        <li><a href="javascript:void(0)" onclick="export_list()">导出</a></li>
-                        <li><a href="javascript:void(0)" onclick="do_print()">打印</a></li>
-                        <li><a href="{{route('admin.exhibitcollect.pic_mode')}}">图文模式</a></li>
-                        <li ><a href="{{route('admin.exhibitcollect.add')}}">新增</a></li>
+                        <li class="active"><a href="{{route('admin.applymanage.export_collect_apply')}}">查询</a></li>
+                        <li><a href="javascript:void(0)" onclick="pass()">审核通过</a></li>
+                        <li><a href="javascript:void(0)" onclick="refuse()">审核拒绝</a></li>
                     </ul>
                 </div>
             </div>
@@ -25,13 +21,22 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <form role="form" class="form-inline" method="get" action="{{route('admin.exhibitcollect.apply')}}">
+                        <form role="form" class="form-inline" method="get" action="{{route('admin.applymanage.export_collect_apply')}}">
                             <div class="form-group">
-                                <input type="text" name="title" placeholder="申请单号" class="form-control" value="{{request('title')}}">
+                                <select name="apply_type" class="form-control">
+                                    @foreach(\App\Dao\ConstDao::$apply_desc as $key=>$v)
+                                        @if($type == $key)
+                                            <option selected value="{{$key}}">{{$v}}</option>
+                                        @else
+                                            <option value="{{$key}}">{{$v}}</option>
+                                        @endif
+
+                                    @endforeach
+                                </select>
                             </div>
                             &nbsp;&nbsp;
                             <button type="submit" class="btn btn-primary">搜索</button>
-                            <button type="button" class="btn btn-white" onclick="location.href='{{route('admin.exhibitcollect.apply')}}'">重置</button>
+                            <button type="button" class="btn btn-white" onclick="location.href='{{route('admin.applymanage.export_collect_apply')}}'">重置</button>
                         </form>
                     </div>
                 </div>
@@ -56,7 +61,8 @@
                                 <th>申请人</th>
                                 <th>具体征集项目介绍</th>
                                 <th>征集原因</th>
-                                <th>操作</th>
+                                <th>状态</th>
+
                             </tr>
                             </thead>
                             @foreach($exhibit_list as $exhibit)
@@ -72,8 +78,7 @@
                                     <td>{{$exhibit['applyer']}} </td>
                                     <td>{{$exhibit['collect_project_desc']}} </td>
                                     <td>{{$exhibit['collect_reason']}} </td>
-                                    <td><a href="{{route('admin.exhibitcollect.add')."?collect_apply_id=".$exhibit['collect_apply_id']}}">修改</a>
-                                        <a href="{{route("admin.exhibitcollect.apply_del")."?collect_apply_ids=".$exhibit['collect_apply_id']}}">删除</a></td>
+                                    <td>{{\App\Dao\ConstDao::$collect_apply_desc[$exhibit['status']]}} </td>
                                 </tr>
                             @endforeach
                         </table>
@@ -85,41 +90,6 @@
     </div>
 @endsection
 <script>
-
-
-    //修改内容
-    function modify_item(){
-        collect_apply_ids = get_collect_checked_ids();
-        if(collect_apply_ids.length==0 || collect_apply_ids.length>1){
-            layer.alert("请选择并且只选择一项")
-            return
-        }
-        collect_apply_id = $($('input[name="collect_apply_id"]:checked')[0]).val()
-        location.href = "{{route('admin.exhibitcollect.add')}}"+"?collect_apply_id="+collect_apply_id
-    }
-    //删除申请
-    function del_item() {
-        collect_apply_ids = get_collect_checked_ids();
-        if(checkd_list.length==0){
-            layer.alert("请至少选择一项")
-            return
-        }
-        $.ajax('{{route("admin.exhibitcollect.apply_del")}}', {
-            method: 'POST',
-            data: {'collect_apply_ids':collect_apply_ids},
-            dataType: 'json'
-        }).done(function (response) {
-                layer.alert(response.msg)
-            setTimeout("location.reload();", 3000)
-
-            });
-    }
-    //打印功能
-    function do_print() {
-        window.document.body.innerHTML==window.document.body.innerHTML; //把需要打印的指定内容赋给body.innerHTML
-        window.print(); //调用浏览器的打印功能打印指定区域
-    }
-
     //功能函数，收集选中的申请项
     function get_collect_checked_ids() {
         checkd_list = $('input[name="collect_apply_id"]:checked')
@@ -131,17 +101,17 @@
     }
 
     /**
-     * 提交审核
+     * 审核通过
      */
-    function do_submit() {
+    function pass() {
         collect_apply_ids = get_collect_checked_ids();
-        if(checkd_list.length==0){
+        if(collect_apply_ids.length==0){
             layer.alert("请至少选择一项")
             return
         }
-        $.ajax('{{route("admin.exhibitcollect.apply_submit")}}', {
+        $.ajax('{{route("admin.applymanage.collect_apply_pass")}}', {
             method: 'POST',
-            data: {'collect_apply_ids':collect_apply_ids},
+            data: {'collect_apply_ids':collect_apply_ids,"_token":"{{csrf_token()}}"},
             dataType: 'json'
         }).done(function (response) {
             layer.alert(response.msg)
@@ -149,20 +119,21 @@
         });
     }
 
-    /**
-     * 导出申请列表
-     */
-    function export_list() {
-        apply_ids = get_collect_checked_ids();
-        if(apply_ids.length==0){
+    function refuse() {
+        collect_apply_ids = get_collect_checked_ids();
+        if(collect_apply_ids.length==0){
             layer.alert("请至少选择一项")
             return
         }
-        url = '{{route("admin.excel.export_collect_apply")}}' +"?";
-        for(i=0;i<apply_ids.length;i++){
-            url += "collect_apply_ids["+i.toString()+"]="+apply_ids[i]
-        }
-        location.href=url
+        $.ajax('{{route("admin.applymanage.collect_apply_refuse")}}', {
+            method: 'POST',
+            data: {'collect_apply_ids':collect_apply_ids,"_token":"{{csrf_token()}}"},
+            dataType: 'json'
+        }).done(function (response) {
+            layer.alert(response.msg)
+            setTimeout("location.reload();", 3000)
+        });
     }
+
 </script>
 
