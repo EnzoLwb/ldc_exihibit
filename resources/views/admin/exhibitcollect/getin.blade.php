@@ -54,7 +54,7 @@
                             </thead>
                             @foreach($exhibit_list as $exhibit)
                                 <tr class="gradeA">
-                                    <td><input type="radio" name="collect_recipe_id" value="{{$exhibit['collect_recipe_id']}}"></td>
+                                    <td><input type="checkbox" name="collect_recipe_id" value="{{$exhibit['collect_recipe_id']}}"></td>
                                     <td>{{$exhibit['collect_recipe_num']}}
                                     </td>
                                     <td>{{$exhibit['collect_recipe_name']}}

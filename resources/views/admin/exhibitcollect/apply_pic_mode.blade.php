@@ -62,7 +62,7 @@
                             </thead>
                             @foreach($exhibit_list as $exhibit)
                                 <tr class="gradeA">
-                                    <td><input type="radio" name="collect_apply_id" value="{{$exhibit['collect_apply_id']}}"></td>
+                                    <td><input type="checkbox" name="collect_apply_id" value="{{$exhibit['collect_apply_id']}}"></td>
                                     <td>{{$exhibit['collect_apply_num']}}</td>
                                     <td><img width="50px" height="50px" src="{{$exhibit['files']}}"></td>
                                     <td>{{$exhibit['collect_apply_depart_name']}}</td>
