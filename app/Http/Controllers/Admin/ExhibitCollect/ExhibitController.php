@@ -48,7 +48,7 @@ class ExhibitController extends BaseAdminController
     public function apply_save(Request $request){
         $collect_apply = CollectApply::findOrNew(request('collect_apply_id'));
         $all = $request->all();
-        $except_propertys = array('collect_apply_id','_token');
+        $except_propertys = array('collect_apply_id','_token','file');
         foreach($all as $key=>$v){
             if(! in_array($key,$except_propertys)){
                 $collect_apply->$key = $v;
@@ -125,7 +125,6 @@ class ExhibitController extends BaseAdminController
         return view('admin.exhibitcollect.getin',$res);
     }
 
-
     /**
      * 显示征集单子添加页面
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -139,7 +138,6 @@ class ExhibitController extends BaseAdminController
         $res['collect_exhibit_list'] = CollectExhibit::where('collect_recipe_id', request('collect_recipe_id'))->get();
         return view('admin.exhibitcollect.getin_add', $res);
     }
-
 
     public function get_item_info(){
         $exhibit_sum_register_id = \request('exhibit_sum_register_id');

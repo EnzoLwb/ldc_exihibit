@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\ApplyManage;
 use App\Dao\ConstDao;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Models\CollectApply;
+use App\Models\Exhibit;
 use App\Models\IdentifyApply;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -18,7 +19,24 @@ class ApplyController extends BaseAdminController
             $res['exhibit_list'] = CollectApply::whereIn('status', array_keys(ConstDao::$collect_apply_desc))->paginate(parent::PERPAGE);
             return view('admin.applymanage.collect_apply', $res);
         }elseif($type == ConstDao::APPLY_TYPE_IDENTIFY){
-            $res['exhibit_list'] = IdentifyApply::whereIn('status', array_keys(ConstDao::$identify_desc))->paginate(parent::PERPAGE);
+            $exhibit_list = IdentifyApply::whereIn('status', array_keys(ConstDao::$identify_desc))->paginate(parent::PERPAGE);
+            //添加展品信息
+            foreach($exhibit_list as $key=>$item){
+                $exhibit_sum_register_id = $item->exhibit_sum_register_id;
+                $exhibit_sum_register_ids = explode(',',$exhibit_sum_register_id);
+
+                $new_names = '';
+                if(!empty($exhibit_sum_register_ids)){
+                    $list = Exhibit::whereIn('exhibit_sum_register_id',$exhibit_sum_register_ids)->select('name')->get();
+
+                    foreach($list as $item1){
+                        $name = $item1->name;
+                        $new_names = $new_names.$name.",";
+                    }
+                }
+                $exhibit_list[$key]['exhibit_names'] = $new_names;
+            }
+            $res['exhibit_list'] = $exhibit_list;
             return view('admin.applymanage.identify_apply', $res);
         }
     }

@@ -11,15 +11,12 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="{{route('admin.exhibitidentify.manage')}}">查询</a></li>
-                        <li><a href="{{route('admin.exhibitidentify.manage')}}">修改</a></li>
-                        <li><a href="{{route('admin.exhibitidentify.manage')}}">删除</a></li>
+                        <!--
                         <li ><a href="{{route('admin.exhibitidentify.add_identify_result')}}">录入鉴定结果</a></li>
-                        <li><a href="{{route('admin.exhibitidentify.apply')}}">查看鉴定结果</a></li>
-                        <li><a href="{{route('admin.exhibitidentify.manage')}}">提交</a></li>
-                        <li><a href="{{route('admin.exhibitidentify.manage')}}">导出</a></li>
+                        -->
+                        <li><a href="{{route('admin.exhibitidentify.manage')}}">查看鉴定结果</a></li>
+                        <li><a href="javascript:void(0)" onclick="export_xls()">导出</a></li>
                         <li><a href="{{route('admin.exhibitidentify.manage')}}">打印</a></li>
-                        <li><a href="{{route('admin.exhibitidentify.manage')}}">图文模式</a></li>
-
                     </ul>
                 </div>
             </div>
@@ -40,7 +37,6 @@
                 </div>
             </div>
         </div>
-
         <div class="row">
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
@@ -56,20 +52,21 @@
                                 <th>拟鉴定单位</th>
                                 <th>状态</th>
                                 <th>登记人</th>
+                                <th>展品信息</th>
 
                             </tr>
                             </thead>
                             @foreach($exhibit_list as $exhibit)
                                 <tr class="gradeA">
-                                    <td> <input type="radio"></td>
-                                    <td>{{$exhibit['date']}}</td>
-                                    <td>{{$exhibit['depart_name']}}</td>
+                                    <td> <input type="checkbox" name="identify_apply_id" value="{{$exhibit['identify_apply_id']}}"></td>
+                                    <td>{{$exhibit['register_date']}}</td>
+                                    <td>{{$exhibit['identify_apply_depart']}}</td>
                                     <td>{{$exhibit['identify_date']}}</td>
-                                    <td>{{$exhibit['identify_author']}}</td>
-                                    <td>{{$exhibit['identify_danwei']}}</td>
-
-                                    <td>{{$exhibit['status']}}</td>
-                                    <td>{{$exhibit['author']}}</td>
+                                    <td>{{$exhibit['identify_expert']}}</td>
+                                    <td>{{$exhibit['identify_depart']}}</td>
+                                    <td>{{\App\Dao\ConstDao::$identify_desc[$exhibit['status']]}}</td>
+                                    <td>{{$exhibit['register']}}</td>
+                                    <td>{{$exhibit['exhibit_names']}}</td>
                                 </tr>
                             @endforeach
                         </table>
@@ -80,3 +77,29 @@
         </div>
     </div>
 @endsection
+<script>
+    //功能函数，收集选中的申请项
+    function get_collect_checked_ids() {
+        checkd_list = $('input[name="identify_apply_id"]:checked')
+        collect_apply_ids = []
+        for(i = 0; i<checkd_list.length;i++){
+            collect_apply_ids.push($(checkd_list[i]).val())
+        }
+        return collect_apply_ids;
+    }
+
+
+    function export_xls() {
+        apply_ids = get_collect_checked_ids();
+        if(apply_ids.length==0){
+            layer.alert("请至少选择一项");
+            return
+        }
+        console.log(apply_ids);
+        url = '{{route("admin.excel.export_identify_apply")}}' +"?";
+        for(i=0;i<apply_ids.length;i++){
+            url += "identify_apply_ids["+i.toString()+"]="+apply_ids[i];
+        }
+        window.open(url)
+    }
+</script>

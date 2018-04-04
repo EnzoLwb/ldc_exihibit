@@ -57,6 +57,7 @@
                                 <th>拟鉴定单位</th>
                                 <th>状态</th>
                                 <th>登记人</th>
+                                <th>展品信息</th>
 
                             </tr>
                             </thead>
@@ -70,6 +71,7 @@
                                     <td>{{$exhibit['identify_depart']}}</td>
                                     <td>{{\App\Dao\ConstDao::$identify_desc[$exhibit['status']]}}</td>
                                     <td>{{$exhibit['register']}}</td>
+                                    <td>{{$exhibit['exhibit_names']}}</td>
                                 </tr>
                             @endforeach
                         </table>

@@ -23,7 +23,7 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
-                        <form method="post" action="{{route('admin.exhibitcollect.apply_save')}}" class="form-horizontal ajaxForm">
+                        <form method="post" action="{{route('admin.exhibitcollect.apply_save')}}" class="form-horizontal">
                             <input type="hidden" name="collect_apply_id"
                                    value="{{$info['collect_apply_id'] or 0}}" />
                             <input type="hidden" name="_token"

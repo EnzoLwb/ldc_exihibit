@@ -6,7 +6,7 @@ use App\Dao\ConstDao;
 use App\Models\IdentifyApply;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\BaseAdminController;
-
+use App\Models\Exhibit;
 /**
  * 鉴定相关功能
  * Class ExhibitController
@@ -19,8 +19,32 @@ class ExhibitController extends BaseAdminController
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function apply(){
-        $res['exhibit_list'] = IdentifyApply::paginate(parent::PERPAGE);
+        $exhibit_list = IdentifyApply::where('status', ConstDao::EXHIBIT_IDENTIFY_APPLY_DRAFT)->paginate(parent::PERPAGE);
+        foreach($exhibit_list as $key=>$item){
+            $exhibit_sum_register_id = $item->exhibit_sum_register_id;
+            $exhibit_sum_register_ids = explode(',',$exhibit_sum_register_id);
+
+            $new_names = '';
+            if(!empty($exhibit_sum_register_ids)){
+                $list = Exhibit::whereIn('exhibit_sum_register_id',$exhibit_sum_register_ids)->select('name')->get();
+
+                foreach($list as $item1){
+                    $name = $item1->name;
+                    $new_names = $new_names.$name.",";
+                }
+            }
+            $exhibit_list[$key]['exhibit_names'] = $new_names;
+        }
+        $res['exhibit_list'] = $exhibit_list;
         return view('admin.exhibitidentify.apply', $res);
+    }
+
+    /**
+     *为鉴定申请提供总账列表
+     */
+    public function get_exhibit_list(){
+        $res['exhibit_list'] = Exhibit::paginate(parent::PERPAGE);
+        return view('admin.exhibitidentify.exhibit_list', $res);
     }
 
     /**
@@ -86,14 +110,23 @@ class ExhibitController extends BaseAdminController
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function manage(){
-        $item['date'] = '2018-01-26';
-        $item['depart_name'] = '祺皇贵太妃之...';
-        $item['identify_date'] = '2018-03-26';
-        $item['identify_author'] = '里拉';
-        $item['identify_danwei'] = 'A单位';
-        $item['status'] = '审核通过';
-        $item['author'] = '系统管理员';
-        $res['exhibit_list'] = array($item);
+        $exhibit_list = IdentifyApply::whereIn('status', array(ConstDao::EXHIBIT_IDENTIFY_APPLY_REFUSED, ConstDao::EXHIBIT_COLLECT_APPLY_AUDITED))->get();
+        foreach($exhibit_list as $key=>$item){
+            $exhibit_sum_register_id = $item->exhibit_sum_register_id;
+            $exhibit_sum_register_ids = explode(',',$exhibit_sum_register_id);
+
+            $new_names = '';
+            if(!empty($exhibit_sum_register_ids)){
+                $list = Exhibit::whereIn('exhibit_sum_register_id',$exhibit_sum_register_ids)->select('name')->get();
+
+                foreach($list as $item1){
+                    $name = $item1->name;
+                    $new_names = $new_names.$name.",";
+                }
+            }
+            $exhibit_list[$key]['exhibit_names'] = $new_names;
+        }
+        $res['exhibit_list'] = $exhibit_list;
         return view('admin.exhibitidentify.manage', $res);
     }
 
