@@ -48,7 +48,7 @@ class ExhibitController extends BaseAdminController
     public function apply_save(Request $request){
         $collect_apply = CollectApply::findOrNew(request('collect_apply_id'));
         $all = $request->all();
-        $except_propertys = array('collect_apply_id','_token');
+        $except_propertys = array('collect_apply_id','_token','file');
         foreach($all as $key=>$v){
             if(! in_array($key,$except_propertys)){
                 $collect_apply->$key = $v;
