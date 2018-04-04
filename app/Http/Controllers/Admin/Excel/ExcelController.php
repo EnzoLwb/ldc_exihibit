@@ -112,12 +112,15 @@ class ExcelController extends BaseAdminController
     }
 
 
+    /**
+     * 导出鉴定申请的单子
+     */
     public function  export_identify_apply(){
         $collect_apply_ids = request('identify_apply_ids');
         $res = IdentifyApply::whereIn("identify_apply_id", $collect_apply_ids)->get()->toArray();
         $xls_data = array();
         $header = ['登记日期','鉴定申请单位名称','拟检定日期',
-            '拟鉴定专家','拟鉴定单位','状态','登记人'
+            '拟鉴定专家','拟鉴定单位','状态','登记人','关联展品'
             ];
         $xls_data[] = $header;
         foreach($res as $key=> $item)

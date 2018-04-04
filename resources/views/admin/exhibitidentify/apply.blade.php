@@ -12,7 +12,6 @@
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="{{route('admin.exhibitidentify.apply')}}">查询</a></li>
                         <li><a href="javascript:void(0)" onclick="do_submit()">提交</a></li>
-                        <li><a href="{{route('admin.exhibitidentify.apply')}}">查看鉴定结果</a></li>
                         <li><a href="javascript:void(0)" onclick="export_xls()">导出</a></li>
                         <li><a href="{{route('admin.exhibitidentify.apply')}}">打印</a></li>
                         <li ><a href="{{route('admin.exhibitidentify.add')}}">新增</a></li>
@@ -52,6 +51,7 @@
                                 <th>拟鉴定单位</th>
                                 <th>状态</th>
                                 <th>登记人</th>
+                                <th>展品信息</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -65,6 +65,7 @@
                                     <td>{{$exhibit['identify_depart']}}</td>
                                     <td>{{\App\Dao\ConstDao::$identify_desc[$exhibit['status']]}}</td>
                                     <td>{{$exhibit['register']}}</td>
+                                    <td>{{$exhibit['exhibit_names']}}</td>
                                     <td>
                                         @if($exhibit['status'] == \App\Dao\ConstDao::EXHIBIT_IDENTIFY_APPLY_DRAFT)
                                             <a href="{{route('admin.exhibitidentify.apply_del')."?identify_apply_id=".$exhibit['identify_apply_id']}}">删除</a>

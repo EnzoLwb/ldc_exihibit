@@ -82,6 +82,8 @@
                                            value="{{$info['register'] or ''}}" required/>
                                 </div>
                             </div>
+                            <input type="hidden" name="exhibit_sum_register_id" id="exhibit_sum_register_ids" value="">
+                            <iframe class="J_iframe" name="rIframe" id="rIframe" width="100%" height="100%" frameborder="0" src="{{route('admin.exhibitidentify.get_exhibit_list')}}"></iframe>
 
                             <div class="form-group">
                                 <div class="col-sm-4 col-sm-offset-2">
@@ -99,8 +101,17 @@
     </div>
     <script src="{{cdn('js/plugins/webuploader/webuploader.nolog.min.js')}}"></script>
     <script src="{{cdn('js/plugins/webuploader/webuploader_public.js')}}"></script>
-
     <script>
+        function test() {
+            select_exhibit_ids = [];
+            input_length = $($(window.frames["rIframe"].document).find("input")).length
+            for(i=0;i<input_length;i++){
+                if($($($(window.frames["rIframe"].document).find("input"))[i]).is(':checked')){
+                    select_exhibit_ids.push($($($(window.frames["rIframe"].document).find("input"))[i]).val())
+                }
+            }
+        }
+
         //方形列表图
         singleUpload({
             _token: '{{csrf_token()}}',
