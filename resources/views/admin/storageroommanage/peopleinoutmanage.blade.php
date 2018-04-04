@@ -9,11 +9,8 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="{{route('admin.storageroommanage.peopleinoutmanage')}}">查询</a></li>
-                        <li><a href="{{route('admin.storageroommanage.peopleinoutmanage')}}">修改</a></li>
-                        <li><a href="{{route('admin.storageroommanage.peopleinoutmanage')}}">删除</a></li>
-                        <li><a href="{{route('admin.storageroommanage.peopleinoutmanage')}}">导出</a></li>
-                        <li><a href="{{route('admin.storageroommanage.peopleinoutmanage')}}">打印</a></li>
-                        <li><a href="{{route('admin.storageroommanage.peopleinoutmanage')}}">图文模式</a></li>
+                        <li><a href="javascript:void(0)" onclick="export_list()">导出</a></li>
+                        <li><a href="javascript:void(0)" onclick="do_print()">打印</a></li>
                         <li ><a href="{{route('admin.storageroommanage.peopleinoutmanage.add')}}">新增</a></li>
                     </ul>
                 </div>
@@ -45,7 +42,7 @@
                     <div class="ibox-content">
                         <table class="table table-striped table-bordered table-hover">
                             <tr class="gradeA">
-                                <th>编号</th>
+                                <th>选择</th>
                                 <th>库房编号</th>
                                 <th>入库时间</th>
                                 <th>计划出库时间</th>
@@ -59,7 +56,9 @@
                             </tr>
                             @foreach($data as $k => $v)
                                 <tr class="gradeA">
-                                    <td>{{$v['pio_id']}}</td>
+                                    <td>
+                                        <input type="checkbox" name="logout_id" value="{{$v['pio_id']}}">
+                                    </td>
                                     <td>{{$v['storeroom_id']}}</td>
                                     <td>{{$v['comein_time']}}</td>
                                     <td>{{$v['plan_goout_time']}}</td>
@@ -91,4 +90,36 @@
         </div>
     </div>
 @endsection
+<script>
+    //打印功能
+    function do_print() {
+        window.document.body.innerHTML==window.document.body.innerHTML; //把需要打印的指定内容赋给body.innerHTML
+        window.print(); //调用浏览器的打印功能打印指定区域
+    }
 
+    //功能函数，收集选中的申请项
+    function get_inout_ids() {
+        checkd_list = $('input[name="logout_id"]:checked')
+        logout_ids = []
+        for(i = 0; i<checkd_list.length;i++){
+            logout_ids.push($(checkd_list[i]).val())
+        }
+        return logout_ids;
+    }
+
+    /**
+     * 导出申请列表
+     */
+    function export_list() {
+        apply_ids = get_inout_ids();
+        if(apply_ids.length==0){
+            layer.alert("请至少选择一项")
+            return
+        }
+        url = '{{route("admin.storageroommanage.peopleinoutmanage.excel")}}' +"?";
+        for(i=0;i<apply_ids.length;i++){
+            url += "apply_ids["+i.toString()+"]="+apply_ids[i]+"&"
+        }
+        location.href=url
+    }
+</script>

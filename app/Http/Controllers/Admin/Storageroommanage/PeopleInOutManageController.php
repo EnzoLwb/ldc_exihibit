@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\PeopleinoutManagePost;
 use App\Models\Storageroommanage\PeopleinoutManage;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 /**
  * Class PeopleInOutManageController
@@ -90,7 +91,7 @@ class PeopleInOutManageController extends BaseAdminController
 			report($e);
 			return $this->error('保存失败');
 		}
-		return $this->success(get_session_url('index'));
+		return $this->success(route('admin.storageroommanage.peopleinoutmanage'),'成功');
 	}
 
 	/**
@@ -112,5 +113,51 @@ class PeopleInOutManageController extends BaseAdminController
 			report($e);
 		}
 		return $this->error('删除失败');
+	}
+	/**
+	 * 导出excel
+	 */
+	public function excel()
+	{
+		$apply_ids = request('apply_ids');
+		$exhibit_Logout=new PeopleinoutManage();
+		//选中的所有数据
+		$res = $exhibit_Logout->whereIn("pio_id", $apply_ids)->get()->toArray();
+		$xls_data = array();
+		$header = ['库房编号','入库时间','计划出库时间',
+			'实际出库时间','入库人员','陪同人员','进库人单位','出入事由','备注'];
+		$xls_data[] = $header;
+		foreach($res as $k=> $v)
+		{
+			$xls_data[] = array(
+				$v['storeroom_id'],
+				$v['comein_time'],
+				$v['plan_goout_time'],
+				$v['real_goout_time'],
+				$v['comein_member'],
+				$v['with_member'],
+				$v['comein_department'],
+				$v['reason'],
+				$v['remark']
+			);
+		}
+		Excel::create('人员出入管理表', function ($excel) use ($xls_data) {
+			$excel->sheet('score', function ($sheet) use ($xls_data) {
+				$sheet->setWidth(array(
+					'A'     => 20,
+					'B'     =>  25,
+					'C'     =>  25,
+					'D'     =>  25,
+					'E'     =>  25,
+					'F'     =>  25,
+					'G'     =>  25,
+					'H'     =>  25,
+					'I'     =>  25,
+					'J'     =>  25,
+				));
+				$sheet->rows($xls_data);
+			});
+		})->export('xls');
+
 	}
 }

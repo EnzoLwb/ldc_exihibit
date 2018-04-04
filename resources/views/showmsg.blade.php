@@ -11,7 +11,7 @@
     </div>
     @if (isset($url))
         <script type="text/javascript">
-            window.setTimeout("location.href='{!! $url !!}'", 4000);
+            window.setTimeout("location.href='{!! $url !!}'", 2000);
         </script>
     @endif
 
