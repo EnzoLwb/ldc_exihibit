@@ -23,7 +23,7 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
-                        <form action="{{route('admin.storageroommanage.roomlist.save')}}" method="post" class="form-horizontal">
+                        <form action="{{route('admin.storageroommanage.roomlist.save')}}" method="post" class="form-horizontal ajaxForm">
                             <input type="hidden" name="_token" value="{{csrf_token()}}">
                             <input type="hidden" name="check_id" value="{{$data['check_id']??''}}">
                             <div class="form-group">
