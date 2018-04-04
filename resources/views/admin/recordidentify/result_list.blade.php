@@ -21,6 +21,7 @@
                                 <th>藏品类别</th>
                                 <th>藏品质地</th>
                                 <th>完残程度</th>
+                                <th>操作</th>
                             </tr>
                             </thead>
                             @foreach($list as $exhibit)

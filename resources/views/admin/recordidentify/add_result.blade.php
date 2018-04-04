@@ -13,9 +13,11 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
-                        <form method="post" action="{{route('admin.exhibitcollect.apply_save')}}" class="form-horizontal">
+                        <form method="post" action="{{route('admin.identifyresult.save_result')}}" class="form-horizontal">
                             <input type="hidden" name="_token"
                                    value="{{csrf_token()}}" />
+                            <input type="hidden" name="identify_apply_id"
+                                   value="{{$identify_apply_id}}" />
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">选择藏品</label>
                                 <div class="col-sm-4">
@@ -118,7 +120,6 @@
     <script src="{{cdn('js/public.js')}}"></script>
     <script type="text/javascript" src="{{cdn('js/plugins/laydate/laydate.js')}}"></script>
     <script>
-         
         //方形列表图
         singleUpload({
             _token: '{{csrf_token()}}',

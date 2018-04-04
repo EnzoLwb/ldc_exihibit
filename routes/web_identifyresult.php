@@ -11,4 +11,5 @@ Route::group([
     Route::get('result_list', 'RecordIdentifyController@result_list')->name('admin.identifyresult.result_list');
     //添加鉴定结果
     Route::get('add_result', 'RecordIdentifyController@add_result')->name('admin.identifyresult.add_result');
+    Route::post('save_result', 'RecordIdentifyController@save_result')->name('admin.identifyresult.save_result');
 });
