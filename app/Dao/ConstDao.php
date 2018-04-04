@@ -6,9 +6,29 @@ use Illuminate\Database\Eloquent\Model;
 
 class ConstDao
 {
+
+
+    const EXPERT_ROLE_ID = 3;// 专家角色ID
+
+    //专家性别描述
+    const EXPERT_SEX_MAN = 1;
+    const EXPERT_SEX_FEMALE = 0;
+    static $expert_sex_desc = array(
+        self::EXPERT_SEX_FEMALE=>"女",
+        self::EXPERT_SEX_MAN=>"男",
+    );
+    //专家状态描述
+    const EXPERT_STATUS_USING = 1;
+    const EXPERT_STATUS_BLACKLIST = 0;
+    static $expert_status_desc = array(
+        self::EXPERT_STATUS_BLACKLIST=>"停用",
+        self::EXPERT_STATUS_USING=>"启用"
+    );
+
     //需要审批的申请种类
     const APPLY_TYPE_COLLECT = 'collect';
     const APPLY_TYPE_IDENTIFY = 'identify';
+
 
     public static $apply_desc = array(
         self::APPLY_TYPE_COLLECT=>'征集申请',

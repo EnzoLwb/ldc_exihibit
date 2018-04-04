@@ -21,6 +21,14 @@ Route::group([
     Route::get('apply_pic_mode', 'ExhibitController@apply_pic_mode')->name('admin.exhibitidentify.apply_pic_mode');
     Route::get('add_identify_result', 'ExhibitController@add_identify_result')->name('admin.exhibitidentify.add_identify_result');
     Route::get('manage', 'ExhibitController@manage')->name('admin.exhibitidentify.manage');
-    Route::get('expert', 'ExhibitController@expert')->name('admin.exhibitidentify.expert');
-    Route::get('expert_add', 'ExhibitController@expert_add')->name('admin.exhibitidentify.expert_add');
+    //鉴定专家列表
+    Route::get('expert', 'ExpertController@expert')->name('admin.exhibitidentify.expert');
+    //展示专家修改新增页面
+    Route::get('expert_add', 'ExpertController@expert_add')->name('admin.exhibitidentify.expert_add');
+    //保存专家信息
+    Route::post('expert_save', 'ExpertController@expert_save')->name('admin.exhibitidentify.expert_save');
+    //删除专家信息
+    Route::get('expert_del', 'ExpertController@expert_del')->name('admin.exhibitidentify.expert_del');
+    //修改专家状态
+    Route::post('change_expert_status', 'ExpertController@change_expert_status')->name('admin.exhibitidentify.change_expert_status');
 });

@@ -69,6 +69,7 @@ Route::group([
 	include "web_copymanage.php";
 	include "web_repaireexhibit.php";
 	include "web_apply_manage.php";
+	include "web_identifyresult.php";
 	include "web_exhibitlogout.php";
 	include "web_sumquery.php";
 	include "web_digitalmanage.php";
