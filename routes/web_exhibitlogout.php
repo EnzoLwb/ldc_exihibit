@@ -10,4 +10,6 @@ Route::group([
 	Route::get('edit/{id}', 'ExhibitlogoutController@edit')->name('admin.exhibitlogout.edit');
 	Route::post('save', 'ExhibitlogoutController@save')->name('admin.exhibitlogout.save');
 	Route::get('delete/{id}', 'ExhibitlogoutController@delete')->name('admin.exhibitlogout.delete');
+	Route::post('apply_submit', 'ExhibitlogoutController@apply_submit')->name('admin.exhibitlogout.apply_submit');
+	Route::get('excel', 'ExhibitlogoutController@excel')->name('admin.exhibitlogout.excel');
 });

@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Models\Storageroommanage\RoomEnv;
 use App\Models\Storageroommanage\StorageRoom;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 /**
  * Class RoomEnvController
@@ -110,7 +111,7 @@ class RoomEnvController extends BaseAdminController
 			report($e);
 			return $this->error('保存失败');
 		}
-		return $this->success(get_session_url('index'));
+		return $this->success(route('admin.storageroommanage.roomenv'),'成功');
 	}
 
 	/**
@@ -131,7 +132,51 @@ class RoomEnvController extends BaseAdminController
 			//写入日志 保存失败
 			report($e);
 		}
-
 		return $this->success('', 's_del');
+	}
+	/**
+	 * 导出excel
+	 */
+	public function excel()
+	{
+		$apply_ids = request('apply_ids');
+		$room_env=new RoomEnv();
+		//选中的所有数据
+		$res = $room_env->whereIn("book_id", $apply_ids)->get()->toArray();
+		$xls_data = array();
+		$header = ['库房编号','库房温度','库房湿度',
+			'空气净化程度','库房光照率','登记人','登记日期','备注'];
+		$xls_data[] = $header;
+		foreach($res as $k=> $v)
+		{
+			$xls_data[] = array(
+				$v['room_number'],
+				$v['temp'],
+				$v['damp'],
+				$v['air'],
+				$v['light'],
+				$v['booker'],
+				$v['book_time'],
+				$v['remark']
+			);
+		}
+		Excel::create('库房环境表', function ($excel) use ($xls_data) {
+			$excel->sheet('score', function ($sheet) use ($xls_data) {
+				$sheet->setWidth(array(
+					'A'     => 20,
+					'B'     =>  25,
+					'C'     =>  25,
+					'D'     =>  25,
+					'E'     =>  25,
+					'F'     =>  25,
+					'G'     =>  25,
+					'H'     =>  25,
+					'I'     =>  25,
+					'J'     =>  25,
+				));
+				$sheet->rows($xls_data);
+			});
+		})->export('xls');
+
 	}
 }

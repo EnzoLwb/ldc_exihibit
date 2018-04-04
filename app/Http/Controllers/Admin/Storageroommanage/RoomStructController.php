@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\RoomStructPost;
 use App\Models\Storageroommanage\StorageRoom;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 /**
  * Class RoomStructController
@@ -90,9 +91,9 @@ class RoomStructController extends BaseAdminController
 		} catch (\Exception $e) {
 			//写入日志 保存失败
 			report($e);
-			return $this->error('保存失败');
+			return $this->error('保存失败(库房编号不能重复)');
 		}
-		return $this->success(get_session_url('index'));
+		return $this->success(route('admin.storageroommanage.roomstruct'),'成功');
 	}
 
 	/**
@@ -115,5 +116,50 @@ class RoomStructController extends BaseAdminController
 		}
 		return $this->error('删除失败');
 	}
+	/**
+	 * 导出excel
+	 */
+	public function excel()
+	{
+		$apply_ids = request('apply_ids');
+		$storageRoom=new StorageRoom();
+		//选中的所有数据
+		$res = $storageRoom->whereIn("room_id", $apply_ids)->get()->toArray();
+		$xls_data = array();
+		$header = ['库房库位名称','库房库位编号','是否库位',
+			'库房类型','存储方式','库房大小','是否生效','位置','负责人'];
+		$xls_data[] = $header;
+		foreach($res as $k=> $v)
+		{
+			$xls_data[] = array(
+				$v['room_name'],
+				$v['room_number'],
+				$v['ifstorage']=='1'?'是':'否',
+				$v['room_type'],
+				$v['save_type'],
+				$v['room_size'],
+				$v['status']=='1'?'是':'否',
+				$v['position'],
+				$v['leader']
+			);
+		}
+		Excel::create('库房表', function ($excel) use ($xls_data) {
+			$excel->sheet('score', function ($sheet) use ($xls_data) {
+				$sheet->setWidth(array(
+					'A'     => 20,
+					'B'     =>  25,
+					'C'     =>  25,
+					'D'     =>  25,
+					'E'     =>  25,
+					'F'     =>  25,
+					'G'     =>  25,
+					'H'     =>  25,
+					'I'     =>  25,
+					'J'     =>  25,
+				));
+				$sheet->rows($xls_data);
+			});
+		})->export('xls');
 
+	}
 }
