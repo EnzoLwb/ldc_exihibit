@@ -31,7 +31,8 @@ class ConstDao
     const APPLY_TYPE_OUTER = 'outer_storage';
     const APPLY_TYPE_LOGOUT = 'logOut';
     const APPLY_TYPE_REPAIR = 'repair';
-
+    const APPLY_TYPE_STORAGE_CHECK = 'storageCheck';
+    
     public static $apply_desc = array(
         self::APPLY_TYPE_COLLECT=>'征集申请',
         self::APPLY_TYPE_IDENTIFY=>'鉴定申请',
