@@ -6,7 +6,9 @@ use App\Dao\ConstDao;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Models\CollectApply;
 use App\Models\Exhibit;
+use App\Models\ExhibitLogout;
 use App\Models\IdentifyApply;
+use App\Models\Storageroommanage\RoomList;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -38,7 +40,16 @@ class ApplyController extends BaseAdminController
             }
             $res['exhibit_list'] = $exhibit_list;
             return view('admin.applymanage.identify_apply', $res);
-        }
+        }elseif ($type == ConstDao::APPLY_TYPE_STORAGE_CHECK){
+        	//库房盘点申请
+			$res['exhibit_list']=RoomList::where('apply_status',2)->paginate(parent::PERPAGE);
+			return view('admin.applymanage.storageCheck_apply', $res);
+		}elseif ($type == ConstDao::APPLY_TYPE_LOGOUT){
+			//藏品注销申请
+			$exhibit_Logout=new ExhibitLogout();
+			$res['exhibit_list']=$exhibit_Logout->joinLeft()->where('status',1)->paginate(parent::PERPAGE);
+			return view('admin.applymanage.logOut_apply', $res);
+		}
     }
 
     /**
@@ -102,4 +113,58 @@ class ApplyController extends BaseAdminController
             return response_json(1, array(),'操作完成');
         }
     }
+	/**
+	 * 藏品注销申请 批量通过
+	 */
+	public function logOut_apply_pass(){
+		$identify_apply_ids = \request('logOut_apply_ids');
+		$exhibit_Logout=new ExhibitLogout();
+		//检测是否存在已经审核过的数据
+		$count = $exhibit_Logout->where('status', '!=','1')->whereIn('logout_id', $identify_apply_ids)->count();
+		if($count>0){
+			return response_json(0, array(),'抱歉，所选项存在已审核过或者未提交的数据');
+		}else{
+			$exhibit_Logout->where('status','1')->whereIn('logout_id', $identify_apply_ids)->update(array('status'=>'2'));
+			return response_json(1, array(),'操作完成');
+		}
+	}
+
+	public function logOut_apply_refuse(){
+		$identify_apply_ids = \request('logOut_apply_ids');
+		$exhibit_Logout=new ExhibitLogout();
+		//检测是否存在已经审核过的数据
+		$count = $exhibit_Logout->where('status', '!=','1')->whereIn('logout_id', $identify_apply_ids)->count();
+		if($count>0){
+			return response_json(0, array(),'抱歉，所选项存在已审核过或者未提交的数据');
+		}else{
+			$exhibit_Logout->where('status','1')->whereIn('logout_id', $identify_apply_ids)->update(array('status'=>'3'));
+			return response_json(1, array(),'操作完成');
+		}
+	}
+	/**
+	 *  库房盘点申请 批量通过
+	 */
+	public function storageCheck_apply_pass(){
+		$identify_apply_ids = \request('storageCheck_apply_ids');
+		//检测是否存在已经审核过的数据
+		$count = RoomList::where('apply_status', '!=','2')->whereIn('check_id', $identify_apply_ids)->count();
+		if($count>0){
+			return response_json(0, array(),'抱歉，所选项存在已审核过的数据');
+		}else{
+			RoomList::where('apply_status','2')->whereIn('check_id', $identify_apply_ids)->update(array('apply_status'=>'1'));
+			return response_json(1, array(),'操作完成');
+		}
+	}
+
+	public function storageCheck_apply_refuse(){
+		$identify_apply_ids = \request('storageCheck_apply_ids');
+		//检测是否存在已经审核过的数据
+		$count = RoomList::where('apply_status', '!=','2')->whereIn('check_id', $identify_apply_ids)->count();
+		if($count>0){
+			return response_json(0, array(),'抱歉，所选项存在已审核过的数据');
+		}else{
+			RoomList::where('apply_status','2')->whereIn('check_id', $identify_apply_ids)->update(array('apply_status'=>'0'));
+			return response_json(1, array(),'操作完成');
+		}
+	}
 }

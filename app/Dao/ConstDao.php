@@ -28,11 +28,17 @@ class ConstDao
     //需要审批的申请种类
     const APPLY_TYPE_COLLECT = 'collect';
     const APPLY_TYPE_IDENTIFY = 'identify';
+    const APPLY_TYPE_STORAGE_CHECK = 'storageCheck';
+    const APPLY_TYPE_LOGOUT = 'logOut';
+    const APPLY_TYPE_REPAIR = 'repair';
 
 
     public static $apply_desc = array(
         self::APPLY_TYPE_COLLECT=>'征集申请',
-        self::APPLY_TYPE_IDENTIFY=>'鉴定申请'
+        self::APPLY_TYPE_IDENTIFY=>'鉴定申请',
+        self::APPLY_TYPE_STORAGE_CHECK=>'库房盘点申请',
+        self::APPLY_TYPE_LOGOUT=>'藏品注销申请',
+        self::APPLY_TYPE_REPAIR=>'藏品修复申请',
     );
 
     //征集申请的几种状态
