@@ -27,6 +27,20 @@
                             <input type="hidden" name="logout_id" value="{{$data['logout_id']??''}}">
                             <input type="hidden" value="{{csrf_token()}}" name="_token">
                             <div class="form-group">
+                                <label class="col-sm-2 control-label">藏品名称</label>
+                                <div class="col-sm-4">
+                                    <select name="exhibit_id" >
+                                        @foreach($exhibits as $v)
+                                            @if(@$data['name']==$v['name']||old('exhibit_id')==$v['name'])
+                                                <option value="{{$v['id']}}" selected="selected">{{$v['name']}}</option>
+                                            @else
+                                                <option value="{{$v['id']}}">{{$v['name']}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-sm-2 control-label">注销凭证号</label>
                                 <div class="col-sm-4">
                                     <input type="text" class="form-control" name="logout_num" value="{{$data['logout_num']??old('logout_num')}}"/>

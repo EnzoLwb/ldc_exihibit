@@ -17,4 +17,14 @@ class ExhibitLogout extends BaseMdl
 	{
 		return $key>3?'未知状态':$this->apply_status[$key];
 	}
+	//联查藏品表 collect_exhibit的collect_exhibit_id
+	public function joinLeft()
+	{
+		return ExhibitLogout::leftjoin('collect_exhibit','collect_exhibit.collect_exhibit_id','exhibit_logout.exhibit_id');
+	}
+	//列出所有藏品名字
+	public function collectName()
+	{
+		return CollectExhibit::select('name','collect_exhibit_id as id')->groupBy('name','id')->get()->toArray();
+	}
 }
