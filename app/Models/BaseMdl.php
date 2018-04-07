@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
 class BaseMdl extends Model {
 
 	// 关闭Eloquent默认的 updated_at、created_at 两个字段
-	public $timestamps = false;
+	public $timestamps = true;
 
 	/**
 	 * 覆写取当前模型表名称

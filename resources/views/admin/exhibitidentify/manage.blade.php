@@ -14,7 +14,7 @@
                         <!--
                         <li ><a href="{{route('admin.exhibitidentify.add_identify_result')}}">录入鉴定结果</a></li>
                         -->
-                        <li><a href="{{route('admin.exhibitidentify.manage')}}">查看鉴定结果</a></li>
+                        <li><a href="javascript:void(0)" onclick="result_list()">查看鉴定结果</a></li>
                         <li><a href="javascript:void(0)" onclick="export_xls()">导出</a></li>
                         <li><a href="{{route('admin.exhibitidentify.manage')}}">打印</a></li>
                     </ul>
@@ -88,6 +88,16 @@
         return collect_apply_ids;
     }
 
+    function result_list () {
+        apply_ids = get_collect_checked_ids();
+        if(apply_ids.length==0){
+            layer.alert("请至少选择一项");
+            return
+        }
+        url = '{{route("admin.identifyresult.result_list")}}' +"?";
+        url += "identify_id="+apply_ids[0]
+        window.open(url)
+    }
 
     function export_xls() {
         apply_ids = get_collect_checked_ids();
@@ -95,7 +105,6 @@
             layer.alert("请至少选择一项");
             return
         }
-        console.log(apply_ids);
         url = '{{route("admin.excel.export_identify_apply")}}' +"?";
         for(i=0;i<apply_ids.length;i++){
             url += "identify_apply_ids["+i.toString()+"]="+apply_ids[i];

@@ -28,60 +28,58 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
-                        <form method="post" action="{{route('admin.exhibitcollect.apply_save')}}" class="form-horizontal ajaxForm">
+                        <form method="post" action="{{route('admin.exhibitmanage.outstorageroom.exhibitout_save')}}" class="form-horizontal ajaxForm">
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">提供部门</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="id" id="id"
-                                           value="{{$info['id'] or ''}}" required/>
+                                    <input type="text" class="form-control" name="depart_name" id="depart_name"
+                                           value="{{$exhibit_use_info['depart_name'] or ''}}" />
                                 </div>
                             </div>
+                            <input type="hidden" name="exhibit_use_id" value="{{$exhibit_use_info['exhibit_use_id']}}">
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">出库目的</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="id" id="id"
-                                           value="{{$info['id'] or ''}}" required/>
+                                    <input type="text" class="form-control" name="outer_destination" id="outer_destination"
+                                           value="{{$exhibit_use_info['outer_destination'] or ''}}" />
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">出库日期</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="id" id="id"
-                                           value="{{$info['id'] or ''}}" required/>
+                                    <input type="text" class="form-control" name="outer_time" id="outer_time"
+                                           value="{{$exhibit_use_info['outer_time'] or ''}}" />
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">库房点交人</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="id" id="id"
-                                           value="{{$info['id'] or ''}}" required/>
+                                    <input type="text" class="form-control" name="outer_sender" id="outer_sender"
+                                           value="{{$exhibit_use_info['outer_sender'] or ''}}" />
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">提取经手人</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="id" id="id"
-                                           value="{{$info['id'] or ''}}" required/>
+                                    <input type="text" class="form-control" name="outer_taker" id="outer_taker"
+                                           value="{{$exhibit_use_info['outer_taker'] or ''}}" />
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">日期</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="id" id="id"
-                                           value="{{$info['id'] or ''}}" required/>
+                                    <input type="text" class="form-control" name="date" id="date"
+                                           value="{{$exhibit_use_info['date'] or ''}}" required/>
                                 </div>
                             </div>
                             <ul class="nav nav-tabs">
-                                <li ><a href="javascript:void(0)" onclick="show_item()">新增</a></li>
-                                <li><a href="{{route('admin.exhibitmanage.outstorageroom.exhibitout')}}">修改</a></li>
-                                <li><a href="{{route('admin.exhibitmanage.outstorageroom.exhibitout')}}">删除</a></li>
-                                <li ><a href="{{route('admin.exhibitmanage.outstorageroom.add_exhibitout')}}">新增</a></li>
+                                <li class="active"><a href="javascript:void(0)">明细</a></li>
                             </ul>
                             <div class="row">
                                 <div class="col-sm-12">
@@ -90,10 +88,8 @@
                                             <table class="table table-striped table-bordered table-hover dataTables-example dataTable">
                                                 <thead>
                                                 <tr role="row">
-                                                    <th>选择</th>
                                                     <th>总登记号</th>
                                                     <th>藏品名称</th>
-                                                    <th>出库类型</th>
                                                     <th>件数</th>
                                                     <th>级别</th>
                                                     <th>完残情况</th>
@@ -103,17 +99,13 @@
                                                 </thead>
                                                 @foreach($exhibit_list as $exhibit)
                                                     <tr class="gradeA">
-                                                        <td><input type="radio"></td>
-                                                        <td>{{$exhibit['num']}}</td>
-                                                        <td>{{$exhibit['depart_name']}}</td>
-                                                        <td>{{$exhibit['depart_object']}}</td>
-                                                        <td>{{$exhibit['depart_project_name']}} </td>
-                                                        <td>{{$exhibit['apply_depart']}} </td>
-                                                        <td>{{$exhibit['apply_money']}} </td>
-                                                        <td>{{$exhibit['apply_count']}} </td>
-                                                        <td>{{$exhibit['applyer']}} </td>
-                                                        <td>{{$exhibit['project_desc']}} </td>
-                                                        <td>{{$exhibit['project_reason']}} </td>
+                                                        <td>{{$exhibit['exhibit_sum_register_num']}}</td>
+                                                        <td>{{$exhibit['name']}}</td>
+                                                        <td><input type="text" class="form-control"  name="{{$exhibit['exhibit_use_item_id']."_num"}}" value="{{$exhibit['t_num']}}"/></td>
+                                                        <td>{{$exhibit['exhibit_level']}} </td>
+                                                        <td>{{$exhibit['complete_degree']}} </td>
+                                                        <td><input type="text" class="form-control"name="{{$exhibit['exhibit_use_item_id']."_backup_time"}}" value="{{$exhibit['backup_time']}}"/> </td>
+                                                        <td><textarea class="form-control" name="{{$exhibit['exhibit_use_item_id']."_backup"}}"> {{$exhibit['t_backup']}} </textarea>   </td>
                                                     </tr>
                                                 @endforeach
                                             </table>
@@ -136,9 +128,6 @@
             </div>
         </div>
     </div>
-
-
-
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

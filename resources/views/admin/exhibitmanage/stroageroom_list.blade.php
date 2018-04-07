@@ -49,8 +49,8 @@
                             </thead>
                             @foreach($exhibit_list as $exhibit)
                                 <tr class="gradeA">
-                                    <td><input type="radio"></td>
-                                    <td>{{$exhibit['name']}}</td>
+                                    <td><input type="checkbox" name="room_id" value="{{$exhibit->storage_room_idphp}}"></td>
+                                    <td>{{$exhibit->name}}</td>
                                 </tr>
                             @endforeach
                         </table>

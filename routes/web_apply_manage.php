@@ -16,4 +16,9 @@ Route::group([
     Route::post('identify_apply_pass', 'ApplyController@identify_apply_pass')->name('admin.applymanage.identify_apply_pass');
     //鉴定申请  批量拒绝
     Route::post('identify_apply_refuse', 'ApplyController@identify_apply_refuse')->name('admin.applymanage.identify_apply_refuse');
+
+    //出库申请  批量通过
+    Route::post('exhibit_outer_pass', 'ApplyController@exhibit_outer_pass')->name('admin.applymanage.exhibit_outer_pass');
+    //出库申请  批量拒绝
+    Route::post('exhibit_outer_refuse', 'ApplyController@exhibit_outer_refuse')->name('admin.applymanage.exhibit_outer_refuse');
 });

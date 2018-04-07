@@ -21,7 +21,7 @@
                                 <th>藏品类别</th>
                                 <th>藏品质地</th>
                                 <th>完残程度</th>
-                                <th>操作</th>
+
                             </tr>
                             </thead>
                             @foreach($list as $exhibit)
@@ -35,10 +35,7 @@
                                     <td>{{$exhibit['type']}}</td>
                                     <td>{{$exhibit['quality']}}</td>
                                     <td>{{$exhibit['complete_degree']}}</td>
-                                    <td>
-                                        <a href="{{route('admin.identifyresult.result_list')."?identify_id=".$exhibit['identify_apply_id']}}">查看鉴定结果</a>
-                                        <a href="">查看鉴定结果</a>
-                                    </td>
+
                                 </tr>
                             @endforeach
                         </table>

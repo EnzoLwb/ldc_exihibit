@@ -135,7 +135,7 @@
      */
     function do_submit() {
         collect_apply_ids = get_collect_checked_ids();
-        if(checkd_list.length==0){
+        if(collect_apply_ids.length==0){
             layer.alert("请至少选择一项")
             return
         }

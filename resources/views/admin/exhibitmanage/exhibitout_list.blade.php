@@ -11,13 +11,10 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="{{route('admin.exhibitmanage.outstorageroom.exhibitout')}}">查询</a></li>
-                        <li><a href="{{route('admin.exhibitmanage.outstorageroom.exhibitout')}}">修改</a></li>
-                        <li><a href="{{route('admin.exhibitmanage.outstorageroom.exhibitout')}}">删除</a></li>
                         <li><a href="{{route('admin.exhibitmanage.outstorageroom.exhibitout')}}">提交</a></li>
                         <li><a href="{{route('admin.exhibitmanage.outstorageroom.exhibitout')}}">导出</a></li>
                         <li><a href="{{route('admin.exhibitmanage.outstorageroom.exhibitout')}}">打印</a></li>
                         <li><a href="{{route('admin.exhibitmanage.outstorageroom.exhibitout')}}">图文模式</a></li>
-                        <li ><a href="{{route('admin.exhibitmanage.outstorageroom.add_exhibitout')}}">新增</a></li>
                     </ul>
                 </div>
             </div>
@@ -53,17 +50,21 @@
                                 <th>库房点叫人</th>
                                 <th>提取经手人</th>
                                 <th>日期</th>
+                                <th>操作</th>
                             </tr>
                             </thead>
                             @foreach($exhibit_list as $exhibit)
                                 <tr class="gradeA">
-                                    <td><input type="radio"></td>
+                                    <td><input type="checkbox"></td>
                                     <td>{{$exhibit['depart_name']}}</td>
-                                    <td>{{$exhibit['destion']}}</td>
-                                    <td>{{$exhibit['out_date']}}</td>
-                                    <td>{{$exhibit['action_name']}} </td>
-                                    <td>{{$exhibit['taker_name']}} </td>
-                                    <td>{{date("Y-m-d", time())}} </td>
+                                    <td>{{$exhibit['outer_destination']}}</td>
+                                    <td>{{$exhibit['outer_time']}}</td>
+                                    <td>{{$exhibit['outer_sender']}} </td>
+                                    <td>{{$exhibit['outer_taker']}} </td>
+                                    <td>{{$exhibit['date']}} </td>
+                                    <td><a href="{{route('admin.exhibitmanage.outstorageroom.add_exhibitout')."?exhibit_use_id=".$exhibit['exhibit_use_id']}}">修改</a> |
+                                        <a href="">删除</a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </table>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\ExhibitManage;
 
+use App\Models\StorageRoom;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Admin\BaseAdminController;
@@ -14,7 +15,7 @@ class IndexController extends BaseAdminController
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function storageroom(){
-        $res['exhibit_list'] = array(array('name'=>'珍宝库'),array('name'=>'902仓库'),array('name'=>'327工作室'));
+        $res['exhibit_list'] = StorageRoom::paginate(parent::PERPAGE);
         return view('admin.exhibitmanage.stroageroom_list', $res);
     }
 

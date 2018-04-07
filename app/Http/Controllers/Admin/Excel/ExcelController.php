@@ -7,11 +7,13 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Models\CollectApply;
 use App\Models\CollectExhibit;
 use App\Models\CollectRecipe;
+use App\Models\ExhibitUsedApply;
 use App\Models\IdentifyApply;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Exhibit;
+use App\Models\Disinfection;
 
 class ExcelController extends BaseAdminController
 {
@@ -151,6 +153,84 @@ class ExcelController extends BaseAdminController
             );
         }
         Excel::create('鉴定申请表', function ($excel) use ($xls_data) {
+            $excel->sheet('score', function ($sheet) use ($xls_data) {
+                $sheet->setWidth(array(
+                    'A'     => 20,
+                    'B'     =>  25,
+                    'C'     =>  25,
+                    'D'     =>  25,
+                    'E'     =>  25,
+                    'F'     =>  25,
+                    'G'     =>  25,
+                    'H'     =>  25,
+                ));
+                $sheet->rows($xls_data);
+            });
+        })->export('xls');
+    }
+
+
+    /**
+     * 导出消毒记录的单子
+     */
+    public function export_disinfection(){
+        $disinfection_ids = \request('disinfection_id');
+        $xls_data = array();
+        $header = ['藏品名称','总登记号','清洁方式',
+            '消毒方式','清洁日期','记录人'
+        ];
+        $xls_data[] = $header;
+        $list = Disinfection::join('exhibit','disinfection.exhibit_sum_register_id','=','exhibit.exhibit_sum_register_id')
+            ->whereIn('disinfection_id', $disinfection_ids)
+            ->orderBy('clean_date','desc')->get();
+        foreach ($list as $item){
+            $xls_item = array($item->name, $item->exhibit_sum_register_num, $item->clean_way, $item->disinfection_way, $item->clean_date,$item->recorder );
+            $xls_data[] = $xls_item;
+        }
+        Excel::create('消毒记录表', function ($excel) use ($xls_data) {
+            $excel->sheet('score', function ($sheet) use ($xls_data) {
+                $sheet->setWidth(array(
+                    'A'     => 20,
+                    'B'     =>  25,
+                    'C'     =>  25,
+                    'D'     =>  25,
+                    'E'     =>  25,
+                    'F'     =>  25,
+                    'G'     =>  25,
+                    'H'     =>  25,
+                ));
+                $sheet->rows($xls_data);
+            });
+        })->export('xls');
+    }
+
+    /**
+     * 导出出库申请单子
+     */
+    public function export_outer_apply(){
+        $exhibit_used_apply_id = \request('exhibit_used_apply_id');
+        $xls_data = array();
+        $header = ['申请部门名称','经办人','联系人',
+            '联系方式','出库时间','出库目的','展品列表','状态'
+        ];
+        $xls_data[] = $header;
+        $list = ExhibitUsedApply::whereIn('exhibit_used_apply_id', $exhibit_used_apply_id)->get();
+        foreach($list as $key=>$item){
+            $exhibit_ids = $item->exhibit_list;
+            $exhibit_ids = explode(',', $exhibit_ids);
+            $exhibits = Exhibit::whereIn('exhibit_sum_register_id', $exhibit_ids)->get();
+            $names = '';
+            foreach($exhibits as $mm_item){
+                $names = $names.$mm_item->name.',';
+            }
+            $list[$key]->names = $names;
+        }
+        foreach ($list as $item){
+            $xls_item = array($item->apply_depart_name, $item->executer, $item->connectioner, $item->phone, $item->outer_time,
+                $item->outer_destination,$item->names , ConstDao::$exhibit_used_apply_desc[$item->status]);
+            $xls_data[] = $xls_item;
+        }
+        Excel::create('出库申请单', function ($excel) use ($xls_data) {
             $excel->sheet('score', function ($sheet) use ($xls_data) {
                 $sheet->setWidth(array(
                     'A'     => 20,

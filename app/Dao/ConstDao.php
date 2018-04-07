@@ -28,11 +28,12 @@ class ConstDao
     //需要审批的申请种类
     const APPLY_TYPE_COLLECT = 'collect';
     const APPLY_TYPE_IDENTIFY = 'identify';
-
+    const APPLY_TYPE_OUTER = 'outer_storage';
 
     public static $apply_desc = array(
         self::APPLY_TYPE_COLLECT=>'征集申请',
-        self::APPLY_TYPE_IDENTIFY=>'鉴定申请'
+        self::APPLY_TYPE_IDENTIFY=>'鉴定申请',
+        self::APPLY_TYPE_OUTER=>'出库申请'
     );
 
     //征集申请的几种状态
@@ -71,4 +72,25 @@ class ConstDao
     const OPERATION_EDIT = 'EDIT';//操作  编辑
     const OPERATION_VIEW = 'VIEW';//操作  查看
     const OPERATION_ADD= 'ADD' ; //操作新加
+
+
+    const EXHIBIT_USED_OUTER = 1;//展品出库
+    const EXHIBIT_USED = 2;//展品提用
+    const EXHIBIT_USED_SHOW = 3;//展品观摩
+
+    const EXHIBIT_USED_APPLY_STATUS_DRAFT = 0; //展品使用申请草稿状态
+    const EXHIBIT_USED_APPLY_STATUS_WAITING_AUDIT  = 1;//展品使用申请等待审核状态
+    const EXHIBIT_USED_APPLY_STATUS_AUDITED  = 2;////展品使用申请通过状态
+    const EXHIBIT_USED_APPLY_STATUS_REFUSED  = 3;//展品使用申请拒绝状态
+    const EXHIBIT_USED_APPLY_STATUS_FINISHED  = 4;//展品使用申请完成状态
+    const EXHIBIT_USED_APPLY_STATUS_INVALID  = 5;//展品使用申请不可用状态
+
+    public static $exhibit_used_apply_desc = array(
+        self::EXHIBIT_USED_APPLY_STATUS_DRAFT=>'草稿状态',
+        self::EXHIBIT_USED_APPLY_STATUS_WAITING_AUDIT=>'等待审核',
+        self::EXHIBIT_USED_APPLY_STATUS_AUDITED=>'审核通过',
+        self::EXHIBIT_USED_APPLY_STATUS_REFUSED=>'审核拒绝',
+        self::EXHIBIT_USED_APPLY_STATUS_FINISHED=>'完成',
+        self::EXHIBIT_USED_APPLY_STATUS_INVALID=>'不可用',
+    );
 }
