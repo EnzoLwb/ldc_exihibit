@@ -63,6 +63,18 @@ class MenuDao extends BaseMdl
                     ]
                 ]
             ],
+            [
+                'text' => '录入鉴定结果',
+                'priv' => 'applymanage',
+                'icon' => 'fa fa-cog',
+                'nodes' => [
+                    [
+                        'text' => '鉴定列表',
+                        'url' => route('admin.identifyresult.record_list'),
+                        'priv' => 'admin-identifyresult-record_list'
+                    ]
+                ]
+            ],
 			[
 				'text' => '藏品鉴定',
 				'priv' => 'exhibitidentify',

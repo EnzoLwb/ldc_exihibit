@@ -11,6 +11,7 @@ use App\Models\IdentifyApply;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Exhibit;
 
 class ExcelController extends BaseAdminController
 {
@@ -125,6 +126,19 @@ class ExcelController extends BaseAdminController
         $xls_data[] = $header;
         foreach($res as $key=> $item)
         {
+            $exhibit_sum_register_id = $item['exhibit_sum_register_id'];
+            $exhibit_sum_register_ids = explode(',',$exhibit_sum_register_id);
+
+            $new_names = '';
+            if(!empty($exhibit_sum_register_ids)){
+                $list = Exhibit::whereIn('exhibit_sum_register_id',$exhibit_sum_register_ids)->select('name')->get();
+
+                foreach($list as $item1){
+                    $name = $item1->name;
+                    $new_names = $new_names.$name.",";
+                }
+            }
+
             $xls_data[] = array(
                 $item['register_date'],
                 $item['identify_apply_depart'],
@@ -133,6 +147,7 @@ class ExcelController extends BaseAdminController
                 $item['identify_depart'],
                 ConstDao::$identify_desc[$item['status']],
                 $item['register'],
+                $new_names
             );
         }
         Excel::create('鉴定申请表', function ($excel) use ($xls_data) {

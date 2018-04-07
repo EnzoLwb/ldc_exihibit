@@ -11,30 +11,12 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="{{route('admin.exhibitidentify.apply')}}">查询</a></li>
-                        <li><a href="javascript:void(0)" onclick="do_submit()">提交</a></li>
-                        <li><a href="javascript:void(0)" onclick="export_xls()">导出</a></li>
-                        <li><a href="{{route('admin.exhibitidentify.apply')}}">打印</a></li>
-                        <li ><a href="{{route('admin.exhibitidentify.add')}}">新增</a></li>
+
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <form role="form" class="form-inline" method="get" action="{{route('admin.exhibitidentify.apply')}}">
-                            <div class="form-group">
-                                <input type="text" name="title" placeholder="征集申请单号" class="form-control" value="{{request('title')}}">
-                            </div>
-                            &nbsp;&nbsp;
-                            <button type="submit" class="btn btn-primary">搜索</button>
-                            <button type="button" class="btn btn-white" onclick="location.href='{{route('admin.exhibitidentify.apply')}}'">重置</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+
 
         <div class="row">
             <div class="col-sm-12">
@@ -55,7 +37,7 @@
                                 <th>操作</th>
                             </tr>
                             </thead>
-                            @foreach($exhibit_list as $exhibit)
+                            @foreach($list as $exhibit)
                                 <tr class="gradeA">
                                   <td> <input type="checkbox" name="identify_ids" value="{{$exhibit['identify_apply_id']}}"></td>
                                     <td>{{$exhibit['register_date']}}</td>
@@ -67,10 +49,9 @@
                                     <td>{{$exhibit['register']}}</td>
                                     <td>{{$exhibit['exhibit_names']}}</td>
                                     <td>
-                                        @if($exhibit['status'] == \App\Dao\ConstDao::EXHIBIT_IDENTIFY_APPLY_DRAFT)
-                                            <a href="{{route('admin.exhibitidentify.apply_del')."?identify_apply_id=".$exhibit['identify_apply_id']}}">删除</a>
-                                            <a href="{{route('admin.exhibitidentify.add')."?identify_apply_id=".$exhibit['identify_apply_id']}}">修改</a></td>
-                                        @endif
+                                        <a href="{{route('admin.identifyresult.result_list')."?identify_id=".$exhibit['identify_apply_id']}}">查看鉴定结果</a>
+                                        <a href="{{route('admin.identifyresult.add_result')."?identify_apply_id=".$exhibit['identify_apply_id']}}">添加鉴定结果</a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </table>
