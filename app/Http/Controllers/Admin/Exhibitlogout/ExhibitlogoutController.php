@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Exhibitlogout;
 
 use App\Http\Controllers\Admin\BaseAdminController;
+use App\Models\CollectExhibit;
 use App\Models\ExhibitLogout;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -27,11 +28,12 @@ class ExhibitlogoutController extends BaseAdminController
 	 */
 	public function index(Request $request)
 	{
-		//搜索项 搜索库房编号
+		$exhibit_Logout=new ExhibitLogout();
+		//搜索项 搜索藏品名称
 		if (!empty( $request->logout_num)){
-			$data=ExhibitLogout::where('logout_num','like',"%{$request->logout_num}%")->paginate(parent::PERPAGE);
+			$data=$exhibit_Logout->joinLeft()->where('name','like',"%{$request->logout_num}%")->paginate(parent::PERPAGE);
 		}else{
-			$data=ExhibitLogout::paginate(parent::PERPAGE);
+			$data=$exhibit_Logout->joinLeft()->paginate(parent::PERPAGE);
 		}
 		return view('admin.exhibitLogout.exhibitlogout', [
 			'data' => $data
@@ -46,7 +48,11 @@ class ExhibitlogoutController extends BaseAdminController
 	 */
 	public function add()
 	{
-		return view('admin.exhibitlogout.exhibitlogout_form');
+		//返回所有藏品id和名字
+		$exhibit_Logout=new ExhibitLogout();
+		return view('admin.exhibitlogout.exhibitlogout_form',[
+			'exhibits'=>$exhibit_Logout->collectName()
+		]);
 	}
 
 	/**
@@ -70,9 +76,12 @@ class ExhibitlogoutController extends BaseAdminController
 	 */
 	public function edit($id)
 	{
-		$detail=ExhibitLogout::find($id);
+		$exhibit_Logout=new ExhibitLogout();
+		$detail=$exhibit_Logout->joinLeft()->find($id);
+		//返回所有藏品id和名字
+		$exhibits=$exhibit_Logout->collectName();
 		return view('admin.exhibitlogout.exhibitlogout_form', [
-			'data' => $detail
+			'data' => $detail,'exhibits'=>$exhibits
 		]);
 	}
 
@@ -140,15 +149,16 @@ class ExhibitlogoutController extends BaseAdminController
 		$apply_ids = request('apply_ids');
 		$exhibit_Logout=new ExhibitLogout();
 		//选中的所有数据
-		$res = $exhibit_Logout->whereIn("logout_id", $apply_ids)->get()->toArray();
+		$res = $exhibit_Logout->joinLeft()->whereIn("logout_id", $apply_ids)->get()->toArray();
 		$xls_data = array();
-		$header = ['注销凭证号','注销凭证名称','注销日期',
+		$header = ['藏品名称','注销凭证号','注销凭证名称','注销日期',
 			'注销批准文号','注销原因','详情描述','申请状态','登记人','登记日期'];
 		$xls_data[] = $header;
 		foreach($res as $k=> $v)
 		{
 //			unset($res[$k]['files']); 删除附件之类的数据
 			$xls_data[] = array(
+				$v['name'],
 				$v['logout_num'],
 				$v['logout_name'],
 				$v['logout_date'],

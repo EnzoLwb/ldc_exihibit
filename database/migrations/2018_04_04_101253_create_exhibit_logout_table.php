@@ -18,6 +18,7 @@ class CreateExhibitLogoutTable extends Migration
     {
         Schema::create('exhibit_logout', function (Blueprint $table) {
             $table->increments($this->primaryKey);
+            $table->integer('exhibit_id',false,true)->comment('藏品id')->nullable();
 			$table->string('logout_num',50)->comment('注销凭证号');
 			$table->string('logout_name', 50)->comment('注销凭证名称');
 			$table->string('logout_date', 50)->comment('注销日期');

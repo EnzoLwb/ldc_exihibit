@@ -24,8 +24,8 @@
                     <div class="ibox-title">
                         <form role="form" class="form-inline" method="get" action="{{route('admin.exhibitlogout')}}">
                             <div class="form-group">
-                                <label class="sr-only">注销凭证号</label>
-                                <input type="text" name="logout_num" placeholder="注销凭证号" class="form-control" value="">
+                                <label class="sr-only">藏品名称</label>
+                                <input type="text" name="logout_num" placeholder="藏品名称" class="form-control" value="">
                             </div>
                             <button type="submit" class="btn btn-primary">搜索</button>
                             <button type="button" class="btn btn-white" onclick="location.href='{{route('admin.exhibitlogout')}}'">重置</button>
@@ -42,6 +42,7 @@
                         <table class="table table-striped table-bordered table-hover">
                             <tr class="gradeA">
                                 <th>选择</th>
+                                <th>藏品名称</th>
                                 <th>注销凭证号</th>
                                 <th>注销凭证名称</th>
                                 <th>注销日期</th>
@@ -58,6 +59,7 @@
                                     <td>
                                         <input type="checkbox" name="logout_id" value="{{$v['logout_id']}}">
                                     </td>
+                                    <td>{{$v['name']}}</td>
                                     <td>{{$v['logout_num']}}</td>
                                     <td>{{$v['logout_name']}}</td>
                                     <td>{{$v['logout_date']}}</td>
