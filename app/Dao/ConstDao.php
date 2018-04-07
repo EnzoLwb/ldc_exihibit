@@ -35,7 +35,7 @@ class ConstDao
     public static $apply_desc = array(
         self::APPLY_TYPE_COLLECT=>'征集申请',
         self::APPLY_TYPE_IDENTIFY=>'鉴定申请',
-        self::APPLY_TYPE_OUTER=>'出库申请'
+        self::APPLY_TYPE_OUTER=>'出库申请',
         self::APPLY_TYPE_LOGOUT=>'藏品注销申请',
         self::APPLY_TYPE_REPAIR=>'藏品修复申请',
 		self::APPLY_TYPE_STORAGE_CHECK=>'库房盘点申请',

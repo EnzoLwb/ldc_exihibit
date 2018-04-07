@@ -24,27 +24,28 @@ class ApplyController extends BaseAdminController
             //征集申请
             $res['exhibit_list'] = CollectApply::whereIn('status', array_keys(ConstDao::$collect_apply_desc))->get();
             return view('admin.applymanage.collect_apply', $res);
-        }elseif($type == ConstDao::APPLY_TYPE_IDENTIFY){
+        }elseif($type == ConstDao::APPLY_TYPE_IDENTIFY) {
             //鉴定申请
             $exhibit_list = IdentifyApply::whereIn('status', array_keys(ConstDao::$identify_desc))->get();
             //添加展品信息
-            foreach($exhibit_list as $key=>$item){
+            foreach ($exhibit_list as $key => $item) {
                 $exhibit_sum_register_id = $item->exhibit_sum_register_id;
-                $exhibit_sum_register_ids = explode(',',$exhibit_sum_register_id);
+                $exhibit_sum_register_ids = explode(',', $exhibit_sum_register_id);
 
                 $new_names = '';
-                if(!empty($exhibit_sum_register_ids)){
-                    $list = Exhibit::whereIn('exhibit_sum_register_id',$exhibit_sum_register_ids)->select('name')->get();
+                if (!empty($exhibit_sum_register_ids)) {
+                    $list = Exhibit::whereIn('exhibit_sum_register_id', $exhibit_sum_register_ids)->select('name')->get();
 
-                    foreach($list as $item1){
+                    foreach ($list as $item1) {
                         $name = $item1->name;
-                        $new_names = $new_names.$name.",";
+                        $new_names = $new_names . $name . ",";
                     }
                 }
                 $exhibit_list[$key]['exhibit_names'] = $new_names;
             }
             $res['exhibit_list'] = $exhibit_list;
             return view('admin.applymanage.identify_apply', $res);
+        }
 		elseif ($type == ConstDao::APPLY_TYPE_STORAGE_CHECK){
         	//库房盘点申请
 			$res['exhibit_list']=RoomList::where('apply_status',2)->paginate(parent::PERPAGE);
@@ -77,8 +78,7 @@ class ApplyController extends BaseAdminController
             $res['exhibit_list'] = $exhibit_list;
             return view('admin.applymanage.exhibit_used_apply', $res);
         }
-<<<<<<< .mine
-        }elseif($type == ConstDao::APPLY_TYPE_OUTER){
+        elseif($type == ConstDao::APPLY_TYPE_OUTER){
             //出库申请
             $exhibit_list = ExhibitUsedApply::where('status', '!=',ConstDao::EXHIBIT_USED_APPLY_STATUS_DRAFT)->get();
             //添加展品信息
@@ -100,8 +100,7 @@ class ApplyController extends BaseAdminController
             $res['exhibit_list'] = $exhibit_list;
             return view('admin.applymanage.exhibit_used_apply', $res);
         }
-=======
-        }elseif ($type == ConstDao::APPLY_TYPE_STORAGE_CHECK){
+        elseif ($type == ConstDao::APPLY_TYPE_STORAGE_CHECK){
         	//库房盘点申请
 			$res['exhibit_list']=RoomList::where('apply_status',2)->paginate(parent::PERPAGE);
 			return view('admin.applymanage.storageCheck_apply', $res);
@@ -112,18 +111,6 @@ class ApplyController extends BaseAdminController
 			return view('admin.applymanage.logOut_apply', $res);
 		}
 
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> .theirs
     }
 
     /**
