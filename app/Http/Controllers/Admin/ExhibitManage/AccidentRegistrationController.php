@@ -52,7 +52,6 @@ class AccidentRegistrationController extends BaseAdminController
         return $this->success('accidentregistration','保存成功');
     }
 
-
     /**
      * 提交审核
      * @return \Illuminate\Http\JsonResponse
@@ -61,6 +60,10 @@ class AccidentRegistrationController extends BaseAdminController
         $accident_ids = \request('accident_id');
         if(empty($accident_ids)){
             return response_json(0,array(),'参数错误');
+        }
+        $count = Accident::whereIn('accident_id', $accident_ids)->where('status', '!=', ConstDao::ACCIDENT_STATUS_DRAFT)->count();
+        if($count > 0){
+            return response_json(0,array(),'包含已审核的内容');
         }
         Accident::whereIn('accident_id', $accident_ids)->update(array('status'=>ConstDao::ACCIDENT_STATUS_WAITING_AUDIT));
         return response_json(1,array(),'成功提交');

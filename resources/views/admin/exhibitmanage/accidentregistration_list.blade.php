@@ -12,7 +12,7 @@
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="{{route('admin.exhibitmanage.accidentregistration')}}">查询</a></li>
                         <li><a href="javascript:void(0)" onclick="do_submit()">提交</a></li>
-                        <li><a href="{{route('admin.exhibitmanage.accidentregistration')}}">导出</a></li>
+                        <li><a href="javascript:VOID(0)" onclick="export_xls()">导出</a></li>
                         <li><a href="{{route('admin.exhibitmanage.accidentregistration')}}">打印</a></li>
                         <li ><a href="{{route('admin.exhibitmanage.add_accidentregistration')}}">新增</a></li>
                     </ul>
@@ -110,6 +110,19 @@
             layer.alert(response.msg)
             setTimeout("location.reload()",3000);
         });
+    }
+
+    function export_xls() {
+        collect_apply_ids = get_collect_checked_ids();
+        if(collect_apply_ids.length==0){
+            layer.alert("请至少选择一项")
+            return
+        }
+        url = "{{route('admin.excel.export_accident').'?'}}";
+        for(i=0;i<collect_apply_ids.length;i++){
+            url += 'accident_id['+i.toString()+"]="+collect_apply_ids[i]+"&";
+        }
+        window.open(url);
     }
 </script>
 

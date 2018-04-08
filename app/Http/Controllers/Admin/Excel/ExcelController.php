@@ -16,6 +16,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Exhibit;
 use App\Models\Disinfection;
 use Illuminate\Support\Facades\DB;
+use App\Models\Accident;
 
 class ExcelController extends BaseAdminController
 {
@@ -288,5 +289,41 @@ class ExcelController extends BaseAdminController
             });
         })->export('xls');
 
+    }
+
+    /**
+     * 导出事故登记的单子
+     */
+    public function export_accident(){
+        $accident_id = \request('accident_id');
+        $xls_data = array();
+        $header = ['文物名称','总登记号','事故时间',
+            '事故人','事故描述','处理依据','处理意见','状态'
+        ];
+        $xls_data[] = $header;
+        $list = Accident::join('exhibit','accident.exhibit_sum_register_id','=','exhibit.exhibit_sum_register_id')
+            ->whereIn('accident_id', $accident_id)
+            ->select('accident_id','name','exhibit_sum_register_num','accident_time','accident_maker','accident_desc','proc_dependy'
+                ,'proc_suggestion','accident.status')->get();
+        foreach ($list as $item){
+            $xls_item = array($item->name, $item->exhibit_sum_register_num, $item->accident_time, $item->accident_maker, $item->accident_desc,$item->proc_dependy,
+                $item->proc_suggestion, ConstDao::$accident_desc[$item->status]);
+            $xls_data[] = $xls_item;
+        }
+        Excel::create('事故登记表', function ($excel) use ($xls_data) {
+            $excel->sheet('score', function ($sheet) use ($xls_data) {
+                $sheet->setWidth(array(
+                    'A'     => 20,
+                    'B'     =>  25,
+                    'C'     =>  25,
+                    'D'     =>  25,
+                    'E'     =>  25,
+                    'F'     =>  25,
+                    'G'     =>  25,
+                    'H'     =>  25,
+                ));
+                $sheet->rows($xls_data);
+            });
+        })->export('xls');
     }
 }
