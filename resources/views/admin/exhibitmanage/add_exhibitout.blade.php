@@ -12,12 +12,8 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li><a href="{{route('admin.exhibitmanage.outstorageroom.exhibitout')}}">查询</a></li>
-                        <li><a href="{{route('admin.exhibitmanage.outstorageroom.exhibitout')}}">修改</a></li>
-                        <li><a href="{{route('admin.exhibitmanage.outstorageroom.exhibitout')}}">删除</a></li>
-                        <li><a href="{{route('admin.exhibitmanage.outstorageroom.exhibitout')}}">提交</a></li>
                         <li><a href="{{route('admin.exhibitmanage.outstorageroom.exhibitout')}}">导出</a></li>
                         <li><a href="{{route('admin.exhibitmanage.outstorageroom.exhibitout')}}">打印</a></li>
-                        <li><a href="{{route('admin.exhibitmanage.outstorageroom.exhibitout')}}">图文模式</a></li>
                         <li  class="active"><a href="{{route('admin.exhibitmanage.outstorageroom.add_exhibitout')}}">新增</a></li>
                     </ul>
                 </div>
@@ -62,6 +58,18 @@
                                            value="{{$exhibit_use_info['outer_sender'] or ''}}" />
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">出库目的</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control" name="type">
+                                        @foreach(\App\Dao\ConstDao::$exhibit_status_desc as $k=>$v)
+
+                                            <option value="{{$k}}" @if($exhibit_use_info['type'] == $k) selected @endif>{{$v}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">提取经手人</label>
@@ -78,6 +86,7 @@
                                            value="{{$exhibit_use_info['date'] or ''}}" required/>
                                 </div>
                             </div>
+
                             <ul class="nav nav-tabs">
                                 <li class="active"><a href="javascript:void(0)">明细</a></li>
                             </ul>
@@ -90,6 +99,7 @@
                                                 <tr role="row">
                                                     <th>总登记号</th>
                                                     <th>藏品名称</th>
+
                                                     <th>件数</th>
                                                     <th>级别</th>
                                                     <th>完残情况</th>
@@ -101,6 +111,7 @@
                                                     <tr class="gradeA">
                                                         <td>{{$exhibit['exhibit_sum_register_num']}}</td>
                                                         <td>{{$exhibit['name']}}</td>
+
                                                         <td><input type="text" class="form-control"  name="{{$exhibit['exhibit_use_item_id']."_num"}}" value="{{$exhibit['t_num']}}"/></td>
                                                         <td>{{$exhibit['exhibit_level']}} </td>
                                                         <td>{{$exhibit['complete_degree']}} </td>

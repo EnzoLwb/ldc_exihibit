@@ -26,6 +26,7 @@ class CreateExhibitUseTable extends Migration
             $table->string('outer_sender',100)->nullable()->comment('库房点交人');
             $table->string('outer_taker',100)->nullable()->comment('提取经手人');
             $table->string('date',100)->nullable()->comment('日期');
+            $table->tinyInteger('type')->nullable()->default(0)->comment('出库类型');
             $table->timestamps();
             if (env('DB_CONNECTION') == 'oracle') {
                 $table->comment = $this->tableComment;

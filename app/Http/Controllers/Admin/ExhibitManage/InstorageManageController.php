@@ -187,6 +187,7 @@ class InstorageManageController extends BaseAdminController
         $exhibit_use->outer_sender = \request('outer_sender');
         $exhibit_use->outer_taker = \request('outer_taker');
         $exhibit_use->date = \request('date');
+        $exhibit_use->type = \request('type');
         $exhibit_use->save();
         $items = ExhibitUseItem::where('exhibit_use_id', $exhibit_use_id)->get();
         foreach($items as $item){

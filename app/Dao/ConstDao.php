@@ -11,6 +11,7 @@ class ConstDao
     const ACCIDENT_STATUS_WAITING_AUDIT = 1;//事故等待审核
     const ACCIDENT_STATUS_AUDIENTED = 2;//事故审核通过
     const ACCIDENT_STATUS_REFUSE = 3;//事故审核拒绝
+
     public static $accident_desc = array(
         self::ACCIDENT_STATUS_DRAFT=>'草稿状态',
         self::ACCIDENT_STATUS_AUDIENTED=>'审核通过',
@@ -94,6 +95,34 @@ class ConstDao
     const EXHIBIT_USED_OUTER = 1;//展品出库
     const EXHIBIT_USED = 2;//展品提用
     const EXHIBIT_USED_SHOW = 3;//展品观摩
+
+    const EXHIBIT_STATUS_IN_ROOM = 0 ;//展品在库
+    const EXHIBIT_STATUS_BOJIAO = 1 ;//展品拨交
+    const EXHIBIT_STATUS_SHOW = 2;//展品观摩
+    const EXHIBIT_STATUS_COPY = 3 ;//展品复制
+    const EXHIBIT_STATUS_SALE = 4 ;//展品拍卖
+    const EXHIBIT_STATUS_EXCHANGE = 5 ;//展品交换
+    const EXHIBIT_STATUS_DONATE = 6 ;//展品捐赠
+    const EXHIBIT_STATUS_LOST = 7 ;//展品丢失
+    const EXHIBIT_STATUS_DAMAGE = 8 ;//展品报损
+    const EXHIBIT_STATUS_LEND = 9 ;//展品借出
+    const EXHIBIT_STATUS_LOGOUT = 10 ;//展品注销
+
+    public static $exhibit_status_desc = array(
+        self::EXHIBIT_STATUS_IN_ROOM=>'在库',
+        self::EXHIBIT_STATUS_BOJIAO=>'拨交',
+        self::EXHIBIT_STATUS_SHOW=>'观摩',
+        self::EXHIBIT_STATUS_COPY=>'复制',
+        self::EXHIBIT_STATUS_SALE=>'拍卖',
+        self::EXHIBIT_STATUS_EXCHANGE=>'交换',
+        self::EXHIBIT_STATUS_DONATE=>'捐赠',
+        self::EXHIBIT_STATUS_LOST=>'丢失',
+        self::EXHIBIT_STATUS_DAMAGE=>'报损',
+        self::EXHIBIT_STATUS_LEND=>'借出',
+
+        self::EXHIBIT_STATUS_LOGOUT=>'注销',
+    );
+
 
     const EXHIBIT_USED_APPLY_STATUS_DRAFT = 0; //展品使用申请草稿状态
     const EXHIBIT_USED_APPLY_STATUS_WAITING_AUDIT  = 1;//展品使用申请等待审核状态
