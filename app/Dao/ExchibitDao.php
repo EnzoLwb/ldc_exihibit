@@ -2,6 +2,7 @@
 
 namespace App\Dao;
 
+use App\Models\CollectExhibit;
 use App\Models\Exhibit;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\CollectRecipe;
@@ -19,7 +20,7 @@ class ExchibitDao extends Exhibit
             $recipe->status = ConstDao::EXHIBIT_COLLECT_RECIPE_STATUS_SUBMITED;
             $recipe->save();
             if(empty($recipe))return;
-            $collect_exhibit = CollectRecipe::where('collect_recipe_id',$recipe_id)->get();
+            $collect_exhibit = CollectExhibit::where('collect_recipe_id',$recipe_id)->get();
             foreach($collect_exhibit as $recipe){
                 $exhibit = new self();
                 $exhibit->collect_recipe_id = $recipe_id;

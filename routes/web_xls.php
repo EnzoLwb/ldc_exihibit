@@ -15,4 +15,7 @@ Route::group([
     Route::get('export_disinfection', 'ExcelController@export_disinfection')->name('admin.excel.export_disinfection');
     //导出出库申请的单子
     Route::get('export_outer_apply', 'ExcelController@export_outer_apply')->name('admin.excel.export_outer_apply');
+    //导出出库记录的单子
+    Route::get('export_exhibit_outer', 'ExcelController@export_exhibit_outer')->name('admin.excel.export_exhibit_outer');
+
 });

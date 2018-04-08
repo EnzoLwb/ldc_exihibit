@@ -12,9 +12,8 @@
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="{{route('admin.exhibitmanage.outstorageroom.exhibitout')}}">查询</a></li>
                         <li><a href="{{route('admin.exhibitmanage.outstorageroom.exhibitout')}}">提交</a></li>
-                        <li><a href="{{route('admin.exhibitmanage.outstorageroom.exhibitout')}}">导出</a></li>
+                        <li><a href="javascript:void(0)" onclick="export_xls()">导出</a></li>
                         <li><a href="{{route('admin.exhibitmanage.outstorageroom.exhibitout')}}">打印</a></li>
-                        <li><a href="{{route('admin.exhibitmanage.outstorageroom.exhibitout')}}">图文模式</a></li>
                     </ul>
                 </div>
             </div>
@@ -55,7 +54,7 @@
                             </thead>
                             @foreach($exhibit_list as $exhibit)
                                 <tr class="gradeA">
-                                    <td><input type="checkbox"></td>
+                                    <td><input type="checkbox" name="exhibit_use_id" value="{{$exhibit['exhibit_use_id']}}"></td>
                                     <td>{{$exhibit['depart_name']}}</td>
                                     <td>{{$exhibit['outer_destination']}}</td>
                                     <td>{{$exhibit['outer_time']}}</td>
@@ -75,5 +74,28 @@
         </div>
     </div>
 @endsection
+<script>
+    //功能函数，收集选中的申请项
+    function get_collect_checked_ids() {
+        checkd_list = $('input[name="exhibit_use_id"]:checked')
+        collect_apply_ids = []
+        for(i = 0; i<checkd_list.length;i++){
+            collect_apply_ids.push($(checkd_list[i]).val())
+        }
+        return collect_apply_ids;
+    }
 
+    function export_xls() {
+        collect_apply_ids = get_collect_checked_ids();
+        if(collect_apply_ids.length==0){
+            layer.alert("请至少选择一项")
+            return
+        }
+        url = '{{route("admin.excel.export_exhibit_outer")."?"}}'
+        for(i=0;i<collect_apply_ids.length;i++){
+            url += 'exhibit_use_id['+i.toString()+']='+collect_apply_ids[i]+"&";
+        }
+        window.open(url);
+    }
+</script>
 

@@ -6,10 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ConstDao
 {
-
-
     const EXPERT_ROLE_ID = 3;// 专家角色ID
-
     //专家性别描述
     const EXPERT_SEX_MAN = 1;
     const EXPERT_SEX_FEMALE = 0;

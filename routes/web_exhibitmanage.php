@@ -7,8 +7,10 @@ Route::group([
 ], function () {
     //仓库列表
     Route::get('storageroom', 'IndexController@storageroom')->name('admin.exhibitmanage.storageroom');
-    //添加新的仓库
+    //展示修改展品的所在仓库页面
     Route::get('add_storageroom', 'IndexController@add_storageroom')->name('admin.exhibitmanage.add_storageroom');
+    //storage_room_save  保存展品的所在仓库信息
+    Route::post('storage_room_save', 'IndexController@storage_room_save')->name('admin.exhibitmanage.storage_room_save');
     //消毒管理
     Route::get('disinfection', 'DisinfectionController@index')->name('admin.exhibitmanage.disinfection');
     //增加消毒记录
