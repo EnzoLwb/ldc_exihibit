@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models;
-use App\Models\BaseMdl;
 
 class ExhibitLogout extends BaseMdl
 {
@@ -20,11 +19,11 @@ class ExhibitLogout extends BaseMdl
 	//联查藏品表 collect_exhibit的collect_exhibit_id
 	public function joinLeft()
 	{
-		return ExhibitLogout::leftjoin('collect_exhibit','collect_exhibit.collect_exhibit_id','exhibit_logout.exhibit_id');
+		return ExhibitLogout::leftjoin('exhibit','exhibit.exhibit_sum_register_id','exhibit_logout.exhibit_id')->select('exhibit_logout.*','exhibit.name');
 	}
 	//列出所有藏品名字
 	public function collectName()
 	{
-		return CollectExhibit::select('name','collect_exhibit_id as id')->groupBy('name','id')->get()->toArray();
+		return Exhibit::select('name','exhibit_sum_register_id as id')->groupBy('name','id')->get()->toArray();
 	}
 }

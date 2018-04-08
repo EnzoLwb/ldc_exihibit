@@ -53,7 +53,7 @@ class ApplyController extends BaseAdminController
 		}elseif ($type == ConstDao::APPLY_TYPE_LOGOUT){
 			//藏品注销申请
 			$exhibit_Logout=new ExhibitLogout();
-			$res['exhibit_list']=$exhibit_Logout->joinLeft()->where('status',1)->paginate(parent::PERPAGE);
+			$res['exhibit_list']=$exhibit_Logout->joinLeft()->where('exhibit_logout.status',1)->paginate(parent::PERPAGE);
 			return view('admin.applymanage.logOut_apply', $res);
 		}
 		elseif($type == ConstDao::APPLY_TYPE_OUTER){

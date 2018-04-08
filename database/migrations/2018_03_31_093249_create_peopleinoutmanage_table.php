@@ -18,14 +18,14 @@ class CreatePeopleinoutmanageTable extends Migration
 		Schema::create($this->tableName, function (Blueprint $table) {
 			$table->increments('pio_id')->comment('出入记录编号');
 			$table->integer('storeroom_id',false,true)->comment('库房编号');
-			$table->timestamp('comein_time')->nullable()->commment('入库时间');
-			$table->timestamp('plan_goout_time')->nullable()->commment('预计入库时间');
-			$table->timestamp('real_goout_time')->nullable()->commment('实际入库时间');
-			$table->string('comein_member',100)->commment('入库人员');
-			$table->string('with_member',100)->commment('陪同入库人员')->nullable();
-			$table->string('comein_department',100)->commment('进库人单位')->nullable();
-			$table->text('reason')->commment('出入事由')->nullable();
-			$table->string('remark',255)->commment('备注')->nullable();
+			$table->timestamp('comein_time')->nullable()->comment('入库时间');
+			$table->timestamp('plan_goout_time')->nullable()->comment('预计入库时间');
+			$table->timestamp('real_goout_time')->nullable()->comment('实际入库时间');
+			$table->string('comein_member',100)->comment('入库人员');
+			$table->string('with_member',100)->comment('陪同入库人员')->nullable();
+			$table->string('comein_department',100)->comment('进库人单位')->nullable();
+			$table->text('reason')->comment('出入事由')->nullable();
+			$table->string('remark',255)->comment('备注')->nullable();
 			$table->timestamps();
 
 			if (env('DB_CONNECTION') == 'oracle') {
