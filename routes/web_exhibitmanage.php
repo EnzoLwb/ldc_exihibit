@@ -45,6 +45,9 @@ Route::group([
     //藏品回库
     Route::get('exhibitbackroom', 'ExhibitBackRoomController@index')->name('admin.exhibitmanage.exhibitbackroom');
     Route::get('add_exhibitbackroom', 'ExhibitBackRoomController@add_exhibitbackroom')->name('admin.exhibitmanage.add_exhibitbackroom');
+    Route::post('save_exhibitbackroom', 'ExhibitBackRoomController@save_exhibitbackroom')->name('admin.exhibitmanage.save_exhibitbackroom');
+    //藏品回库提交
+    Route::post('submit_exhibitbackroom', 'ExhibitBackRoomController@submit_exhibitbackroom')->name('admin.exhibitmanage.submit_exhibitbackroom');
     //移库管理
     Route::get('transfer', 'TransferController@index')->name('admin.exhibitmanage.transfer');
     Route::get('add_transfer', 'TransferController@add_transfer')->name('admin.exhibitmanage.add_transfer');

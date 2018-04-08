@@ -191,13 +191,20 @@ class InstorageManageController extends BaseAdminController
         $exhibit_use->outer_sender = \request('outer_sender');
         $exhibit_use->outer_taker = \request('outer_taker');
         $exhibit_use->date = \request('date');
-        $exhibit_use->type = \request('type');
-        $exhibit_use->save();
+        $type = \request('type');
+        $exhibit_use->type = $type;
+            $exhibit_use->save();
         $items = ExhibitUseItem::where('exhibit_use_id', $exhibit_use_id)->get();
         foreach($items as $item){
             $item->num = \request($item->exhibit_use_item_id.'_num');
             $item->backup_time = \request($item->exhibit_use_item_id.'_backup_time');
             $item->backup = \request($item->exhibit_use_item_id.'_backup');
+            //修改展品的状态
+            $exhibit = Exhibit::where('exhibit_sum_register_id', $item->exhibit_sum_register_id)->first();
+            if(!empty($exhibit)){
+                $exhibit->status = $type;
+                $exhibit->save();
+            }
             $item->save();
         }
         return $this->success('exhibitout','操作成功');

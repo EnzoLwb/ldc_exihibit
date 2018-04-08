@@ -10,6 +10,7 @@ use App\Models\CollectRecipe;
 use App\Models\ExhibitUse;
 use App\Models\ExhibitUsedApply;
 use App\Models\IdentifyApply;
+use App\Models\ReturnStorage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
@@ -349,6 +350,41 @@ class ExcelController extends BaseAdminController
             $xls_data[] = $xls_item;
         }
         Excel::create('入库管理表', function ($excel) use ($xls_data) {
+            $excel->sheet('score', function ($sheet) use ($xls_data) {
+                $sheet->setWidth(array(
+                    'A'     => 20,
+                    'B'     =>  25,
+                    'C'     =>  25,
+                    'D'     =>  25,
+                    'E'     =>  25,
+                    'F'     =>  25,
+                    'G'     =>  25,
+                    'H'     =>  25,
+                ));
+                $sheet->rows($xls_data);
+            });
+        })->export('xls');
+    }
+
+    public function export_returnstorage(){
+        $return_storage_id = \request('return_storage_id');
+        if(empty($return_storage_id) && !is_array($return_storage_id)){
+            return $this->error('参数有误');
+        }
+
+        $xls_data = array();
+        $header = ['藏品名称',
+            '退还人','点收人','退还日期','备注','状态'
+        ];
+        $xls_data[] = $header;
+        $list = ReturnStorage::join('exhibit','exhibit.exhibit_sum_register_id','=', 'return_storage.exhibit_sum_register_id')
+            ->whereIn('return_storage_id', $return_storage_id)->select('name','returner','taker','return_date','mark',DB::Raw('ldc_return_storage.status as status'))->get();
+
+        foreach ($list as $item){
+            $xls_item = array($item->name, $item->returner, $item->taker, $item->return_date, $item->mark,ConstDao::$returnstorage_desc[$item->status]);
+            $xls_data[] = $xls_item;
+        }
+        Excel::create('回库管理表', function ($excel) use ($xls_data) {
             $excel->sheet('score', function ($sheet) use ($xls_data) {
                 $sheet->setWidth(array(
                     'A'     => 20,

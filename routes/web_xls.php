@@ -21,4 +21,6 @@ Route::group([
     Route::get('export_accident', 'ExcelController@export_accident')->name('admin.excel.export_accident');
     //入库管理导出
     Route::get('export_exhibit', 'ExcelController@export_exhibit')->name('admin.excel.export_exhibit');
+    //导出回库单子
+    Route::get('export_returnstorage', 'ExcelController@export_returnstorage')->name('admin.excel.export_returnstorage');
 });

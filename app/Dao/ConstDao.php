@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class ConstDao
 {
+    const RETURNSTORAGE_STATUS_DRAFT = 0; //藏品回库单子草稿状态
+    const RETURNSTORAGE_STATUS_SUBMIT = 1;//藏品回库单子已经提交
+    public static $returnstorage_desc = array(
+        self::RETURNSTORAGE_STATUS_DRAFT=>'未提交',
+        self::RETURNSTORAGE_STATUS_SUBMIT=>'已提交',
+    );
 
     const ACCIDENT_STATUS_DRAFT = 0;//事故草稿状态
     const ACCIDENT_STATUS_WAITING_AUDIT = 1;//事故等待审核
