@@ -6,6 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class ConstDao
 {
+
+    const ACCIDENT_STATUS_DRAFT = 0;//事故草稿状态
+    const ACCIDENT_STATUS_WAITING_AUDIT = 1;//事故等待审核
+    const ACCIDENT_STATUS_AUDIENTED = 2;//事故审核通过
+    const ACCIDENT_STATUS_REFUSE = 3;//事故审核拒绝
+    public static $accident_desc = array(
+        self::ACCIDENT_STATUS_DRAFT=>'草稿状态',
+        self::ACCIDENT_STATUS_AUDIENTED=>'审核通过',
+        self::ACCIDENT_STATUS_WAITING_AUDIT=>'等待审核',
+        self::ACCIDENT_STATUS_REFUSE=>'审核拒绝'
+    );
+
     const EXPERT_ROLE_ID = 3;// 专家角色ID
     //专家性别描述
     const EXPERT_SEX_MAN = 1;
@@ -29,6 +41,7 @@ class ConstDao
     const APPLY_TYPE_LOGOUT = 'logOut';
     const APPLY_TYPE_REPAIR = 'repair';
     const APPLY_TYPE_STORAGE_CHECK = 'storageCheck';
+    const APPLY_TYPE_ACCIDENT = 'accident';
     
     public static $apply_desc = array(
         self::APPLY_TYPE_COLLECT=>'征集申请',
@@ -37,6 +50,7 @@ class ConstDao
         self::APPLY_TYPE_LOGOUT=>'藏品注销申请',
         self::APPLY_TYPE_REPAIR=>'藏品修复申请',
 		self::APPLY_TYPE_STORAGE_CHECK=>'库房盘点申请',
+        self::APPLY_TYPE_ACCIDENT=>'事故申请'
     );
 
     //征集申请的几种状态

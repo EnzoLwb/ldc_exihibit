@@ -10,11 +10,9 @@
             <div class="col-sm-12">
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="{{route('admin.exhibitmanage.accidentregistration')}}">查询</a></li>
-                        <li><a href="javascript:void(0)" onclick="do_submit()">提交</a></li>
-                        <li><a href="{{route('admin.exhibitmanage.accidentregistration')}}">导出</a></li>
-                        <li><a href="{{route('admin.exhibitmanage.accidentregistration')}}">打印</a></li>
-                        <li ><a href="{{route('admin.exhibitmanage.add_accidentregistration')}}">新增</a></li>
+                        <li class="active"><a href="{{route('admin.applymanage.export_collect_apply')}}">查询</a></li>
+                        <li><a href="javascript:void(0)" onclick="apply_audit(1)">审核通过</a></li>
+                        <li><a href="javascript:void(0)" onclick="apply_audit(0)">审核拒绝</a></li>
                     </ul>
                 </div>
             </div>
@@ -23,13 +21,22 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <form role="form" class="form-inline" method="get" action="{{route('admin.exhibitmanage.disinfection')}}">
+                        <form role="form" class="form-inline" method="get" action="{{route('admin.applymanage.export_collect_apply')}}">
                             <div class="form-group">
-                                <input type="text" name="title" placeholder="文物名称" class="form-control" value="{{request('title')}}">
-                            </div>
-                            &nbsp;&nbsp;
-                            <button type="submit" class="btn btn-primary">搜索</button>
-                            <button type="button" class="btn btn-white" onclick="location.href='{{route('admin.exhibitmanage.disinfection')}}'">重置</button>
+                            <select name="apply_type" class="form-control">
+                                @foreach(\App\Dao\ConstDao::$apply_desc as $key=>$v)
+                                    @if($type == $key)
+                                        <option selected value="{{$key}}">{{$v}}</option>
+                                    @else
+                                        <option value="{{$key}}">{{$v}}</option>
+                                    @endif
+
+                                @endforeach
+                            </select>
+                    </div>
+                    &nbsp;&nbsp;
+                    <button type="submit" class="btn btn-primary">搜索</button>
+                    <button type="button" class="btn btn-white" onclick="location.href='{{route('admin.applymanage.export_collect_apply')}}'">重置</button>
                         </form>
                     </div>
                 </div>
@@ -52,7 +59,7 @@
                                 <th>处理依据</th>
                                 <th>处理意见</th>
                                 <th>状态</th>
-                                <th>操作</th>
+
                             </tr>
                             </thead>
                             @foreach($exhibit_list as $exhibit)
@@ -66,11 +73,7 @@
                                     <td>{{$exhibit['proc_dependy']}} </td>
                                     <td>{{$exhibit['proc_suggestion']}} </td>
                                     <td>{{\App\Dao\ConstDao::$accident_desc[$exhibit['status']]}} </td>
-                                    <td>
-                                        @if($exhibit['status'] == \App\Dao\ConstDao::ACCIDENT_STATUS_DRAFT)
-                                        <a href="{{route('admin.exhibitmanage.add_accidentregistration')."?accident_id=".$exhibit['accident_id']}}">修改</a> <a href="javascript:void(0)" onclick="del_accident()">删除</a>
-                                        @endif
-                                    </td>
+
                                 </tr>
                             @endforeach
                         </table>
@@ -96,15 +99,15 @@
     /**
      * 提交审核
      */
-    function do_submit() {
+    function apply_audit(audited) {
         collect_apply_ids = get_collect_checked_ids();
         if(collect_apply_ids.length==0){
             layer.alert("请至少选择一项")
             return
         }
-        $.ajax('{{route("admin.exhibitmanage.accidentregistration_submit")}}', {
+        $.ajax('{{route("admin.applymanage.accident_audit")}}', {
             method: 'POST',
-            data: {'accident_id':collect_apply_ids,"_token":"{{csrf_token()}}"},
+            data: {'accident_id':collect_apply_ids,"_token":"{{csrf_token()}}",'audit':audited},
             dataType: 'json'
         }).done(function (response) {
             layer.alert(response.msg)

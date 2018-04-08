@@ -272,7 +272,7 @@ class ExcelController extends BaseAdminController
                 $item->outer_taker,$item->date, $item->name,$item->num,$item->backup_time, $item->backup , $item->exhibit_sum_register_num);
             $xls_data[] = $xls_item;
         }
-        Excel::create('消毒记录表', function ($excel) use ($xls_data) {
+        Excel::create('出库记录表', function ($excel) use ($xls_data) {
             $excel->sheet('score', function ($sheet) use ($xls_data) {
                 $sheet->setWidth(array(
                     'A'     => 20,

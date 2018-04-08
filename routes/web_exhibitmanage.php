@@ -37,8 +37,6 @@ Route::group([
     //保存出库单子
     Route::post('outstorageroom/exhibitout_save', 'InstorageManageController@exhibitout_save')->name('admin.exhibitmanage.outstorageroom.exhibitout_save');
 
-
-
     Route::get('outstorageroom', 'LoginController@logout')->name('admin.exhibitmanage.outstorageroom');
     Route::get('exhibituse', 'LoginController@logout')->name('admin.exhibitmanage.exhibituse');
     Route::get('exhibitlook', 'LoginController@logout')->name('admin.exhibitmanage.exhibitlook');
@@ -52,6 +50,7 @@ Route::group([
 
     //事故登记
     Route::get('accidentregistration', 'AccidentRegistrationController@index')->name('admin.exhibitmanage.accidentregistration');
-
+    Route::post('accidentregistration_submit', 'AccidentRegistrationController@accidentregistration_submit')->name('admin.exhibitmanage.accidentregistration_submit');
+    Route::post('accidentregistration_save', 'AccidentRegistrationController@accidentregistration_save')->name('admin.exhibitmanage.accidentregistration_save');
     Route::get('add_accidentregistration', 'AccidentRegistrationController@add_accidentregistration')->name('admin.exhibitmanage.add_accidentregistration');
 });

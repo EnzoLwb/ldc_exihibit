@@ -16,8 +16,15 @@ class IndexController extends BaseAdminController
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function storageroom(){
-        $res['exhibit_list'] = Exhibit::join('storage_room','storage_room.room_number','=','exhibit.room_number','left')
-            ->select('exhibit_sum_register_id','exhibit_sum_register_num','name','room_name')->get();
+        $title = \request('title');
+        if(empty($title)){
+            $res['exhibit_list'] = Exhibit::join('storage_room','storage_room.room_number','=','exhibit.room_number','left')
+                ->select('exhibit_sum_register_id','exhibit_sum_register_num','name','room_name')->get();
+        }else{
+            $res['exhibit_list'] = Exhibit::join('storage_room','storage_room.room_number','=','exhibit.room_number','left')
+                ->where('name','like', '%'.$title."%")->select('exhibit_sum_register_id','exhibit_sum_register_num','name','room_name')->get();
+        }
+
         return view('admin.exhibitmanage.stroageroom_list', $res);
     }
 

@@ -64,7 +64,14 @@ class InstorageManageController extends BaseAdminController
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function oustorageapply(){
-        $list = ExhibitUsedApply::paginate(parent::PERPAGE);
+
+        $executer = \request('executer');
+        if(empty($executer)){
+            $list = ExhibitUsedApply::get();
+        }
+        else{
+            $list = ExhibitUsedApply::where('executer','like','%'.$executer."%")->get();
+        }
         foreach($list as $key=>$item){
             $exhibit_ids = $item->exhibit_list;
             $exhibit_ids = explode(",", $exhibit_ids);
