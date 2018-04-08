@@ -19,4 +19,6 @@ Route::group([
     Route::get('export_exhibit_outer', 'ExcelController@export_exhibit_outer')->name('admin.excel.export_exhibit_outer');
     //导出事故登记单子
     Route::get('export_accident', 'ExcelController@export_accident')->name('admin.excel.export_accident');
+    //入库管理导出
+    Route::get('export_exhibit', 'ExcelController@export_exhibit')->name('admin.excel.export_exhibit');
 });

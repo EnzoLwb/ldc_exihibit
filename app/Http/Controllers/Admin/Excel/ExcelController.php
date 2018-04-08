@@ -326,4 +326,42 @@ class ExcelController extends BaseAdminController
             });
         })->export('xls');
     }
+
+    /**
+     * 导出展品记录
+     */
+    public function export_exhibit(){
+        $exhibit_sum_register_id = \request('exhibit_sum_register_id');
+        if(empty($exhibit_sum_register_id) && !is_array($exhibit_sum_register_id)){
+            return $this->error('参数有误');
+        }
+
+        $xls_data = array();
+        $header = ['总登记号','入馆凭证号','名称',
+            '数量','年代','级别','尺寸','重量','完残情况','入馆日期','来源','备注'
+        ];
+        $xls_data[] = $header;
+        $list = Exhibit::whereIn('exhibit_sum_register_id',$exhibit_sum_register_id)->get();
+
+        foreach ($list as $item){
+            $xls_item = array($item->exhibit_sum_register_num, $item->collect_recipe_num, $item->name, $item->num, $item->age,$item->exhibit_level,
+                $item->size, $item->quality,$item->complete_degree, $item->in_museum_time, $item->src, $item->backup);
+            $xls_data[] = $xls_item;
+        }
+        Excel::create('入库管理表', function ($excel) use ($xls_data) {
+            $excel->sheet('score', function ($sheet) use ($xls_data) {
+                $sheet->setWidth(array(
+                    'A'     => 20,
+                    'B'     =>  25,
+                    'C'     =>  25,
+                    'D'     =>  25,
+                    'E'     =>  25,
+                    'F'     =>  25,
+                    'G'     =>  25,
+                    'H'     =>  25,
+                ));
+                $sheet->rows($xls_data);
+            });
+        })->export('xls');
+    }
 }

@@ -23,7 +23,8 @@ Route::group([
     //入库管理
     Route::get('instorageroom', 'InstorageManageController@index')->name('admin.exhibitmanage.instorageroom');
     Route::get('add_instorageroom', 'InstorageManageController@add_instorageroom')->name('admin.exhibitmanage.add_instorageroom');
-
+    //入库管理信息保存
+    Route::post('instorageroom_save', 'InstorageManageController@instorageroom_save')->name('admin.exhibitmanage.instorageroom_save');
     //出库申请
     Route::get('outstorageroom/oustorageapply', 'InstorageManageController@oustorageapply')->name('admin.exhibitmanage.outstorageroom.oustorageapply');
     Route::get('outstorageroom/add_oustorageapply', 'InstorageManageController@add_oustorageapply')->name('admin.exhibitmanage.outstorageroom.add_oustorageapply');
