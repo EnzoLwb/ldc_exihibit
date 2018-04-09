@@ -7,7 +7,7 @@ use Illuminate\Database\Migrations\Migration;
 class CreateStorageroomTable extends Migration
 {
 	private $tableName='storage_room';
-	private $tableComment='库房结构管理';
+	private $tableComment='库房管理';
 	/**
 	 * Run the migrations.
 	 *
@@ -18,14 +18,14 @@ class CreateStorageroomTable extends Migration
 		Schema::create($this->tableName, function (Blueprint $table) {
 			$table->increments('room_id')->comment('库房id');
 			$table->string('room_number',50)->unique()->comment('库房库位编号');
-			$table->string('room_name',50)->commment('库房库位名称');
-			$table->tinyInteger('ifstorage',false,true)->commment('是否库位');
-			$table->tinyInteger('status',false,true)->commment('是否生效 1为生效 0为不生效');
-			$table->string('room_type',50)->commment('库房类型')->default('一级库房');
-			$table->string('save_type',50)->commment('存储方式')->nullable();
-			$table->string('room_size',50)->commment('库房大小')->nullable();
-			$table->string('position',50)->commment('位置')->nullable();
-			$table->string('leader',50)->commment('负责人')->nullable();
+			$table->string('room_name',50)->comment('库房库位名称');
+			$table->tinyInteger('ifstorage',false,true)->comment('是否库位');
+			$table->tinyInteger('status',false,true)->comment('是否生效 1为生效 0为不生效');
+			$table->string('room_type',50)->comment('库房类型')->default('一级库房');
+			$table->string('save_type',50)->comment('存储方式')->nullable();
+			$table->string('room_size',50)->comment('库房大小')->nullable();
+			$table->string('position',50)->comment('位置')->nullable();
+			$table->string('leader',50)->comment('负责人')->nullable();
 			$table->timestamps();
 
 			if (env('DB_CONNECTION') == 'oracle') {
@@ -44,6 +44,6 @@ class CreateStorageroomTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('storageroom');
+        Schema::dropIfExists($this->tableName);
     }
 }

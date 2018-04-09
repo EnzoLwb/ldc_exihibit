@@ -23,41 +23,47 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
-                        <form action="{{route('admin.repaireexhibit.apply.save')}}" method="post" class="form-horizontal ajaxForm">
+                        <form action="{{route('admin.repaireexhibit.apply.save')}}" method="post" class="form-horizontal">
+                            <input type="hidden" name="repair_id" value="{{$data['repair_id']??''}}">
+                            <input type="hidden" value="{{csrf_token()}}" name="_token">
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">修复申请单号</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="" value=""/>
+                                    <input type="text" class="form-control" name="repair_order_no" value="{{$data['repair_order_no']??old('repair_order_no')}}"/>
                                 </div>
+                                @if ($errors->has('repair_order_no'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('repair_order_no') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">修复申请单名称</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="" value=""/>
+                                    <input type="text" class="form-control" name="repair_order_name" value="{{$data['repair_order_name']??old('repair_order_name')}}"/>
                                 </div>
+                                @if ($errors->has('repair_order_name'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('repair_order_name') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">经费预算</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="" value=""/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">状态</label>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="" value=""/>
+                                    <input type="text" class="form-control" name="plan_expense" value="{{$data['plan_expense']??old('plan_expense')}}"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">登记人</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="" value=""/>
+                                    <input type="text" class="form-control" name="register_member" value="{{$data['register_member']??old('register_member')}}"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">登记日期</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="" value=""/>
+                                    <input type="text" class="form-control" name="register_date" id="register_date" value="{{$data['register_date']??old('register_date')}}"/>
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
@@ -73,4 +79,16 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+    <script type="text/javascript" src="{{cdn('js/plugins/laydate_new/laydate.js')}}"></script>
+    <script type="text/javascript">
+        //入库时间设置
+        var register_date = laydate.render({
+            elem: '#register_date',
+            type: 'datetime',
+            min: '1999-1-1 00:00:00',
+            max: '2099-6-16 23:59:59',
+        });
+    </script>
 @endsection
