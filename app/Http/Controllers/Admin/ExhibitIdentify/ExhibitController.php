@@ -110,7 +110,7 @@ class ExhibitController extends BaseAdminController
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function manage(){
-        $exhibit_list = IdentifyApply::whereIn('status', array(ConstDao::EXHIBIT_IDENTIFY_APPLY_REFUSED, ConstDao::EXHIBIT_COLLECT_APPLY_AUDITED))->get();
+        $exhibit_list = IdentifyApply::whereIn('status', array(ConstDao::EXHIBIT_IDENTIFY_APPLY_REFUSED, ConstDao::EXHIBIT_COLLECT_APPLY_AUDITED))->paginate(parent::PERPAGE);
         foreach($exhibit_list as $key=>$item){
             $exhibit_sum_register_id = $item->exhibit_sum_register_id;
             $exhibit_sum_register_ids = explode(',',$exhibit_sum_register_id);

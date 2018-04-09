@@ -19,7 +19,7 @@ class ExhibitBackRoomController extends BaseAdminController
      */
     public function index(){
        $list = ReturnStorage::join('exhibit','exhibit.exhibit_sum_register_id','=','return_storage.exhibit_sum_register_id')->
-           select('name','returner','taker','return_date','return_storage_id','mark',DB::Raw('ldc_return_storage.status as status'))->get();
+           select('name','returner','taker','return_date','return_storage_id','mark',DB::Raw('ldc_return_storage.status as status'))->paginate(parent::PERPAGE);
        $res['exhibit_list'] = $list;
        return view('admin.exhibitmanage.exhibitbackroom_list', $res);
     }

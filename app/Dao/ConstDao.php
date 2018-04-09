@@ -6,6 +6,32 @@ use Illuminate\Database\Eloquent\Model;
 
 class ConstDao
 {
+    const SHOW_POSITION_IS_LAST = 1;//展位是末级
+    const SHOW_POSITION_IS_NOT_LAST =0;//展位不是末级
+    const SHOW_POSITION_IS_VALID = 1 ;//展位是可用
+    const SHOW_POSITION_IS_INVALID = 0;//展位不可用
+
+    public static $show_position_last_desc = array(
+        self::SHOW_POSITION_IS_LAST =>'是',
+        self::SHOW_POSITION_IS_NOT_LAST=>"不是"
+    );
+    public static $show_position_valid_desc = array(
+        self::SHOW_POSITION_IS_VALID=>'可用',
+        self::SHOW_POSITION_IS_INVALID=>'不可用'
+    );
+
+    const SHOW_APPLY_STATUS_DRAFT = 0;//展览申请草稿状态
+    const SHOW_APPLY_STATUS_WAITING_AUDIT = 1;//展览申请等待审核
+    const SHOW_APPLY_STATUS_AUDITED = 2;//展览申请审核通过
+    const SHOW_APPLY_STATUS_REFUSE = 3;//展览申请审核拒绝
+
+    public static $show_apply_desc = array(
+        self::SHOW_APPLY_STATUS_DRAFT=>"草稿状态",
+        self::SHOW_APPLY_STATUS_WAITING_AUDIT=>"等待审核",
+        self::SHOW_APPLY_STATUS_AUDITED=>"审核通过",
+        self::SHOW_APPLY_STATUS_REFUSE=>"审核拒绝",
+    );
+
     const RETURNSTORAGE_STATUS_DRAFT = 0; //藏品回库单子草稿状态
     const RETURNSTORAGE_STATUS_SUBMIT = 1;//藏品回库单子已经提交
     public static $returnstorage_desc = array(
@@ -49,6 +75,7 @@ class ConstDao
     const APPLY_TYPE_REPAIR = 'repair';
     const APPLY_TYPE_STORAGE_CHECK = 'storageCheck';
     const APPLY_TYPE_ACCIDENT = 'accident';
+    const APPLY_TYPE_SHOW = 'show';
     
     public static $apply_desc = array(
         self::APPLY_TYPE_COLLECT=>'征集申请',
@@ -57,7 +84,8 @@ class ConstDao
         self::APPLY_TYPE_LOGOUT=>'藏品注销申请',
         self::APPLY_TYPE_REPAIR=>'藏品修复申请',
 		self::APPLY_TYPE_STORAGE_CHECK=>'库房盘点申请',
-        self::APPLY_TYPE_ACCIDENT=>'事故申请'
+        self::APPLY_TYPE_ACCIDENT=>'事故申请',
+        self::APPLY_TYPE_SHOW=>'展览申请'
     );
 
     //征集申请的几种状态

@@ -15,7 +15,7 @@ class AccidentRegistrationController extends BaseAdminController
     public function index(){
         $res['exhibit_list'] = Accident::join('exhibit','accident.exhibit_sum_register_id','=','exhibit.exhibit_sum_register_id')
             ->select('accident_id','name','exhibit_sum_register_num','accident_time','accident_maker','accident_desc','proc_dependy'
-            ,'proc_suggestion','accident.status')->get();
+            ,'proc_suggestion','accident.status')->paginate(parent::PERPAGE);
         return view('admin.exhibitmanage.accidentregistration_list', $res);
     }
 

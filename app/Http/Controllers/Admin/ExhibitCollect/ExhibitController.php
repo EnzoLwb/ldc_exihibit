@@ -19,11 +19,10 @@ class ExhibitController extends BaseAdminController
     public function apply(){
         $title = request('title');
         if(!empty($title)){
-            $list = CollectApply::where('collect_apply_num','like','%'.$title."%")->where('status', ConstDao::EXHIBIT_COLLECT_APPLY_DRAFT)->get()->toArray();
+            $list = CollectApply::where('collect_apply_num','like','%'.$title."%")->where('status', ConstDao::EXHIBIT_COLLECT_APPLY_DRAFT)->paginate(parent::PERPAGE);
         }else{
-            $list = CollectApply::where('status', ConstDao::EXHIBIT_COLLECT_APPLY_DRAFT)->get()->toArray();
+            $list = CollectApply::where('status', ConstDao::EXHIBIT_COLLECT_APPLY_DRAFT)->paginate(parent::PERPAGE);
         }
-
         $res['exhibit_list'] = $list;
         return view('admin.exhibitcollect.apply', $res);
     }
@@ -99,9 +98,9 @@ class ExhibitController extends BaseAdminController
     public function pic_mode(){
         $title = request('title');
         if(!empty($title)){
-            $list = CollectApply::where('collect_apply_num','like','%'.$title."%")->where('status', ConstDao::EXHIBIT_COLLECT_APPLY_DRAFT)->get();
+            $list = CollectApply::where('collect_apply_num','like','%'.$title."%")->where('status', ConstDao::EXHIBIT_COLLECT_APPLY_DRAFT)->paginate(parent::PERPAGE);
         }else{
-            $list = CollectApply::where('status', ConstDao::EXHIBIT_COLLECT_APPLY_DRAFT)->get();
+            $list = CollectApply::where('status', ConstDao::EXHIBIT_COLLECT_APPLY_DRAFT)->paginate(parent::PERPAGE);
         }
         $res['exhibit_list'] = $list;
         return view('admin.exhibitcollect.apply_pic_mode', $res);
@@ -117,9 +116,9 @@ class ExhibitController extends BaseAdminController
         $type = request('type', 1);
         if($type == ConstDao::EXHIBIT_COLLECT_RECIPE_SRC_BY_DIRECT){
             //直接入馆
-            $list = CollectRecipe::where('collect_apply_id',0)->get()->toArray();
+            $list = CollectRecipe::where('collect_apply_id',0)->paginate(parent::PERPAGE);
         }else{
-            $list = CollectRecipe::where('collect_apply_id','!=',0)->get()->toArray();
+            $list = CollectRecipe::where('collect_apply_id','!=',0)->paginate(parent::PERPAGE);
         }
         $res['exhibit_list'] = $list;
         return view('admin.exhibitcollect.getin',$res);

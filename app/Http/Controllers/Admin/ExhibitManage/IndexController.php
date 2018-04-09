@@ -19,10 +19,10 @@ class IndexController extends BaseAdminController
         $title = \request('title');
         if(empty($title)){
             $res['exhibit_list'] = Exhibit::join('storage_room','storage_room.room_number','=','exhibit.room_number','left')
-                ->select('exhibit_sum_register_id','exhibit_sum_register_num','name','room_name')->get();
+                ->select('exhibit_sum_register_id','exhibit_sum_register_num','name','room_name')->paginate(parent::PERPAGE);
         }else{
             $res['exhibit_list'] = Exhibit::join('storage_room','storage_room.room_number','=','exhibit.room_number','left')
-                ->where('name','like', '%'.$title."%")->select('exhibit_sum_register_id','exhibit_sum_register_num','name','room_name')->get();
+                ->where('name','like', '%'.$title."%")->select('exhibit_sum_register_id','exhibit_sum_register_num','name','room_name')->paginate(parent::PERPAGE);
         }
 
         return view('admin.exhibitmanage.stroageroom_list', $res);
