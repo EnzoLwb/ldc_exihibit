@@ -176,6 +176,8 @@ class ApplyController extends BaseAdminController
 		if(!empty($repair_ids) && is_array($repair_ids)){
 			//选取未提交过的申请 提交
 			RepairApply::where('apply_status','0')->whereIn('repair_id',$repair_ids)->update(array('apply_status'=>'1'));
+		}else{
+			return $this->error('申请失败');
 		}
 		return $this->success('','已经提交申请');
 	}

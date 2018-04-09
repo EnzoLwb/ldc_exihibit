@@ -24,6 +24,7 @@ class CreateInsideRepairTable extends Migration
 			$table->string('repair_order_name',50)->comment('档案号');
 			$table->integer('exhibit_sum_register_id',false,true)->comment('藏品id');
 			$table->string('name',50)->comment('藏品名称');
+			$table->tinyInteger('apply_status',false,true)->default('0')->comment('申请状态 0 未提交申请，1 等待审批 2 审批通过 3 审批拒绝');
 			$table->string('host',50)->comment('主持人')->nullable();
 			$table->string('restorer',50)->comment('修复人')->nullable();
 			$table->string('header_signature',50)->comment('主任签字')->nullable();

@@ -15,8 +15,10 @@
     <link rel="stylesheet" href="{{cdn('css/animate.min.css')}}">
     <link rel="stylesheet" href="{{cdn('css/style.min.css')}}">
     <link rel="stylesheet" href="{{cdn('css/common.css'.$_static_update)}}">
-    <!--[if lte IE 9]>
     <style type="text/css">
+        *{
+            font-size:100%;
+        }
         input, textarea {
             color: #000;
         }
@@ -24,10 +26,7 @@
         .placeholder {
             color: #aaa;
         }
-
     </style>
-    <![endif]-->
-
     <script src="{{cdn('js/jquery-1.12.4.min.js')}}"></script>
     <script src="{{cdn('js/bootstrap.min.js')}}"></script>
     <script src="{{cdn('js/plugins/layer/layer.js')}}"></script>

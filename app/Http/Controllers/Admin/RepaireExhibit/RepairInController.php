@@ -7,6 +7,7 @@ use App\Http\Requests\RepairinPost;
 use App\Models\Exhibit;
 use App\Models\ExhibitRepair\InsideRepair;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 /**
  * Class ApplyController
@@ -136,5 +137,64 @@ class RepairInController extends BaseAdminController
 			report($e);
 		}
 		return $this->error('删除失败');
+	}
+	/**
+	 * 导出excel
+	 */
+	public function excel()
+	{
+		$apply_ids = request('apply_ids');
+		$repair_inside=new InsideRepair();
+		//选中的所有数据
+		$res = $repair_inside->whereIn("inside_repair_id", $apply_ids)->get()->toArray();
+		$xls_data = array();
+		$header = ['档案号','藏品名称','修复前图片','修复中图片','修复后图片','申请状态','提取日期','归还时间','主持人','修复人','文物现状'];
+		$xls_data[] = $header;
+		foreach($res as $k=> $v)
+		{
+			//			unset($res[$k]['files']); 删除附件之类的数据
+			$xls_data[] = array(
+				$v['repair_order_name'],
+				$v['name'],
+				$v['before_pic']==''?'暂无图片':$_SERVER['SERVER_NAME'].$v['before_pic'],
+				$v['repairing_pic']==''?'暂无图片':$_SERVER['SERVER_NAME'].$v['repairing_pic'],
+				$v['after_pic']==''?'暂无图片':$_SERVER['SERVER_NAME'].$v['after_pic'],
+				$repair_inside->applyStatus($v['apply_status']),
+				$v['pickup_date'],
+				$v['return_date'],
+				$v['host'],
+				$v['restorer'],
+				$v['exhibit_status'],
+			);
+		}
+		Excel::create('内修文物管理', function ($excel) use ($xls_data) {
+			$excel->sheet('score', function ($sheet) use ($xls_data) {
+				$sheet->setWidth(array(
+					'A'     => 20,
+					'B'     =>  25,
+					'C'     =>  25,
+					'D'     =>  25,
+					'E'     =>  25,
+					'F'     =>  25,
+					'G'     =>  25,
+				));
+				$sheet->rows($xls_data);
+			});
+		})->export('xls');
+
+	}
+	/**
+	 * 提交申请
+	 */
+	public function apply_submit(Request $request)
+	{
+		$repair_ids = $request->inside_repair_id;
+		if(!empty($repair_ids) && is_array($repair_ids)){
+			//选取未提交过的申请 提交
+			InsideRepair::where('apply_status','0')->whereIn('inside_repair_id',$repair_ids)->update(array('apply_status'=>'1'));
+		}else{
+			return $this->error('申请失败');
+		}
+		return $this->success('','已经提交申请');
 	}
 }

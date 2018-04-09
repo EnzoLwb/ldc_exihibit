@@ -66,6 +66,8 @@ class ExhibitlogoutController extends BaseAdminController
 		if(!empty($logout_ids) && is_array($logout_ids)){
 			//选取未提交过的申请 提交
 			ExhibitLogout::where('status','0')->whereIn('logout_id',$logout_ids)->update(array('status'=>'1'));
+		}else{
+			return $this->error('申请失败');
 		}
 		return $this->success('','已经提交申请');
 	}

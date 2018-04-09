@@ -4,7 +4,6 @@
 <link rel="stylesheet" href="{{cdn('js/plugins/webuploader/single.css')}}">
 @section('body')
     <div class="wrapper wrapper-content">
-
         <div class="row m-b">
             <div class="col-sm-12">
                 <div class="tabs-container">
@@ -25,7 +24,7 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
-                        <form action="{{route('admin.repaireexhibit.repairin.save')}}" method="post" class="form-horizontal ajaxForm">
+                        <form action="{{route('admin.repaireexhibit.repairin.save')}}" method="post" class="form-horizontal">
                             <input type="hidden" name="inside_repair_id" value="{{$data['inside_repair_id'] or ''}}" />
                             <input type="hidden" name="_token" value="{{csrf_token()}}" />
                             <div class="form-group">

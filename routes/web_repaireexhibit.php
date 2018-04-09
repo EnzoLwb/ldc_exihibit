@@ -19,6 +19,8 @@ Route::group([
 	Route::get('repairin/edit/{id}', 'RepairInController@edit')->name('admin.repaireexhibit.repairin.edit');
 	Route::post('repairin/save', 'RepairInController@save')->name('admin.repaireexhibit.repairin.save');
 	Route::get('repairin/delete/{id}', 'RepairInController@delete')->name('admin.repaireexhibit.repairin.delete');
+	Route::post('repairin/apply_submit', 'RepairInController@apply_submit')->name('admin.repaireexhibit.repairin.apply_submit');
+	Route::get('repairin/excel', 'RepairInController@excel')->name('admin.repaireexhibit.repairin.excel');
 	//查看详情（不能更改）
 	Route::get('repairin/detail/{id}', 'RepairInController@detail')->name('admin.repaireexhibit.repairin.detail');
 	//关联查询 藏品具体信息
@@ -29,5 +31,7 @@ Route::group([
 	Route::get('repairout/edit/{id}', 'RepairOutController@edit')->name('admin.repaireexhibit.repairout.edit');
 	Route::post('repairout/save', 'RepairOutController@save')->name('admin.repaireexhibit.repairout.save');
 	Route::get('repairout/delete/{id}', 'RepairOutController@delete')->name('admin.repaireexhibit.repairout.delete');
+	Route::post('repairout/apply_submit', 'RepairOutController@apply_submit')->name('admin.repaireexhibit.repairout.apply_submit');
+	Route::get('repairout/excel', 'RepairOutController@excel')->name('admin.repaireexhibit.repairout.excel');
 
 });
