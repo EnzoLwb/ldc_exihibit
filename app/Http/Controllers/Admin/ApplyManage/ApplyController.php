@@ -12,6 +12,7 @@ use App\Models\ExhibitUse;
 use App\Models\ExhibitUsedApply;
 use App\Models\ExhibitUseItem;
 use App\Models\IdentifyApply;
+use App\Models\ShowApply;
 use App\Models\Storageroommanage\RoomList;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -25,7 +26,8 @@ class ApplyController extends BaseAdminController
             //征集申请
             $res['exhibit_list'] = CollectApply::whereIn('status', array_keys(ConstDao::$collect_apply_desc))->paginate(parent::PERPAGE);
             return view('admin.applymanage.collect_apply', $res);
-        }elseif($type == ConstDao::APPLY_TYPE_IDENTIFY) {
+        }
+        elseif($type == ConstDao::APPLY_TYPE_IDENTIFY) {
             //鉴定申请
             $exhibit_list = IdentifyApply::whereIn('status', array_keys(ConstDao::$identify_desc))->paginate(parent::PERPAGE);
             //添加展品信息
@@ -51,7 +53,8 @@ class ApplyController extends BaseAdminController
         	//库房盘点申请
 			$res['exhibit_list']=RoomList::where('apply_status',2)->paginate(parent::PERPAGE);
 			return view('admin.applymanage.storageCheck_apply', $res);
-		}elseif ($type == ConstDao::APPLY_TYPE_LOGOUT){
+		}
+		elseif ($type == ConstDao::APPLY_TYPE_LOGOUT){
 			//藏品注销申请
 			$exhibit_Logout=new ExhibitLogout();
 			$res['exhibit_list']=$exhibit_Logout->joinLeft()->where('exhibit_logout.status',1)->paginate(parent::PERPAGE);
@@ -111,12 +114,17 @@ class ApplyController extends BaseAdminController
         	//库房盘点申请
 			$res['exhibit_list']=RoomList::where('apply_status',2)->paginate(parent::PERPAGE);
 			return view('admin.applymanage.storageCheck_apply', $res);
-		}elseif ($type == ConstDao::APPLY_TYPE_LOGOUT){
+		}
+		elseif ($type == ConstDao::APPLY_TYPE_LOGOUT){
 			//藏品注销申请
 			$exhibit_Logout=new ExhibitLogout();
 			$res['exhibit_list']=$exhibit_Logout->joinLeft()->where('status',1)->paginate(parent::PERPAGE);
 			return view('admin.applymanage.logOut_apply', $res);
 		}
+		elseif($type == ConstDao::APPLY_TYPE_SHOW){
+            $res['data'] = ShowApply::where('status','!=',ConstDao::SHOW_APPLY_STATUS_DRAFT)->paginate(parent::PERPAGE);
+            return view('admin.applymanage.show_apply', $res);
+        }
 
     }
 
@@ -314,5 +322,24 @@ class ApplyController extends BaseAdminController
             Accident::whereIn('accident_id', $accident_ids)->update(array('status'=>ConstDao::ACCIDENT_STATUS_REFUSE));
         }
 	    return response_json(1,array(),'审核完成');
+    }
+
+
+    /**
+     * 审核完成
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show_audit(){
+        $show_apply_id = \request('show_apply_id');
+        $audit = \request('audit');
+        if(empty($show_apply_id) || !is_array($show_apply_id)){
+            return response_json(0,array(),'参数错误');
+        }
+        $count = ShowApply::whereIn('show_apply_id', $show_apply_id)->where('status','!=', ConstDao::SHOW_APPLY_STATUS_WAITING_AUDIT)->count();
+        if($count>0){
+            return response_json(0,array(),'包含已经审核的项');
+        }
+        ShowApply::whereIn('show_apply_id', $show_apply_id)->update(array('status'=>$audit));
+        return response_json(1,array(),'审核完成');
     }
 }

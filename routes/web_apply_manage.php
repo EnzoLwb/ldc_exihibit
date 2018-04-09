@@ -43,6 +43,9 @@ Route::group([
     //事故申请  批量通过
     Route::post('accident_audit', 'ApplyController@accident_audit')->name('admin.applymanage.accident_audit');
 
+    //展览申请  批量通过
+    Route::post('show_audit', 'ApplyController@show_audit')->name('admin.applymanage.show_audit');
+
     //出库申请  批量通过
     Route::post('exhibit_outer_pass', 'ApplyController@exhibit_outer_pass')->name('admin.applymanage.exhibit_outer_pass');
     //出库申请  批量拒绝

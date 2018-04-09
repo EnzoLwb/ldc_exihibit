@@ -75,6 +75,7 @@ class ConstDao
     const APPLY_TYPE_REPAIR = 'repair';
     const APPLY_TYPE_STORAGE_CHECK = 'storageCheck';
     const APPLY_TYPE_ACCIDENT = 'accident';
+    const APPLY_TYPE_SHOW = 'show';
     
     public static $apply_desc = array(
         self::APPLY_TYPE_COLLECT=>'征集申请',
@@ -83,7 +84,8 @@ class ConstDao
         self::APPLY_TYPE_LOGOUT=>'藏品注销申请',
         self::APPLY_TYPE_REPAIR=>'藏品修复申请',
 		self::APPLY_TYPE_STORAGE_CHECK=>'库房盘点申请',
-        self::APPLY_TYPE_ACCIDENT=>'事故申请'
+        self::APPLY_TYPE_ACCIDENT=>'事故申请',
+        self::APPLY_TYPE_SHOW=>'展览申请'
     );
 
     //征集申请的几种状态
