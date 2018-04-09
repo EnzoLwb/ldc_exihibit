@@ -19,6 +19,10 @@ Route::group([
 	Route::get('repairin/edit/{id}', 'RepairInController@edit')->name('admin.repaireexhibit.repairin.edit');
 	Route::post('repairin/save', 'RepairInController@save')->name('admin.repaireexhibit.repairin.save');
 	Route::get('repairin/delete/{id}', 'RepairInController@delete')->name('admin.repaireexhibit.repairin.delete');
+	//查看详情（不能更改）
+	Route::get('repairin/detail/{id}', 'RepairInController@detail')->name('admin.repaireexhibit.repairin.detail');
+	//关联查询 藏品具体信息
+	Route::post('repairin/exhibit/detail', 'RepairInController@exhibit_detail')->name('admin.repaireexhibit.exhibit.detail');
 	//藏品修复 外修文物管理
 	Route::get('repairout', 'RepairOutController@index')->name('admin.repaireexhibit.repairout');
 	Route::get('repairout/add', 'RepairOutController@add')->name('admin.repaireexhibit.repairout.add');

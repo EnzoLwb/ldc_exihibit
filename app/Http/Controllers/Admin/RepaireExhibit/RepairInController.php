@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin\RepaireExhibit;
 
 use App\Http\Controllers\Admin\BaseAdminController;
+use App\Http\Requests\RepairinPost;
+use App\Models\Exhibit;
+use App\Models\ExhibitRepair\InsideRepair;
 use Illuminate\Http\Request;
 
 /**
@@ -20,37 +23,33 @@ class RepairInController extends BaseAdminController
 	}
 
 	/**
-	 * index
-	 *
-	 * @author lxp
+	 * 内修文物管理
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
-	public function index()
+	public function index(Request $request)
 	{
-        $item['file_num'] = 'ERE001';
-        $item['exhibit_name'] = '玉龙玉玺';
-        $item['take_date'] = '2018-03-01';
-        $item['repair_date'] = '2018-03-11';
-        $item['back_date'] = '2018-03-20';
-        $item['responser'] = '张三';
-        $item['repairer'] = '李四';
-        $item['exhibit_status'] = '修复完成';
-
-
-        $item1['file_num'] = 'ERE002';
-        $item1['exhibit_name'] = '诚王兵符';
-        $item1['take_date'] = '2018-03-06';
-        $item1['repair_date'] = '2018-03-16';
-        $item1['back_date'] = '2018-03-26';
-        $item1['responser'] = '张三';
-        $item1['repairer'] = '李四';
-        $item1['exhibit_status'] = '修复完成';
-
+		$inside_repair=new InsideRepair();
+		//搜索项 搜索藏品名称
+		if (!empty( $request->repair_order_name)){
+			$data=$inside_repair->where('repair_order_name','like',"%{$request->repair_order_name}%")->paginate(parent::PERPAGE);
+		}else{
+			$data=$inside_repair->paginate(parent::PERPAGE);
+		}
         return view('admin.repaireexhibit.repairin', [
-			'data' => [$item, $item1]
+			'data' => $data
 		]);
 	}
-
+	/**
+	 * 查看内修文物详情
+	 * @author lwb 20180409
+	 */
+	public function detail($id)
+	{
+		$data=InsideRepair::find($id);
+		return view('admin.repaireexhibit.repairin_detail', [
+			'data' => $data
+		]);
+	}
 	/**
 	 * add
 	 *
@@ -59,9 +58,21 @@ class RepairInController extends BaseAdminController
 	 */
 	public function add()
 	{
-		return view('admin.repaireexhibit.repairin_form');
+		//返回藏品名称和id
+		$res=Exhibit::select('exhibit_sum_register_id as exhibit_id','name')->get()->toArray();
+		return view('admin.repaireexhibit.repairin_form',['exhibit'=>$res]);
 	}
-
+	/**
+	 * 藏品详情查询
+	 * @author lwb 20180408
+	 * @return json
+	 */
+	public function exhibit_detail(Request $request)
+	{
+		$res=Exhibit::find($request->exhibit_id);
+		$data=['size'=>$res->size,'weight'=>$res->quality,'type_no'=>$res->type_num,'age'=>$res->age,'level'=>$res->exhibit_level,'quality'=>$res->textaure1];
+		return response()->json($data);
+	}
 	/**
 	 * edit
 	 *
@@ -71,26 +82,39 @@ class RepairInController extends BaseAdminController
 	 */
 	public function edit($id)
 	{
+		$data=InsideRepair::find($id);
+		//返回藏品名称和id
+		$res=Exhibit::select('exhibit_sum_register_id as exhibit_id','name')->get()->toArray();
 		return view('admin.repaireexhibit.repairin_form', [
-			'data' => []
+			'data' => $data,'exhibit'=>$res
 		]);
 	}
 
 	/**
 	 * save
 	 *
-	 * @author lxp
-	 * @param Request $request
+	 * @author lwb
+	 * @param RepairinPost $request 表单验证
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
 	 */
-	public function save(Request $request)
+	public function save(RepairinPost $request)
 	{
-		// 验证
-		$this->validate($request, []);
-
 		// 保存数据
+		try {
+			$inside = InsideRepair::find($request->inside_repair_id);
+			if(!$inside){
+				$inside=new InsideRepair();
+				$inside::create($request->all());
+			}else{
+				$inside->update($request->except('inside_repair_id','_token'));
+			}
+		} catch (\Exception $e) {
+			//写入日志 保存失败
+			report($e);
+			return $this->error('保存失败');
+		}
+		return $this->success(route('admin.repaireexhibit.repairin'),'成功');
 
-		return $this->success(get_session_url('index'));
 	}
 
 	/**
@@ -103,7 +127,14 @@ class RepairInController extends BaseAdminController
 	public function delete($id)
 	{
 		// 删除
-
-		return $this->success('', 's_del');
+		try {
+			if (InsideRepair::destroy($id)){
+				return $this->success(route('admin.repaireexhibit.repairin'),'成功');
+			}
+		} catch (\Exception $e) {
+			//写入日志 保存失败
+			report($e);
+		}
+		return $this->error('删除失败');
 	}
 }

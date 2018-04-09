@@ -19,7 +19,7 @@ class ExhibitLogout extends BaseMdl
 	//联查藏品表 collect_exhibit的collect_exhibit_id
 	public function joinLeft()
 	{
-		return ExhibitLogout::leftjoin('exhibit','exhibit.exhibit_sum_register_id','exhibit_logout.exhibit_id')->select('exhibit_logout.*','exhibit.name');
+		return ExhibitLogout::leftjoin('exhibit','exhibit.exhibit_sum_register_id','exhibit_logout.exhibit_sum_register_id')->select('exhibit_logout.*','exhibit.name');
 	}
 	//列出所有藏品名字
 	public function collectName()
