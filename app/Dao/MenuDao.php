@@ -138,7 +138,7 @@ class MenuDao extends BaseMdl
 				'icon' => 'fa fa-cog',
 				'nodes' => [
 					[
-						'text' => '库房管理',
+						'text' => '移库管理',
 						'url' => route('admin.exhibitmanage.storageroom'),
 						'priv' => 'admin-exhibitmanage-storageroom'
 					],
@@ -174,11 +174,12 @@ class MenuDao extends BaseMdl
 						'url' => route('admin.exhibitmanage.exhibitbackroom'),
 						'priv' => 'admin-exhibitmanage-exhibitbackroom'
 					],
+                    /**
 					[
 						'text' => '移库管理',
 						'url' => route('admin.exhibitmanage.transfer'),
 						'priv' => 'admin-exhibitmanage-transfer'
-					],
+					],**/
 					[
 						'text' => '事故登记',
 						'url' => route('admin.exhibitmanage.accidentregistration'),
@@ -202,7 +203,7 @@ class MenuDao extends BaseMdl
 						'priv' => 'admin-storageroommanage-roomenv'
 					],
 					[
-						'text' => '库房结构管理',
+						'text' => '库房管理',
 						'url' => route('admin.storageroommanage.roomstruct'),
 						'priv' => 'admin-storageroommanage-roomstruct'
 					],

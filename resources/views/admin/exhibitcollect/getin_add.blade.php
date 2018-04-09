@@ -411,6 +411,7 @@
                 tr_str += "<td>"+files+ "</td>"
                 tr_str += "</tr>";
                 $("#content_list").append(tr_str);
+            $("#myModal").modal('hide')
         }
 
         //方形列表图
