@@ -7,13 +7,17 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Models\CollectApply;
 use App\Models\CollectExhibit;
 use App\Models\CollectRecipe;
+use App\Models\ExhibitUse;
 use App\Models\ExhibitUsedApply;
 use App\Models\IdentifyApply;
+use App\Models\ReturnStorage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Exhibit;
 use App\Models\Disinfection;
+use Illuminate\Support\Facades\DB;
+use App\Models\Accident;
 
 class ExcelController extends BaseAdminController
 {
@@ -231,6 +235,156 @@ class ExcelController extends BaseAdminController
             $xls_data[] = $xls_item;
         }
         Excel::create('出库申请单', function ($excel) use ($xls_data) {
+            $excel->sheet('score', function ($sheet) use ($xls_data) {
+                $sheet->setWidth(array(
+                    'A'     => 20,
+                    'B'     =>  25,
+                    'C'     =>  25,
+                    'D'     =>  25,
+                    'E'     =>  25,
+                    'F'     =>  25,
+                    'G'     =>  25,
+                    'H'     =>  25,
+                ));
+                $sheet->rows($xls_data);
+            });
+        })->export('xls');
+    }
+
+    /**
+     * 导出出库单子
+     */
+    public function export_exhibit_outer(){
+        $exhibit_use_ids = \request('exhibit_use_id');
+        if(empty($exhibit_use_ids)){
+            return $this->error('参数有误');
+        }
+        $list = ExhibitUse::join('exhibit_use_item','exhibit_use_item.exhibit_use_id','=','exhibit_use.exhibit_use_id')
+            ->join('exhibit', 'exhibit.exhibit_sum_register_id', '=', 'exhibit_use_item.exhibit_sum_register_id')
+            ->select('depart_name','outer_destination','outer_time','outer_sender','outer_taker','date','name',DB::Raw('ldc_exhibit_use_item.num as num'),
+                'backup_time', DB::Raw('ldc_exhibit_use_item.backup as backup'),'exhibit_sum_register_num')
+            ->whereIn('exhibit_use.exhibit_use_id', $exhibit_use_ids)->get();
+        $xls_data = array();
+        $header = ['提供部门','出库目的','出库日期',
+            '库房点叫人','提取经手人','日期','藏品名称','件数','归还时间','备注','总登记号'
+        ];
+        $xls_data[] = $header;
+        foreach ($list as $item){
+            $xls_item = array($item->depart_name, $item->outer_destination, $item->outer_time, $item->outer_sender,
+                $item->outer_taker,$item->date, $item->name,$item->num,$item->backup_time, $item->backup , $item->exhibit_sum_register_num);
+            $xls_data[] = $xls_item;
+        }
+        Excel::create('出库记录表', function ($excel) use ($xls_data) {
+            $excel->sheet('score', function ($sheet) use ($xls_data) {
+                $sheet->setWidth(array(
+                    'A'     => 20,
+                    'B'     =>  25,
+                    'C'     =>  25,
+                    'D'     =>  25,
+                    'E'     =>  25,
+                    'F'     =>  25,
+                    'G'     =>  25,
+                    'H'     =>  25,
+                ));
+                $sheet->rows($xls_data);
+            });
+        })->export('xls');
+
+    }
+
+    /**
+     * 导出事故登记的单子
+     */
+    public function export_accident(){
+        $accident_id = \request('accident_id');
+        $xls_data = array();
+        $header = ['文物名称','总登记号','事故时间',
+            '事故人','事故描述','处理依据','处理意见','状态'
+        ];
+        $xls_data[] = $header;
+        $list = Accident::join('exhibit','accident.exhibit_sum_register_id','=','exhibit.exhibit_sum_register_id')
+            ->whereIn('accident_id', $accident_id)
+            ->select('accident_id','name','exhibit_sum_register_num','accident_time','accident_maker','accident_desc','proc_dependy'
+                ,'proc_suggestion','accident.status')->get();
+        foreach ($list as $item){
+            $xls_item = array($item->name, $item->exhibit_sum_register_num, $item->accident_time, $item->accident_maker, $item->accident_desc,$item->proc_dependy,
+                $item->proc_suggestion, ConstDao::$accident_desc[$item->status]);
+            $xls_data[] = $xls_item;
+        }
+        Excel::create('事故登记表', function ($excel) use ($xls_data) {
+            $excel->sheet('score', function ($sheet) use ($xls_data) {
+                $sheet->setWidth(array(
+                    'A'     => 20,
+                    'B'     =>  25,
+                    'C'     =>  25,
+                    'D'     =>  25,
+                    'E'     =>  25,
+                    'F'     =>  25,
+                    'G'     =>  25,
+                    'H'     =>  25,
+                ));
+                $sheet->rows($xls_data);
+            });
+        })->export('xls');
+    }
+
+    /**
+     * 导出展品记录
+     */
+    public function export_exhibit(){
+        $exhibit_sum_register_id = \request('exhibit_sum_register_id');
+        if(empty($exhibit_sum_register_id) && !is_array($exhibit_sum_register_id)){
+            return $this->error('参数有误');
+        }
+
+        $xls_data = array();
+        $header = ['总登记号','入馆凭证号','名称',
+            '数量','年代','级别','尺寸','重量','完残情况','入馆日期','来源','备注'
+        ];
+        $xls_data[] = $header;
+        $list = Exhibit::whereIn('exhibit_sum_register_id',$exhibit_sum_register_id)->get();
+
+        foreach ($list as $item){
+            $xls_item = array($item->exhibit_sum_register_num, $item->collect_recipe_num, $item->name, $item->num, $item->age,$item->exhibit_level,
+                $item->size, $item->quality,$item->complete_degree, $item->in_museum_time, $item->src, $item->backup);
+            $xls_data[] = $xls_item;
+        }
+        Excel::create('入库管理表', function ($excel) use ($xls_data) {
+            $excel->sheet('score', function ($sheet) use ($xls_data) {
+                $sheet->setWidth(array(
+                    'A'     => 20,
+                    'B'     =>  25,
+                    'C'     =>  25,
+                    'D'     =>  25,
+                    'E'     =>  25,
+                    'F'     =>  25,
+                    'G'     =>  25,
+                    'H'     =>  25,
+                ));
+                $sheet->rows($xls_data);
+            });
+        })->export('xls');
+    }
+
+    public function export_returnstorage(){
+        $return_storage_id = \request('return_storage_id');
+        if(empty($return_storage_id) && !is_array($return_storage_id)){
+            return $this->error('参数有误');
+        }
+
+        $xls_data = array();
+        $header = ['藏品名称',
+            '退还人','点收人','退还日期','备注','状态'
+        ];
+        $xls_data[] = $header;
+        $list = ReturnStorage::join('exhibit','exhibit.exhibit_sum_register_id','=', 'return_storage.exhibit_sum_register_id')
+            ->whereIn('return_storage_id', $return_storage_id)->select('name','returner','taker','return_date','mark',DB::Raw('ldc_return_storage.status as status'))->get();
+
+        foreach ($list as $item){
+            $xls_item = array($item->name, $item->returner, $item->taker, $item->return_date, $item->mark,ConstDao::$returnstorage_desc[$item->status]);
+            $xls_data[] = $xls_item;
+        }
+        Excel::create('回库管理表', function ($excel) use ($xls_data) {
             $excel->sheet('score', function ($sheet) use ($xls_data) {
                 $sheet->setWidth(array(
                     'A'     => 20,

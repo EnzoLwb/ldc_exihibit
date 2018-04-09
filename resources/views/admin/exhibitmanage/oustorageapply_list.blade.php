@@ -25,7 +25,7 @@
                     <div class="ibox-title">
                         <form role="form" class="form-inline" method="get" action="{{route('admin.exhibitmanage.outstorageroom.oustorageapply')}}">
                             <div class="form-group">
-                                <input type="text" name="title" placeholder="经办人" class="form-control" value="{{request('title')}}">
+                                <input type="text" name="executer" placeholder="经办人" class="form-control" value="{{request('title')}}">
                             </div>
                             &nbsp;&nbsp;
                             <button type="submit" class="btn btn-primary">搜索</button>

@@ -19,44 +19,48 @@ class InstorageManageController extends BaseAdminController
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(){
-        $item['sum_register_num'] = 'GTR667';
-        $item['enter_museum_num'] = 'fr6543';
-        $item['name'] = '大禹治水...';
-        $item['count'] = '1';
-        $item['age'] = '石器时代';
-        $item['class'] = '';
-        $item['size'] = '10寸';
-        $item['weight'] = '100克';
-        $item['current_info'] = '完好';
-        $item['room_num'] = '1号';
-        $item['enter_museum_date'] = '2018-03-20';
-        $item['src'] = '直接入馆';
-        $item['recipe_num'] = '32123';
-
-
-        $item1['sum_register_num'] = 'GTR668';
-        $item1['enter_museum_num'] = 'fr6544';
-        $item1['name'] = '玉龙吊坠...';
-        $item1['count'] = '1';
-        $item1['age'] = '石器时代';
-        $item1['class'] = '';
-        $item1['size'] = '10寸';
-        $item1['weight'] = '100克';
-        $item1['current_info'] = '完好';
-        $item1['room_num'] = '1号';
-        $item1['enter_museum_date'] = '2018-03-20';
-        $item1['src'] = '直接入馆';
-        $item1['recipe_num'] = '32127';
-        $res['exhibit_list'] = array($item,$item1);
+        $list = Exhibit::all();
+        $res['exhibit_list'] = $list;
         return view('admin.exhibitmanage.instorage_list', $res);
     }
 
     /**
-     * 增加入库记录
+     * 增加入库记录（实际上试修改展品信息）
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function add_instorageroom(){
-        return view('admin.exhibitmanage.add_instorage');
+        $exhibit_sum_register_id = \request('exhibit_sum_register_id');
+        $exhibit = Exhibit::join('collect_recipe', 'exhibit.collect_recipe_id','=','collect_recipe.collect_recipe_id','left')
+            ->where('exhibit_sum_register_id', $exhibit_sum_register_id)->select('exhibit_sum_register_id',DB::Raw('ldc_exhibit.backup as backup'),
+                'name','exhibit_sum_register_num',DB::Raw('ldc_exhibit.collect_recipe_num as collect_recipe_num'),'num','age','exhibit_level','size','quality','complete_degree','room_number',
+                'in_museum_time','src','recipe_num')->first();
+        if(empty($exhibit)){
+            return $this->error('抱歉参数有误');
+        }
+        $res['info'] = $exhibit;
+        return view('admin.exhibitmanage.add_instorage', $res);
+    }
+
+    /**
+     * 入库信息保存
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
+     */
+    public function instorageroom_save(Request $request){
+        $exhibit_sum_register_id = \request('exhibit_sum_register_id');
+        $exhibit = Exhibit::where('exhibit_sum_register_id', $exhibit_sum_register_id)->first();
+        if(empty($exhibit)){
+            return $this->error('参数有误');
+        }
+        $except = array('_token',"recipe_num");
+        $all = $request->all();
+        foreach($all as $k=>$v){
+            if(!in_array($k,$except)){
+                $exhibit->$k = $v;
+            }
+        }
+        $exhibit->save();
+        return $this->success('instorageroom','保存成功');
     }
 
     /**
@@ -64,7 +68,14 @@ class InstorageManageController extends BaseAdminController
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function oustorageapply(){
-        $list = ExhibitUsedApply::paginate(parent::PERPAGE);
+
+        $executer = \request('executer');
+        if(empty($executer)){
+            $list = ExhibitUsedApply::get();
+        }
+        else{
+            $list = ExhibitUsedApply::where('executer','like','%'.$executer."%")->get();
+        }
         foreach($list as $key=>$item){
             $exhibit_ids = $item->exhibit_list;
             $exhibit_ids = explode(",", $exhibit_ids);
@@ -180,12 +191,20 @@ class InstorageManageController extends BaseAdminController
         $exhibit_use->outer_sender = \request('outer_sender');
         $exhibit_use->outer_taker = \request('outer_taker');
         $exhibit_use->date = \request('date');
-        $exhibit_use->save();
+        $type = \request('type');
+        $exhibit_use->type = $type;
+            $exhibit_use->save();
         $items = ExhibitUseItem::where('exhibit_use_id', $exhibit_use_id)->get();
         foreach($items as $item){
             $item->num = \request($item->exhibit_use_item_id.'_num');
             $item->backup_time = \request($item->exhibit_use_item_id.'_backup_time');
             $item->backup = \request($item->exhibit_use_item_id.'_backup');
+            //修改展品的状态
+            $exhibit = Exhibit::where('exhibit_sum_register_id', $item->exhibit_sum_register_id)->first();
+            if(!empty($exhibit)){
+                $exhibit->status = $type;
+                $exhibit->save();
+            }
             $item->save();
         }
         return $this->success('exhibitout','操作成功');

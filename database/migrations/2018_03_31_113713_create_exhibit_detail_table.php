@@ -60,6 +60,7 @@ class CreateExhibitDetailTable extends Migration
             $table->string('storage_position', 50)->nullable()->comment('具体存放地址（本馆或者借展）');
             $table->string('exhibit_property', 50)->nullable()->comment('藏品性质');
             $table->string('status', 50)->nullable()->comment('藏品状态');
+            $table->string('room_number',50)->nullable()->commment('库房库位编号');
             $table->text('backup')->nullable()->comment('备注');
             $table->text('files')->nullable()->comment('附件');
 

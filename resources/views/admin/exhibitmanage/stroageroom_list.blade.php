@@ -11,8 +11,6 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="{{route('admin.exhibitmanage.storageroom')}}">查询</a></li>
-                        <li><a href="{{route('admin.exhibitmanage.storageroom')}}">修改</a></li>
-                        <li><a href="{{route('admin.exhibitmanage.storageroom')}}">删除</a></li>
                         <li ><a href="{{route('admin.exhibitmanage.add_storageroom')}}">新增</a></li>
                     </ul>
                 </div>
@@ -22,13 +20,12 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <form role="form" class="form-inline" method="get" action="{{url('admin/data/exhibit')}}">
+                        <form role="form" class="form-inline" method="get" action="{{route('admin.exhibitmanage.storageroom')}}">
                             <div class="form-group">
-                                <input type="text" name="title" placeholder="仓库名称" class="form-control" value="{{request('title')}}">
-                            </div>
-                            &nbsp;&nbsp;
+                                <input type="text" name="title" placeholder="展品名称" class="form-control" value="{{request('title')}}">
+                            </div>                            &nbsp;&nbsp;
                             <button type="submit" class="btn btn-primary">搜索</button>
-                            <button type="button" class="btn btn-white" onclick="location.href='{{route('admin.exhibitcollect.apply')}}'">重置</button>
+                            <button type="button" class="btn btn-white" onclick="location.href='{{route('admin.exhibitmanage.storageroom')}}'">重置</button>
                         </form>
                     </div>
                 </div>
@@ -42,15 +39,22 @@
                         <table class="table table-striped table-bordered table-hover dataTables-example dataTable">
                             <thead>
                             <tr role="row">
-                                <th>选择</th>
+                                <th>总登记号</th>
+                                <th>名称</th>
                                 <th>仓库名称</th>
-
                             </tr>
                             </thead>
                             @foreach($exhibit_list as $exhibit)
                                 <tr class="gradeA">
-                                    <td><input type="checkbox" name="room_id" value="{{$exhibit->storage_room_idphp}}"></td>
+                                    <td>{{$exhibit->exhibit_sum_register_num}}</td>
                                     <td>{{$exhibit->name}}</td>
+                                    <td> <a href="{{route('admin.exhibitmanage.add_storageroom')."?exhibit_sum_register_id=".$exhibit->exhibit_sum_register_id}}">
+                                            @if(empty($exhibit->room_name))
+                                                暂无库房信息
+                                            @else
+                                                {{$exhibit->room_name}}
+                                            @endif
+                                            </a></td>
                                 </tr>
                             @endforeach
                         </table>

@@ -12,8 +12,6 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li ><a href="{{route('admin.exhibitmanage.storageroom')}}">查询</a></li>
-                        <li><a href="{{route('admin.exhibitmanage.storageroom')}}">修改</a></li>
-                        <li><a href="{{route('admin.exhibitmanage.storageroom')}}">删除</a></li>
                         <li class="active" ><a href="{{route('admin.exhibitmanage.add_storageroom')}}">新增</a></li>
                     </ul>
                 </div>
@@ -24,15 +22,20 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
-                        <form method="post" action="{{route('admin.exhibitcollect.apply_save')}}" class="form-horizontal ajaxForm">
+                        <form method="post" action="{{route('admin.exhibitmanage.storage_room_save')}}" class="form-horizontal ajaxForm">
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">仓库名称</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="id" id="id"
-                                           value="{{$info['id'] or ''}}" required/>
+                                    <select name="room_number" class="form-control" >
+                                        @foreach($exhibit_list as $item)
+                                            <option value="{{$item->room_number}}">{{$item->room_name}}</option>
+                                        @endforeach
+                                    </select>
                                     <input type="hidden" name="_token"
                                            value="{{csrf_token()}}" />
+                                    <input type="hidden" name="exhibit_sum_register_id"
+                                           value="{{$exhibit_sum_register_id}}" />
                                 </div>
                             </div>
 

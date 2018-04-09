@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\ApplyManage;
 
 use App\Dao\ConstDao;
 use App\Http\Controllers\Admin\BaseAdminController;
+use App\Models\Accident;
 use App\Models\CollectApply;
 use App\Models\Exhibit;
 use App\Models\ExhibitLogout;
@@ -99,6 +100,12 @@ class ApplyController extends BaseAdminController
             }
             $res['exhibit_list'] = $exhibit_list;
             return view('admin.applymanage.exhibit_used_apply', $res);
+        }
+        elseif($type == ConstDao::APPLY_TYPE_ACCIDENT){
+            $res['exhibit_list'] = Accident::join('exhibit','exhibit.exhibit_sum_register_id','=','accident.exhibit_sum_register_id')
+                ->where('accident.status','!=',ConstDao::ACCIDENT_STATUS_DRAFT)->select('accident_id','name','exhibit_sum_register_num','accident_time','accident_maker','accident_desc','proc_dependy'
+                    ,'proc_suggestion','accident.status')->get();
+            return view('admin.applymanage.accident_apply', $res);
         }
         elseif ($type == ConstDao::APPLY_TYPE_STORAGE_CHECK){
         	//库房盘点申请
@@ -230,7 +237,7 @@ class ApplyController extends BaseAdminController
         return response_json('1', '', '审核拒绝');
     }
 
-/**
+    /**
 	 * 藏品注销申请 批量通过
 	 */
 	public function logOut_apply_pass(){
@@ -284,4 +291,28 @@ class ApplyController extends BaseAdminController
 			return response_json(1, array(),'操作完成');
 		}
 	}
+
+    /**
+     * 审核完成
+     * @return \Illuminate\Http\JsonResponse
+     */
+	public function accident_audit(){
+	    $audit = \request('audit');
+	    $accident_ids = \request('accident_id');
+	    if(empty($accident_ids)){
+            return response_json(0, array(),'参数有误');
+        }
+        $count = Accident::whereIn('accident_id', $accident_ids)->where('status', '!=', ConstDao::ACCIDENT_STATUS_WAITING_AUDIT)->count();
+        if($count>0){
+            return response_json(0, array(),'抱歉，所选项存在已审核过的数据');
+        }
+	    if($audit){
+	        //审核通过
+            Accident::whereIn('accident_id', $accident_ids)->update(array('status'=>ConstDao::ACCIDENT_STATUS_AUDIENTED));
+        }else{
+	        //审核拒绝
+            Accident::whereIn('accident_id', $accident_ids)->update(array('status'=>ConstDao::ACCIDENT_STATUS_REFUSE));
+        }
+	    return response_json(1,array(),'审核完成');
+    }
 }

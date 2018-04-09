@@ -4,11 +4,11 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateExhibitUseTable extends Migration
+class CreateAccidentTable extends Migration
 {
-    private $tableName = 'exhibit_use';
-    private $tableComment = '展品使用单子';
-    private $primaryKey = 'exhibit_use_id';
+    private $tableName = 'accident';
+    private $tableComment = '事故登记单子';
+    private $primaryKey = 'accident_id';
 
     /**
      * Run the migrations.
@@ -19,14 +19,16 @@ class CreateExhibitUseTable extends Migration
     {
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->increments($this->primaryKey);
-            $table->integer('exhibit_use_apply_id')->nullable()->default(0)->comment('申请单子');
-            $table->string('depart_name')->nullable()->comment('提供部门');
-            $table->string('outer_destination')->nullable()->comment('出库目的');
-            $table->string('outer_time')->nullable()->comment('出库时间');
-            $table->string('outer_sender',100)->nullable()->comment('库房点交人');
-            $table->string('outer_taker',100)->nullable()->comment('提取经手人');
-            $table->string('date',100)->nullable()->comment('日期');
-            $table->tinyInteger('type')->nullable()->default(0)->comment('出库类型');
+            $table->integer('exhibit_sum_register_id')->nullable()->comment('关联展品总登记号');
+            $table->string('accident_time')->default('')->nullable()->comment('事故发生时间');
+            $table->string('accident_maker')->nullable()->comment('事故造成人');
+            $table->string('result_maker')->nullable()->comment('事故处理单位');
+            $table->string('recorder')->nullable()->comment('录入人');
+            $table->tinyInteger('status')->nullable()->default(0)->comment('状态，草稿或者审核通过，或者审核拒绝');
+            $table->text('accident_desc')->comment('事故描述');
+            $table->text('proc_dependy')->comment('处理依据');
+            $table->text('proc_suggestion')->comment('处理意见');
+
             $table->timestamps();
             if (env('DB_CONNECTION') == 'oracle') {
                 $table->comment = $this->tableComment;

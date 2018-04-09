@@ -7,8 +7,10 @@ Route::group([
 ], function () {
     //仓库列表
     Route::get('storageroom', 'IndexController@storageroom')->name('admin.exhibitmanage.storageroom');
-    //添加新的仓库
+    //展示修改展品的所在仓库页面
     Route::get('add_storageroom', 'IndexController@add_storageroom')->name('admin.exhibitmanage.add_storageroom');
+    //storage_room_save  保存展品的所在仓库信息
+    Route::post('storage_room_save', 'IndexController@storage_room_save')->name('admin.exhibitmanage.storage_room_save');
     //消毒管理
     Route::get('disinfection', 'DisinfectionController@index')->name('admin.exhibitmanage.disinfection');
     //增加消毒记录
@@ -21,7 +23,8 @@ Route::group([
     //入库管理
     Route::get('instorageroom', 'InstorageManageController@index')->name('admin.exhibitmanage.instorageroom');
     Route::get('add_instorageroom', 'InstorageManageController@add_instorageroom')->name('admin.exhibitmanage.add_instorageroom');
-
+    //入库管理信息保存
+    Route::post('instorageroom_save', 'InstorageManageController@instorageroom_save')->name('admin.exhibitmanage.instorageroom_save');
     //出库申请
     Route::get('outstorageroom/oustorageapply', 'InstorageManageController@oustorageapply')->name('admin.exhibitmanage.outstorageroom.oustorageapply');
     Route::get('outstorageroom/add_oustorageapply', 'InstorageManageController@add_oustorageapply')->name('admin.exhibitmanage.outstorageroom.add_oustorageapply');
@@ -35,8 +38,6 @@ Route::group([
     //保存出库单子
     Route::post('outstorageroom/exhibitout_save', 'InstorageManageController@exhibitout_save')->name('admin.exhibitmanage.outstorageroom.exhibitout_save');
 
-
-
     Route::get('outstorageroom', 'LoginController@logout')->name('admin.exhibitmanage.outstorageroom');
     Route::get('exhibituse', 'LoginController@logout')->name('admin.exhibitmanage.exhibituse');
     Route::get('exhibitlook', 'LoginController@logout')->name('admin.exhibitmanage.exhibitlook');
@@ -44,12 +45,16 @@ Route::group([
     //藏品回库
     Route::get('exhibitbackroom', 'ExhibitBackRoomController@index')->name('admin.exhibitmanage.exhibitbackroom');
     Route::get('add_exhibitbackroom', 'ExhibitBackRoomController@add_exhibitbackroom')->name('admin.exhibitmanage.add_exhibitbackroom');
+    Route::post('save_exhibitbackroom', 'ExhibitBackRoomController@save_exhibitbackroom')->name('admin.exhibitmanage.save_exhibitbackroom');
+    //藏品回库提交
+    Route::post('submit_exhibitbackroom', 'ExhibitBackRoomController@submit_exhibitbackroom')->name('admin.exhibitmanage.submit_exhibitbackroom');
     //移库管理
     Route::get('transfer', 'TransferController@index')->name('admin.exhibitmanage.transfer');
     Route::get('add_transfer', 'TransferController@add_transfer')->name('admin.exhibitmanage.add_transfer');
 
     //事故登记
     Route::get('accidentregistration', 'AccidentRegistrationController@index')->name('admin.exhibitmanage.accidentregistration');
-
+    Route::post('accidentregistration_submit', 'AccidentRegistrationController@accidentregistration_submit')->name('admin.exhibitmanage.accidentregistration_submit');
+    Route::post('accidentregistration_save', 'AccidentRegistrationController@accidentregistration_save')->name('admin.exhibitmanage.accidentregistration_save');
     Route::get('add_accidentregistration', 'AccidentRegistrationController@add_accidentregistration')->name('admin.exhibitmanage.add_accidentregistration');
 });

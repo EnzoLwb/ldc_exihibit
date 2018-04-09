@@ -28,61 +28,59 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
-                        <form method="post" action="{{route('admin.exhibitcollect.apply_save')}}" class="form-horizontal ajaxForm">
+                        <form method="post" action="{{route('admin.exhibitmanage.accidentregistration_save')}}" class="form-horizontal">
 
+                            <input type="hidden" name="accident_id" value="{{$info['accident_id'] or ''}}">
+                            <input type="hidden" name="_token" value="{{csrf_token()}}">
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">文物名称</label>
+                                <label class="col-sm-2 control-label">文物选择</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="id" id="id"
-                                           value="{{$info['id'] or ''}}" required/>
+                                    <select name="exhibit_sum_register_id" class="form-control">
+                                        @foreach($exhibit_list as $exhibit)
+                                            <option value="{{$exhibit->exhibit_sum_register_id}}">{{$exhibit->name}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">总登记号</label>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="id" id="id"
-                                           value="{{$info['id'] or ''}}" required/>
-                                </div>
-                            </div>
 
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">事故事件</label>
+                                <label class="col-sm-2 control-label">事故时间</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="id" id="id"
-                                           value="{{$info['id'] or ''}}" required/>
+                                    <input placeholder="开始日期" class="form-control layer-date laydate-icon" id="accident_time" type="text"
+                                           name="accident_time" value="{{$info['accident_time']}}"
+                                           style="width: 140px;">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">事故人</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="id" id="id"
-                                           value="{{$info['id'] or ''}}" required/>
+                                    <input type="text" class="form-control" name="accident_maker" id="accident_maker"
+                                           value="{{$info['accident_time'] or ''}}" required/>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">事故描述</label>
                                 <div class="col-sm-4">
-                                    <textarea class="form-control"></textarea>
+                                    <textarea class="form-control" name="accident_desc">{{$info['accident_desc'] or ''}}</textarea>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">处理依据</label>
                                 <div class="col-sm-4">
-                                    <textarea class="form-control"></textarea>
+                                    <textarea class="form-control" name="proc_dependy">{{$info['proc_dependy'] or ''}}</textarea>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">处理意见</label>
                                 <div class="col-sm-4">
-                                    <textarea class="form-control"></textarea>
+                                    <textarea class="form-control" name="proc_suggestion">{{$info['proc_suggestion'] or ''}}</textarea>
                                 </div>
                             </div>
-
 
                             <div class="form-group">
                                 <div class="col-sm-4 col-sm-offset-2">
@@ -100,8 +98,15 @@
     </div>
     <script src="{{cdn('js/plugins/webuploader/webuploader.nolog.min.js')}}"></script>
     <script src="{{cdn('js/plugins/webuploader/webuploader_public.js')}}"></script>
-
+    <script src="{{cdn('js/public.js')}}"></script>
+    <script type="text/javascript" src="{{cdn('js/plugins/laydate/laydate.js')}}"></script>
     <script>
+        var start = $.extend({}, laydateOptions, {
+            elem: "#accident_time",
+            choose: function (datas) {
+            }
+        });
+        laydate(start);
         //方形列表图
         singleUpload({
             _token: '{{csrf_token()}}',
