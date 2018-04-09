@@ -23,11 +23,11 @@ class ApplyController extends BaseAdminController
         $res['type'] = $type;
         if($type == ConstDao::APPLY_TYPE_COLLECT){
             //征集申请
-            $res['exhibit_list'] = CollectApply::whereIn('status', array_keys(ConstDao::$collect_apply_desc))->get();
+            $res['exhibit_list'] = CollectApply::whereIn('status', array_keys(ConstDao::$collect_apply_desc))->paginate(parent::PERPAGE);
             return view('admin.applymanage.collect_apply', $res);
         }elseif($type == ConstDao::APPLY_TYPE_IDENTIFY) {
             //鉴定申请
-            $exhibit_list = IdentifyApply::whereIn('status', array_keys(ConstDao::$identify_desc))->get();
+            $exhibit_list = IdentifyApply::whereIn('status', array_keys(ConstDao::$identify_desc))->paginate(parent::PERPAGE);
             //添加展品信息
             foreach ($exhibit_list as $key => $item) {
                 $exhibit_sum_register_id = $item->exhibit_sum_register_id;
@@ -59,7 +59,7 @@ class ApplyController extends BaseAdminController
 		}
 		elseif($type == ConstDao::APPLY_TYPE_OUTER){
             //出库申请
-            $exhibit_list = ExhibitUsedApply::where('status', '!=',ConstDao::EXHIBIT_USED_APPLY_STATUS_DRAFT)->get();
+            $exhibit_list = ExhibitUsedApply::where('status', '!=',ConstDao::EXHIBIT_USED_APPLY_STATUS_DRAFT)->paginate(parent::PERPAGE);
             //添加展品信息
             foreach($exhibit_list as $key=>$item){
                 $exhibit_sum_register_id = $item->exhibit_list;
@@ -104,7 +104,7 @@ class ApplyController extends BaseAdminController
         elseif($type == ConstDao::APPLY_TYPE_ACCIDENT){
             $res['exhibit_list'] = Accident::join('exhibit','exhibit.exhibit_sum_register_id','=','accident.exhibit_sum_register_id')
                 ->where('accident.status','!=',ConstDao::ACCIDENT_STATUS_DRAFT)->select('accident_id','name','exhibit_sum_register_num','accident_time','accident_maker','accident_desc','proc_dependy'
-                    ,'proc_suggestion','accident.status')->get();
+                    ,'proc_suggestion','accident.status')->paginate(parent::PERPAGE);
             return view('admin.applymanage.accident_apply', $res);
         }
         elseif ($type == ConstDao::APPLY_TYPE_STORAGE_CHECK){

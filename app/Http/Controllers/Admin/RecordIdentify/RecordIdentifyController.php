@@ -42,7 +42,7 @@ class RecordIdentifyController extends BaseAdminController
      */
     public function result_list(){
         $identify_id = \request('identify_id');
-        $list = IdentifyResult::where('identify_apply_id', $identify_id)->get();
+        $list = IdentifyResult::where('identify_apply_id', $identify_id)->paginate(parent::PERPAGE);
         foreach ($list as $key=>$item){
             $maker = $item->identify_maker;
             $user_mode = AdminUsers::where('uid', $maker)->first();

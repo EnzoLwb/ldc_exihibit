@@ -67,7 +67,12 @@
                                 </tr>
                             @endforeach
                         </table>
-
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div>共 {{ $exhibit_list->total() }} 条记录</div>
+                                {!! $exhibit_list->links() !!}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

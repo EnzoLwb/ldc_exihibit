@@ -19,16 +19,17 @@ class ExpertController extends BaseAdminController
     public function expert(){
         $title = \request('title');
         if(empty($title)){
-            $list = AdminUsers::where('groupid', ConstDao::EXPERT_ROLE_ID)->get()->toArray();
+            $list = AdminUsers::where('groupid', ConstDao::EXPERT_ROLE_ID)->paginate(parent::PERPAGE);
         }else{
-            $list = AdminUsers::where('username','like','%'.$title."%")->where('groupid', ConstDao::EXPERT_ROLE_ID)->get()->toArray();
+            $list = AdminUsers::where('username','like','%'.$title."%")->where('groupid', ConstDao::EXPERT_ROLE_ID)->paginate(parent::PERPAGE);
         }
         foreach($list as $key=>$item){
             $admin_user_id = $item['uid'];
-            $expert = Expert::where('admin_user_id', $admin_user_id)->first()->toArray();
-            $item = array_merge($item, $expert);
-            $list[$key] = $item;
+            $expert = Expert::where('admin_user_id', $admin_user_id)->first();
+            $list[$key]->sex = $expert->sex;
+            $list[$key]->status = $expert->status;
         }
+
         $res['exhibit_list'] = $list;
         return view('admin.exhibitidentify.expert', $res);
     }

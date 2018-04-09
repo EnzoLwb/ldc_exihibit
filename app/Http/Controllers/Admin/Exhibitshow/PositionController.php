@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin\Exhibitshow;
 
+use App\Dao\ConstDao;
 use App\Http\Controllers\Admin\BaseAdminController;
 use Illuminate\Http\Request;
-
+use App\Models\ShowPosition;
 /**
  * Class PositionController
  *
@@ -27,26 +28,14 @@ class PositionController extends BaseAdminController
 	 */
 	public function index()
 	{
-        $item['position_name'] = '1号展位';
-        $item['position_num'] = '0001';
-        $item['exhibit_way'] = '陈列展示';
-        $item['is_class'] = '是';
-        $item['is_valid'] = '是';
-        $item['position'] = '一楼';
-        $item['responser'] = '张三';
-
-
-
-        $item1['position_name'] = '2号展位';
-        $item1['position_num'] = '0002';
-        $item1['exhibit_way'] = '陈列展示';
-        $item1['is_class'] = '是';
-        $item1['is_valid'] = '是';
-        $item1['position'] = '一楼';
-        $item1['responser'] = '李四';
-
+	    $title = \request('title');
+	    if(empty($title)){
+            $list = ShowPosition::paginate(parent::PERPAGE);
+        }else{
+            $list = ShowPosition::where('name','like','%'.$title.'%')->paginate(parent::PERPAGE);
+        }
 		return view('admin.exhibitshow.position', [
-			'data' => [$item, $item1]
+			'data' => $list
 		]);
 	}
 
@@ -58,7 +47,9 @@ class PositionController extends BaseAdminController
 	 */
 	public function add()
 	{
-		return view('admin.exhibitshow.position_form');
+	    $show_position_id = \request('show_position_id');
+	    $res['info'] = ShowPosition::find($show_position_id);
+		return view('admin.exhibitshow.position_form', $res);
 	}
 
 	/**
@@ -84,13 +75,32 @@ class PositionController extends BaseAdminController
 	 */
 	public function save(Request $request)
 	{
-		// 验证
-		$this->validate($request, []);
-
-		// 保存数据
-
+        $show_position_id = \request('show_position_id');
+        $show_position_model = ShowPosition::findOrNew($show_position_id);
+        $except = array('_token');
+        $all = $request->all();
+        foreach($all as $k=>$v){
+            if(!in_array($k, $except)){
+                $show_position_model->$k = $v;
+            }
+        }
+        $show_position_model->save();
 		return $this->success(get_session_url('index'));
 	}
+
+    /**
+     * 修改选中的状态
+     */
+	public function status_change(){
+        $status = \request('status');
+        $show_position_id = \request('show_position_id');
+        if(!in_array($status, array_keys(ConstDao::$show_position_valid_desc)) || empty($show_position_id) || !is_array($show_position_id)){
+            return response_json(0,[], '参数有误');
+        }
+        //修改状态
+        ShowPosition::whereIn('show_position_id', $show_position_id)->update(array('is_valid'=>$status));
+        return response_json(1,[], '操作成功');
+    }
 
 	/**
 	 * delete
@@ -99,10 +109,14 @@ class PositionController extends BaseAdminController
 	 * @param $id
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
 	 */
-	public function delete($id)
+	public function delete()
 	{
-		// 删除
-
-		return $this->success('', 's_del');
+		$show_position_id = \request('show_position_id');
+		$show_position = ShowPosition::find($show_position_id);
+		if(empty($show_position)){
+		    return response_json(0,array(),'参数有误');
+        }
+        $show_position->delete();
+		return response_json(1, array(),'操作成功');
 	}
 }

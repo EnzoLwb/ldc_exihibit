@@ -19,7 +19,7 @@ class InstorageManageController extends BaseAdminController
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(){
-        $list = Exhibit::all();
+        $list = Exhibit::paginate(parent::PERPAGE);
         $res['exhibit_list'] = $list;
         return view('admin.exhibitmanage.instorage_list', $res);
     }
@@ -71,10 +71,10 @@ class InstorageManageController extends BaseAdminController
 
         $executer = \request('executer');
         if(empty($executer)){
-            $list = ExhibitUsedApply::get();
+            $list = ExhibitUsedApply::paginate(parent::PERPAGE);
         }
         else{
-            $list = ExhibitUsedApply::where('executer','like','%'.$executer."%")->get();
+            $list = ExhibitUsedApply::where('executer','like','%'.$executer."%")->paginate(parent::PERPAGE);
         }
         foreach($list as $key=>$item){
             $exhibit_ids = $item->exhibit_list;
@@ -148,7 +148,7 @@ class InstorageManageController extends BaseAdminController
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function exhibitout(){
-        $exhibit_list = ExhibitUse::get();
+        $exhibit_list = ExhibitUse::paginate(parent::PERPAGE);
         $res['exhibit_list'] = $exhibit_list;
         return view('admin.exhibitmanage.exhibitout_list', $res);
     }
