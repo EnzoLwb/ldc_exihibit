@@ -14,6 +14,7 @@
                         @if(isset($data))
                             <li class="active"><a href="#">编辑</a></li>
                         @endif
+                        <li @if(isset($finished)&&$finished=='done')class="active"@endif><a href="{{route('admin.storageroommanage.roomlist',['finished'=>'done'])}}">历史盘点任务</a></li>
                     </ul>
                 </div>
             </div>
@@ -29,7 +30,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">库房编号</label>
                                 <div class="col-sm-4">
-                                    <select name="room_number" >
+                                    <select name="room_number" class="form-control">
                                         @foreach($storage as $v)
                                             <option value="{{$v}}" selected={{@$data['room_number']==$v||old('room_number')==$v?'selected':''}}>{{$v}}</option>
                                         @endforeach
@@ -69,18 +70,32 @@
                                     <input type="text" class="form-control" name="goods_count" value="{{$data['goods_count']??old('goods_count')}}"/>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">完整文物数量</label>
-                                <div class="col-sm-2">
-                                    <input type="text" class="form-control" name="completed_count" value="{{$data['completed_count']??old('completed_count')}}"/>
+                            @if(isset($data['check_id']))
+                                {{--添加盘点的文物数量以及修改盘点状态--}}
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">完整文物数量<span class="help-block">(盘点后填写*)</span></label>
+                                    <div class="col-sm-2">
+                                        <input type="text" class="form-control" name="completed_count" value="{{$data['completed_count']??old('completed_count')}}"/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">残缺文物数量</label>
-                                <div class="col-sm-2">
-                                    <input type="text" class="form-control" name="imcompleted_count" value="{{$data['imcompleted_count']??old('imcompleted_count')}}"/>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">残缺文物数量<span class="help-block">(盘点后填写*)</span></label>
+                                    <div class="col-sm-2">
+                                        <input type="text" class="form-control" name="imcompleted_count" value="{{$data['imcompleted_count']??old('imcompleted_count')}}"/>
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">盘点状态<span class="help-block">(盘点后修改*)</span></label>
+                                    <div class="col-sm-4">
+                                        <select name="check_status" class="form-control">
+                                            @foreach($check_status   as $k=>$intro)
+                                                <option value="{{$k}}" {{@$data['check_status']==$k||old('check_status')==$k?'selected':''}}>{{$intro}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            @endif
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">盘点申请备注</label>
                                 <div class="col-sm-4">

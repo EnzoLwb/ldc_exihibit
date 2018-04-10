@@ -23,8 +23,8 @@ class CreateRoomlistTable extends Migration
 			$table->tinyInteger('apply_status',false,true)->default('2')->comment('申请是否通过 1为通过 0为未通过 2为审核中');
 			$table->tinyInteger('check_status',false,true)->default('0')->comment('盘点是否完成 1为已完成 0为未完成 2为正在执行');
 			$table->integer('goods_count',false,true)->comment('盘点文物数量')->nullable();
-			$table->integer('completed_count',false,true)->comment('完整文物数量')->nullable();
-			$table->integer('imcompleted_count',false,true)->comment('残缺文物数量')->nullable();
+			$table->integer('completed_count',false,true)->default(0)->comment('完整文物数量');
+			$table->integer('imcompleted_count',false,true)->default(0)->comment('残缺文物数量');
 			$table->text('apply_remark')->comment('盘点申请备注')->nullable();
 			$table->timestamps();
 

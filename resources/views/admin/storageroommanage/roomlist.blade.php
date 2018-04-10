@@ -8,8 +8,9 @@
             <div class="col-sm-12">
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="{{route('admin.storageroommanage.roomlist')}}">盘点任务</a></li>
+                        <li @if(empty($finished))class="active"@endif><a href="{{route('admin.storageroommanage.roomlist')}}">盘点任务</a></li>
                         <li><a href="{{route('admin.storageroommanage.roomlist.add')}}">盘点申请</a></li>
+                        <li @if(isset($finished)&&$finished=='done')class="active"@endif><a href="{{route('admin.storageroommanage.roomlist',['finished'=>'done'])}}">历史盘点任务</a></li>
                     </ul>
                 </div>
             </div>
