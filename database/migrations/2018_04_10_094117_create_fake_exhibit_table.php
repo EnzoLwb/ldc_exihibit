@@ -4,11 +4,11 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateExhibitDetailTable extends Migration
+class CreateFakeExhibitTable extends Migration
 {
-    private $tableName = 'exhibit';
-    private $tableComment = '文物详情表';
-    private $primaryKey = 'exhibit_sum_register_id';
+    private $tableName = 'fake_exhibit';
+    private $tableComment = '伪文物详情表';
+    private $primaryKey = 'fake_exhibit_sum_register_id';
 
     /**
      * Run the migrations.
@@ -20,8 +20,9 @@ class CreateExhibitDetailTable extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->increments($this->primaryKey);
             $table->integer('collect_recipe_id')->nullable()->default(0)->comment('入馆单据号');
-            $table->string('exhibit_sum_register_num', 50)->nullable()->comment('总登记号');
             $table->string('collect_depart_name')->nullable()->default('')->comment('收藏单位名称');
+            $table->string('exhibit_sum_register_num', 50)->nullable()->comment('总登记号');
+            $table->tinyInteger('audit_status')->nullable()->comment('审核状态');
             $table->string('ori_num', 50)->nullable()->comment('原编号');
             $table->string('used_num', 50)->nullable()->comment('曾用号');
             $table->string('collect_recipe_num', 50)->nullable()->comment('入馆凭证号');
@@ -60,10 +61,10 @@ class CreateExhibitDetailTable extends Migration
             $table->string('in_museum_age', 50)->nullable()->comment('入馆年代');
             $table->string('in_museum_time_range', 50)->nullable()->comment('入馆时间范围');
             $table->string('storage_position', 50)->nullable()->comment('具体存放地址（本馆或者借展）');
-            $table->string('exhibit_property', 50)->nullable()->comment('藏品性质');
-            $table->string('status', 50)->nullable()->comment('藏品状态');
             $table->string('ori_storage_position', 50)->nullable()->comment('原展厅具体位置');
             $table->string('room_gui_num', 50)->nullable()->comment('展厅柜号');
+            $table->string('exhibit_property', 50)->nullable()->comment('藏品性质');
+            $table->string('status', 50)->nullable()->comment('藏品状态');
             $table->string('room_number',50)->nullable()->commment('库房库位编号');
             $table->text('backup')->nullable()->comment('备注');
             $table->text('files')->nullable()->comment('附件');

@@ -9,6 +9,7 @@ use App\Models\CollectExhibit;
 use App\Models\CollectRecipe;
 use App\Models\ExhibitUse;
 use App\Models\ExhibitUsedApply;
+use App\Models\FakeExhibit;
 use App\Models\IdentifyApply;
 use App\Models\ReturnStorage;
 use App\Models\ShowApply;
@@ -442,7 +443,7 @@ class ExcelController extends BaseAdminController
     public function export_show_position(){
         $show_position_id = \request('show_position_id');
         if(empty($show_position_id) || !is_array($show_position_id)){
-            return $this->error('參數有误');
+            return $this->error('参数有误');
         }
         $xls_data = array();
         $header = ['展位编号','展位名称','展品名称'];
@@ -473,5 +474,50 @@ class ExcelController extends BaseAdminController
                 $sheet->rows($xls_data);
             });
         })->export('xls');
+    }
+
+    private function do_export_exhibit($exhibit_list){
+        $xls_data = array();
+        $header = ['收藏单位','总登记号','原编号','曾用号','入馆凭证','现用名','曾用名','年代类型'
+            ,'具体年代','历史阶段','质地类型1','质地类型2','普查质地','具体质地','类别范围','具体类别',
+            '传统数量','传统数量单位','实际数量','实际数量单位','具体质量','质量范围','尺寸','长宽高',
+            '文物级别','来源方式','具体来源','来源补充','完残程度','完残状况','保存状态',
+            '入藏具体时间','入藏年代','入藏时间范围','具体存放地点','原展厅具体位置','展厅柜号',
+            '藏品性质','藏品状态','备注'];
+        $xls_data[] = $header;
+        foreach($exhibit_list as $k=>$v){
+            $item = array($v->collect_depart_name, $v->exhibit_sum_register_num, $v->ori_num, $v->used_num, $v->collect_recipe_num, $v->name, $v->used_name,$v->age_type,
+                $v->age, $v->history_step, $v->textaure1, $v->textaure2,$v->common_textaure,$v->textaure, $v->range_type, $v->type,
+                $v->common_num, $v->common_num_uint, $v->num, $v->num_uint, $v->quality, $v->quality_range, $v->size, $v->lwh,
+                $v->exhibit_level, $v->src_way, $v->src, $v->src_addition, $v->complete_degree, $v->complete_info, $v->storage_status,
+                $v->in_museum_time, $v->in_museum_age, $v->in_museum_time_range,$v->storage_position, $v->ori_storage_position,$v->storage_status,
+                $v->exhibit_property, ConstDao::$exhibit_status_desc[$v->status], $v->dackup);
+            $xls_data[] =  $item;
+        }
+        Excel::create('展品信息表', function ($excel) use ($xls_data) {
+            $excel->sheet('score', function ($sheet) use ($xls_data) {
+                $sheet->setWidth(array(
+                    'A'     => 20,
+                    'B'     =>  25,
+                    'C'     =>  25,
+                ));
+                $sheet->rows($xls_data);
+            });
+        })->export('xls');
+    }
+
+    public function export_fake_exhibit(){
+        $fake_exhibit_sum_register_id = \request('fake_exhibit_sum_register_id');
+        if(empty($fake_exhibit_sum_register_id) || !is_array($fake_exhibit_sum_register_id)){
+            return $this->error('参数有误');
+        }
+        $pos_list = FakeExhibit::whereIn('fake_exhibit_sum_register_id', $fake_exhibit_sum_register_id)->get();
+        $this->do_export_exhibit($pos_list);
+    }
+
+    public function export_sum_account(){
+        $exhibit_sum_register_id = \request('exhibit_sum_register_id');
+        $exhibit_list = Exhibit::whereIn('exhibit_sum_register_id',$exhibit_sum_register_id)->get();
+        $this->do_export_exhibit($exhibit_list);
     }
 }

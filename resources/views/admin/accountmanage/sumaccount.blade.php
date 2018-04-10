@@ -14,10 +14,9 @@
 
                         <li><a href="{{route('admin.accountmanage.sumaccount')}}">总账复核</a></li>
 
-                        <li><a href="{{route('admin.accountmanage.sumaccount')}}">导出</a></li>
+                        <li><a href="javascript:void(0)" onclick="export_xls()">导出</a></li>
                         <li><a href="{{route('admin.accountmanage.sumaccount')}}">打印</a></li>
                         <li><a href="{{route('admin.accountmanage.sumaccount')}}">图文模式</a></li>
-                        <li><a href="{{route('admin.accountmanage.add_sumaccount')}}">修改</a></li>
                     </ul>
                 </div>
             </div>
@@ -54,26 +53,22 @@
                                 <th>现用名</th>
                                 <th>曾用名</th>
                                 <th>年代类型</th>
-                                <th>具体年代</th>
-                                <th>历史阶段</th>
-                                <th>质地类型1</th>
+                                <th>质地类型</th>
                                 <th>...</th>
                             </tr>
                             </thead>
                             @foreach($exhibit_list as $exhibit)
                                 <tr class="gradeA">
-                                    <td><input type="radio"></td>
-                                    <td>{{$exhibit['apply_num']}}</td>
-                                    <td>{{$exhibit['apply_depart_name']}}</td>
-                                    <td>{{$exhibit['apply_buy_object']}}</td>
-                                    <td>{{$exhibit['project_name']}} </td>
-                                    <td>{{$exhibit['depart_name']}} </td>
-                                    <td>{{$exhibit['need_money']}} </td>
-                                    <td>{{$exhibit['need_count']}} </td>
-                                    <td>{{$exhibit['applyer']}} </td>
-                                    <td>{{$exhibit['project_desc']}} </td>
-                                    <td>{{$exhibit['apply_reason']}} </td>
-                                    <td>{{$exhibit['...']}} </td>
+                                    <td><input type="checkbox" name="exhibit_sum_register_id" value="{{$exhibit['exhibit_sum_register_id']}}"></td>
+                                    <td>{{$exhibit['exhibit_sum_register_num']}}</td>
+                                    <td>{{$exhibit['ori_num']}}</td>
+                                    <td>{{$exhibit['used_name']}}</td>
+                                    <td>{{$exhibit['collect_recipe_num']}} </td>
+                                    <td>{{$exhibit['name']}} </td>
+                                    <td>{{$exhibit['used_name']}} </td>
+                                    <td>{{$exhibit['age_type']}} </td>
+                                    <td>{{$exhibit['textaure']}} </td>
+                                    <td>...</td>
                                 </tr>
                             @endforeach
                         </table>
@@ -84,5 +79,29 @@
         </div>
     </div>
 @endsection
-
-
+<script>
+    //功能函数，收集选中的申请项
+    function get_collect_checked_ids() {
+        checkd_list = $('input[name="exhibit_sum_register_id"]:checked')
+        collect_apply_ids = []
+        for(i = 0; i<checkd_list.length;i++){
+            collect_apply_ids.push($(checkd_list[i]).val())
+        }
+        return collect_apply_ids;
+    }
+    /**
+     * 导出xls表
+     */
+    function export_xls() {
+        collect_apply_ids = get_collect_checked_ids();
+        if(collect_apply_ids.length==0){
+            layer.alert("请至少选择一项")
+            return
+        }
+        url = "{{route('admin.excel.export_sum_account')."?"}}"
+        for(i=0;i<collect_apply_ids.length;i++){
+            url +="exhibit_sum_register_id["+i.toString()+"]="+collect_apply_ids[i]+"&";
+        }
+        window.open(url);
+    }
+</script>

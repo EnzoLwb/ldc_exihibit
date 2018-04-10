@@ -10,12 +10,9 @@
             <div class="col-sm-12">
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="{{route('admin.inforegister.exhibitmanage')}}">查询</a></li>
-                        <li><a href="javascript:void(0)" onclick="do_submit()">提交审核</a></li>
-                        <li><a href="javascript:void(0)" onclick="export_xls()">导出</a></li>
-                        <li><a href="{{route('admin.inforegister.exhibitmanage')}}">打印</a></li>
-                        <li><a href="{{route('admin.inforegister.exhibitmanage')}}">图文模式</a></li>
-
+                        <li class="active"><a href="{{route('admin.applymanage.export_collect_apply')}}">查询</a></li>
+                        <li><a href="javascript:void(0)" onclick="audit('{{\App\Dao\ConstDao::FAKE_EXHIBIT_STATUS_PASS}}')">审核通过</a></li>
+                        <li><a href="javascript:void(0)" onclick="audit('{{\App\Dao\ConstDao::FAKE_EXHIBIT_STATUS_REFUSE}}')">审核拒绝</a></li>
                     </ul>
                 </div>
             </div>
@@ -24,13 +21,22 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <form role="form" class="form-inline" method="get" action="{{url('admin/data/exhibit')}}">
+                        <form role="form" class="form-inline" method="get" action="{{route('admin.applymanage.export_collect_apply')}}">
                             <div class="form-group">
-                                <input type="text" name="title" placeholder="总登记号" class="form-control" value="{{request('title')}}">
+                                <select name="apply_type" class="form-control">
+                                    @foreach(\App\Dao\ConstDao::$apply_desc as $key=>$v)
+                                        @if($type == $key)
+                                            <option selected value="{{$key}}">{{$v}}</option>
+                                        @else
+                                            <option value="{{$key}}">{{$v}}</option>
+                                        @endif
+
+                                    @endforeach
+                                </select>
                             </div>
                             &nbsp;&nbsp;
                             <button type="submit" class="btn btn-primary">搜索</button>
-                            <button type="button" class="btn btn-white" onclick="location.href='{{route('admin.exhibitcollect.apply')}}'">重置</button>
+                            <button type="button" class="btn btn-white" onclick="location.href='{{route('admin.applymanage.export_collect_apply')}}'">重置</button>
                         </form>
                     </div>
                 </div>
@@ -53,8 +59,6 @@
                                 <th>质量</th>
                                 <th>完残情况</th>
                                 <th>状态</th>
-                                <th>操作</th>
-
                             </tr>
                             </thead>
                             @foreach($exhibit_list as $exhibit)
@@ -68,15 +72,15 @@
                                     <td>{{$exhibit['quality']}} </td>
                                     <td>{{$exhibit['complete_degree']}} </td>
                                     <td>{{\App\Dao\ConstDao::$fake_exhibit_desc[$exhibit['audit_status']]}} </td>
-                                    <td>
-                                        @if($exhibit['audit_status'] == \App\Dao\ConstDao::FAKE_EXHIBIT_STATUS_DRAFT)
-                                            <a href="{{route('admin.inforegister.add_exhibit')."?fake_exhibit_sum_register_id=".$exhibit['fake_exhibit_sum_register_id']}}">编辑</a>
-                                        @endif
-                                    </td>
                                 </tr>
                             @endforeach
                         </table>
-
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div>共 {{ $exhibit_list->total() }} 条记录</div>
+                                {!! $exhibit_list->links() !!}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -84,7 +88,7 @@
     </div>
 @endsection
 <script>
-    //功能函数，收集选中的申请项
+    //功能函数，收集选中项
     function get_collect_checked_ids() {
         checkd_list = $('input[name="fake_exhibit_sum_register_id"]:checked')
         collect_apply_ids = []
@@ -95,17 +99,17 @@
     }
 
     /**
-     * 提交审核
+     * 审核通过
      */
-    function do_submit() {
+    function audit(status) {
         collect_apply_ids = get_collect_checked_ids();
         if(collect_apply_ids.length==0){
             layer.alert("请至少选择一项")
             return
         }
-        $.ajax('{{route("admin.inforegister.fake_exhibit_submit")}}', {
+        $.ajax('{{route("admin.applymanage.fake_exhibit_audit")}}', {
             method: 'POST',
-            data: {'fake_exhibit_sum_register_id':collect_apply_ids},
+            data: {'fake_exhibit_sum_register_id':collect_apply_ids,"_token":"{{csrf_token()}}", 'audit_status':status},
             dataType: 'json'
         }).done(function (response) {
             layer.alert(response.msg)
@@ -113,21 +117,5 @@
         });
     }
 
-    /**
-     * 导出xls表
-     */
-    function export_xls() {
-        collect_apply_ids = get_collect_checked_ids();
-        if(collect_apply_ids.length==0){
-            layer.alert("请至少选择一项")
-            return
-        }
-        url = "{{route('admin.excel.export_fake_exhibit')."?"}}"
-        for(i=0;i<collect_apply_ids.length;i++){
-            url +="fake_exhibit_sum_register_id["+i.toString()+"]="+collect_apply_ids[i]+"&";
-        }
-        window.open(url);
-    }
 </script>
-
 

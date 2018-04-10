@@ -27,4 +27,9 @@ Route::group([
     Route::get('export_show_apply', 'ExcelController@export_show_apply')->name('admin.excel.export_show_apply');
     //导出展品展览的单子
     Route::get('export_show_position', 'ExcelController@export_show_position')->name('admin.excel.export_show_position');
+    //导出 伪总账的信息
+    Route::get('export_fake_exhibit', 'ExcelController@export_fake_exhibit')->name('admin.excel.export_fake_exhibit');
+    //导出总账信息
+    Route::get('export_sum_account', 'ExcelController@export_sum_account')->name('admin.excel.export_sum_account');
+
 });

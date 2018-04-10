@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\ApplyManage;
 
 use App\Dao\ConstDao;
+use App\Dao\ExchibitDao;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Models\Accident;
 use App\Models\CollectApply;
@@ -11,6 +12,7 @@ use App\Models\ExhibitLogout;
 use App\Models\ExhibitUse;
 use App\Models\ExhibitUsedApply;
 use App\Models\ExhibitUseItem;
+use App\Models\FakeExhibit;
 use App\Models\IdentifyApply;
 use App\Models\ShowApply;
 use App\Models\Storageroommanage\RoomList;
@@ -125,7 +127,13 @@ class ApplyController extends BaseAdminController
             $res['data'] = ShowApply::where('status','!=',ConstDao::SHOW_APPLY_STATUS_DRAFT)->paginate(parent::PERPAGE);
             return view('admin.applymanage.show_apply', $res);
         }
+        elseif($type == ConstDao::APPLY_TYPE_SUMACCOUNT){
+            $list = FakeExhibit::whereIn('audit_status',
+                array(ConstDao::FAKE_EXHIBIT_STATUS_WAITING_AUDIT, ConstDao::FAKE_EXHIBIT_STATUS_PASS,ConstDao::FAKE_EXHIBIT_STATUS_REFUSE))->paginate(parent::PERPAGE);
+            $res['exhibit_list'] = $list;
+            return view('admin.applymanage.sumaccount_apply', $res);
 
+        }
     }
 
     /**
@@ -341,5 +349,31 @@ class ApplyController extends BaseAdminController
         }
         ShowApply::whereIn('show_apply_id', $show_apply_id)->update(array('status'=>$audit));
         return response_json(1,array(),'审核完成');
+    }
+
+
+    public function fake_exhibit_audit(){
+        $fake_exhibit_sum_register_id = \request('fake_exhibit_sum_register_id');
+        $audit_status = \request('audit_status');
+        if(empty($fake_exhibit_sum_register_id) || !is_array($fake_exhibit_sum_register_id)){
+            return response_json(0,array(),'参数错误');
+        }
+        $count = FakeExhibit::whereIn('fake_exhibit_sum_register_id', $fake_exhibit_sum_register_id)->where('audit_status', '!=', ConstDao::FAKE_EXHIBIT_STATUS_WAITING_AUDIT)->count();
+        if($count>0){
+            return response_json(0,array(),'包含已审核的项');
+        }
+        if($audit_status == ConstDao::FAKE_EXHIBIT_STATUS_PASS){
+            FakeExhibit::whereIn('fake_exhibit_sum_register_id',$fake_exhibit_sum_register_id)->update(array('audit_status'=>ConstDao::FAKE_EXHIBIT_STATUS_PASS));
+            //复制操作
+            foreach($fake_exhibit_sum_register_id as $id){
+                ExchibitDao::copyFakeExhibit2Exhibit($id);
+            }
+            return response_json(1,array(),'操作成功');
+        }elseif($audit_status == ConstDao::FAKE_EXHIBIT_STATUS_REFUSE){
+            FakeExhibit::whereIn('fake_exhibit_sum_register_id',$fake_exhibit_sum_register_id)->update(array('audit_status'=>ConstDao::FAKE_EXHIBIT_STATUS_REFUSE));
+            return response_json(1,array(),'操作成功');
+        }else{
+            return response_json(0,array(),'参数错误');
+        }
     }
 }
