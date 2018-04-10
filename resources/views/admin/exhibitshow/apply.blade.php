@@ -9,6 +9,7 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="{{route('admin.exhibitshow.apply')}}">展览申请</a></li>
+                        <li ><a href="javascript:void(0)" onclick="export_xls()">导出</a></li>
                         <li><a href="javascript:void(0)" onclick="do_submit()">提交审核</a></li>
                         <li><a href="{{route('admin.exhibitshow.apply.add')}}">新增</a></li>
 
@@ -123,5 +124,18 @@
             layer.alert(response.msg)
             setTimeout("location.reload();", 3000)
         });
+    }
+    
+    function export_xls() {
+        collect_apply_ids = get_collect_checked_ids();
+        if(collect_apply_ids.length==0){
+            layer.alert("请至少选择一项")
+            return
+        }
+        url = "{{route('admin.excel.export_show_apply')."?"}}";
+        for(i=0;i<collect_apply_ids.length;i++){
+            url += "show_apply_id["+i.toString()+"]="+collect_apply_ids[i]+"&";
+        }
+        window.open(url);
     }
 </script>

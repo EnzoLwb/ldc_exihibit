@@ -9,6 +9,7 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="{{route('admin.exhibitshow.show')}}">展品展览</a></li>
+                        <li ><a href="javascript:void(0)" onclick="export_xls()">导出</a></li>
                     </ul>
                 </div>
             </div>
@@ -38,6 +39,7 @@
                     <div class="ibox-content">
                         <table class="table table-striped table-bordered table-hover">
                             <tr class="gradeA">
+                                <th>选择</th>
                                 <th>展位编号</th>
                                 <th>展位名称</th>
                                 <th>展品名称</th>
@@ -45,6 +47,7 @@
                             </tr>
                             @foreach($data as $k => $v)
                                 <tr class="gradeA">
+                                    <td><input type="checkbox" value="{{$v['show_position_id']}}" name="show_position_id"></td>
                                     <td>{{$v['num']}}</td>
                                     <td>{{$v['name']}}</td>
                                     <td>{{$v['names']}}</td>
@@ -82,5 +85,27 @@
             layer.alert(response.msg)
             setTimeout("location.reload();", 3000)
         });
+    }
+
+    //功能函数，收集选中的申请项
+    function get_collect_checked_ids() {
+        checkd_list = $('input[name="show_position_id"]:checked')
+        collect_apply_ids = []
+        for(i = 0; i<checkd_list.length;i++){
+            collect_apply_ids.push($(checkd_list[i]).val())
+        }
+        return collect_apply_ids;
+    }
+    function export_xls() {
+        collect_apply_ids = get_collect_checked_ids();
+        if(collect_apply_ids.length==0){
+            layer.alert("请至少选择一项")
+            return
+        }
+        url = "{{route('admin.excel.export_show_position')."?"}}";
+        for(i=0;i<collect_apply_ids.length;i++){
+            url += "show_position_id["+i.toString()+"]="+collect_apply_ids[i]+"&";
+        }
+        window.open(url);
     }
 </script>
