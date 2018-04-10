@@ -11,6 +11,7 @@ use App\Models\ExhibitUse;
 use App\Models\ExhibitUsedApply;
 use App\Models\IdentifyApply;
 use App\Models\ReturnStorage;
+use App\Models\ShowApply;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
@@ -18,9 +19,13 @@ use App\Models\Exhibit;
 use App\Models\Disinfection;
 use Illuminate\Support\Facades\DB;
 use App\Models\Accident;
+use App\Models\ShowPosition;
+use App\Models\PositionAndExhibit;
 
 class ExcelController extends BaseAdminController
 {
+
+
     /**
      * 导出征集申请的行数据
      */
@@ -395,6 +400,75 @@ class ExcelController extends BaseAdminController
                     'F'     =>  25,
                     'G'     =>  25,
                     'H'     =>  25,
+                ));
+                $sheet->rows($xls_data);
+            });
+        })->export('xls');
+    }
+
+    public function export_show_apply(){
+        $show_apply_id = \request('show_apply_id');
+        if(empty($show_apply_id) || !is_array($show_apply_id)){
+            return $this->error('參數有误');
+        }
+        $xls_data = array();
+        $header = ['申请人',
+            '申请时间','展览主题','参战人员','展览编号','状态','开始时间','结束时间'
+        ];
+        $xls_data[] = $header;
+        $list = ShowApply::whereIn('show_apply_id', $show_apply_id)->get();
+        foreach ($list as $item){
+            $xls_item = array($item->applyer, $item->apply_time, $item->theme, $item->exhibitor, $item->show_num,
+                ConstDao::$show_apply_desc[$item->status],$item->start_date, $item->end_date);
+            $xls_data[] = $xls_item;
+        }
+        Excel::create('展览申请表', function ($excel) use ($xls_data) {
+            $excel->sheet('score', function ($sheet) use ($xls_data) {
+                $sheet->setWidth(array(
+                    'A'     => 20,
+                    'B'     =>  25,
+                    'C'     =>  25,
+                    'D'     =>  25,
+                    'E'     =>  25,
+                    'F'     =>  25,
+                    'G'     =>  25,
+                    'H'     =>  25,
+                ));
+                $sheet->rows($xls_data);
+            });
+        })->export('xls');
+    }
+
+    public function export_show_position(){
+        $show_position_id = \request('show_position_id');
+        if(empty($show_position_id) || !is_array($show_position_id)){
+            return $this->error('參數有误');
+        }
+        $xls_data = array();
+        $header = ['展位编号','展位名称','展品名称'];
+        $xls_data[] = $header;
+        $pos_list = ShowPosition::whereIn('show_position_id', $show_position_id)->get();
+        foreach($pos_list as $k=>$v){
+            $position_id = $v->show_position_id;
+            $raw_ = PositionAndExhibit::join('exhibit','exhibit.exhibit_sum_register_id','=','position_and_exhibit.exhibit_sum_register_id')
+                ->where('show_position_id', $position_id)->select('exhibit.name')->get();
+
+            $names = '';
+            foreach($raw_ as $exhibit){
+                $names .= $exhibit->name.',';
+            }
+            $pos_list[$k]->names = $names;
+        }
+        foreach ($pos_list as $item){
+            $xls_item = array($item->num, $item->name, $item->names);
+            $xls_data[] = $xls_item;
+        }
+        Excel::create('展品展览表', function ($excel) use ($xls_data) {
+            $excel->sheet('score', function ($sheet) use ($xls_data) {
+                $sheet->setWidth(array(
+                    'A'     => 20,
+                    'B'     =>  25,
+                    'C'     =>  25,
                 ));
                 $sheet->rows($xls_data);
             });

@@ -23,4 +23,8 @@ Route::group([
     Route::get('export_exhibit', 'ExcelController@export_exhibit')->name('admin.excel.export_exhibit');
     //导出回库单子
     Route::get('export_returnstorage', 'ExcelController@export_returnstorage')->name('admin.excel.export_returnstorage');
+    //导出展览申请单子
+    Route::get('export_show_apply', 'ExcelController@export_show_apply')->name('admin.excel.export_show_apply');
+    //导出展品展览的单子
+    Route::get('export_show_position', 'ExcelController@export_show_position')->name('admin.excel.export_show_position');
 });
