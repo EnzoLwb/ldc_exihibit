@@ -11,8 +11,8 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="{{route('admin.applymanage.export_collect_apply')}}">查询</a></li>
-                        <li><a href="javascript:void(0)" onclick="pass()">审核通过</a></li>
-                        <li><a href="javascript:void(0)" onclick="refuse()">审核拒绝</a></li>
+                        <li><a href="javascript:void(0)" onclick="examine('pass')">审核通过</a></li>
+                        <li><a href="javascript:void(0)" onclick="examine('refuse')">审核拒绝</a></li>
                     </ul>
                 </div>
             </div>
@@ -55,8 +55,6 @@
                                 <th>计划盘点人员</th>
                                 <th>计划盘点日期</th>
                                 <th>盘点文物数量</th>
-                                <th>完整文物数量</th>
-                                <th>残缺文物数量</th>
                                 <th>申请状态</th>
                                 <th>盘点状态</th>
                                 <th>备注</th>
@@ -69,8 +67,6 @@
                                     <td>{{$v['plan_member']}}</td>
                                     <td>{{$v['plan_date']}}</td>
                                     <td>{{$v['goods_count']}}</td>
-                                    <td>{{$v['completed_count']}}</td>
-                                    <td>{{$v['imcompleted_count']}}</td>
                                     <td>{{$v->applyStatus($v['apply_status'])}}</td>
                                     <td>{{$v->checkStatus($v['check_status'])}}</td>
                                     <td width="20%">{{$v['apply_remark']}}</td>
@@ -103,34 +99,16 @@
     /**
      * 审核通过
      */
-    function pass() {
+    function examine(type) {
         collect_apply_ids = get_collect_checked_ids();
         if(collect_apply_ids.length==0){
             layer.alert("请至少选择一项")
             return
         }
-        console.log(collect_apply_ids);
-        $.ajax('{{route("admin.applymanage.storageCheck_apply_pass")}}', {
+        status = type=='pass'?'1': '0';
+        $.ajax('{{route("admin.applymanage.storageCheck_apply")}}', {
             method: 'POST',
-            data: {'storageCheck_apply_ids':collect_apply_ids,"_token":"{{csrf_token()}}"},
-            dataType: 'json'
-        }).done(function (response) {
-            layer.alert(response.msg)
-            setTimeout("location.reload();", 3000)
-        });
-    }
-    /**
-     * 审核拒绝
-     */
-    function refuse() {
-        collect_apply_ids = get_collect_checked_ids();
-        if(collect_apply_ids.length==0){
-            layer.alert("请至少选择一项")
-            return
-        }
-        $.ajax('{{route("admin.applymanage.storageCheck_apply_refuse")}}', {
-            method: 'POST',
-            data: {'storageCheck_apply_ids':collect_apply_ids,"_token":"{{csrf_token()}}"},
+            data: {'apply_type':status,'storageCheck_apply_ids':collect_apply_ids,"_token":"{{csrf_token()}}"},
             dataType: 'json'
         }).done(function (response) {
             layer.alert(response.msg)
