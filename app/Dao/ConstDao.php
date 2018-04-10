@@ -89,7 +89,8 @@ class ConstDao
     const APPLY_TYPE_ACCIDENT = 'accident';
     const APPLY_TYPE_SHOW = 'show';
     const APPLY_TYPE_SUMACCOUNT = 'sumaccount';
-    
+    const APPLY_TYPE_SUBSIDIARY = 'subsidiary';
+
     public static $apply_desc = array(
         self::APPLY_TYPE_COLLECT=>'征集申请',
         self::APPLY_TYPE_IDENTIFY=>'鉴定申请',
@@ -99,7 +100,8 @@ class ConstDao
 		self::APPLY_TYPE_STORAGE_CHECK=>'库房盘点申请',
         self::APPLY_TYPE_ACCIDENT=>'事故申请',
         self::APPLY_TYPE_SHOW=>'展览申请',
-        self::APPLY_TYPE_SUMACCOUNT=>'总账申请'
+        self::APPLY_TYPE_SUMACCOUNT=>'总账申请',
+        self::APPLY_TYPE_SUBSIDIARY=>'其它文物登记申请'
     );
 
     //征集申请的几种状态

@@ -9,6 +9,6 @@ Route::group([
     Route::get('add_sumaccount', 'IndexController@add_sumaccount')->name('admin.accountmanage.add_sumaccount');
 
     Route::get('subsidiary', 'IndexController@subsidiary')->name('admin.accountmanage.subsidiary');
-    Route::get('add_subsidiary', 'IndexController@add_subsidiary')->name('admin.accountmanage.add_subsidiary');
+    Route::get('subsidiary/excel', 'IndexController@subsidiary_excel')->name('admin.accountmanage.subsidiary.excel');
 
 });
