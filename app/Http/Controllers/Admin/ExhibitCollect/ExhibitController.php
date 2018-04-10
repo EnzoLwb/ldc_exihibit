@@ -163,9 +163,12 @@ class ExhibitController extends BaseAdminController
             $mark = '';
         }
         $collect_type->mark = $mark;
-        $collect_type->save();
         //开始处理明细
         $list = \request('list', array());
+        if(empty($list)){
+            return $this->error('请添加明细后保存');
+        }
+        $collect_type->save();
         foreach($list as $item){
             $exhibit = CollectExhibit::findOrNew($item['exhibit_sum_register_num']);
             foreach($item as $k=>$v){
@@ -178,7 +181,7 @@ class ExhibitController extends BaseAdminController
     }
 
     /**
-     * 提交进总账
+     * 提交进伪总账
      * @return \Illuminate\Http\JsonResponse
      */
     public function into_sum_account(){
@@ -186,12 +189,12 @@ class ExhibitController extends BaseAdminController
         //判断是否所有的提交单子都是未进入总账的
         $count = CollectRecipe::where('status', ConstDao::EXHIBIT_COLLECT_RECIPE_STATUS_SUBMITED)->whereIn('collect_recipe_id',$ids)->count();
         if($count > 0){
-            return response_json(0,'提交内容中包含已提交过的单据');
+            return response_json(0,array(),'提交内容中包含已提交过的单据');
         }
         //修改状态
         foreach($ids as $id){
             ExchibitDao::CopyRecipe2Exhibit($id);
         }
-        return response_json(1,"操作成功");
+        return response_json(1,array(),"操作成功");
     }
 }

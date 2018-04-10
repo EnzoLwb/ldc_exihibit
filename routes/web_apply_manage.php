@@ -37,4 +37,6 @@ Route::group([
 	//藏品修复申请
 	Route::post('repair_apply', 'ApplyController@repair_apply')->name('admin.applymanage.repair_apply');
 
+	//总账审核申请
+    Route::post('fake_exhibit_audit', 'ApplyController@fake_exhibit_audit')->name('admin.applymanage.fake_exhibit_audit');
 });

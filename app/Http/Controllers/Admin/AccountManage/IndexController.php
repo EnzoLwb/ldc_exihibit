@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\AccountManage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use \App\Http\Controllers\Admin\BaseAdminController;
+use App\Models\Exhibit;
 
 class IndexController extends BaseAdminController
 {
@@ -14,18 +15,8 @@ class IndexController extends BaseAdminController
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function sumaccount(){
-        $item['apply_num'] = 'WW2301';
-        $item['apply_depart_name'] = '001';
-        $item['apply_buy_object'] = '001';
-        $item['project_name'] = 'RGDJ009';
-        $item['depart_name'] = '大玉龙';
-        $item['need_money'] = '大玉龙';
-        $item['need_count'] = '出土年代';
-        $item['applyer'] = '新石器时代';
-        $item['project_desc'] = '';
-        $item['apply_reason'] = '宝玉石';
-        $item['...'] = '...';
-        $res['exhibit_list'] = array($item);
+        $list = Exhibit::paginate(parent::PERPAGE);
+        $res['exhibit_list'] = $list;
         return view('admin.accountmanage.sumaccount', $res);
     }
 

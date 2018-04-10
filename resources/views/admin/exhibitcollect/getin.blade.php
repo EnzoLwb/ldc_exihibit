@@ -133,7 +133,7 @@
             async: false,
             success: function (data) {
                 if(!data.status){
-                    layer.alert('操作失败，请稍后再试')
+                    layer.alert(data.msg)
                 }else{
                     layer.alert('操作成功')
                     setTimeout("location.href.reload()",3000);
