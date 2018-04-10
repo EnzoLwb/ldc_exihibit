@@ -17,29 +17,6 @@ Route::group([
     //鉴定申请  批量拒绝
     Route::post('identify_apply_refuse', 'ApplyController@identify_apply_refuse')->name('admin.applymanage.identify_apply_refuse');
 
-
-    //出库申请  批量通过
-    Route::post('exhibit_outer_pass', 'ApplyController@exhibit_outer_pass')->name('admin.applymanage.exhibit_outer_pass');
-    //出库申请  批量拒绝
-    Route::post('exhibit_outer_refuse', 'ApplyController@exhibit_outer_refuse')->name('admin.applymanage.exhibit_outer_refuse');
-	
-	
-
-    //库房盘点申请 批量通过
-	Route::post('storageCheck_apply_pass', 'ApplyController@storageCheck_apply_pass')->name('admin.applymanage.storageCheck_apply_pass');
-	//库房盘点申请  批量拒绝
-	Route::post('storageCheck_apply_refuse', 'ApplyController@storageCheck_apply_refuse')->name('admin.applymanage.storageCheck_apply_refuse');
-
-	//藏品注销申请 批量通过
-	Route::post('logOut_apply_pass', 'ApplyController@logOut_apply_pass')->name('admin.applymanage.logOut_apply_pass');
-	//藏品注销申请  批量拒绝
-	Route::post('logOut_apply_refuse', 'ApplyController@logOut_apply_refuse')->name('admin.applymanage.logOut_apply_refuse');
-
-	//藏品修复申请 批量通过
-	Route::post('repair_apply_pass', 'ApplyController@repair_apply_pass')->name('admin.applymanage.repair_apply_pass');
-	//藏品修复申请  批量拒绝
-	Route::post('repair_apply_refuse', 'ApplyController@repair_apply_refuse')->name('admin.applymanage.repair_apply_refuse');
-
     //事故申请  批量通过
     Route::post('accident_audit', 'ApplyController@accident_audit')->name('admin.applymanage.accident_audit');
 
@@ -51,20 +28,14 @@ Route::group([
     //出库申请  批量拒绝
     Route::post('exhibit_outer_refuse', 'ApplyController@exhibit_outer_refuse')->name('admin.applymanage.exhibit_outer_refuse');
 
-    //库房盘点申请 批量通过
-	Route::post('storageCheck_apply_pass', 'ApplyController@storageCheck_apply_pass')->name('admin.applymanage.storageCheck_apply_pass');
-	//库房盘点申请  批量拒绝
-	Route::post('storageCheck_apply_refuse', 'ApplyController@storageCheck_apply_refuse')->name('admin.applymanage.storageCheck_apply_refuse');
+    //库房盘点申请
+	Route::post('storageCheck_apply', 'ApplyController@storageCheck_apply')->name('admin.applymanage.storageCheck_apply');
 
-	//藏品注销申请 批量通过
-	Route::post('logOut_apply_pass', 'ApplyController@logOut_apply_pass')->name('admin.applymanage.logOut_apply_pass');
-	//藏品注销申请  批量拒绝
-	Route::post('logOut_apply_refuse', 'ApplyController@logOut_apply_refuse')->name('admin.applymanage.logOut_apply_refuse');
+	//藏品注销申请
+	Route::post('logOut_apply', 'ApplyController@logOut_apply')->name('admin.applymanage.logOut_apply');
 
-	//藏品修复申请 批量通过
-	Route::post('repair_apply_pass', 'ApplyController@repair_apply_pass')->name('admin.applymanage.repair_apply_pass');
-	//藏品修复申请  批量拒绝
-	Route::post('repair_apply_refuse', 'ApplyController@repair_apply_refuse')->name('admin.applymanage.repair_apply_refuse');
+	//藏品修复申请
+	Route::post('repair_apply', 'ApplyController@repair_apply')->name('admin.applymanage.repair_apply');
 
 	//总账审核申请
     Route::post('fake_exhibit_audit', 'ApplyController@fake_exhibit_audit')->name('admin.applymanage.fake_exhibit_audit');

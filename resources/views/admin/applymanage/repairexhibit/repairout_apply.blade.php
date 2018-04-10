@@ -5,14 +5,13 @@
 @section('body')
 
     <div class="wrapper wrapper-content">
-
         <div class="row m-b">
             <div class="col-sm-12">
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="{{route('admin.applymanage.export_collect_apply')}}">查询</a></li>
-                        <li><a href="javascript:void(0)" onclick="pass()">审核通过</a></li>
-                        <li><a href="javascript:void(0)" onclick="refuse()">审核拒绝</a></li>
+                        <li><a href="javascript:void(0)" onclick="examine('pass')">审核通过</a></li>
+                        <li><a href="javascript:void(0)" onclick="examine('refuse')">审核拒绝</a></li>
                     </ul>
                 </div>
             </div>
@@ -139,35 +138,18 @@
     }
 
     /**
-     * 审核通过
+     * 审核
      */
-    function pass() {
+    function examine(type) {
         collect_apply_ids = get_collect_checked_ids();
         if(collect_apply_ids.length==0){
             layer.alert("请至少选择一项")
             return
         }
-        $.ajax('{{route("admin.applymanage.repair_apply_pass")}}', {
+        status = type=='pass'?'2': '3';
+        $.ajax('{{route("admin.applymanage.repair_apply")}}', {
             method: 'POST',
-            data: {'repair_apply_ids':collect_apply_ids,"_token":"{{csrf_token()}}",'type':'outside'},
-            dataType: 'json'
-        }).done(function (response) {
-            layer.alert(response.msg)
-            setTimeout("location.reload();", 3000)
-        });
-    }
-    /**
-     * 审核拒绝
-     */
-    function refuse() {
-        collect_apply_ids = get_collect_checked_ids();
-        if(collect_apply_ids.length==0){
-            layer.alert("请至少选择一项")
-            return
-        }
-        $.ajax('{{route("admin.applymanage.repair_apply_refuse")}}', {
-            method: 'POST',
-            data: {'repair_apply_ids':collect_apply_ids,"_token":"{{csrf_token()}}",'type':'outside'},
+            data: {'apply_type':status,'repair_apply_ids':collect_apply_ids,"_token":"{{csrf_token()}}",'type':'outside'},
             dataType: 'json'
         }).done(function (response) {
             layer.alert(response.msg)

@@ -9,6 +9,9 @@ use App\Models\Accident;
 use App\Models\CollectApply;
 use App\Models\Exhibit;
 use App\Models\ExhibitLogout;
+use App\Models\ExhibitRepair\InsideRepair;
+use App\Models\ExhibitRepair\OutsideRepair;
+use App\Models\ExhibitRepair\RepairApply;
 use App\Models\ExhibitUse;
 use App\Models\ExhibitUsedApply;
 use App\Models\ExhibitUseItem;
@@ -50,8 +53,7 @@ class ApplyController extends BaseAdminController
             }
             $res['exhibit_list'] = $exhibit_list;
             return view('admin.applymanage.identify_apply', $res);
-        }
-		elseif ($type == ConstDao::APPLY_TYPE_STORAGE_CHECK){
+        } elseif ($type == ConstDao::APPLY_TYPE_STORAGE_CHECK){
         	//库房盘点申请
 			$res['exhibit_list']=RoomList::where('apply_status',2)->paginate(parent::PERPAGE);
 			return view('admin.applymanage.storageCheck_apply', $res);
@@ -84,44 +86,26 @@ class ApplyController extends BaseAdminController
             $res['exhibit_list'] = $exhibit_list;
             return view('admin.applymanage.exhibit_used_apply', $res);
         }
-        elseif($type == ConstDao::APPLY_TYPE_OUTER){
-            //出库申请
-            $exhibit_list = ExhibitUsedApply::where('status', '!=',ConstDao::EXHIBIT_USED_APPLY_STATUS_DRAFT)->get();
-            //添加展品信息
-            foreach($exhibit_list as $key=>$item){
-                $exhibit_sum_register_id = $item->exhibit_list;
-                $exhibit_sum_register_ids = explode(',',$exhibit_sum_register_id);
-
-                $new_names = '';
-                if(!empty($exhibit_sum_register_ids)){
-                    $list = Exhibit::whereIn('exhibit_sum_register_id',$exhibit_sum_register_ids)->select('name')->get();
-
-                    foreach($list as $item1){
-                        $name = $item1->name;
-                        $new_names = $new_names.$name.",";
-                    }
-                }
-                $exhibit_list[$key]['exhibit_names'] = $new_names;
-            }
-            $res['exhibit_list'] = $exhibit_list;
-            return view('admin.applymanage.exhibit_used_apply', $res);
-        }
         elseif($type == ConstDao::APPLY_TYPE_ACCIDENT){
+        	//事故申请
             $res['exhibit_list'] = Accident::join('exhibit','exhibit.exhibit_sum_register_id','=','accident.exhibit_sum_register_id')
                 ->where('accident.status','!=',ConstDao::ACCIDENT_STATUS_DRAFT)->select('accident_id','name','exhibit_sum_register_num','accident_time','accident_maker','accident_desc','proc_dependy'
                     ,'proc_suggestion','accident.status')->paginate(parent::PERPAGE);
             return view('admin.applymanage.accident_apply', $res);
         }
-        elseif ($type == ConstDao::APPLY_TYPE_STORAGE_CHECK){
-        	//库房盘点申请
-			$res['exhibit_list']=RoomList::where('apply_status',2)->paginate(parent::PERPAGE);
-			return view('admin.applymanage.storageCheck_apply', $res);
-		}
-		elseif ($type == ConstDao::APPLY_TYPE_LOGOUT){
-			//藏品注销申请
-			$exhibit_Logout=new ExhibitLogout();
-			$res['exhibit_list']=$exhibit_Logout->joinLeft()->where('status',1)->paginate(parent::PERPAGE);
-			return view('admin.applymanage.logOut_apply', $res);
+        elseif ($type == ConstDao::APPLY_TYPE_REPAIR){
+			//藏品修复申请
+			$repair_type=(\request('repair_type'));
+			if ($repair_type=='outside'){
+				$res['exhibit_list']=OutsideRepair::where('apply_status',1)->paginate(parent::PERPAGE);
+				return view('admin.applymanage.repairexhibit.repairout_apply', $res);
+			}elseif ($repair_type=='inside'){
+				$res['exhibit_list']=InsideRepair::where('apply_status',1)->paginate(parent::PERPAGE);
+				return view('admin.applymanage.repairexhibit.repairin_apply', $res);
+			}else{
+				$res['exhibit_list']=RepairApply::where('apply_status',1)->paginate(parent::PERPAGE);
+				return view('admin.applymanage.repairexhibit.repair_apply', $res);
+			}
 		}
 		elseif($type == ConstDao::APPLY_TYPE_SHOW){
             $res['data'] = ShowApply::where('status','!=',ConstDao::SHOW_APPLY_STATUS_DRAFT)->paginate(parent::PERPAGE);
@@ -254,57 +238,70 @@ class ApplyController extends BaseAdminController
     }
 
     /**
-	 * 藏品注销申请 批量通过
+	 * 藏品注销申请
 	 */
-	public function logOut_apply_pass(){
+	public function logOut_apply(){
 		$identify_apply_ids = \request('logOut_apply_ids');
+		$apply_type = \request('apply_type');//2 为审核通过 3为审核拒绝
 		$exhibit_Logout=new ExhibitLogout();
 		//检测是否存在已经审核过的数据
 		$count = $exhibit_Logout->where('status', '!=','1')->whereIn('logout_id', $identify_apply_ids)->count();
 		if($count>0){
 			return response_json(0, array(),'抱歉，所选项存在已审核过或者未提交的数据');
 		}else{
-			$exhibit_Logout->where('status','1')->whereIn('logout_id', $identify_apply_ids)->update(array('status'=>'2'));
-			return response_json(1, array(),'操作完成');
-		}
-	}
-
-	public function logOut_apply_refuse(){
-		$identify_apply_ids = \request('logOut_apply_ids');
-		$exhibit_Logout=new ExhibitLogout();
-		//检测是否存在已经审核过的数据
-		$count = $exhibit_Logout->where('status', '!=','1')->whereIn('logout_id', $identify_apply_ids)->count();
-		if($count>0){
-			return response_json(0, array(),'抱歉，所选项存在已审核过或者未提交的数据');
-		}else{
-			$exhibit_Logout->where('status','1')->whereIn('logout_id', $identify_apply_ids)->update(array('status'=>'3'));
+			$exhibit_Logout->where('status','1')->whereIn('logout_id', $identify_apply_ids)->update(array('status'=>$apply_type));
 			return response_json(1, array(),'操作完成');
 		}
 	}
 	/**
 	 *  库房盘点申请 批量通过
 	 */
-	public function storageCheck_apply_pass(){
+	public function storageCheck_apply(){
 		$identify_apply_ids = \request('storageCheck_apply_ids');
+		$apply_type = \request('apply_type');//1 为审核通过 0为审核拒绝
 		//检测是否存在已经审核过的数据
 		$count = RoomList::where('apply_status', '!=','2')->whereIn('check_id', $identify_apply_ids)->count();
 		if($count>0){
 			return response_json(0, array(),'抱歉，所选项存在已审核过的数据');
 		}else{
-			RoomList::where('apply_status','2')->whereIn('check_id', $identify_apply_ids)->update(array('apply_status'=>'1'));
+			RoomList::where('apply_status','2')->whereIn('check_id', $identify_apply_ids)->update(array('apply_status'=>$apply_type));
 			return response_json(1, array(),'操作完成');
 		}
 	}
-
-	public function storageCheck_apply_refuse(){
-		$identify_apply_ids = \request('storageCheck_apply_ids');
-		//检测是否存在已经审核过的数据
-		$count = RoomList::where('apply_status', '!=','2')->whereIn('check_id', $identify_apply_ids)->count();
-		if($count>0){
-			return response_json(0, array(),'抱歉，所选项存在已审核过的数据');
+	/**
+	 *  藏品修复申请 批量通过
+	 */
+	public function repair_apply(){
+		$identify_apply_ids = \request('repair_apply_ids');
+		$type = \request('type');
+		$apply_type = \request('apply_type');//2 为审核通过 3为审核拒绝
+		if ($type=='inside'){
+			//检测是否存在已经审核过的数据
+			$count = InsideRepair::where('apply_status', '!=','1')->whereIn('inside_repair_id', $identify_apply_ids)->count();
+			if($count>0){
+				return response_json(0, array(),'抱歉，所选项存在已审核过的数据');
+			}else{
+				InsideRepair::where('apply_status','1')->whereIn('inside_repair_id', $identify_apply_ids)->update(array('apply_status'=>$apply_type));
+				return response_json(1, array(),'操作完成');
+			}
+		}elseif ($type=='outside'){
+			//检测是否存在已经审核过的数据
+			$count = OutsideRepair::where('apply_status', '!=','1')->whereIn('outside_repair_id', $identify_apply_ids)->count();
+			if($count>0){
+				return response_json(0, array(),'抱歉，所选项存在已审核过的数据');
+			}else{
+				OutsideRepair::where('apply_status','1')->whereIn('outside_repair_id', $identify_apply_ids)->update(array('apply_status'=>$apply_type));
+				return response_json(1, array(),'操作完成');
+			}
 		}else{
-			RoomList::where('apply_status','2')->whereIn('check_id', $identify_apply_ids)->update(array('apply_status'=>'0'));
-			return response_json(1, array(),'操作完成');
+			//检测是否存在已经审核过的数据
+			$count = RepairApply::where('apply_status', '!=','1')->whereIn('repair_id', $identify_apply_ids)->count();
+			if($count>0){
+				return response_json(0, array(),'抱歉，所选项存在已审核过的数据');
+			}else{
+				RepairApply::where('apply_status','1')->whereIn('repair_id', $identify_apply_ids)->update(array('apply_status'=>$apply_type));
+				return response_json(1, array(),'操作完成');
+			}
 		}
 	}
 
