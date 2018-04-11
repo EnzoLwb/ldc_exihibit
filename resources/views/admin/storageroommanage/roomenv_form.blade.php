@@ -29,7 +29,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">库房编号</label>
                                 <div class="col-sm-4">
-                                    <select name="room_number" >
+                                    <select name="room_number" class="form-control">
                                         @foreach($storage as $v)
                                             <option value="{{$v}}" selected={{@$data['room_number']==$v||old('room_number')==$v?'selected':''}}>{{$v}}</option>
                                         @endforeach

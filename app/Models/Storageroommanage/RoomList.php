@@ -17,9 +17,9 @@ class RoomList extends BaseMdl
 		'_token','file'
 	];
 	//申请是否通过 1为通过 0为未通过 2为审核中
-	protected $apply_status=['未通过','申请通过','申请审核中'];
+	public $apply_status=['未通过','申请通过','申请审核中'];
 	//盘点是否完成 1为已完成 0为未完成 2为正在执行
-	protected $check_status=['盘点未完成','盘点已完成','盘点正在执行'];
+	public $check_status=['盘点未开始','盘点已完成','盘点正在执行'];
 	//判断申请状态
 	public function applyStatus($key)
 	{

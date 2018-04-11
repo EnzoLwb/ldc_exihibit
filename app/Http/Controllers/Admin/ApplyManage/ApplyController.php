@@ -20,6 +20,7 @@ use App\Models\FakeExhibit;
 use App\Models\IdentifyApply;
 use App\Models\ShowApply;
 use App\Models\Storageroommanage\RoomList;
+use App\Models\Subsidiary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -118,7 +119,11 @@ class ApplyController extends BaseAdminController
                 array(ConstDao::FAKE_EXHIBIT_STATUS_WAITING_AUDIT, ConstDao::FAKE_EXHIBIT_STATUS_PASS,ConstDao::FAKE_EXHIBIT_STATUS_REFUSE))->paginate(parent::PERPAGE);
             $res['exhibit_list'] = $list;
             return view('admin.applymanage.sumaccount_apply', $res);
-        }
+        }elseif ($type == ConstDao::APPLY_TYPE_SUBSIDIARY){
+			//其它文物登记申请
+			$res['exhibit_list']=Subsidiary::where('apply_status',1)->paginate(parent::PERPAGE);
+			return view('admin.applymanage.subsidiary', $res);
+		}
         elseif($type == ConstDao::APPLY_TYPE_INTO_ROOM){
             //入库申请
             $list = Exhibit2Room::join('exhibit','exhibit.exhibit_sum_register_id','=','exhibit_into_room.exhibit_sum_register_id')->join('storage_room',
@@ -260,6 +265,21 @@ class ApplyController extends BaseAdminController
 			return response_json(0, array(),'抱歉，所选项存在已审核过或者未提交的数据');
 		}else{
 			$exhibit_Logout->where('status','1')->whereIn('logout_id', $identify_apply_ids)->update(array('status'=>$apply_type));
+			return response_json(1, array(),'操作完成');
+		}
+	}
+	/**
+	 * 其它藏品登记申请
+	 */
+	public function subsidiary_apply(){
+		$identify_apply_ids = \request('subsidiary_apply_ids');
+		$apply_type = \request('apply_type');//2 为审核通过 3为审核拒绝
+		//检测是否存在已经审核过的数据
+		$count = Subsidiary::where('apply_status', '!=','1')->whereIn('subsidiary_id', $identify_apply_ids)->count();
+		if($count>0){
+			return response_json(0, array(),'抱歉，所选项存在已审核过或者未提交的数据');
+		}else{
+			Subsidiary::where('apply_status','1')->whereIn('subsidiary_id', $identify_apply_ids)->update(array('apply_status'=>$apply_type));
 			return response_json(1, array(),'操作完成');
 		}
 	}

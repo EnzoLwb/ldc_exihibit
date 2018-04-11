@@ -29,7 +29,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">藏品名称</label>
                                 <div class="col-sm-4">
-                                    <select name="exhibit_sum_register_id" >
+                                    <select name="exhibit_sum_register_id" class="form-control">
                                         @foreach($exhibits as $v)
                                             @if(@$data['name']==$v['name']||old('exhibit_id')==$v['name'])
                                                 <option value="{{$v['id']}}" selected="selected">{{$v['name']}}</option>

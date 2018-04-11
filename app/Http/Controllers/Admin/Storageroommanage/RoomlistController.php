@@ -23,7 +23,7 @@ class RoomlistController extends BaseAdminController
 
 	/**
 	 * index
-	 * 库房盘点申请列表
+	 * 库房盘点申请列表  包括历史盘点任务
 	 * @author lwb 20180403
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
@@ -32,11 +32,16 @@ class RoomlistController extends BaseAdminController
 		//搜索项 搜索库房编号
 		if (!empty( $request->plan_member)){
 			$room_data=RoomList::where('plan_member','like',"%{$request->plan_member}%")->paginate(parent::PERPAGE);
+		}elseif($request->finished){
+			//历史盘点任务
+			$room_data=RoomList::where('check_status','1')->paginate(parent::PERPAGE);
+			$finish='done';
 		}else{
-			$room_data=RoomList::paginate(parent::PERPAGE);
+			//未完成的盘点任务
+			$room_data=RoomList::where('check_status','!=','1')->paginate(parent::PERPAGE);
 		}
 		return view('admin.storageroommanage.roomlist', [
-			'data' => $room_data
+			'data' => $room_data,'finished'=>$finish??'0'
 		]);
 	}
 
@@ -65,12 +70,14 @@ class RoomlistController extends BaseAdminController
 	 */
 	public function edit($id)
 	{
-		$roomlist = RoomList::find($id);
+		$object=new RoomList();
+		$roomlist = $object->find($id);
 		//库房编号显示供选择(查库房表)
 		$room_number = StorageRoom::groupBy('room_number')->pluck('room_number');
 		return view('admin.storageroommanage.roomlist_form', [
 			'data' => $roomlist,
-			'storage' => $room_number
+			'storage' => $room_number,
+			'check_status'=>$object->check_status
 		]);
 	}
 
