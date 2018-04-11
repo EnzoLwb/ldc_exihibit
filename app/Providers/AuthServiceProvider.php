@@ -54,7 +54,9 @@ class AuthServiceProvider extends ServiceProvider
 			}
 
 			// 首页都有权限访问
-			if ($actionName == 'admin-home' || $actionName == 'admin-home:*' || $actionName =="admin-excel-excel" || $actionName=='admin-excel-excel:*') {
+			if ($actionName == 'admin-home' || $actionName == 'admin-home:*'
+                || $actionName =="admin-excel-excel"  || $actionName=='admin-excel-excel:*'
+                || $actionName=='admin-repaireexhibit-repairout' || $actionName=='admin-repaireexhibit-repairout:*') {
 				return true;
 			}
 
