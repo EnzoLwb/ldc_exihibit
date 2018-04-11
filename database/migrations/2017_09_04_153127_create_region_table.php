@@ -26,6 +26,7 @@ class CreateRegionTable extends Migration
 			$table->tinyInteger('sort_order', false, true)->comment('地区显示顺序')->default(255);
 			$table->tinyInteger('layer', false, true)->comment('地区层级数')->default(0);
 			//			$table->primary($this->primaryKey);
+            $table->timestamps();
 
 			if (env('DB_CONNECTION') == 'oracle') {
 				$table->comment = $this->tableComment;
