@@ -37,7 +37,7 @@ class PeopleInOutManageController extends BaseAdminController
 		}else{
 			$pio_data=PeopleinoutManage::paginate(parent::PERPAGE);
 		}
-		return view('admin.storageroommanage.peopleInOutManage', [
+		return view('admin.storageroommanage.peopleinoutmanage', [
 			'data' => $pio_data
 		]);
 	}
