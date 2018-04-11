@@ -21,7 +21,7 @@ class CreateSettingTable extends Migration
 			$table->increments('id');
 			$table->string('skey', 60)->comment('键名');
 			$table->string('svalue', 255)->comment('值')->nullable();
-
+            $table->timestamps();
 			if (env('DB_CONNECTION') == 'oracle') {
 				$table->comment = $this->tableComment;
 			}
