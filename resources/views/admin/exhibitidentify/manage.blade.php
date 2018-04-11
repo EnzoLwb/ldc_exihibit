@@ -25,13 +25,13 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <form role="form" class="form-inline" method="get" action="{{route('admin.exhibitidentify.apply')}}">
+                        <form role="form" class="form-inline" method="get" action="{{route('admin.exhibitidentify.exhibit')}}">
                             <div class="form-group">
                                 <input type="text" name="title" placeholder="登记日期" class="form-control" value="{{request('title')}}">
                             </div>
                             &nbsp;&nbsp;
                             <button type="submit" class="btn btn-primary">搜索</button>
-                            <button type="button" class="btn btn-white" onclick="location.href='{{route('admin.exhibitcollect.apply')}}'">重置</button>
+                            <button type="button" class="btn btn-white" onclick="location.href='{{route('admin.exhibitidentify.exhibit')}}'">重置</button>
                         </form>
                     </div>
                 </div>

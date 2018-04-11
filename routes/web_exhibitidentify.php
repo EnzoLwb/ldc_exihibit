@@ -6,7 +6,7 @@ Route::group([
     'namespace' => 'ExhibitIdentify',
 ], function () {
     //鉴定申请列表
-    Route::get('apply', 'ExhibitController@apply')->name('admin.exhibitidentify.apply');
+    Route::get('apply', 'ExhibitController@apply')->name('admin.exhibitidentify.exhibit');
     //鉴定申请提供数据
     Route::get('get_exhibit_list', 'ExhibitController@get_exhibit_list')->name('admin.exhibitidentify.get_exhibit_list');
     //鉴定申请添加页面展示

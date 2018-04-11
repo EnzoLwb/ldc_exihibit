@@ -6,7 +6,7 @@ Route::group([
     'namespace' => 'RecordIdentify',
 ], function () {
     //鉴定申请表
-    Route::get('record_list', 'RecordIdentifyController@record_list')->name('admin.identifyresult.record_list');
+    Route::get('record_list', 'RecordIdentifyController@record_list')->name('admin.recordidentify.recordidentify');
     //特定鉴定单据的鉴定结果列表
     Route::get('result_list', 'RecordIdentifyController@result_list')->name('admin.identifyresult.result_list');
     //添加鉴定结果

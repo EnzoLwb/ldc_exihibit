@@ -10,7 +10,7 @@
             <div class="col-sm-12">
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="{{route('admin.exhibitidentify.apply')}}">查询</a></li>
+                        <li class="active"><a href="{{route('admin.exhibitidentify.exhibit')}}">查询</a></li>
 
                     </ul>
                 </div>

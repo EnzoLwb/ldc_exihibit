@@ -5,7 +5,7 @@ Route::group([
     'prefix' => 'exhibitmanage',
     'namespace' => 'ExhibitManage',
 ], function () {
-    //仓库列表
+    //移库列表
     Route::get('storageroom', 'IndexController@storageroom')->name('admin.exhibitmanage.storageroom');
     //展示修改展品的所在仓库页面
     Route::get('add_storageroom', 'IndexController@add_storageroom')->name('admin.exhibitmanage.add_storageroom');

@@ -42,12 +42,12 @@ class MenuDao extends BaseMdl
 					[
 						'text' => '征集申请',
 						'url' => route('admin.exhibitcollect.apply'),
-						'priv' => 'admin-exhibitcollect-apply'
+						'priv' => 'admin-exhibitcollect-exhibit'
 					],
 					[
 						'text' => '接收入馆',
 						'url' => route('admin.exhibitcollect.getin'),
-						'priv' => 'admin-exhibitcollect-getin'
+						'priv' => 'admin-exhibitcollect-exhibit'
 					]
 				]
 			],
@@ -59,19 +59,19 @@ class MenuDao extends BaseMdl
                     [
                         'text' => '申请列表',
                         'url' => route('admin.applymanage.export_collect_apply'),
-                        'priv' => 'admin-applymanage-export_collect_apply'
+                        'priv' => 'admin-applymanage-apply'
                     ]
                 ]
             ],
             [
                 'text' => '录入鉴定结果',
-                'priv' => 'applymanage',
+                'priv' => 'recordidentify',
                 'icon' => 'fa fa-cog',
                 'nodes' => [
                     [
                         'text' => '鉴定列表',
-                        'url' => route('admin.identifyresult.record_list'),
-                        'priv' => 'admin-identifyresult-record_list'
+                        'url' => route('admin.recordidentify.recordidentify'),
+                        'priv' => 'admin-recordidentify-recordidentify'
                     ]
                 ]
             ],
@@ -82,8 +82,8 @@ class MenuDao extends BaseMdl
 				'nodes' => [
 					[
 						'text' => '鉴定申请',
-						'url' => route('admin.exhibitidentify.apply'),
-						'priv' => 'admin-exhibitidentify-apply'
+						'url' => route('admin.exhibitidentify.exhibit'),
+						'priv' => 'admin-exhibitidentify-exhibit'
 					],
 					[
 						'text' => '鉴定管理',
@@ -105,7 +105,7 @@ class MenuDao extends BaseMdl
 					[
 						'text' => '馆藏文物管理',
 						'url' => route('admin.inforegister.exhibitmanage'),
-						'priv' => 'admin-inforegister-exhibitmanage'
+						'priv' => 'admin-inforegister-index'
 					],
 					[
 						'text' => '其他文物信息登记',
@@ -122,7 +122,7 @@ class MenuDao extends BaseMdl
 					[
 						'text' => '总账',
 						'url' => route('admin.accountmanage.sumaccount'),
-						'priv' => 'admin-accountmanage-sumaccount'
+						'priv' => 'admin-accountmanage-index'
 					],
 					[
 						'text' => '辅助账',
@@ -140,7 +140,7 @@ class MenuDao extends BaseMdl
 					[
 						'text' => '移库管理',
 						'url' => route('admin.exhibitmanage.storageroom'),
-						'priv' => 'admin-exhibitmanage-storageroom'
+						'priv' => 'admin-exhibitmanage-index'
 					],
 					[
 						'text' => '消毒登记',
@@ -150,7 +150,7 @@ class MenuDao extends BaseMdl
 					[
 						'text' => '入库管理',
 						'url' => route('admin.exhibitmanage.instorageroom'),
-						'priv' => 'admin-exhibitmanage-instorageroom'
+						'priv' => 'admin-exhibitmanage-instoragemanage'
 					],
 					[
 						'text' => '藏品出库',
@@ -279,7 +279,7 @@ class MenuDao extends BaseMdl
 			],
 			[
 				'text' => '藏品注销',
-				'priv' => 'exhibitlogout',
+				'priv' => 'admin-exhibitlogout-exhibitlogout',
 				'icon' => 'fa fa-cog',
 				'url' => route('admin.exhibitlogout')
 			],

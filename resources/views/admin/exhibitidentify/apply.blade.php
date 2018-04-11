@@ -10,10 +10,10 @@
             <div class="col-sm-12">
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="{{route('admin.exhibitidentify.apply')}}">查询</a></li>
+                        <li class="active"><a href="{{route('admin.exhibitidentify.exhibit')}}">查询</a></li>
                         <li><a href="javascript:void(0)" onclick="do_submit()">提交</a></li>
                         <li><a href="javascript:void(0)" onclick="export_xls()">导出</a></li>
-                        <li><a href="{{route('admin.exhibitidentify.apply')}}">打印</a></li>
+                        <li><a href="{{route('admin.exhibitidentify.exhibit')}}">打印</a></li>
                         <li ><a href="{{route('admin.exhibitidentify.add')}}">新增</a></li>
                     </ul>
                 </div>
@@ -23,13 +23,13 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <form role="form" class="form-inline" method="get" action="{{route('admin.exhibitidentify.apply')}}">
+                        <form role="form" class="form-inline" method="get" action="{{route('admin.exhibitidentify.exhibit')}}">
                             <div class="form-group">
                                 <input type="text" name="title" placeholder="征集申请单号" class="form-control" value="{{request('title')}}">
                             </div>
                             &nbsp;&nbsp;
                             <button type="submit" class="btn btn-primary">搜索</button>
-                            <button type="button" class="btn btn-white" onclick="location.href='{{route('admin.exhibitidentify.apply')}}'">重置</button>
+                            <button type="button" class="btn btn-white" onclick="location.href='{{route('admin.exhibitidentify.exhibit')}}'">重置</button>
                         </form>
                     </div>
                 </div>
