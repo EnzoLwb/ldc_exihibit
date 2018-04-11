@@ -6,6 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class ConstDao
 {
+    const EXHIBIT_INTO_ROOM_STATUS_DRAFT = 0;//入馆申请状态 草稿状态
+    const EXHIBIT_INTO_ROOM_STATUS_WAITING_AUDIT = 1;//等待审核
+    const EXHIBIT_INTO_ROOM_STATUS_PASS = 2;//审核通过
+    const EXHIBIT_INTO_ROOM_STATUS_REFUSE = 3;//审核拒绝
+
+
+    //入库申请的相关状态
+    public static $intoroom_desc = array(
+        self::EXHIBIT_INTO_ROOM_STATUS_DRAFT=>'草稿状态',
+        self::EXHIBIT_INTO_ROOM_STATUS_WAITING_AUDIT=>'等待审核',
+        self::EXHIBIT_INTO_ROOM_STATUS_PASS=>'审核通过',
+        self::EXHIBIT_INTO_ROOM_STATUS_REFUSE=>'审核拒绝'
+    );
+
     const FAKE_EXHIBIT_STATUS_DRAFT = 0;//草稿状态
     const FAKE_EXHIBIT_STATUS_WAITING_AUDIT = 1;//等待审核
     const FAKE_EXHIBIT_STATUS_PASS  = 2;//审核通过
@@ -89,6 +103,7 @@ class ConstDao
     const APPLY_TYPE_ACCIDENT = 'accident';
     const APPLY_TYPE_SHOW = 'show';
     const APPLY_TYPE_SUMACCOUNT = 'sumaccount';
+    const APPLY_TYPE_INTO_ROOM = 'into_room';
     
     public static $apply_desc = array(
         self::APPLY_TYPE_COLLECT=>'征集申请',
@@ -99,7 +114,8 @@ class ConstDao
 		self::APPLY_TYPE_STORAGE_CHECK=>'库房盘点申请',
         self::APPLY_TYPE_ACCIDENT=>'事故申请',
         self::APPLY_TYPE_SHOW=>'展览申请',
-        self::APPLY_TYPE_SUMACCOUNT=>'总账申请'
+        self::APPLY_TYPE_SUMACCOUNT=>'总账申请',
+        self::APPLY_TYPE_INTO_ROOM=>'入库申请'
     );
 
     //征集申请的几种状态

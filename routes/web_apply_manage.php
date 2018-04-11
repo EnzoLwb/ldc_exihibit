@@ -39,4 +39,6 @@ Route::group([
 
 	//总账审核申请
     Route::post('fake_exhibit_audit', 'ApplyController@fake_exhibit_audit')->name('admin.applymanage.fake_exhibit_audit');
+    //入库申请
+    Route::post('into_room_audit', 'ApplyController@into_room_audit')->name('admin.applymanage.into_room_audit');
 });

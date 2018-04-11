@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Disinfection extends BaseMdl
 {
-    public $tableName = 'disinfection';
+    public $table = 'disinfection';
     public $primaryKey = 'disinfection_id';
 }

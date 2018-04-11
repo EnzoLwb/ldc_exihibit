@@ -26,55 +26,33 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
                         <form method="post" action="{{route('admin.exhibitmanage.instorageroom_save')}}" class="form-horizontal">
-                            <input type="hidden" name="exhibit_sum_register_id" value="{{$info['exhibit_sum_register_id']}}">
+                            <input type="hidden" name="exhibit_into_room_id" value="{{$info['exhibit_into_room_id'] or 0}}">
                             <input type="hidden" name="_token" value="{{csrf_token()}}">
                             <table  class="table" style="margin-left:8%;width:40%">
                                 <tbody>
-
-                                <tr ><td colspan="4"><label class="control-label edit-title">登记号</label></td></tr>
-                                <tr><td>总登记号</td><td><input type="text" class="form-control" name="exhibit_sum_register_num" id="exhibit_sum_register_num"
-                                                            value="{{$info['exhibit_sum_register_num'] or ''}}" /></td>
-                                    <td>入馆凭证号</td><td><input type="text" class="form-control" name="collect_recipe_num" id="collect_recipe_num"
-                                                           value="{{$info['collect_recipe_num'] or ''}}" /></td>
-                                </tr>
-
-                                <tr ><td colspan="4"><label class="control-label edit-title">文物详细</label></td></tr>
-
-                                <tr><td>名称</td><td><input type="text" class="form-control" name="name" id="name"
-                                                          value="{{$info['name'] or ''}}" /></td>
-                                    <td>数量</td><td><input type="number" class="form-control" name="num" id="num"
-                                                          value="{{$info['num'] or ''}}" /></td>
-                                </tr>
-
-
-
-                                <tr><td>年代</td><td><input type="text" class="form-control" name="age" id="age"
-                                                            value="{{$info['age'] or ''}}" /></td>
-                                    <td>级别</td><td><input type="text" class="form-control" name="exhibit_level" id="exhibit_level"
-                                                            value="{{$info['exhibit_level'] or ''}}" /></td>
-                                </tr>
-                                <tr><td>尺寸</td><td><input type="text" class="form-control" name="size" id="size"
-                                                            value="{{$info['size'] or ''}}" /></td>
-                                    <td >重量</td><td><input type="text" class="form-control" name="quality" id="quality"
-                                                           value="{{$info['quality'] or ''}}" /></td></tr>
-
-                                <tr><td>完残情况</td><td><input type="text" class="form-control" name="complete_degree" id="complete_degree"
-                                                             value="{{$info['complete_degree'] or ''}}" /></td>
-                                    <td>分库号</td><td><input type="text" class="form-control" name="room_number" id="room_number"
-                                                             value="{{$info['room_number'] or ''}}" /></td>
-                                </tr>
-
-                                <tr><td>备注</td><td colspan="3"><textarea class="form-control" name="backup">{{$info['backup']}}</textarea></td>
-
-                                </tr>
                                 <tr ><td colspan="4"><label class="control-label edit-title">入库信息</label></td></tr>
-
-                                <tr><td>入馆日期</td><td><input type="text" class="form-control" name="in_museum_time" id="in_museum_time"
-                                                          value="{{$info['in_museum_time'] or ''}}" /></td>
-                                    <td>来源</td><td><input type="text" class="form-control" name="src" id="src"
-                                                          value="{{$info['src'] or ''}}" /></td>
+                                <tr>
+                                    <td>库房名称</td>
+                                    <td>
+                                        <select name="room_number" class="form-control">
+                                            @foreach($room_list as $item)
+                                                <option @if($item['room_number'] == $info['room_number']) selected @endif value="{{$item['room_number']}}">{{$item['room_name']}}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
                                 </tr>
-                                <tr><td>收据号</td><td><input type="text" class="form-control"name="recipe_num" value="{{$info['recipe_num']}}" readonly></td></tr>
+                                <tr>
+                                    <td>展品名称</td>
+                                    <td>
+                                        <select name="exhibit_sum_register_id" class="form-control">
+                                            @foreach($exhibit_list as $item)
+                                                <option @if($item['exhibit_sum_register_id'] == $info['exhibit_sum_register_id']) selected @endif value="{{$item['exhibit_sum_register_id']}}">{{$item['name']}}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr><td>入库凭证号</td><td><input type="text" class="form-control"name="in_room_recipe_num"
+                                                             value="{{$info['in_room_recipe_num']}}" ></td></tr>
 
                                 </tbody>
                             </table>

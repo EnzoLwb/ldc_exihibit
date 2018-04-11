@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Models\Accident;
 use App\Models\CollectApply;
 use App\Models\Exhibit;
+use App\Models\Exhibit2Room;
 use App\Models\ExhibitLogout;
 use App\Models\ExhibitRepair\InsideRepair;
 use App\Models\ExhibitRepair\OutsideRepair;
@@ -20,6 +21,7 @@ use App\Models\IdentifyApply;
 use App\Models\ShowApply;
 use App\Models\Storageroommanage\RoomList;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class ApplyController extends BaseAdminController
@@ -116,8 +118,16 @@ class ApplyController extends BaseAdminController
                 array(ConstDao::FAKE_EXHIBIT_STATUS_WAITING_AUDIT, ConstDao::FAKE_EXHIBIT_STATUS_PASS,ConstDao::FAKE_EXHIBIT_STATUS_REFUSE))->paginate(parent::PERPAGE);
             $res['exhibit_list'] = $list;
             return view('admin.applymanage.sumaccount_apply', $res);
-
         }
+        elseif($type == ConstDao::APPLY_TYPE_INTO_ROOM){
+            //入库申请
+            $list = Exhibit2Room::join('exhibit','exhibit.exhibit_sum_register_id','=','exhibit_into_room.exhibit_sum_register_id')->join('storage_room',
+                'storage_room.room_number','=','exhibit_into_room.room_number')->select('exhibit_into_room_id','name','room_name','in_room_recipe_num',
+                DB::Raw('ldc_exhibit_into_room.status'))->paginate(parent::PERPAGE);
+            $res['exhibit_list'] = $list;
+            return view('admin.applymanage.into_room_apply', $res);
+        }
+        return $this->error('参数有误');
     }
 
     /**
@@ -372,5 +382,31 @@ class ApplyController extends BaseAdminController
         }else{
             return response_json(0,array(),'参数错误');
         }
+    }
+
+    /**
+     * 入库申请完成
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function into_room_audit(){
+        $exhibit_into_room_id = \request('exhibit_into_room_id');
+        $audit = \request('audit');
+        if(empty($exhibit_into_room_id) || !is_array($exhibit_into_room_id)){
+            return response_json(0,[],'参数错误');
+        }
+        $count = Exhibit2Room::where('status', '!=', ConstDao::EXHIBIT_INTO_ROOM_STATUS_WAITING_AUDIT)->whereIn('exhibit_into_room_id', $exhibit_into_room_id)->count();
+        if($count>0){
+            return response_json(0,[],'包含已审核的项');
+        }
+        Exhibit2Room::whereIn('exhibit_into_room_id', $exhibit_into_room_id)->update(array('status'=>$audit));
+        //修改项
+        $exhibit2rooms = Exhibit2Room::whereIn('exhibit_into_room_id',$exhibit_into_room_id)->get();
+        if($audit == ConstDao::EXHIBIT_INTO_ROOM_STATUS_PASS){
+            foreach ($exhibit2rooms as $exhibit2room){
+                Exhibit::where('exhibit_sum_register_id', $exhibit2room->exhibit_sum_register_id)->update(array('room_number'=>$exhibit2room->room_number));
+            }
+        }
+
+        return response_json(1,[],'审核完成');
     }
 }

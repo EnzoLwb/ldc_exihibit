@@ -11,10 +11,8 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="{{route('admin.exhibitmanage.instorageroom')}}">查询</a></li>
-                        <li><a href="javascript:void(0)" onclick="export_list()">导出</a></li>
-                        <li><a href="{{route('admin.exhibitmanage.instorageroom')}}">打印</a></li>
-                        <li><a href="javascript:void(0)" onclick="submit_into_roomr()">提交申请</a></li>
-                        <li><a href="{{route('admin.exhibitmanage.add_instorageroom')}}">新增</a></li>
+                        <li><a href="javascript:void(0)" onclick="into_room_audit('{{\App\Dao\ConstDao::EXHIBIT_INTO_ROOM_STATUS_PASS}}')">审核通过</a></li>
+                        <li><a href="javascript:void(0)" onclick="into_room_audit('{{\App\Dao\ConstDao::EXHIBIT_INTO_ROOM_STATUS_REFUSE}}')">审核拒绝</a></li>
                     </ul>
                 </div>
             </div>
@@ -90,34 +88,19 @@
         return collect_apply_ids;
     }
 
-    function submit_into_roomr() {
+    function into_room_audit(status) {
         apply_ids = get_collect_checked_ids();
         if(apply_ids.length==0){
             layer.alert("请至少选择一项")
             return
         }
-        $.ajax('{{route("admin.exhibitmanage.submit_instorageroom")}}', {
+        $.ajax('{{route("admin.applymanage.into_room_audit")}}', {
             method: 'POST',
-            data: {'exhibit_into_room_id':collect_apply_ids,'_token':"{{csrf_token()}}"},
+            data: {'exhibit_into_room_id':apply_ids,'_token':"{{csrf_token()}}","audit":status},
             dataType: 'json'
         }).done(function (response) {
             layer.alert(response.msg)
             setTimeout("location.reload();", 3000)
         });
-    }
-    /**
-     * 导出申请列表
-     */
-    function export_list() {
-        apply_ids = get_collect_checked_ids();
-        if(apply_ids.length==0){
-            layer.alert("请至少选择一项")
-            return
-        }
-        url = '{{route("admin.excel.export_exhibit")}}' +"?";
-        for(i=0;i<apply_ids.length;i++){
-            url += "exhibit_sum_register_id["+i.toString()+"]="+apply_ids[i]
-        }
-        location.href=url
     }
 </script>

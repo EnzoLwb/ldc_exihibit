@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class ExhibitUseItem extends BaseMdl
 {
-    public $tableName = 'exhibit_use_item';
+    public $table = 'exhibit_use_item';
     public $primaryKey = 'exhibit_use_item_id';
 }

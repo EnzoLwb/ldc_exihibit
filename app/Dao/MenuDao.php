@@ -37,7 +37,7 @@ class MenuDao extends BaseMdl
 			[
 				'text' => '藏品征集',
 				'priv' => 'exhibitcollect',
-				'icon' => 'fa fa-cog',
+				'icon' => 'glyphicon glyphicon-eur',
 				'nodes' => [
 					[
 						'text' => '征集申请',
