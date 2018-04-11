@@ -35,7 +35,7 @@ class ExhibitlogoutController extends BaseAdminController
 		}else{
 			$data=$exhibit_Logout->joinLeft()->paginate(parent::PERPAGE);
 		}
-		return view('admin.exhibitLogout.exhibitlogout', [
+		return view('admin.exhibitlogout.exhibitlogout', [
 			'data' => $data
 		]);
 	}
