@@ -12,3 +12,4 @@ yarn-error.log
 .env
 /app/Http/Controllers/Api/apidoc.json
 composer.lock
+/.project
