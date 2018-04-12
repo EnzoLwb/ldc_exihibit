@@ -1,4 +1,4 @@
-base_laravel 使用说明
+11base_laravel 使用说明
 
 1. 命令行模式下，进入项目目录，执行"composer install"（composer请自行安装，如果网络环境不佳，也可解压vendor.zip到项目目录）
 2. 将 .env.example 复制并重命名为 .env，修改其中的数据库相关配置
