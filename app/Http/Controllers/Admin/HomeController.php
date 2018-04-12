@@ -22,5 +22,6 @@ class HomeController extends BaseAdminController
 
 	public function welcome()
 	{
+        return view('admin.welcome');
 	}
 }
