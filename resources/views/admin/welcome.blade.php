@@ -46,11 +46,13 @@
     	<div class="left">
     		<div class="head">
     			<div class="c1">我的事项</div>
+				<!--
     			<div class="c2">
     				<a class="on">待办(2)</a>
     				<a>已办(6)</a>
     				<a>办结(9)</a>
     			</div>
+    			-->
     		</div>
     		<table>
     			<thead>
@@ -120,17 +122,16 @@
 		</div>
     	<div class="list">
     		<ul><!--标题控制8字以内-->
-    			<li><img src="{{cdn('img/add/menu/menu_icon1.png')}}"><div title="藏品数">藏品数</div><div>555</div></li>
-    			<li><img src="{{cdn('img/add/menu/menu_icon1.png')}}"><div title="资料数资料数资料数资料数">资料数资料数资料…</div><div>555</div></li>
-    			<li><img src="{{cdn('img/add/menu/menu_icon1.png')}}"><div>复制品数</div><div>555</div></li>
-    			<li><img src="{{cdn('img/add/menu/menu_icon1.png')}}"><div>仿制品数</div><div>555</div></li>
-    			<li><img src="{{cdn('img/add/menu/menu_icon1.png')}}"><div>代管数</div><div>555</div></li>
-    			<li><img src="{{cdn('img/add/menu/menu_icon1.png')}}"><div>外借数</div><div>555</div></li>
-    			<li><img src="{{cdn('img/add/menu/menu_icon1.png')}}"><div>待入账数</div><div>555</div></li>
-    			<li><img src="{{cdn('img/add/menu/menu_icon1.png')}}"><div>待入库数</div><div>555</div></li>
-    			<li><img src="{{cdn('img/add/menu/menu_icon1.png')}}"><div>待排架数</div><div>555</div></li>
-    			<li><img src="{{cdn('img/add/menu/menu_icon1.png')}}"><div>在库数</div><div>555</div></li>
-    			<li><img src="{{cdn('img/add/menu/menu_icon1.png')}}"><div>待回库数</div><div>555</div></li>
+    			<li><img src="{{cdn('img/add/menu/menu_icon1.png')}}"><div title="藏品数">藏品数</div><div>{{$exhibit_num}}</div></li>
+    			<li><img src="{{cdn('img/add/menu/menu_icon1.png')}}"><div title="资料数">资料数</div><div>{{$file_num}}</div></li>
+    			<li><img src="{{cdn('img/add/menu/menu_icon1.png')}}"><div>复制品数</div><div>{{$exhibit_num}}</div></li>
+    			<li><img src="{{cdn('img/add/menu/menu_icon1.png')}}"><div>仿制品数</div><div>{{$copy_by_num}}</div></li>
+    			<li><img src="{{cdn('img/add/menu/menu_icon1.png')}}"><div>代管数</div><div>{{$replace_manage_num}}</div></li>
+    			<li><img src="{{cdn('img/add/menu/menu_icon1.png')}}"><div>外借数</div><div>{{$lend_num}}</div></li>
+    			<li><img src="{{cdn('img/add/menu/menu_icon1.png')}}"><div>待入账数</div><div>{{$wati_into_account}}</div></li>
+    			<li><img src="{{cdn('img/add/menu/menu_icon1.png')}}"><div>待入库数</div><div>{{$wati_into_room}}</div></li>
+    			<li><img src="{{cdn('img/add/menu/menu_icon1.png')}}"><div>在库数</div><div>{{$stay_in_num}}</div></li>
+    			<li><img src="{{cdn('img/add/menu/menu_icon1.png')}}"><div>待回库数</div><div>{{$wati_back_room}}</div></li>
     		</ul>
     	</div>
     </div>

@@ -85,9 +85,9 @@
                                     <td>{{$exhibit['age']}} </td>
                                     <td>{{$exhibit['history_step']}} </td>
                                     <td>
-                                        <a href="{{route('admin.inforegister.subsidiary.delete',['subsidiary_id'=>$v['subsidiary_id']])}}"
+                                        <a href="{{route('admin.inforegister.subsidiary.delete',['subsidiary_id'=>$exhibit['subsidiary_id']])}}"
                                            onclick="if (confirm('确定要删除此记录吗？')==false) return false">删除</a>
-                                        <a href="{{route('admin.inforegister.subsidiary.edit',['subsidiary_id'=>$v['subsidiary_id']])}}">修改</a>
+                                        <a href="{{route('admin.inforegister.subsidiary.edit',['subsidiary_id'=>$exhibit['subsidiary_id']])}}">修改</a>
                                     </td>
                                 </tr>
                             @endforeach

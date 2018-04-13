@@ -34,6 +34,12 @@ class MenuDao extends BaseMdl
 	public static function get_admin_menu()
 	{
 		return [
+            [
+                'text' => '首页',
+                'priv' => 'admin.home',
+                'icon' => 'glyphicon glyphicon-eur',
+                'url'=>route('admin.welcome')
+            ],
 			[
 				'text' => '藏品征集',
 				'priv' => 'exhibitcollect',

@@ -193,7 +193,6 @@ class ConstDao
         self::EXHIBIT_STATUS_LOST=>'丢失',
         self::EXHIBIT_STATUS_DAMAGE=>'报损',
         self::EXHIBIT_STATUS_LEND=>'借出',
-
         self::EXHIBIT_STATUS_LOGOUT=>'注销',
     );
 
