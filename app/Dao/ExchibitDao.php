@@ -67,6 +67,7 @@ class ExchibitDao extends Exhibit
             }
         }
         $exhibit->status = ConstDao::EXHIBIT_STATUS_IN_ROOM;
+        $exhibit->room_number = "";
         $exhibit->save();
         return;
     }

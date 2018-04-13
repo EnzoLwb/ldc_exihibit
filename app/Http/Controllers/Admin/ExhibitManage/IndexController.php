@@ -18,10 +18,10 @@ class IndexController extends BaseAdminController
     public function storageroom(){
         $title = \request('title');
         if(empty($title)){
-            $res['exhibit_list'] = Exhibit::join('storage_room','storage_room.room_number','=','exhibit.room_number','left')
+            $res['exhibit_list'] = Exhibit::join('storage_room','storage_room.room_number','=','exhibit.room_number')
                 ->select('exhibit_sum_register_id','exhibit_sum_register_num','name','room_name')->paginate(parent::PERPAGE);
         }else{
-            $res['exhibit_list'] = Exhibit::join('storage_room','storage_room.room_number','=','exhibit.room_number','left')
+            $res['exhibit_list'] = Exhibit::join('storage_room','storage_room.room_number','=','exhibit.room_number')
                 ->where('name','like', '%'.$title."%")->select('exhibit_sum_register_id','exhibit_sum_register_num','name','room_name')->paginate(parent::PERPAGE);
         }
 
