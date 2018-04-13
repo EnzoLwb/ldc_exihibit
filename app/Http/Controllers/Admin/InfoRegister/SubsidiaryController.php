@@ -19,11 +19,12 @@ class SubsidiaryController extends BaseAdminController
 	 */
 	public function index(Request $request)
 	{
-
+		//审核通过的不能显示
 		if (!empty( $request->exhibit_sum_register_num)){
-			$data=Subsidiary::where('exhibit_sum_register_num','like',"%{$request->exhibit_sum_register_num}%")->paginate(parent::PERPAGE);
+			$data=Subsidiary::where('exhibit_sum_register_num','like',"%{$request->exhibit_sum_register_num}%")
+				->where('apply_status','<>','2')->paginate(parent::PERPAGE);
 		}else{
-			$data=Subsidiary::paginate(parent::PERPAGE);
+			$data=Subsidiary::where('apply_status','<>','2')->paginate(parent::PERPAGE);
 		}
 
 		return view('admin.inforegister.subsidiary', [
@@ -61,14 +62,14 @@ class SubsidiaryController extends BaseAdminController
 	}
 	/**
 	 * edit
-	 * @param $id
+	 * @param $id Request $request
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
-	public function edit($id)
+	public function edit(Request $request,$id)
 	{
 		$detail=Subsidiary::find($id);
 		return view('admin.inforegister.add_subsidiary', [
-			'data' => $detail
+			'data' => $detail,'disabled'=>$request->disabled
 		]);
 	}
 

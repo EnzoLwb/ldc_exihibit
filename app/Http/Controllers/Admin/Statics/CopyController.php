@@ -22,7 +22,7 @@ class CopyController extends BaseAdminController
 		//默认展示最近7年 如果用户填写时间 就按填写的时间计算
 		$start_year='2012';
 		$end_year='2019';
-		$year=[];
+		$year=$copy=$imitate=[];
 		//横坐标 以年份为主   纵坐标就是 修复数
 		if (!empty($request->start_year)){
 			$start_year=date("Y", strtotime($request->start_year));

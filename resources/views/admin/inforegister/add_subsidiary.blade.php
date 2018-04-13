@@ -27,7 +27,7 @@
                                 <input type="hidden" name="_token" value="{{csrf_token()}}" />
                                 <input type="hidden" name="subsidiary_id" value="{{$data['subsidiary_id'] or ''}}" />
                                 <tr><td>类型</td><td>
-                                        <select name="type" class="form-control">
+                                        <select name="type" class="form-control"   @if(!empty($disabled)) {{'disabled'}} @endif>
                                             @foreach(App\Models\Subsidiary::$type   as $k=>$name)
                                                 <option value="{{$k}}" {{@$data['type']==$k||old('type')==$k?'selected':''}}>{{$name}}</option>
                                             @endforeach
@@ -36,14 +36,14 @@
                                 <tr>
                                     <td>收藏单位</td>
                                     <td colspan="3">
-                                        <input type="text" class="form-control" name="collect_depart" value="{{$data['collect_depart'] or ''}}" />
+                                        <input type="text" class="form-control" name="collect_depart" value="{{$data['collect_depart'] or ''}}"  @if(!empty($disabled)) {{'disabled'}} @endif/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>附件</td>
                                     <td colspan="3">
                                         <div class="col-sm-3" id="poi_4_box">
-                                            <div id="poi_4_picker">选择附件</div><br/>
+                                            @if(empty($disabled))<div id="poi_4_picker">选择附件</div> @endif
                                             @if(isset($data) && $data['attachment'] != '')
                                                 <div class="img-div">
                                                     <img src="{{get_file_url($data['attachment'])}}"/>
@@ -58,53 +58,53 @@
                                 <tr><td colspan="4"><label class="control-label edit-title">登记号</label></td></tr>
                                 <tr>
                                     <td>总登记号</td>
-                                    <td><input type="text" class="form-control" name="exhibit_sum_register_num" value="{{$data['exhibit_sum_register_num'] or ''}}" /></td>
+                                    <td><input type="text" class="form-control" name="exhibit_sum_register_num" value="{{$data['exhibit_sum_register_num'] or ''}}" @if(!empty($disabled)) {{'disabled'}} @endif/></td>
                                     <td>原编号</td>
-                                    <td><input type="text" class="form-control" name="ori_num" value="{{$data['ori_num'] or ''}}" /></td>
+                                    <td><input type="text" class="form-control" name="ori_num" value="{{$data['ori_num'] or ''}}" @if(!empty($disabled)) {{'disabled'}} @endif/></td>
                                 </tr>
                                 <tr>
                                     <td>分类号</td>
-                                    <td><input type="text" class="form-control" name="type_num" value="{{$data['type_num'] or ''}}" /></td>
+                                    <td><input type="text" class="form-control" name="type_num" value="{{$data['type_num'] or ''}}" @if(!empty($disabled)) {{'disabled'}} @endif/></td>
                                     <td>入馆登记号</td>
-                                    <td><input type="text" class="form-control" name="collect_recipe_num" value="{{$data['collect_recipe_num'] or ''}}" /></td>
+                                    <td><input type="text" class="form-control" name="collect_recipe_num" value="{{$data['collect_recipe_num'] or ''}}" @if(!empty($disabled)) {{'disabled'}} @endif/></td>
                                 </tr>
 
                                 <tr><td colspan="4"><label class="control-label edit-title">文物名称</label></td></tr>
                                 <tr>
                                     <td>名称</td>
-                                    <td><input type="text" class="form-control" name="name" value="{{$data['name'] or ''}}" /></td>
+                                    <td><input type="text" class="form-control" name="name" value="{{$data['name'] or ''}}" @if(!empty($disabled)) {{'disabled'}} @endif/></td>
                                     <td>原名</td>
-                                    <td><input type="text" class="form-control" name="ori_name" value="{{$data['ori_name'] or ''}}" /></td>
+                                    <td><input type="text" class="form-control" name="ori_name" value="{{$data['ori_name'] or ''}}" @if(!empty($disabled)) {{'disabled'}} @endif/></td>
                                 </tr>
 
                                 <tr><td colspan="4"><label class="control-label edit-title">年代</label></td></tr>
                                 <tr>
                                     <td>年代类型</td>
-                                    <td><input type="text" class="form-control" name="age_type"  value="{{$data['age_type'] or ''}}" /></td>
+                                    <td><input type="text" class="form-control" name="age_type"  value="{{$data['age_type'] or ''}}" @if(!empty($disabled)) {{'disabled'}} @endif/></td>
                                     <td>具体年代</td>
-                                    <td><input type="text" class="form-control" name="age" value="{{$data['age'] or ''}}" /></td>
+                                    <td><input type="text" class="form-control" name="age" value="{{$data['age'] or ''}}" @if(!empty($disabled)) {{'disabled'}} @endif/></td>
                                 </tr>
                                 <tr>
                                     <td>历史阶段</td>
-                                    <td><input type="text" class="form-control" name="history_step" value="{{$data['history_step'] or ''}}" /></td>
+                                    <td><input type="text" class="form-control" name="history_step" value="{{$data['history_step'] or ''}}" @if(!empty($disabled)) {{'disabled'}} @endif/></td>
                                 </tr>
 
                                 <tr><td colspan="4"><label class="control-label edit-title">质地</label></td></tr>
                                 <tr>
                                     <td>质地类型1</td>
-                                    <td><input type="text" class="form-control" name="textaure1" value="{{$data['textaure1'] or ''}}" /></td>
+                                    <td><input type="text" class="form-control" name="textaure1" value="{{$data['textaure1'] or ''}}" @if(!empty($disabled)) {{'disabled'}} @endif/></td>
                                     <td>质地类型2</td>
-                                    <td><input type="text" class="form-control" name="textaure2" value="{{$data['textaure2'] or ''}}" /></td>
+                                    <td><input type="text" class="form-control" name="textaure2" value="{{$data['textaure2'] or ''}}" @if(!empty($disabled)) {{'disabled'}} @endif/></td>
                                 </tr>
                                 <tr>
                                     <td>普查质地</td>
-                                    <td><input type="text" class="form-control" name="common_textaure"  value="{{$data['common_textaure'] or ''}}" /></td>
+                                    <td><input type="text" class="form-control" name="common_textaure"  value="{{$data['common_textaure'] or ''}}" @if(!empty($disabled)) {{'disabled'}} @endif/></td>
                                     <td>具体质地</td>
-                                    <td><input type="text" class="form-control" name="textaure"  value="{{$data['textaure'] or ''}}" /></td>
+                                    <td><input type="text" class="form-control" name="textaure"  value="{{$data['textaure'] or ''}}" @if(!empty($disabled)) {{'disabled'}} @endif/></td>
                                 </tr>
                                 <tr>
                                     <td>类别范围</td>
-                                    <td><input type="text" class="form-control" name="range_type" value="{{$data['range_type'] or ''}}" /></td>
+                                    <td><input type="text" class="form-control" name="range_type" value="{{$data['range_type'] or ''}}" @if(!empty($disabled)) {{'disabled'}} @endif/></td>
                                 </tr>
                                 </tbody>
                             </table>

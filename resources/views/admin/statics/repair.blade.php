@@ -63,7 +63,7 @@
                 }
             },
             legend: {
-                data: ['内修复文物','外修复文物']
+                data: ['藏品修复','内修复文物','外修复文物']
             },
             toolbox: {
                 feature: {
@@ -99,7 +99,12 @@
                     type: 'line',
                     areaStyle: {normal: {}},
                     data:{{$data_outside}}
-                }
+                }, {
+                    name: '藏品修复',
+                    type: 'line',
+                    areaStyle: {normal: {}},
+                    data:{{$data_repair_apply}}
+                },
             ]
         };
         var myChart = echarts.init(document.getElementById('charts'));
