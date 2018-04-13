@@ -12,8 +12,6 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li ><a href="{{route('admin.exhibitmanage.exhibitbackroom')}}">查询</a></li>
-                        <li><a href="{{route('admin.exhibitmanage.exhibitbackroom')}}">导出</a></li>
-                        <li><a href="{{route('admin.exhibitmanage.exhibitbackroom')}}">打印</a></li>
 
                         <li class="active"><a href="{{route('admin.exhibitmanage.add_exhibitbackroom')}}">新增</a></li>
                     </ul>
