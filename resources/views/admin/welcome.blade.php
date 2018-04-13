@@ -41,18 +41,18 @@
 		<a class="mbtn left"></a>
 		<a class="mbtn right"></a>
     </div>
-    
+    <!--
     <div class="rcont2">
     	<div class="left">
     		<div class="head">
     			<div class="c1">我的事项</div>
-				<!--
+
     			<div class="c2">
     				<a class="on">待办(2)</a>
     				<a>已办(6)</a>
     				<a>办结(9)</a>
     			</div>
-    			-->
+
     		</div>
     		<table>
     			<thead>
@@ -63,7 +63,7 @@
     				</tr>
     			</thead>
     			<tbody>
-    				<tr><!--标题控制12字以内-->
+    				<tr>
     					<td>类型类型</td>
     					<td class="title"><a href="#" target="_blank" title="事项名称事项名称事项名称">事项名称事项名称事项名称</a></td>
     					<td>2018.04.20</td>
@@ -101,7 +101,7 @@
     		<div class="head">
     			<div class="c1">通知</div>
     		</div>
-    		<ul class="list"><!--标题控制21字以内-->
+    		<ul class="list">
     			<li><a href="#" target="_blank" title="请做入库处理批号请做入库处理批号请做入库处理批号">请做入库处理批号请做入库处理批号请做入库处</a><span>2018.04.08</span></li>
     			<li><a href="#" target="_blank">批号21029011审批通过，请做入库处理批号</a><span>2018.04.07</span></li>
     			<li><a href="#" target="_blank">批号21029011审批通过，请做入库处理</a><span>2018.04.06</span></li>
@@ -113,6 +113,7 @@
     		</ul>
     		<div class="bottom"><a href="#" target="_blank">更多&gt;&gt;</a></div>
     	</div>
+		-->
     </div>
     
     <div class="rcont3">
