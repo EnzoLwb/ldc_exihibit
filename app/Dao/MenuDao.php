@@ -82,28 +82,7 @@ class MenuDao extends BaseMdl
                     ]
                 ]
             ],
-			[
-				'text' => '藏品鉴定',
-				'priv' => 'exhibitidentify',
-				'icon' => 'fa fa-cog',
-				'nodes' => [
-					[
-						'text' => '鉴定申请',
-						'url' => route('admin.exhibitidentify.exhibit'),
-						'priv' => 'admin-exhibitidentify-exhibit'
-					],
-					[
-						'text' => '鉴定管理',
-						'url' => route('admin.exhibitidentify.manage'),
-						'priv' => 'admin-exhibitidentify-manage'
-					],
-					[
-						'text' => '鉴定专家管理',
-						'url' => route('admin.exhibitidentify.expert'),
-						'priv' => 'admin-exhibitidentify-expert'
-					]
-				]
-			],
+
 			[
 				'text' => '信息登记',
 				'priv' => 'inforegister',
@@ -138,6 +117,28 @@ class MenuDao extends BaseMdl
 					]
 				]
 			],
+            [
+                'text' => '藏品鉴定',
+                'priv' => 'exhibitidentify',
+                'icon' => 'fa fa-cog',
+                'nodes' => [
+                    [
+                        'text' => '鉴定申请',
+                        'url' => route('admin.exhibitidentify.exhibit'),
+                        'priv' => 'admin-exhibitidentify-exhibit'
+                    ],
+                    [
+                        'text' => '鉴定管理',
+                        'url' => route('admin.exhibitidentify.manage'),
+                        'priv' => 'admin-exhibitidentify-manage'
+                    ],
+                    [
+                        'text' => '鉴定专家管理',
+                        'url' => route('admin.exhibitidentify.expert'),
+                        'priv' => 'admin-exhibitidentify-expert'
+                    ]
+                ]
+            ],
 
 			[
 				'text' => '藏品保管',

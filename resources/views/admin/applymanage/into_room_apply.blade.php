@@ -21,13 +21,22 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <form role="form" class="form-inline" method="get" action="{{route('admin.exhibitmanage.instorageroom')}}">
+                        <form role="form" class="form-inline" method="get" action="{{route('admin.applymanage.export_collect_apply')}}">
                             <div class="form-group">
-                                <input type="text" name="title" placeholder="名称" class="form-control" value="{{request('title')}}">
+                                <select name="apply_type" class="form-control">
+                                    @foreach(\App\Dao\ConstDao::$apply_desc as $key=>$v)
+                                        @if($type == $key)
+                                            <option selected value="{{$key}}">{{$v}}</option>
+                                        @else
+                                            <option value="{{$key}}">{{$v}}</option>
+                                        @endif
+
+                                    @endforeach
+                                </select>
                             </div>
                             &nbsp;&nbsp;
                             <button type="submit" class="btn btn-primary">搜索</button>
-                            <button type="button" class="btn btn-white" onclick="location.href='{{route('admin.exhibitmanage.instorageroom')}}'">重置</button>
+                            <button type="button" class="btn btn-white" onclick="location.href='{{route('admin.applymanage.export_collect_apply')}}'">重置</button>
                         </form>
                     </div>
                 </div>
