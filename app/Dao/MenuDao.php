@@ -387,6 +387,25 @@ class MenuDao extends BaseMdl
 					]
 				]
 			],
+            /*
+            [
+                'text' => '通知管理',
+                'priv' => 'notice',
+                'icon' => 'fa fa-cog',
+                'nodes' => [
+                    [
+                        'text' => '发布通知',
+                        'url' => route('admin.notice.publis_notice'),
+                        'priv' => 'admin-notice-index'
+                    ],
+                    [
+                        'text' => '历史通知',
+                        'url' => route('admin.notice.history_list'),
+                        'priv' => 'admin-notice-index'
+                    ]
+                ]
+            ],
+            */
 		];
 
 		/*

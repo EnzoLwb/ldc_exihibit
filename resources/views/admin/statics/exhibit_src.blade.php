@@ -6,8 +6,8 @@
             <div class="col-sm-12">
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="{{route('admin.statics.exhibit')}}">藏品增减统计</a></li>
-                        <li ><a href="{{route('admin.statics.exhibit.src')}}">藏品来源统计</a></li>
+                        <li ><a href="{{route('admin.statics.exhibit')}}">藏品增减统计</a></li>
+                        <li class="active"><a href="{{route('admin.statics.exhibit.src')}}">藏品来源统计</a></li>
                         <li ><a href="{{route('admin.statics.exhibit')}}">藏品状态统计</a></li>
                         <li ><a href="{{route('admin.statics.exhibit')}}">藏品详细统计</a></li>
                     </ul>
@@ -18,12 +18,11 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <form role="form" class="form-inline" method="get" action="{{route('admin.statics.exhibit')}}">
+                        <form role="form" class="form-inline" method="get" action="{{route('admin.statics.exhibit.src')}}">
                             <div class="form-group">
-                               <label>开始日期</label> <input placeholder="开始日期" class="form-control layer-date laydate-icon" id="start_year" type="text" name="start_year" value="{{request('start_year')}}"
+                               <label>类别</label> <input placeholder="请输入类别" class="form-control" id="type" type="text" name="type" value="{{request('type')}}"
                                        style="width: 140px;">
-                                <label>结束日期</label> <input placeholder="结束日期" class="form-control layer-date laydate-icon" id="end_year" type="text" name="end_year" value="{{request('end_year')}}"
-                                                           style="width: 140px;">
+
                             </div>
                             &nbsp;&nbsp;
                             <button type="submit" class="btn btn-primary">搜索</button>

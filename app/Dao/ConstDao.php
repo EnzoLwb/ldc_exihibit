@@ -6,6 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class ConstDao
 {
+    const EXHIBIT_LEVEL_FIRST = 1;
+    const EXHIBIT_LEVEL_SECOND = 2;
+    const EXHIBIT_LEVEL_THIRD = 3;
+
+    public static $exhibit_level_desc = array(
+        self::EXHIBIT_LEVEL_FIRST=>'一级',
+        self::EXHIBIT_LEVEL_SECOND=>'二级',
+        self::EXHIBIT_LEVEL_THIRD=>'三级'
+    );
+
     const EXHIBIT_INTO_ROOM_STATUS_DRAFT = 0;//入馆申请状态 草稿状态
     const EXHIBIT_INTO_ROOM_STATUS_WAITING_AUDIT = 1;//等待审核
     const EXHIBIT_INTO_ROOM_STATUS_PASS = 2;//审核通过
@@ -114,7 +124,8 @@ class ConstDao
         self::APPLY_TYPE_ACCIDENT=>'事故申请',
         self::APPLY_TYPE_SHOW=>'展览申请',
   		self::APPLY_TYPE_SUBSIDIARY=>'其它文物登记申请',
-        self::APPLY_TYPE_INTO_ROOM=>'入库申请'
+        self::APPLY_TYPE_INTO_ROOM=>'入库申请',
+        self::APPLY_TYPE_SUMACCOUNT=>'总账申请'
     );
 
     //征集申请的几种状态

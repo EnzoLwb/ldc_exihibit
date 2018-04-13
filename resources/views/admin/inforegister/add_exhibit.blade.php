@@ -135,8 +135,17 @@
                                                             value="{{$info['lwh'] or ''}}" /></td>
                                 </tr>
 
-                                <tr><td >文物级别</td><td ><input type="text" class="form-control" name="exhibit_level" id="exhibit_level"
-                                                          value="{{$info['exhibit_level'] or ''}}" /></td>
+                                <tr><td >文物级别</td><td >
+                                        <select name="exhibit_level" id="exhibit_level" class="form-control">
+                                            @foreach(\App\Dao\ConstDao::$exhibit_level_desc as $item)
+                                                <option value="{{$item}}"
+                                                        @if($item == $info['exhibit_level']) selected @endif
+                                                >
+                                                    {{$item}}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        </td>
                                 </tr>
                                 <tr ><td colspan="4"><label class="control-label edit-title">来源</label></td></tr>
 
