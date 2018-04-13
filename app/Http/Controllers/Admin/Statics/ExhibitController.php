@@ -27,7 +27,7 @@ class ExhibitController extends BaseAdminController
         while($start_year<=$real_end_year){
             $item = array();
             $end_year = date("Y-01-01 00:00:00", strtotime($start_year)+365*24*3660);
-            $item['year'] = $start_year;
+            $item['year'] = date("Y", strtotime($start_year));
             $item['add'] = Exhibit::where('created_at', '>=', $start_year)->where('created_at','<=', $end_year)->count();
             $item['minus'] = Exhibit::where('updated_at',">=", $start_year)->where('updated_at',"<=", $end_year)
                 ->whereIn('status', array(ConstDao::EXHIBIT_STATUS_BOJIAO, ConstDao::EXHIBIT_STATUS_LOGOUT))->count();
@@ -57,13 +57,48 @@ class ExhibitController extends BaseAdminController
 	    //默认七年
         $src = request('src');
         $start_year = date("Y-01-01 00:00:00", time()-6*(365*24*3600));
-        $end_year = date("Y-01-01 00:00:00", time());
-        while($start_year>= $end_year){
-            $current_year = date("Y-01-01 00:00:00", strtotime($start_year)+365*24*3600);
-            $count = Exhibit::where('created_at','>=', $start_year)->where('created_at','<=', $current_year)->where('type','like','%'.$src.'%')->count();
-            $start_year = $current_year;
+        $end_year = date("Y-01-01 00:00:00", time()+365*24*3600);
+        $res['num'] = [];
+        $res['chart_x'] = [];
+        while($start_year< $end_year){
+            $current_end_year = date("Y-01-01 00:00:00", strtotime("$start_year+1year"));
+            $count = Exhibit::where('created_at','>=', $start_year)->where('created_at','<=', $current_end_year)
+                ->where('src','like','%'.$src.'%')->count();
+            $start_year = $current_end_year;
+            $res['chart_x'][] = date("Y", strtotime($start_year));
+            $res['num'][] = $count;
         }
-	    $res = array('chart_x'=>'', 'add'=>'','minus'=>'');
+        $res['num'] = \json_encode($res['num']);
+        $res['chart_x'] = \json_encode($res['chart_x']);
         return view('admin.statics.exhibit_src', $res);
+    }
+
+    /**
+     * 藏品状态统计
+     */
+    public function status_func(){
+        //默认六年
+        $status = request('status');
+        $start_year = date("Y-01-01 00:00:00", time()-6*(365*24*3600));
+        $end_year = date("Y-01-01 00:00:00", time()+365*24*3600);
+        $res['num'] = [];
+        $res['chart_x'] = [];
+        while($start_year< $end_year){
+            $current_end_year = date("Y-01-01 00:00:00", strtotime("$start_year+1year"));
+            if(!empty($status)){
+                $count = Exhibit::where('created_at','>=', $start_year)->where('created_at','<=', $current_end_year)
+                    ->where('status',$status)->count();
+            }else{
+                $count = Exhibit::where('created_at','>=', $start_year)->where('created_at','<=', $current_end_year)
+                    ->count();
+            }
+
+            $start_year = $current_end_year;
+            $res['chart_x'][] = date("Y", strtotime($start_year));
+            $res['num'][] = $count;
+        }
+        $res['num'] = \json_encode($res['num']);
+        $res['chart_x'] = \json_encode($res['chart_x']);
+        return view('admin.statics.exhibit_status', $res);
     }
 }

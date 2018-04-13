@@ -170,7 +170,7 @@ class ConstDao
     const EXHIBIT_USED = 2;//展品提用
     const EXHIBIT_USED_SHOW = 3;//展品观摩
 
-    const EXHIBIT_STATUS_IN_ROOM = 0 ;//展品在库
+    const EXHIBIT_STATUS_IN_ROOM = 11 ;//展品在库
     const EXHIBIT_STATUS_BOJIAO = 1 ;//展品拨交
     const EXHIBIT_STATUS_SHOW = 2;//展品观摩
     const EXHIBIT_STATUS_COPY = 3 ;//展品复制

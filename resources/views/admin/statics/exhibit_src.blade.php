@@ -8,7 +8,7 @@
                     <ul class="nav nav-tabs">
                         <li ><a href="{{route('admin.statics.exhibit')}}">藏品增减统计</a></li>
                         <li class="active"><a href="{{route('admin.statics.exhibit.src')}}">藏品来源统计</a></li>
-                        <li ><a href="{{route('admin.statics.exhibit')}}">藏品状态统计</a></li>
+                        <li><a href="{{route('admin.statics.exhibit.status')}}">藏品状态统计</a></li>
                         <li ><a href="{{route('admin.statics.exhibit')}}">藏品详细统计</a></li>
                     </ul>
                 </div>
@@ -20,7 +20,7 @@
                     <div class="ibox-title">
                         <form role="form" class="form-inline" method="get" action="{{route('admin.statics.exhibit.src')}}">
                             <div class="form-group">
-                               <label>类别</label> <input placeholder="请输入类别" class="form-control" id="type" type="text" name="type" value="{{request('type')}}"
+                               <label>来源</label> <input placeholder="请输入类别" class="form-control" id="type" type="text" name="type" value="{{request('type')}}"
                                        style="width: 140px;">
 
                             </div>
@@ -95,15 +95,8 @@
                     type: 'line',
                     stack: '',
                     areaStyle: {normal: {}},
-                    data: {!! $add !!}
-                },
-                {
-                    name: '文物藏品减少统计',
-                    type: 'line',
-                    stack: '',
-                    areaStyle: {normal: {}},
-                    data: {!! $minus !!}
-                },
+                    data: {!! $num !!}
+                }
 
             ]
         };
