@@ -29,7 +29,7 @@ class HomeController extends BaseAdminController
 	public function welcome()
 	{
 	    $groupid = Auth::user()->groupid;
-	    var_dump($groupid);
+	    
 	    $res['groupid'] = $groupid;
 	    //藏品数
 	    $res['exhibit_num'] = Exhibit::count();
