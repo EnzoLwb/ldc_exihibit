@@ -11,12 +11,7 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li ><a href="{{route('admin.inforegister.exhibitmanage')}}">查询</a></li>
-                        <li><a href="{{route('admin.inforegister.exhibitmanage')}}">修改</a></li>
-                        <li><a href="{{route('admin.inforegister.exhibitmanage')}}">删除</a></li>
-                        <li><a href="{{route('admin.inforegister.exhibitmanage')}}">提交</a></li>
-                        <li><a href="{{route('admin.inforegister.exhibitmanage')}}">导出</a></li>
-                        <li><a href="{{route('admin.inforegister.exhibitmanage')}}">打印</a></li>
-                        <li><a href="{{route('admin.inforegister.exhibitmanage')}}">图文模式</a></li>
+                        
                         <li class="active"><a href="{{route('admin.inforegister.add_exhibit')}}">新增</a></li>
                     </ul>
                 </div>
