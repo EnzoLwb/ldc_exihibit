@@ -13,6 +13,8 @@ Route::group([
     Route::get('exhibit/src', 'ExhibitController@src')->name('admin.statics.exhibit.src');
     //展品状态统计
     Route::get('exhibit/status', 'ExhibitController@status_func')->name('admin.statics.exhibit.status');
+    //展品详细统计
+    Route::get('exhibit/type', 'ExhibitController@type')->name('admin.statics.exhibit.type');
     Route::get('repaire', 'RepaireController@index')->name('admin.statics.repaire');
 
 });

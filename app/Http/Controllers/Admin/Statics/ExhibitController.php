@@ -20,19 +20,19 @@ class ExhibitController extends BaseAdminController
 	public function index()
 	{
         $year_count = 6;//默认展示最近7年
-	    $start_year = request('start_year',date("Y", strtotime('-'.$year_count.' year')));
+	    $start_year = request('start_year',date("Y-01-01 00:00:00", strtotime('-'.$year_count.' year')));
         $start_year = date("Y-01-01 00:00:00", strtotime($start_year));
         $real_end_year = request('end_year',date("Y-01-01 00:00:00", strtotime('+1 year')));
         $res_raw = [];
         while($start_year<=$real_end_year){
             $item = array();
-            $end_year = date("Y-01-01 00:00:00", strtotime($start_year)+365*24*3660);
+            $end_year = date("Y-01-01 00:00:00", strtotime("$start_year+1year"));
             $item['year'] = date("Y", strtotime($start_year));
             $item['add'] = Exhibit::where('created_at', '>=', $start_year)->where('created_at','<=', $end_year)->count();
             $item['minus'] = Exhibit::where('updated_at',">=", $start_year)->where('updated_at',"<=", $end_year)
                 ->whereIn('status', array(ConstDao::EXHIBIT_STATUS_BOJIAO, ConstDao::EXHIBIT_STATUS_LOGOUT))->count();
             $res_raw[] = $item;
-            $start_year = date("Y-01-01 00:00:00", strtotime($start_year)+365*24*3600);
+            $start_year = date("Y-01-01 00:00:00", strtotime("$start_year+1year"));
         }
         $res = array('chart_x'=>array(), 'add'=>[],'minus'=>[]);
         foreach($res_raw as $item1){
@@ -62,8 +62,13 @@ class ExhibitController extends BaseAdminController
         $res['chart_x'] = [];
         while($start_year< $end_year){
             $current_end_year = date("Y-01-01 00:00:00", strtotime("$start_year+1year"));
-            $count = Exhibit::where('created_at','>=', $start_year)->where('created_at','<=', $current_end_year)
-                ->where('src','like','%'.$src.'%')->count();
+            if(!empty($src)){
+                $count = Exhibit::where('created_at','>=', $start_year)->where('created_at','<=', $current_end_year)
+                    ->where('src','like','%'.$src.'%')->count();
+            }else{
+                $count = Exhibit::where('created_at','>=', $start_year)->where('created_at','<=', $current_end_year)->count();
+            }
+
             $start_year = $current_end_year;
             $res['chart_x'][] = date("Y", strtotime($start_year));
             $res['num'][] = $count;
@@ -100,5 +105,35 @@ class ExhibitController extends BaseAdminController
         $res['num'] = \json_encode($res['num']);
         $res['chart_x'] = \json_encode($res['chart_x']);
         return view('admin.statics.exhibit_status', $res);
+    }
+
+    /**
+     * 类型统计
+     */
+    public function type(){
+        //默认六年
+        $exhibit_level = request('exhibit_level');
+        $type = request('type');
+        $start_year = date("Y-01-01 00:00:00", time()-6*(365*24*3600));
+        $end_year = date("Y-01-01 00:00:00", time()+365*24*3600);
+        $res['num'] = [];
+        $res['chart_x'] = [];
+        while($start_year< $end_year){
+            $current_end_year = date("Y-01-01 00:00:00", strtotime("$start_year+1year"));
+            $query = Exhibit::where('created_at','>=', $start_year)->where('created_at','<=', $current_end_year);
+            if(!empty($exhibit_level)){
+                $query->where('exhibit_level', $exhibit_level);
+            }
+            if(!empty($type)){
+                $query->where('type', '%'.$type."%");
+            }
+            $count = $query->count();
+            $start_year = $current_end_year;
+            $res['chart_x'][] = date("Y", strtotime($start_year));
+            $res['num'][] = $count;
+        }
+        $res['num'] = \json_encode($res['num']);
+        $res['chart_x'] = \json_encode($res['chart_x']);
+        return view('admin.statics.exhibit_type', $res);
     }
 }

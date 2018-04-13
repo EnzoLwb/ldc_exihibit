@@ -9,7 +9,7 @@
                         <li class="active"><a href="{{route('admin.statics.exhibit')}}">藏品增减统计</a></li>
                         <li ><a href="{{route('admin.statics.exhibit.src')}}">藏品来源统计</a></li>
                         <li ><a href="{{route('admin.statics.exhibit.status')}}">藏品状态统计</a></li>
-                        <li ><a href="{{route('admin.statics.exhibit')}}">藏品详细统计</a></li>
+                        <li ><a href="{{route('admin.statics.exhibit.type')}}">藏品类型统计</a></li>
                     </ul>
                 </div>
             </div>
