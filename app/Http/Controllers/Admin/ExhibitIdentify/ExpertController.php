@@ -72,7 +72,7 @@ class ExpertController extends BaseAdminController
             $usersMod->salt = $salt;
             $usersMod->lastloginip = app('request')->ip();
             $usersMod->save();
-            $usersMod->group_id = ConstDao::EXPERT_ROLE_ID;
+            $usersMod->groupid = ConstDao::EXPERT_ROLE_ID;
             //保存扩展信息
             $expert = Expert::where('admin_user_id', $usersMod->uid)->first();
             if(empty($expert)){

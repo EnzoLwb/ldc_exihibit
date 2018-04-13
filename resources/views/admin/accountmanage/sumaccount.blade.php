@@ -48,13 +48,9 @@
                                 <th>选择</th>
                                 <th>总登记号</th>
                                 <th>原编号</th>
-                                <th>曾用号</th>
-                                <th>入馆凭证号</th>
-                                <th>现用名</th>
-                                <th>曾用名</th>
-                                <th>年代类型</th>
-                                <th>质地类型</th>
-                                <th>...</th>
+                                <th>名称</th>
+                                <th>状态</th>
+                                <th>操作</th>
                             </tr>
                             </thead>
                             @foreach($exhibit_list as $exhibit)
@@ -62,13 +58,10 @@
                                     <td><input type="checkbox" name="exhibit_sum_register_id" value="{{$exhibit['exhibit_sum_register_id']}}"></td>
                                     <td>{{$exhibit['exhibit_sum_register_num']}}</td>
                                     <td>{{$exhibit['ori_num']}}</td>
-                                    <td>{{$exhibit['used_name']}}</td>
-                                    <td>{{$exhibit['collect_recipe_num']}} </td>
-                                    <td>{{$exhibit['name']}} </td>
-                                    <td>{{$exhibit['used_name']}} </td>
-                                    <td>{{$exhibit['age_type']}} </td>
-                                    <td>{{$exhibit['textaure']}} </td>
-                                    <td>...</td>
+                                    <td>{{$exhibit['name']}}</td>
+
+                                    <td>{{\App\Dao\ConstDao::$exhibit_status_desc[$exhibit['status']]}} </td>
+                                    <td><a href="{{route('admin.accountmanage.view_sumaccount')."?exhibit_sum_register_id=".$exhibit['exhibit_sum_register_id']}}">查看</td>
                                 </tr>
                             @endforeach
                         </table>

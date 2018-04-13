@@ -66,6 +66,7 @@ class ExchibitDao extends Exhibit
                 $exhibit->$key = $v;
             }
         }
+        $exhibit->status = ConstDao::EXHIBIT_STATUS_IN_ROOM;
         $exhibit->save();
         return;
     }

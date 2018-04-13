@@ -97,7 +97,6 @@ class RecordIdentifyController extends BaseAdminController
         $result->quality = \request('quality');
         $result->complete_degree = \request('complete_degree');
         $result->identify_maker = Auth::user()->uid;
-        $result->identify_maker = Auth::user()->uid;
         $result->save();
         return $this->success('record_list','保存成功');
     }

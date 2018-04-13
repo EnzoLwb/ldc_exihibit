@@ -6,6 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class ConstDao
 {
+    const EXHIBIT_LEVEL_FIRST = 1;
+    const EXHIBIT_LEVEL_SECOND = 2;
+    const EXHIBIT_LEVEL_THIRD = 3;
+
+    public static $exhibit_level_desc = array(
+        self::EXHIBIT_LEVEL_FIRST=>'一级',
+        self::EXHIBIT_LEVEL_SECOND=>'二级',
+        self::EXHIBIT_LEVEL_THIRD=>'三级'
+    );
+
     const EXHIBIT_INTO_ROOM_STATUS_DRAFT = 0;//入馆申请状态 草稿状态
     const EXHIBIT_INTO_ROOM_STATUS_WAITING_AUDIT = 1;//等待审核
     const EXHIBIT_INTO_ROOM_STATUS_PASS = 2;//审核通过
@@ -78,6 +88,8 @@ class ConstDao
     );
 
     const EXPERT_ROLE_ID = 3;// 专家角色ID
+    const LEADER_ROLE_ID = 4 ;//审批管理员
+    const GCXT_ROLE_ID = 2;//普通管理员
     //专家性别描述
     const EXPERT_SEX_MAN = 1;
     const EXPERT_SEX_FEMALE = 0;
@@ -114,7 +126,8 @@ class ConstDao
         self::APPLY_TYPE_ACCIDENT=>'事故申请',
         self::APPLY_TYPE_SHOW=>'展览申请',
   		self::APPLY_TYPE_SUBSIDIARY=>'其它文物登记申请',
-        self::APPLY_TYPE_INTO_ROOM=>'入库申请'
+        self::APPLY_TYPE_INTO_ROOM=>'入库申请',
+        self::APPLY_TYPE_SUMACCOUNT=>'总账申请'
     );
 
     //征集申请的几种状态
@@ -159,7 +172,7 @@ class ConstDao
     const EXHIBIT_USED = 2;//展品提用
     const EXHIBIT_USED_SHOW = 3;//展品观摩
 
-    const EXHIBIT_STATUS_IN_ROOM = 0 ;//展品在库
+    const EXHIBIT_STATUS_IN_ROOM = 11 ;//展品在库
     const EXHIBIT_STATUS_BOJIAO = 1 ;//展品拨交
     const EXHIBIT_STATUS_SHOW = 2;//展品观摩
     const EXHIBIT_STATUS_COPY = 3 ;//展品复制
@@ -182,7 +195,6 @@ class ConstDao
         self::EXHIBIT_STATUS_LOST=>'丢失',
         self::EXHIBIT_STATUS_DAMAGE=>'报损',
         self::EXHIBIT_STATUS_LEND=>'借出',
-
         self::EXHIBIT_STATUS_LOGOUT=>'注销',
     );
 

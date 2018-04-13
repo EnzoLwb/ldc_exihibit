@@ -46,13 +46,26 @@
                                     <td>附件</td>
                                     <td colspan="3">
 
-                                        <div id="poi_4_picker">选择附件</div>
-                                        @if(isset($info) && $info['files'] != '')
-                                            <div class="img-div">
-                                                <img src="{{get_file_url($info['files'])}}"/>
-                                                <span class="cancel">×</span>
+
+                                        <div class="form-group">
+
+                                            <div class="col-sm-10" id="poi_4_box">
+
+                                                <div id="poi_4_picker">选择附件</div>
+                                                @if(isset($info) && $info['files'] != '')
+                                                    <div class="img-div">
+                                                        <img src="{{get_file_url($info['files'])}}"/>
+                                                        <span class="cancel">×</span>
+                                                    </div>
+                                                @endif
                                             </div>
-                                        @endif
+                                            <input type="hidden" id="files" name="files" value="{{$info['files']  or ''}}"/>
+                                        </div>
+
+
+
+
+
                                     </td>
                                 </tr>
                                 <tr ><td colspan="4"><label class="control-label edit-title">登记号</label></td></tr>
@@ -135,8 +148,17 @@
                                                             value="{{$info['lwh'] or ''}}" /></td>
                                 </tr>
 
-                                <tr><td >文物级别</td><td ><input type="text" class="form-control" name="exhibit_level" id="exhibit_level"
-                                                          value="{{$info['exhibit_level'] or ''}}" /></td>
+                                <tr><td >文物级别</td><td >
+                                        <select name="exhibit_level" id="exhibit_level" class="form-control">
+                                            @foreach(\App\Dao\ConstDao::$exhibit_level_desc as $item)
+                                                <option value="{{$item}}"
+                                                        @if($item == $info['exhibit_level']) selected @endif
+                                                >
+                                                    {{$item}}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        </td>
                                 </tr>
                                 <tr ><td colspan="4"><label class="control-label edit-title">来源</label></td></tr>
 
@@ -221,10 +243,10 @@
         singleUpload({
             _token: '{{csrf_token()}}',
             type_key: 'FT_ONE_RESOURCE',
-            item_id: '{{$exhibit['exhibit_id'] or 0}}',
+            item_id: '{{$info['exhibit_id'] or 0}}',
             pick: 'poi_4_picker',
             boxid: 'poi_4_box',
-            file_path: 'squar_list_img',
+            file_path: 'files',
 
         });
         $('#poi_4_box').find('.img-div>span').click(function () {

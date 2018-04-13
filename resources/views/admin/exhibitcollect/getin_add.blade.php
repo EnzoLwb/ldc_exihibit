@@ -11,13 +11,6 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li ><a href="{{route('admin.exhibitcollect.getin')}}">查询</a></li>
-                        <li><a href="{{route('admin.exhibitcollect.getin')}}">修改</a></li>
-                        <li><a href="{{route('admin.exhibitcollect.getin')}}">删除</a></li>
-                        <li><a href="{{route('admin.exhibitcollect.getin')}}">提交</a></li>
-
-                        <li><a href="{{route('admin.exhibitcollect.getin')}}">导出</a></li>
-                        <li><a href="{{route('admin.exhibitcollect.getin')}}">打印</a></li>
-                        <li><a href="{{route('admin.exhibitcollect.getin')}}">图文模式</a></li>
                         <li class="active"><a href="{{route('admin.exhibitcollect.getin_add')}}">新增</a></li>
                     </ul>
                 </div>

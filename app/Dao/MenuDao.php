@@ -34,6 +34,12 @@ class MenuDao extends BaseMdl
 	public static function get_admin_menu()
 	{
 		return [
+            [
+                'text' => '首页',
+                'priv' => 'admin.home',
+                'icon' => 'glyphicon glyphicon-eur',
+                'url'=>route('admin.welcome'),
+            ],
 			[
 				'text' => '藏品征集',
 				'priv' => 'exhibitcollect',
@@ -75,28 +81,7 @@ class MenuDao extends BaseMdl
                     ]
                 ]
             ],
-			[
-				'text' => '藏品鉴定',
-				'priv' => 'exhibitidentify',
-				'icon' => 'fa fa-cog',
-				'nodes' => [
-					[
-						'text' => '鉴定申请',
-						'url' => route('admin.exhibitidentify.exhibit'),
-						'priv' => 'admin-exhibitidentify-exhibit'
-					],
-					[
-						'text' => '鉴定管理',
-						'url' => route('admin.exhibitidentify.manage'),
-						'priv' => 'admin-exhibitidentify-manage'
-					],
-					[
-						'text' => '鉴定专家管理',
-						'url' => route('admin.exhibitidentify.expert'),
-						'priv' => 'admin-exhibitidentify-expert'
-					]
-				]
-			],
+
 			[
 				'text' => '信息登记',
 				'priv' => 'inforegister',
@@ -131,6 +116,28 @@ class MenuDao extends BaseMdl
 					]
 				]
 			],
+            [
+                'text' => '藏品鉴定',
+                'priv' => 'exhibitidentify',
+                'icon' => 'fa fa-cog',
+                'nodes' => [
+                    [
+                        'text' => '鉴定申请',
+                        'url' => route('admin.exhibitidentify.exhibit'),
+                        'priv' => 'admin-exhibitidentify-exhibit'
+                    ],
+                    [
+                        'text' => '鉴定管理',
+                        'url' => route('admin.exhibitidentify.manage'),
+                        'priv' => 'admin-exhibitidentify-manage'
+                    ],
+                    [
+                        'text' => '鉴定专家管理',
+                        'url' => route('admin.exhibitidentify.expert'),
+                        'priv' => 'admin-exhibitidentify-expert'
+                    ]
+                ]
+            ],
 
 			[
 				'text' => '藏品保管',
@@ -387,6 +394,25 @@ class MenuDao extends BaseMdl
 					]
 				]
 			],
+            /*
+            [
+                'text' => '通知管理',
+                'priv' => 'notice',
+                'icon' => 'fa fa-cog',
+                'nodes' => [
+                    [
+                        'text' => '发布通知',
+                        'url' => route('admin.notice.publis_notice'),
+                        'priv' => 'admin-notice-index'
+                    ],
+                    [
+                        'text' => '历史通知',
+                        'url' => route('admin.notice.history_list'),
+                        'priv' => 'admin-notice-index'
+                    ]
+                ]
+            ],
+            */
 		];
 
 		/*

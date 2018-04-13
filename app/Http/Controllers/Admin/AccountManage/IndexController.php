@@ -109,4 +109,12 @@ class IndexController extends BaseAdminController
     public function add_subsidiary(){
         return view('admin.accountmanage.add_subsidiary');
     }
+
+    /**
+     * 查看总账
+     */
+    public function view_sumaccount(){
+        $res['info'] = Exhibit::where('exhibit_sum_register_id', \request('exhibit_sum_register_id'))->first();
+        return view('admin.accountmanage.view_sumaccount', $res);
+    }
 }
