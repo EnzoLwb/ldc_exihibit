@@ -5,6 +5,7 @@ Route::group([
     'prefix' => 'statics',
     'namespace' => 'Statics',
 ], function () {
+    //鉴定统计
     Route::get('identify', 'IdentifyController@index')->name('admin.statics.identify');
     Route::get('copy', 'CopyController@index')->name('admin.statics.copy');
     //展品增减统计
@@ -16,5 +17,4 @@ Route::group([
     //展品详细统计
     Route::get('exhibit/type', 'ExhibitController@type')->name('admin.statics.exhibit.type');
     Route::get('repaire', 'RepaireController@index')->name('admin.statics.repaire');
-
 });
