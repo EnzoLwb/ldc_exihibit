@@ -9,12 +9,7 @@
             <div class="col-sm-12">
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="{{route('admin.storageroommanage.peopleinoutmanage')}}">查询</a></li>
-                        <li><a href="{{route('admin.storageroommanage.peopleinoutmanage')}}">修改</a></li>
-                        <li><a href="{{route('admin.storageroommanage.peopleinoutmanage')}}">删除</a></li>
-                        <li><a href="{{route('admin.storageroommanage.peopleinoutmanage')}}">导出</a></li>
-                        <li><a href="{{route('admin.storageroommanage.peopleinoutmanage')}}">打印</a></li>
-                        <li><a href="{{route('admin.storageroommanage.peopleinoutmanage')}}">图文模式</a></li>
+                        <li class="active"><a href="{{route('admin.storageroommanage.peopleinoutmanage')}}">人员出入管理查询</a></li>
                         <li ><a href="{{route('admin.storageroommanage.peopleinoutmanage.add')}}">新增</a></li>
                     </ul>
                 </div>

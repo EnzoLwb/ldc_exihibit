@@ -11,8 +11,6 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="{{route('admin.accountmanage.subsidiary')}}">查询</a></li>
-                        <li><a href="{{route('admin.accountmanage.subsidiary')}}">浏览</a></li>
-                        <li><a href="{{route('admin.accountmanage.subsidiary')}}">注销</a></li>
                         <li><a href="javascript:void(0)" onclick="export_list()">导出</a></li>
                         <li><a href="javascript:void(0)" onclick="do_print()">打印</a></li>
                     </ul>

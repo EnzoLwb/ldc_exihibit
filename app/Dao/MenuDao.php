@@ -193,6 +193,11 @@ class MenuDao extends BaseMdl
 				'icon' => 'fa fa-cog',
 				'nodes' => [
 					[
+						'text' => '库房管理',
+						'url' => route('admin.storageroommanage.roomstruct'),
+						'priv' => 'admin-storageroommanage-roomstruct'
+					],
+					[
 						'text' => '人员出入管理',
 						'url' => route('admin.storageroommanage.peopleinoutmanage'),
 						'priv' => 'admin-storageroommanage-peopleinoutmanage'
@@ -201,11 +206,6 @@ class MenuDao extends BaseMdl
 						'text' => '库房环境',
 						'url' => route('admin.storageroommanage.roomenv'),
 						'priv' => 'admin-storageroommanage-roomenv'
-					],
-					[
-						'text' => '库房管理',
-						'url' => route('admin.storageroommanage.roomstruct'),
-						'priv' => 'admin-storageroommanage-roomstruct'
 					],
 					[
 						'text' => '库房盘点',

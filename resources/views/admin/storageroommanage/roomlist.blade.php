@@ -8,8 +8,8 @@
             <div class="col-sm-12">
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
-                        <li @if(empty($finished))class="active"@endif><a href="{{route('admin.storageroommanage.roomlist')}}">盘点任务</a></li>
                         <li><a href="{{route('admin.storageroommanage.roomlist.add')}}">盘点申请</a></li>
+                        <li @if(empty($finished))class="active"@endif><a href="{{route('admin.storageroommanage.roomlist')}}">盘点任务</a></li>
                         <li @if(isset($finished)&&$finished=='done')class="active"@endif><a href="{{route('admin.storageroommanage.roomlist',['finished'=>'done'])}}">历史盘点任务</a></li>
                     </ul>
                 </div>
@@ -65,7 +65,7 @@
                                     <td>
                                         <a href="{{route('admin.storageroommanage.roomlist.delete',['check_id'=>$v['check_id']])}}"
                                            onclick="if (confirm('确定要删除此记录吗？')==false) return false">删除</a>
-                                        <a href="{{route('admin.storageroommanage.roomlist.edit',['check_id'=>$v['check_id']])}}">修改</a>
+                                        <a href="{{route('admin.storageroommanage.roomlist.edit',['check_id'=>$v['check_id']])}}">开始</a>
                                     </td>
                                 </tr>
                             @endforeach
