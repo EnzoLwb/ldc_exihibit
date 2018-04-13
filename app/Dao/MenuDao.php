@@ -38,7 +38,8 @@ class MenuDao extends BaseMdl
                 'text' => '首页',
                 'priv' => 'admin.home',
                 'icon' => 'glyphicon glyphicon-eur',
-                'url'=>route('admin.welcome')
+                'url'=>route('admin.welcome'),
+                'nodes'=>[]
             ],
 			[
 				'text' => '藏品征集',
