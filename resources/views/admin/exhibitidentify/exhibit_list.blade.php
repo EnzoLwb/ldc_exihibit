@@ -14,7 +14,7 @@
                             <thead>
                             <tr role="row">
                                 <th>选择</th>
-                                <th>展品名称</th>
+                                <th>藏品名称</th>
                             </tr>
                             </thead>
                             @foreach($exhibit_list as $exhibit)
