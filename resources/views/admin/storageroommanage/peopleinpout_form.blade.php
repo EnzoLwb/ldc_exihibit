@@ -9,8 +9,8 @@
             <div class="col-sm-12">
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="{{route('admin.storageroommanage.peopleinoutmanage')}}">人员出入管理查询</a></li>
-                        <li ><a href="{{route('admin.storageroommanage.peopleinoutmanage.add')}}">新增</a></li>
+                        <li ><a href="{{route('admin.storageroommanage.peopleinoutmanage')}}">人员出入管理查询</a></li>
+                        <li class="active"><a href="{{route('admin.storageroommanage.peopleinoutmanage.add')}}">新增</a></li>
                     </ul>
                 </div>
             </div>

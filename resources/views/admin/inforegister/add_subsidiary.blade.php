@@ -12,9 +12,6 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li ><a href="{{route('admin.inforegister.subsidiary')}}">查询</a></li>
-                        <li><a href="{{route('admin.inforegister.subsidiary')}}">提交</a></li>
-                        <li><a href="{{route('admin.inforegister.subsidiary')}}">导出</a></li>
-                        <li><a href="{{route('admin.inforegister.subsidiary')}}">打印</a></li>
                         <li class="active"><a href="{{route('admin.inforegister.subsidiary.add')}}">新增</a></li></ul>
                 </div>
             </div>
