@@ -12,8 +12,7 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li><a href="{{route('admin.exhibitidentify.expert')}}">查询</a></li>
-                        <li><a href="{{route('admin.exhibitidentify.expert')}}">启用</a></li>
-                        <li><a href="{{route('admin.exhibitidentify.expert')}}">禁用</a></li>
+
                         <li  class="active"><a href="{{route('admin.exhibitidentify.expert_add')}}">新增</a></li>
                     </ul>
                 </div>

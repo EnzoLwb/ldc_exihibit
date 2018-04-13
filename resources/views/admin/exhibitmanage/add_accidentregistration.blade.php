@@ -12,12 +12,7 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li><a href="{{route('admin.exhibitmanage.accidentregistration')}}">查询</a></li>
-                        <li><a href="{{route('admin.exhibitmanage.accidentregistration')}}">修改</a></li>
-                        <li><a href="{{route('admin.exhibitmanage.accidentregistration')}}">删除</a></li>
-                        <li><a href="{{route('admin.exhibitmanage.accidentregistration')}}">提交</a></li>
-                        <li><a href="{{route('admin.exhibitmanage.accidentregistration')}}">导出</a></li>
-                        <li><a href="{{route('admin.exhibitmanage.accidentregistration')}}">打印</a></li>
-                        <li><a href="{{route('admin.exhibitmanage.accidentregistration')}}">图文模式</a></li>
+
                         <li  class="active"><a href="{{route('admin.exhibitmanage.add_accidentregistration')}}">新增</a></li>
                     </ul>
                 </div>
@@ -47,7 +42,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">事故时间</label>
                                 <div class="col-sm-4">
-                                    <input placeholder="开始日期" class="form-control layer-date laydate-icon" id="accident_time" type="text"
+                                    <input placeholder="事故时间" class="form-control layer-date laydate-icon" id="accident_time" type="text"
                                            name="accident_time" value="{{$info['accident_time']}}"
                                            style="width: 140px;">
                                 </div>

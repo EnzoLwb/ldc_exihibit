@@ -150,8 +150,8 @@
 
                                 <tr><td >文物级别</td><td >
                                         <select name="exhibit_level" id="exhibit_level" class="form-control">
-                                            @foreach(\App\Dao\ConstDao::$exhibit_level_desc as $item)
-                                                <option value="{{$item}}"
+                                            @foreach(\App\Dao\ConstDao::$exhibit_level_desc as $k=>$item)
+                                                <option value="{{$k}}"
                                                         @if($item == $info['exhibit_level']) selected @endif
                                                 >
                                                     {{$item}}

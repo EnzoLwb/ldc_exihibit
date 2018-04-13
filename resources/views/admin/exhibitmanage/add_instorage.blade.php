@@ -12,9 +12,7 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li ><a href="{{route('admin.exhibitmanage.instorageroom')}}">查询</a></li>
-                        <li><a href="{{route('admin.exhibitmanage.instorageroom')}}">导出</a></li>
-                        <li><a href="{{route('admin.exhibitmanage.instorageroom')}}">打印</a></li>
-                        <li><a href="{{route('admin.exhibitmanage.instorageroom')}}">图文模式</a></li>
+
                         <li class="active" ><a href="{{route('admin.exhibitmanage.add_instorageroom')}}">编辑</a></li>
                     </ul>
                 </div>

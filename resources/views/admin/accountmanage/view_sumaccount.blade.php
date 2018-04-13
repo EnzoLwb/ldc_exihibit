@@ -11,12 +11,6 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li ><a href="{{route('admin.inforegister.exhibitmanage')}}">查询</a></li>
-                        <li><a href="{{route('admin.inforegister.exhibitmanage')}}">修改</a></li>
-                        <li><a href="{{route('admin.inforegister.exhibitmanage')}}">删除</a></li>
-                        <li><a href="{{route('admin.inforegister.exhibitmanage')}}">提交</a></li>
-                        <li><a href="{{route('admin.inforegister.exhibitmanage')}}">导出</a></li>
-                        <li><a href="{{route('admin.inforegister.exhibitmanage')}}">打印</a></li>
-                        <li><a href="{{route('admin.inforegister.exhibitmanage')}}">图文模式</a></li>
                         <li class="active"><a href="{{route('admin.inforegister.add_exhibit')}}">新增</a></li>
                     </ul>
                 </div>
@@ -97,7 +91,7 @@
                                                         value="{{$info['age'] or ''}}" readonly /></td>
                             </tr>
                             <tr><td>历史阶段</td><td><input type="text" class="form-control" name="history_step" id="history_step"
-                                                        value="{{$info['history_step'] or ''}}" /></td>
+                                                        value="{{$info['history_step'] or ''}}" readonly/></td>
                             </tr>
                             <tr ><td colspan="4"><label class="control-label edit-title">质地</label></td></tr>
 

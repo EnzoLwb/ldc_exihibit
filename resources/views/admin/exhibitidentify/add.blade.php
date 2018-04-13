@@ -12,11 +12,6 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li ><a href="{{route('admin.exhibitidentify.exhibit')}}">查询</a></li>
-                        <li><a href="{{route('admin.exhibitidentify.exhibit')}}">提交</a></li>
-                        <li><a href="{{route('admin.exhibitidentify.exhibit')}}">查看鉴定结果</a></li>
-                        <li><a href="{{route('admin.exhibitidentify.exhibit')}}">导出</a></li>
-                        <li><a href="{{route('admin.exhibitidentify.exhibit')}}">打印</a></li>
-                        <li><a href="{{route('admin.exhibitidentify.exhibit')}}">图文模式</a></li>
                         <li class="active"><a href="{{route('admin.exhibitidentify.add')}}">新增</a></li>
                     </ul>
                 </div>

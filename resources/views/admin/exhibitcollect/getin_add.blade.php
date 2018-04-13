@@ -295,7 +295,9 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">附件</label>
                         <div class="col-sm-10" id="poi_4_box">
-
+<style>
+#poi_4_picker .webuploader-pick+div{ width: 80px !important; height: 32px !important;}
+</style>
                             <div id="poi_4_picker">选择附件</div>
                             @if(isset($exhibit) && $exhibit['squar_list_img'] != '')
                                 <div class="img-div">

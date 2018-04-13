@@ -9,9 +9,10 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="{{route('admin.exhibitshow.position')}}">展位管理</a></li>
-                        <li><a href="{{route('admin.exhibitshow.position.add')}}">新增</a></li>
+
                         <li><a href="javascript:void(0)" onclick="change_status(1)">启用</a></li>
                         <li><a href="javascript:void(0)" onclick="change_status(0)">禁用</a></li>
+                        <li><a href="{{route('admin.exhibitshow.position.add')}}">新增</a></li>
                     </ul>
                 </div>
             </div>

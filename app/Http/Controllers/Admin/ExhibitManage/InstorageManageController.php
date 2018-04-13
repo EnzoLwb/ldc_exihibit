@@ -50,10 +50,16 @@ class InstorageManageController extends BaseAdminController
             }else{
                 $list = Exhibit::whereNotIn('exhibit_sum_register_id', $exhibit_not_can_used_ids)->get()->toArray();
             }
-
         }else{
                 $list = Exhibit::all()->toArray();
-
+        }
+        //获得exhibit_id
+        $exhibit_sum_register_ids = array();
+        foreach($list as $item){
+            $exhibit_sum_register_ids[] = $item['exhibit_sum_register_id'];
+        }
+        if(!empty($exhibit_sum_register_ids)){
+            $list = Exhibit::whereIn('exhibit_sum_register_id', $exhibit_sum_register_ids)->where('room_number', '')->get()->toArray();
         }
         if(empty($list)){
             return $this->error('暂无可入库的展品');
