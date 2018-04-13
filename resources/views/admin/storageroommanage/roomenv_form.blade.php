@@ -8,11 +8,7 @@
             <div class="col-sm-12">
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="{{route('admin.storageroommanage.roomenv')}}">查询</a></li>
-                        <li><a href="{{route('admin.storageroommanage.roomenv')}}">修改</a></li>
-                        <li><a href="{{route('admin.storageroommanage.roomenv')}}">删除</a></li>
-                        <li><a href="{{route('admin.storageroommanage.roomenv')}}">确认生效</a></li>
-                        <li><a href="{{route('admin.storageroommanage.roomenv')}}">打印</a></li>
+                        <li class="active"><a href="{{route('admin.storageroommanage.roomenv')}}">库房环境查询</a></li>
                         <li ><a href="{{route('admin.storageroommanage.roomenv.add')}}">新增</a></li>
                     </ul>
                 </div>

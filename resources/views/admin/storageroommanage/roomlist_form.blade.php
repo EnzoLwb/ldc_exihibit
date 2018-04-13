@@ -9,11 +9,11 @@
             <div class="col-sm-12">
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
-                        <li><a href="{{route('admin.storageroommanage.roomlist')}}">盘点任务</a></li>
                         <li @if(!isset($data))class="active"@endif><a href="{{route('admin.storageroommanage.roomlist.add')}}">盘点申请</a></li>
                         @if(isset($data))
                             <li class="active"><a href="#">编辑</a></li>
                         @endif
+                        <li><a href="{{route('admin.storageroommanage.roomlist')}}">盘点任务</a></li>
                         <li @if(isset($finished)&&$finished=='done')class="active"@endif><a href="{{route('admin.storageroommanage.roomlist',['finished'=>'done'])}}">历史盘点任务</a></li>
                     </ul>
                 </div>
@@ -105,7 +105,7 @@
                             <div class="hr-line-dashed"></div>
                             <div class="form-group">
                                 <div class="col-sm-4 col-sm-offset-2">
-                                    <button class="btn btn-primary" type="submit">保存</button>
+                                    <button class="btn btn-primary" type="submit">结束盘点</button>
                                     <button class="btn btn-white" type="button" id="backBtn">返回</button>
                                 </div>
                             </div>

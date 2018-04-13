@@ -25,7 +25,7 @@
     <script type="text/javascript">
         option = {
             title: {
-                text: ''
+                text: '复仿制统计'
             },
             tooltip: {
                 trigger: 'axis',
@@ -37,7 +37,7 @@
                 }
             },
             legend: {
-                data: ['复仿制文物']
+                data: ['复制品登记账','仿制品登记账']
             },
             toolbox: {
                 feature: {
@@ -64,11 +64,17 @@
             ],
             series: [
                 {
-                    name: '复仿制文物',
+                    name: '复制品登记账',
                     type: 'line',
                     stack: '',
                     areaStyle: {normal: {}},
-                    data: {!! $chart_data_child !!}
+                    data: {!! $data_copy !!}
+                },{
+                    name: '仿制品登记账',
+                    type: 'line',
+                    stack: '',
+                    areaStyle: {normal: {}},
+                    data: {!! $data_imitate !!}
                 }
 
             ]

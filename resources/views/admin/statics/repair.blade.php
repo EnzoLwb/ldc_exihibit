@@ -25,7 +25,7 @@
     <script type="text/javascript">
         option = {
             title: {
-                text: ''
+                text: '修复文物统计'
             },
             tooltip: {
                 trigger: 'axis',
@@ -37,7 +37,7 @@
                 }
             },
             legend: {
-                data: ['修复文物']
+                data: ['内修复文物','外修复文物']
             },
             toolbox: {
                 feature: {
@@ -64,13 +64,16 @@
             ],
             series: [
                 {
-                    name: '修复文物',
+                    name: '内修复文物',
                     type: 'line',
-                    stack: '',
                     areaStyle: {normal: {}},
-                    data: {!! $chart_data_child !!}
+                    data:{{$data_inside}}
+                }, {
+                    name: '外修复文物',
+                    type: 'line',
+                    areaStyle: {normal: {}},
+                    data:{{$data_outside}}
                 }
-
             ]
         };
         var myChart = echarts.init(document.getElementById('charts'));
