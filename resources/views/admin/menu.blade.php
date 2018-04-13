@@ -1,5 +1,24 @@
 <link rel="stylesheet" href="{{cdn('js/plugins/metismenu/metismenu.css')}}">
 
+<style>
+.nav.metismenu li>a i.fa{ display: block; float: left;}
+.nav.metismenu li>a i:before{ display: inline-block; content: " "; width: 15px; height: 15px; position: relative; top: 2px; background: url({{cdn('img/add/menu/menu_icon1.png')}}) center center / 15px 15px no-repeat;}
+.nav.metismenu>li:nth-child(1)>a i:before{ background-image: url({{cdn('img/add/menu/menu_icon1.png')}});}
+.nav.metismenu>li:nth-child(2)>a i:before{ background-image: url({{cdn('img/add/menu/menu_icon2.png')}});}
+.nav.metismenu>li:nth-child(3)>a i:before{ background-image: url({{cdn('img/add/menu/menu_icon3.png')}});}
+.nav.metismenu>li:nth-child(4)>a i:before{ background-image: url({{cdn('img/add/menu/menu_icon4.png')}});}
+.nav.metismenu>li:nth-child(5)>a i:before{ background-image: url({{cdn('img/add/menu/menu_icon5.png')}});}
+.nav.metismenu>li:nth-child(6)>a i:before{ background-image: url({{cdn('img/add/menu/menu_icon6.png')}});}
+.nav.metismenu>li:nth-child(7)>a i:before{ background-image: url({{cdn('img/add/menu/menu_icon7.png')}});}
+.nav.metismenu>li:nth-child(8)>a i:before{ background-image: url({{cdn('img/add/menu/menu_icon8.png')}});}
+.nav.metismenu>li:nth-child(9)>a i:before{ background-image: url({{cdn('img/add/menu/menu_icon9.png')}});}
+.nav.metismenu>li:nth-child(10)>a i:before{ background-image: url({{cdn('img/add/menu/menu_icon10.png')}});}
+.nav.metismenu>li:nth-child(11)>a i:before{ background-image: url({{cdn('img/add/menu/menu_icon11.png')}});}
+.nav.metismenu>li:nth-child(12)>a i:before{ background-image: url({{cdn('img/add/menu/menu_icon12.png')}});}
+.nav.metismenu>li:nth-child(13)>a i:before{ background-image: url({{cdn('img/add/menu/menu_icon13.png')}});}
+.nav.metismenu>li:nth-child(14)>a i:before{ background-image: url({{cdn('img/add/menu/menu_icon14.png')}});}
+.nav.metismenu>li:nth-child(15)>a i:before{ background-image: url({{cdn('img/add/menu/menu_icon15.png')}});}
+</style>
 <ul class="nav metismenu" id="menuL">
     @foreach($menulist as $menu)
         @can('priv', $menu['priv'])
