@@ -329,6 +329,7 @@ class MenuDao extends BaseMdl
 					]
 				]
 			],
+
 			[
 				'text' => '统计分析',
 				'priv' => 'statics',
@@ -356,6 +357,33 @@ class MenuDao extends BaseMdl
 					],
 				]
 			],
+            [
+                'text' => '数据查询',
+                'priv' => 'digitalsearch',
+                'icon' => 'fa fa-cog',
+                'nodes' => [
+                    [
+                        'text' => '藏品查询',
+                        'url' =>  route('admin.digitalsearch.exhibit'),
+                        'priv' => 'admin-digitalsearch-exhibit'
+                    ],
+                    [
+                        'text' => '鉴定查询',
+                        'url' => route('admin.digitalsearch.identify'),
+                        'priv' => 'admin-digitalsearch-identify'
+                    ],
+                    [
+                        'text' => '修复查询',
+                        'url' =>  route('admin.digitalsearch.repaire'),
+                        'priv' => 'admin-digitalsearch-repaire'
+                    ],
+                    [
+                        'text' => '复仿制查询',
+                        'url' => route('admin.digitalsearch.copy'),
+                        'priv' => 'admin-digitalsearch-copy'
+                    ],
+                ]
+            ],
 			[
 				'text' => '用户',
 				'priv' => 'user',

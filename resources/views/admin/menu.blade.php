@@ -18,6 +18,7 @@
 .nav.metismenu>li:nth-child(13)>a i:before{ background-image: url({{cdn('img/add/menu/menu_icon13.png')}});}
 .nav.metismenu>li:nth-child(14)>a i:before{ background-image: url({{cdn('img/add/menu/menu_icon14.png')}});}
 .nav.metismenu>li:nth-child(15)>a i:before{ background-image: url({{cdn('img/add/menu/menu_icon15.png')}});}
+.nav.metismenu>li:nth-child(16)>a i:before{ background-image: url({{cdn('img/add/menu/menu_icon15.png')}});}
 </style>
 <ul class="nav metismenu" id="menuL">
     @foreach($menulist as $menu)

@@ -76,6 +76,9 @@ Route::group([
 	include "web_statics.php";
     include "web_xls.php";
 
+    include "web_digitalsearch.php";
+
+
 	Route::group([
 		'prefix' => 'user',
 		'namespace' => 'User'

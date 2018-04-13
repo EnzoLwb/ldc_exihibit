@@ -11,7 +11,6 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li ><a href="{{route('admin.inforegister.exhibitmanage')}}">查询</a></li>
-                        
                         <li class="active"><a href="{{route('admin.inforegister.add_exhibit')}}">新增</a></li>
                     </ul>
                 </div>
