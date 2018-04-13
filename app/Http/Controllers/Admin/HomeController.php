@@ -6,6 +6,7 @@ use App\Dao\ConstDao;
 use App\Models\Exhibit;
 use App\Models\FakeExhibit;
 use App\Models\Subsidiary;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends BaseAdminController
 {
@@ -27,6 +28,9 @@ class HomeController extends BaseAdminController
 
 	public function welcome()
 	{
+	    $groupid = Auth::user()->groupid;
+	    var_dump($groupid);
+	    $res['groupid'] = $groupid;
 	    //藏品数
 	    $res['exhibit_num'] = Exhibit::count();
         //复制品数
