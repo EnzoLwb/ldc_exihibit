@@ -97,7 +97,7 @@
                                                         value="{{$info['age'] or ''}}" readonly /></td>
                             </tr>
                             <tr><td>历史阶段</td><td><input type="text" class="form-control" name="history_step" id="history_step"
-                                                        value="{{$info['history_step'] or ''}}" /></td>
+                                                        value="{{$info['history_step'] or ''}}" readonly/></td>
                             </tr>
                             <tr ><td colspan="4"><label class="control-label edit-title">质地</label></td></tr>
 
