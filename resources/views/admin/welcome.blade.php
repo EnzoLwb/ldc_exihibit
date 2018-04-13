@@ -113,8 +113,8 @@
     		</ul>
     		<div class="bottom"><a href="#" target="_blank">更多&gt;&gt;</a></div>
     	</div>
-		-->
     </div>
+	-->
     
     <div class="rcont3">
 		<div class="head">
@@ -180,8 +180,6 @@
 		</div>
     </div>
     
-    
-    
 </div>
 @endsection
 
@@ -220,7 +218,5 @@ $(function(){
 	}
 	setRmenuScroll(90,5,200);
 });
-
-
 </script>
 @endsection
