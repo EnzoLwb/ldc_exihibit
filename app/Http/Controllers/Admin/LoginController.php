@@ -49,7 +49,8 @@ class LoginController extends BaseAdminController
 	public function showLoginForm()
 	{
 		return view('admin.login', [
-			'captchaadminlogin' => $this->captchaAdminLogin
+			//'captchaadminlogin' => $this->captchaAdminLogin
+            'captchaadminlogin' => false
 		]);
 	}
 
