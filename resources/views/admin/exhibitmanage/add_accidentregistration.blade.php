@@ -47,7 +47,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">事故时间</label>
                                 <div class="col-sm-4">
-                                    <input placeholder="开始日期" class="form-control layer-date laydate-icon" id="accident_time" type="text"
+                                    <input placeholder="事故时间" class="form-control layer-date laydate-icon" id="accident_time" type="text"
                                            name="accident_time" value="{{$info['accident_time']}}"
                                            style="width: 140px;">
                                 </div>

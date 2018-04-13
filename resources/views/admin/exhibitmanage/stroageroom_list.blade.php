@@ -11,7 +11,6 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="{{route('admin.exhibitmanage.storageroom')}}">查询</a></li>
-                        <li ><a href="{{route('admin.exhibitmanage.add_storageroom')}}">新增</a></li>
                     </ul>
                 </div>
             </div>
