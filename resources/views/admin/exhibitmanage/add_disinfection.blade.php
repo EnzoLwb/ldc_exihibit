@@ -12,8 +12,7 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li ><a href="{{route('admin.exhibitmanage.disinfection')}}">查询</a></li>
-                        <li><a href="{{route('admin.exhibitmanage.disinfection')}}">修改</a></li>
-                        <li><a href="{{route('admin.exhibitmanage.disinfection')}}">删除</a></li>
+
                         <li class="active" ><a href="{{route('admin.exhibitmanage.add_disinfection')}}">新增</a></li>
                     </ul>
                 </div>
