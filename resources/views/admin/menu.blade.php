@@ -21,7 +21,7 @@
 </style>
 <ul class="nav metismenu" id="menuL">
     @foreach($menulist as $menu)
-
+        @can('priv', $menu['priv'])
             <li class="parent-li">
                 @if(isset($menu['nodes']) && is_array($menu['nodes']))
                     <a href="javascript:void(0);" class="parent-a">
@@ -59,7 +59,7 @@
                     </a>
                 @endif
             </li>
-        
+        @endcan
     @endforeach
 </ul>
 
