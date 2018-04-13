@@ -34,8 +34,8 @@
 	    		<a href="#"><img src="{{cdn('img/add/menu/menu_icon11.png')}}">藏品注销</a>
 	    		<a href="#"><img src="{{cdn('img/add/menu/menu_icon12.png')}}">数字资源管理</a>
 	    		<a href="#"><img src="{{cdn('img/add/menu/menu_icon13.png')}}">统计分析</a>
-	    		<a href="#"><img src="{{cdn('img/add/menu/menu_icon14.png')}}">用户</a>
-	    		<a href="#"><img src="{{cdn('img/add/menu/menu_icon15.png')}}">设置</a>
+	    		<!--<a href="#"><img src="{{cdn('img/add/menu/menu_icon14.png')}}">用户</a>
+	    		<a href="#"><img src="{{cdn('img/add/menu/menu_icon15.png')}}">设置</a>-->
 	    	</div>
     	</div>
 		<a class="mbtn left"></a>
@@ -61,14 +61,14 @@
     				</tr>
     			</thead>
     			<tbody>
-    				<tr>
+    				<tr><!--标题控制12字以内-->
     					<td>类型类型</td>
-    					<td class="title"><a href="#" target="_blank">事项名称事项名称事项名称</a></td>
+    					<td class="title"><a href="#" target="_blank" title="事项名称事项名称事项名称">事项名称事项名称事项名称</a></td>
     					<td>2018.04.20</td>
     				</tr>
     				<tr>
     					<td>类型类型</td>
-    					<td class="title"><a href="#" target="_blank">事项名称事项名称事项名称</a></td>
+    					<td class="title"><a href="#" target="_blank" title="事项名称事项名称事项名称">事项名称事项名称事项名称</a></td>
     					<td>2018.04.20</td>
     				</tr>
     				<tr>
@@ -99,9 +99,9 @@
     		<div class="head">
     			<div class="c1">通知</div>
     		</div>
-    		<ul class="list">
-    			<li><a href="#" target="_blank">批号21029011审批通过，请做入库处理</a><span>2018.04.08</span></li>
-    			<li><a href="#" target="_blank">批号21029011审批通过，请做入库处理</a><span>2018.04.07</span></li>
+    		<ul class="list"><!--标题控制21字以内-->
+    			<li><a href="#" target="_blank" title="请做入库处理批号请做入库处理批号请做入库处理批号">请做入库处理批号请做入库处理批号请做入库处</a><span>2018.04.08</span></li>
+    			<li><a href="#" target="_blank">批号21029011审批通过，请做入库处理批号</a><span>2018.04.07</span></li>
     			<li><a href="#" target="_blank">批号21029011审批通过，请做入库处理</a><span>2018.04.06</span></li>
     			<li><a href="#" target="_blank">批号21029011审批通过，请做入库处理</a><span>2018.04.05</span></li>
     			<li><a href="#" target="_blank">批号21029011审批通过，请做入库处理</a><span>2018.04.05</span></li>
@@ -119,9 +119,9 @@
     		<!--<div class="c2"></div>-->
 		</div>
     	<div class="list">
-    		<ul>
-    			<li><img src="{{cdn('img/add/menu/menu_icon1.png')}}"><div>藏品数</div><div>555</div></li>
-    			<li><img src="{{cdn('img/add/menu/menu_icon1.png')}}"><div>资料数</div><div>555</div></li>
+    		<ul><!--标题控制8字以内-->
+    			<li><img src="{{cdn('img/add/menu/menu_icon1.png')}}"><div title="藏品数">藏品数</div><div>555</div></li>
+    			<li><img src="{{cdn('img/add/menu/menu_icon1.png')}}"><div title="资料数资料数资料数资料数">资料数资料数资料…</div><div>555</div></li>
     			<li><img src="{{cdn('img/add/menu/menu_icon1.png')}}"><div>复制品数</div><div>555</div></li>
     			<li><img src="{{cdn('img/add/menu/menu_icon1.png')}}"><div>仿制品数</div><div>555</div></li>
     			<li><img src="{{cdn('img/add/menu/menu_icon1.png')}}"><div>代管数</div><div>555</div></li>
@@ -141,18 +141,38 @@
     		<!--<div class="c2"></div>-->
 		</div>
 		<div class="list">
-			<ul>
+			<ul><!--标题控制10字以内-->
 				<li>
-					<a href="#" target="_blank"><img src="{{cdn('img/add/menu/menu_icon1.png')}}"><div>精品文物精品文物</div></a>
+					<a href="#" target="_blank"><img src="{{cdn('img/add/p1.jpg')}}"></a>
+					<a href="#" target="_blank" class="title" title="精品文物精品文物精品">精品文物精品文物精品…</a>
 				</li>
 				<li>
-					<a href="#" target="_blank"><img src="{{cdn('img/add/menu/menu_icon1.png')}}"><div>精品文物精品文物</div></a>
+					<a href="#" target="_blank"><img src="{{cdn('img/add/p2.jpg')}}"></a>
+					<a href="#" target="_blank" class="title">精品文物精品文物</a>
 				</li>
 				<li>
-					<a href="#" target="_blank"><img src="{{cdn('img/add/menu/menu_icon1.png')}}"><div>精品文物精品文物</div></a>
+					<a href="#" target="_blank"><img src="{{cdn('img/add/p3.jpg')}}"></a>
+					<a href="#" target="_blank" class="title">精品文物精品文物</a>
 				</li>
 				<li>
-					<a href="#" target="_blank"><img src="{{cdn('img/add/menu/menu_icon1.png')}}"><div>精品文物精品文物</div></a>
+					<a href="#" target="_blank"><img src="{{cdn('img/add/p4.jpg')}}"></a>
+					<a href="#" target="_blank" class="title">精品文物精品文物</a>
+				</li>
+				<li>
+					<a href="#" target="_blank"><img src="{{cdn('img/add/p5.jpg')}}"></a>
+					<a href="#" target="_blank" class="title">精品文物精品文物</a>
+				</li>
+				<li>
+					<a href="#" target="_blank"><img src="{{cdn('img/add/p6.jpg')}}"></a>
+					<a href="#" target="_blank" class="title">精品文物精品文物</a>
+				</li>
+				<li>
+					<a href="#" target="_blank"><img src="{{cdn('img/add/p4.jpg')}}"></a>
+					<a href="#" target="_blank" class="title">精品文物精品文物</a>
+				</li>
+				<li>
+					<a href="#" target="_blank"><img src="{{cdn('img/add/p5.jpg')}}"></a>
+					<a href="#" target="_blank" class="title">精品文物精品文物</a>
 				</li>
 			</ul>
 		</div>
@@ -196,7 +216,7 @@ $(function(){
 			
 		});
 	}
-	setRmenuScroll(90,5,500);
+	setRmenuScroll(90,5,200);
 });
 
 
