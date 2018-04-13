@@ -10,12 +10,12 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li><a href="{{route('admin.repaireexhibit.repairin')}}">内修文物管理</a></li>
-                        <li @if(!isset($data))class="active"@endif><a href="{{route('admin.repaireexhibit.repairin.add')}}">新增内修文物</a></li>
+                        <li><a href="{{route('admin.repaireexhibit.repairin.add')}}">新增内修文物</a></li>
                         @if(isset($data))
                             <li class="active"><a href="#">编辑内修文物</a></li>
                         @endif
                         <li><a href="{{route('admin.repaireexhibit.repairout')}}">外修文物管理</a></li>
-                        <li><a href="{{route('admin.repaireexhibit.repairout.add')}}">新增外修文物</a></li>
+                        <li @if(!isset($data))class="active"@endif><a href="{{route('admin.repaireexhibit.repairout.add')}}">新增外修文物</a></li>
                     </ul>
                 </div>
             </div>
