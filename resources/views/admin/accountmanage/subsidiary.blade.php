@@ -44,22 +44,11 @@
                             <thead>
                             <tr role="row">
                                 <th>选择</th>
-                                <th>收藏单位</th>
-                                <th>图片</th>
                                 <th>总登记号</th>
                                 <th>原编号</th>
-                                <th>分类号</th>
-                                <th>入馆登记号</th>
                                 <th>名称</th>
                                 <th>原名</th>
-                                <th>年代类型</th>
-                                <th>具体年代</th>
-                                <th>历史阶段</th>
-                                <th>质地类型1</th>
-                                <th>质地类型2</th>
-                                <th>具体质地</th>
-                                <th>普查质地</th>
-                                <th>类别范围</th>
+                                <th>操作</th>
                             </tr>
                             </thead>
                             @foreach($exhibit_list as $exhibit)
@@ -67,30 +56,13 @@
                                     <td>
                                         <input type="checkbox" name="subsidiary_id" value="{{$exhibit['subsidiary_id']}}">
                                     </td>
-                                    <td>{{$exhibit['collect_depart']}}</td>
-                                    <td>
-                                        @if($exhibit['attachment']!='')
-                                            <div class="img-div">
-                                                <img src="{{get_file_url($exhibit['attachment'])}}"/>
-                                            </div>
-                                        @else
-                                            <span>暂无附件图片</span>
-                                        @endif
-                                    </td>
                                     <td>{{$exhibit['exhibit_sum_register_num']}}</td>
                                     <td>{{$exhibit['ori_num']}}</td>
-                                    <td>{{$exhibit['type_num']}}</td>
-                                    <td>{{$exhibit['collect_recipe_num']}} </td>
                                     <td>{{$exhibit['name']}} </td>
                                     <td>{{$exhibit['ori_name']}} </td>
-                                    <td>{{$exhibit['age_type']}} </td>
-                                    <td>{{$exhibit['age']}} </td>
-                                    <td>{{$exhibit['history_step']}} </td>
-                                    <td>{{$exhibit['textaure1']}} </td>
-                                    <td>{{$exhibit['textaure2']}} </td>
-                                    <td>{{$exhibit['textaure']}} </td>
-                                    <td>{{$exhibit['common_textaure']}} </td>
-                                    <td>{{$exhibit['range_type']}} </td>
+                                    <td>
+                                        <a href="{{route('admin.inforegister.subsidiary.edit',['id'=>$exhibit['subsidiary_id'],'disabled'=>'readonly'])}}">查看详情</a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </table>

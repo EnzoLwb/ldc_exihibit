@@ -3,6 +3,8 @@
 namespace App\Models\ExhibitRepair;
 
 use App\Models\BaseMdl;
+use App\Models\Exhibit;
+
 /**
  * 藏品修复申请模型
  *
@@ -21,5 +23,21 @@ class RepairApply extends BaseMdl
 	public function applyStatus($key)
 	{
 		return $key>3?'未知状态':$this->apply_status[$key];
+	}
+	//藏品名称
+	public function exhibitName($exhibit_sum_register_id)
+	{
+		$exhibit_sum_register_ids = explode(',',$exhibit_sum_register_id);
+
+		$new_names = '';
+		if(!empty($exhibit_sum_register_ids)){
+			$list = Exhibit::whereIn('exhibit_sum_register_id',$exhibit_sum_register_ids)->select('name')->get();
+
+			foreach($list as $item1){
+				$name = $item1->name;
+				$new_names = $new_names.$name.",";
+			}
+		}
+		return rtrim($new_names,',');
 	}
 }
