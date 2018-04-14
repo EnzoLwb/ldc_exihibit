@@ -11,7 +11,7 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="{{route('admin.digitalsearch.exhibit')}}">综合查询</a></li>
-
+                        <li ><a href="{{route('admin.digitalsearch.custom_exhibit')}}">自定义查询</a></li>
                     </ul>
                 </div>
             </div>

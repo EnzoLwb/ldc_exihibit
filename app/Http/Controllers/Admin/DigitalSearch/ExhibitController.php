@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin\DigitalSearch;
 
+use App\Dao\ConstDao;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Models\Exhibit;
 use Faker\Provider\Base;
+use function GuzzleHttp\Psr7\_parse_request_uri;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -35,5 +37,33 @@ class ExhibitController extends BaseAdminController
         }
         $res['exhibit_list'] = $list;
         return view('admin.digitalsearch.exhibit.exhibit',$res);
+    }
+
+    /**
+     * 自定义查询
+     */
+    public function custom_exhibit(Request $request){
+        $all = $request->all();
+        $except = array('status', 'exhibit_level','_token');
+        $query = Exhibit::query();
+        foreach($all as $k=>$v){
+            if(!in_array($k, $except)){
+                if(!empty($v)){
+                    $query->where($k,'like', '%'.$v.'%');
+                }
+            }
+            if($k == 'status'){
+                if($v == ConstDao::EXHIBIT_STATUS_IN_ROOM){
+                    $query->where('status', $v);
+                }else{
+                    $query->where('status', '!=', ConstDao::EXHIBIT_STATUS_IN_ROOM);
+                }
+            }
+            if($k == 'exhibit_level'){
+                $query->where('exhibit_level', $v);
+            }
+        }
+        $res['exhibit_list'] = $query->paginate(parent::PERPAGE);
+        return view('admin.digitalsearch.exhibit.custom_exhibit',$res);
     }
 }

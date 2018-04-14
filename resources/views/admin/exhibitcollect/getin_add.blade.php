@@ -262,8 +262,15 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">藏品级别</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="exhibit_level" name="exhibit_level"
-                                   value="" />
+                            <select name="exhibit_level" id="exhibit_level" name="exhibit_level" class="form-control">
+                                @foreach(\App\Dao\ConstDao::$exhibit_level_desc as $k=>$item)
+                                    <option value="{{$k}}"
+                                            @if($item == $info['exhibit_level']) selected @endif
+                                    >
+                                        {{$item}}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <br>
