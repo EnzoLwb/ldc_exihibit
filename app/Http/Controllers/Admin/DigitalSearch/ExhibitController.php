@@ -36,4 +36,12 @@ class ExhibitController extends BaseAdminController
         $res['exhibit_list'] = $list;
         return view('admin.digitalsearch.exhibit.exhibit',$res);
     }
+
+    /**
+     * 自定义查询
+     */
+    public function custom_exhibit(){
+        $res['exhibit_list'] = array();
+        return view('admin.digitalsearch.exhibit.custom_exhibit',$res);
+    }
 }

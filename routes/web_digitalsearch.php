@@ -8,6 +8,8 @@ Route::group([
     //综合查询
     //展品查询
     Route::get('/exhibit', 'ExhibitController@index')->name('admin.digitalsearch.exhibit');
+    //自定义查询
+    Route::get('/custom_exhibit', 'ExhibitController@custom_exhibit')->name('admin.digitalsearch.custom_exhibit');
     //鉴定查询
     Route::get('/identify', 'IdentifyController@index')->name('admin.digitalsearch.identify');
     //修复查询

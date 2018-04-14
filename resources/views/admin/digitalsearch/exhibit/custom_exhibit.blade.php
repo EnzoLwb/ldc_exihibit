@@ -10,8 +10,9 @@
             <div class="col-sm-12">
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="{{route('admin.digitalsearch.exhibit')}}">综合查询</a></li>
-                        <li ><a href="{{route('admin.digitalsearch.custom_exhibit')}}">自定义查询</a></li>
+                        <li ><a href="{{route('admin.digitalsearch.exhibit')}}">综合查询</a></li>
+                        <li class="active"><a href="{{route('admin.digitalsearch.custom_exhibit')}}">自定义查询</a></li>
+
                     </ul>
                 </div>
             </div>
@@ -76,12 +77,7 @@
                                 </tr>
                             @endforeach
                         </table>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div>共 {{ $exhibit_list->total() }} 条记录</div>
-                                {!! $exhibit_list->links() !!}
-                            </div>
-                        </div>
+                      
                     </div>
                 </div>
             </div>
