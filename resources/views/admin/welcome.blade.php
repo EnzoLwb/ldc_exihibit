@@ -41,6 +41,7 @@
 						<a href="{{route('admin.exhibitlogout')}}"><img src="{{cdn('img/add/menu/menu_icon11.png')}}">藏品注销</a>
 						<a href="{{route('admin.file.file')}}"><img src="{{cdn('img/add/menu/menu_icon12.png')}}">数字资源管理</a>
 						<a href="{{ route('admin.statics.identify')}}"><img src="{{cdn('img/add/menu/menu_icon13.png')}}">统计分析</a>
+						<a href="{{ route('admin.digitalsearch.exhibit')}}"><img src="{{cdn('img/add/menu/menu_icon2.png')}}">数据查询</a>
 					<!--<a href="#"><img src="{{cdn('img/add/menu/menu_icon14.png')}}">用户</a>
 	    		<a href="#"><img src="{{cdn('img/add/menu/menu_icon15.png')}}">设置</a>-->
 				@endif
