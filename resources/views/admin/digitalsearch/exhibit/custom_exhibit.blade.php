@@ -23,8 +23,38 @@
                     <div class="ibox-title">
                         <form role="form" class="form-inline" method="get" action="{{route('admin.digitalsearch.exhibit')}}">
                             <div class="form-group">
-                                <label>类别</label>
+                                <label>总登记号</label>
+                                <input name="exhibit_sum_register_num" value="{{request('exhibit_sum_register_num')}}" class="form-control">
+                            </div>
+
+
+
+
+
+                            <div class="form-group">
+                                <label>收藏单位名称</label>
+                                <input name="collect_depart_name" value="{{request('collect_depart_name')}}" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>具体年代</label>
+                                <input name="age" value="{{request('age')}}" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label>具体质地</label>
+                                <input name="textaure" value="{{request('textaure')}}" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>具体类别</label>
                                 <input name="type" value="{{request('type')}}" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>实际数量</label>
+                                <input name="num" value="{{request('num')}}" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>具体质量</label>
+                                <input name="quality" value="{{request('quality')}}" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>级别</label>
@@ -35,7 +65,50 @@
                                     @endforeach
                                 </select>
                             </div>
-                            &nbsp;&nbsp;
+                            <div class="form-group">
+                                <label>来源</label>
+                                <input name="src" value="{{request('src')}}" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>完残状况</label>
+                                <input name="complete_info" value="{{request('complete_info')}}" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>保存状态</label>
+                                <input name="storage_status" value="{{request('storage_status')}}" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>入藏时间</label>
+                                <input name="created_at" value="{{request('created_at')}}" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>状态</label>
+                                <select name="status" class="form-control">
+                                        <option  value="{{\App\Dao\ConstDao::EXHIBIT_STATUS_IN_ROOM}}">在库</option>
+                                        <option  value="{{'-1'.\App\Dao\ConstDao::EXHIBIT_STATUS_IN_ROOM}}">非在库</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>原展厅具体位置</label>
+                                <input name="ori_storage_position" value="{{request('ori_storage_position')}}" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>展厅柜号</label>
+                                <input name="room_gui_num" value="{{request('room_gui_num')}}" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>藏品性质</label>
+                                <input name="exhibit_property" value="{{request('exhibit_property')}}" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>注销凭证号</label>
+                                <input name="exhibit_property" value="{{request('exhibit_property')}}" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>备注</label>
+                                <input name="backup" value="{{request('backup')}}" class="form-control">
+                            </div>
+
                             <button type="submit" class="btn btn-primary">搜索</button>
                         </form>
                     </div>
@@ -77,7 +150,7 @@
                                 </tr>
                             @endforeach
                         </table>
-                      
+
                     </div>
                 </div>
             </div>
