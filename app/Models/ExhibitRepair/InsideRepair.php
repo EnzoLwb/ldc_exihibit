@@ -21,4 +21,9 @@ class InsideRepair extends BaseMdl
 	{
 		return $key>3?'未知状态':$this->apply_status[$key];
 	}
+	//查询藏品信息
+	public function exhibitDetail()
+	{
+		return InsideRepair::leftjoin('exhibit','exhibit.exhibit_sum_register_id','inside_repair.exhibit_sum_register_id')->select('inside_repair.*','exhibit.type_num','exhibit.age');
+	}
 }

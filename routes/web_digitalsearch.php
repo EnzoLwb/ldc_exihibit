@@ -12,8 +12,9 @@ Route::group([
     Route::get('/custom_exhibit', 'ExhibitController@custom_exhibit')->name('admin.digitalsearch.custom_exhibit');
     //鉴定查询
     Route::get('/identify', 'IdentifyController@index')->name('admin.digitalsearch.identify');
-    //修复查询
-    Route::get('/repaire', 'ExhibitController@index')->name('admin.digitalsearch.repaire');
+    //内外修复查询
+    Route::get('/repaire', 'RepairController@index')->name('admin.digitalsearch.repaire');
+    Route::get('/repaireout', 'RepairController@repairout')->name('admin.digitalsearch.repaireout');
     //复制品查询
     Route::get('/copy', 'CopyController@index')->name('admin.digitalsearch.copy');
     //辅助账查看

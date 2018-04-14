@@ -61,6 +61,7 @@
                             <thead>
                             <tr role="row">
                                 <th>选择</th>
+                                <th>藏品名称</th>
                                 <th>修复申请单号</th>
                                 <th>修复申请单名称</th>
                                 <th>经费预算</th>
@@ -74,6 +75,7 @@
                                     <td>
                                         <input type="checkbox" name="repair_id" value="{{$v['repair_id']}}">
                                     </td>
+                                    <td>{{$v->exhibitName($v['exhibit_sum_register_id'])}}</td>
                                     <td>{{$v['repair_order_no']}}</td>
                                     <td>{{$v['repair_order_name']}}</td>
                                     <td>{{$v['plan_expense']}}</td>
