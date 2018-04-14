@@ -60,7 +60,9 @@ class ExhibitController extends BaseAdminController
                 }
             }
             if($k == 'exhibit_level'){
-                $query->where('exhibit_level', $v);
+            	if(!empty($v)){
+					$query->where('exhibit_level', $v);
+				}
             }
         }
         $res['exhibit_list'] = $query->paginate(parent::PERPAGE);
