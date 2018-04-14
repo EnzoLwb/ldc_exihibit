@@ -21,4 +21,9 @@ class OutsideRepair extends BaseMdl
 	{
 		return $key>3?'未知状态':$this->apply_status[$key];
 	}
+	//查询藏品信息
+	public function exhibitDetail()
+	{
+		return OutsideRepair::leftjoin('exhibit','exhibit.exhibit_sum_register_id','outside_repair.exhibit_sum_register_id')->select('outside_repair.*','exhibit.type_num','exhibit.age');
+	}
 }
