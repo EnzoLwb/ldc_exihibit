@@ -375,7 +375,7 @@ class MenuDao extends BaseMdl
                     [
                         'text' => '修复查询',
                         'url' =>  route('admin.digitalsearch.repaire'),
-                        'priv' => 'admin-digitalsearch-repaire'
+                        'priv' => 'admin-digitalsearch-repair'
                     ],
                     [
                         'text' => '复仿制查询',
