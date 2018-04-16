@@ -32,4 +32,10 @@ Route::group([
 	Route::get('roomlist/edit/{id}', 'RoomlistController@edit')->name('admin.storageroommanage.roomlist.edit');
 	Route::post('roomlist/save', 'RoomlistController@save')->name('admin.storageroommanage.roomlist.save');
 	Route::get('roomlist/delete/{id}', 'RoomlistController@delete')->name('admin.storageroommanage.roomlist.delete');
+	//排架管理
+    Route::get('frame', 'FrameController@index')->name('admin.storageroommanage.frame');
+    //显示form页面
+    Route::get('add', 'FrameController@add')->name('admin.storageroommanage.frame.add');
+    //保存排架信息
+    Route::post('save', 'FrameController@save')->name('admin.storageroommanage.frame.save');
 });

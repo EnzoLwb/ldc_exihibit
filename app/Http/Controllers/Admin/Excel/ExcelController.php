@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Accident;
 use App\Models\ShowPosition;
 use App\Models\PositionAndExhibit;
+use App\Models\Frame;
 
 class ExcelController extends BaseAdminController
 {
@@ -519,5 +520,35 @@ class ExcelController extends BaseAdminController
         $exhibit_sum_register_id = \request('exhibit_sum_register_id');
         $exhibit_list = Exhibit::whereIn('exhibit_sum_register_id',$exhibit_sum_register_id)->get();
         $this->do_export_exhibit($exhibit_list);
+    }
+
+    /**
+     * 导出排架
+     */
+    public function export_frame(){
+        $frame_ids = \request('frame_id');
+        if(empty($frame_ids) || !is_array($frame_ids)){
+            return $this->error('参数有误');
+        }
+        $xls_data = array();
+        $header = ['库房名称','库房编号','排架编号','排架名称'];
+        $xls_data[] = $header;
+        $data = Frame::join('storage_room', 'storage_room.room_number', '=', 'frame.room_number')
+            ->whereIn('frame_id', $frame_ids)
+            ->select('room_name', DB::Raw('ldc_frame.room_number'), 'frame_number','frame_name')->paginate(parent::PERPAGE);
+        foreach($data as $item){
+            $xls_data[] = array($item->room_name, $item->room_number, $item->frame_number, $item->frame_name);
+        }
+        Excel::create('排架信息表', function ($excel) use ($xls_data) {
+            $excel->sheet('score', function ($sheet) use ($xls_data) {
+                $sheet->setWidth(array(
+                    'A'     => 20,
+                    'B'     =>  25,
+                    'C'     =>  25,
+                    'D'     =>  25,
+                ));
+                $sheet->rows($xls_data);
+            });
+        })->export('xls');
     }
 }

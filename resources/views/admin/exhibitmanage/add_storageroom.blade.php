@@ -27,7 +27,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">仓库名称</label>
                                 <div class="col-sm-4">
-                                    <select name="room_number" class="form-control" >
+                                    <select name="room_number" id="room_number" class="form-control" >
                                         @foreach($exhibit_list as $item)
                                             <option value="{{$item->room_number}}">{{$item->room_name}}</option>
                                         @endforeach
@@ -36,6 +36,15 @@
                                            value="{{csrf_token()}}" />
                                     <input type="hidden" name="exhibit_sum_register_id"
                                            value="{{$exhibit_sum_register_id}}" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">排架列表</label>
+                                <div class="col-sm-4">
+                                    <select name="frame_id" id="frame_id" class="form-control" >
+
+                                    </select>
                                 </div>
                             </div>
 
@@ -69,6 +78,47 @@
         });
         $('#poi_4_box').find('.img-div>span').click(function () {
             sUploadDel($(this), 'poi_4')
+        });
+        var frame_id = "{{$info['frame_id']}}"
+        $.ajax('{{route("admin.exhibitmanage.frame_list")}}', {
+            method: 'get',
+            data: {'room_number': $("#room_number").val()},
+            dataType: 'json'
+        }).done(function (response) {
+            len = response.data.length
+            for (i=0;i<len;i++){
+                is_select = false;
+                if(frame_id == response.data[i].frame_id){
+                    is_select = true;
+                }
+                if(is_select){
+                    $("#frame_id").append("<option selected value='"+response.data[i].frame_id+"'>"+response.data[i].frame_name+"</option>");
+                }else{
+                    $("#frame_id").append("<option value='"+response.data[i].frame_id+"'>"+response.data[i].frame_name+"</option>");
+                }
+
+            }
+        });
+        $("#room_number").change(function(){
+            $.ajax('{{route("admin.exhibitmanage.frame_list")}}', {
+                method: 'get',
+                data: {'room_number': $("#room_number").val()},
+                dataType: 'json'
+            }).done(function (response) {
+                len = response.data.length
+                for (i=0;i<len;i++){
+                    is_select = false;
+                    if(frame_id == response.data[i].frame_id){
+                        is_select = true;
+                    }
+                    if(is_select){
+                        $("#frame_id").append("<option selected value='"+response.data[i].frame_id+"'>"+response.data[i].frame_name+"</option>");
+                    }else{
+                        $("#frame_id").append("<option value='"+response.data[i].frame_id+"'>"+response.data[i].frame_name+"</option>");
+                    }
+
+                }
+            });
         });
     </script>
 @endsection

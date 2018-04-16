@@ -218,7 +218,12 @@ class MenuDao extends BaseMdl
 						'text' => '库房盘点',
 						'url' => route('admin.storageroommanage.roomlist'),
 						'priv' => 'admin-storageroommanage-roomlist'
-					]
+					],
+                    [
+                        'text' => '排架管理',
+                        'url' => route('admin.storageroommanage.frame'),
+                        'priv' => 'admin-storageroommanage-frame'
+                    ]
 				]
 			],
 			[

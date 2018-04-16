@@ -8,6 +8,7 @@ use App\Models\Exhibit2Room;
 use App\Models\ExhibitUse;
 use App\Models\ExhibitUsedApply;
 use App\Models\ExhibitUseItem;
+use App\Models\Frame;
 use App\Models\Storageroommanage\StorageRoom;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -104,6 +105,7 @@ class InstorageManageController extends BaseAdminController
         $exhibit2room->exhibit_sum_register_id = \request('exhibit_sum_register_id');
         $exhibit2room->room_number = \request('room_number');
         $exhibit2room->in_room_recipe_num = \request('in_room_recipe_num');
+        $exhibit2room->frame_id = \request('frame_id');
         $exhibit2room->status = ConstDao::EXHIBIT_INTO_ROOM_STATUS_DRAFT;
         $exhibit2room->save();
         return $this->success('instorageroom', '保存成功');
@@ -259,5 +261,17 @@ class InstorageManageController extends BaseAdminController
             $item->save();
         }
         return $this->success('exhibitout', '操作成功');
+    }
+
+
+    /**
+     * 根据库房ID获得 所有架子
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function frame_list(){
+        $room_number = \request('room_number');
+        $list = Frame::where('room_number', $room_number)->get()->toArray();
+        $list[] = array('frame_id'=>0, 'frame_name'=>'无需排架');
+        return response_json(1, $list,'');
     }
 }

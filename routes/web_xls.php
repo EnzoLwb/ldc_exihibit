@@ -31,5 +31,6 @@ Route::group([
     Route::get('export_fake_exhibit', 'ExcelController@export_fake_exhibit')->name('admin.excel.export_fake_exhibit');
     //导出总账信息
     Route::get('export_sum_account', 'ExcelController@export_sum_account')->name('admin.excel.export_sum_account');
-
+    //导出排架信息
+    Route::get('export_frame', 'ExcelController@export_frame')->name('admin.excel.export_frame');
 });

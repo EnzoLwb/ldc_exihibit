@@ -40,6 +40,7 @@ class IndexController extends BaseAdminController
         }
         $list = StorageRoom::get();
         $res['exhibit_list'] = $list;
+        $res['info'] = $exhibit;
         $res['exhibit_sum_register_id'] = $exhibit_sum_register_id;
         return view('admin.exhibitmanage.add_storageroom', $res);
     }
@@ -58,7 +59,9 @@ class IndexController extends BaseAdminController
             return $this->error('参数有误');
         }
         $exhibit->room_number = $room_number;
+        $exhibit->frame_id = \request('frame_id');
         $exhibit->save();
         return $this->success('storageroom','操作完成');
     }
+
 }
