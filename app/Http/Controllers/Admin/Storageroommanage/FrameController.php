@@ -47,4 +47,11 @@ class FrameController extends BaseAdminController
         $frame_model->save();
         return $this->success(get_session_url('index'), '保存成功');
     }
+
+    public function del(){
+        $frame_id = \request('frame_id');
+        $frame_model = Frame::findOrNew($frame_id);
+        $frame_model->delete();
+        return $this->success(get_session_url('index'), '删除成功');
+    }
 }

@@ -6,6 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class ConstDao
 {
+    const ACCOUNT_SUM = 'exhibit';//总账类型
+    const ACCOUNT_SUB = 'subsidiary';//辅助账类型
+
+    public static $type_desc = array(
+        self::ACCOUNT_SUM =>'文物信息',
+        self::ACCOUNT_SUB =>'辅助文物信息'
+    );
+
+
     const EXHIBIT_LEVEL_FIRST = 1;
     const EXHIBIT_LEVEL_SECOND = 2;
     const EXHIBIT_LEVEL_THIRD = 3;

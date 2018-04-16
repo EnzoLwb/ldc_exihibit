@@ -36,6 +36,7 @@ Route::group([
     Route::get('frame', 'FrameController@index')->name('admin.storageroommanage.frame');
     //显示form页面
     Route::get('add', 'FrameController@add')->name('admin.storageroommanage.frame.add');
+    Route::get('del', 'FrameController@del')->name('admin.storageroommanage.frame.del');
     //保存排架信息
     Route::post('save', 'FrameController@save')->name('admin.storageroommanage.frame.save');
 });

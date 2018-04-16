@@ -55,9 +55,10 @@
                                     <td>{{$v['frame_number']}}</td>
                                     <td>{{$v['frame_name']}}</td>
                                     <td>
-                                        <a href="{{route('admin.storageroommanage.roomstruct.delete',['room_id'=>$v['room_id']])}}"
+                                        <a href="{{route('admin.storageroommanage.frame.del',['frame_id'=>$v['frame_id']])}}"
                                            onclick="if (confirm('确定要删除此记录吗？')==false) return false">删除</a>
-                                        <a href="{{route('admin.storageroommanage.roomstruct.edit',['room_id'=>$v['room_id']])}}">修改</a>
+                                        <a href="{{route('admin.storageroommanage.frame.add',['frame_id'=>$v['frame_id']])}}">修改</a>
+
                                     </td>
                                 </tr>
                             @endforeach

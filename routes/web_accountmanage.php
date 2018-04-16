@@ -13,4 +13,6 @@ Route::group([
     //总账查看
     Route::get('view_sumaccount', 'IndexController@view_sumaccount')->name('admin.accountmanage.view_sumaccount');
 
+    //根据总账或者辅助账类型，获得明细
+    Route::get('item_list', 'IndexController@item_list')->name('admin.accountmanage.item_list');
 });

@@ -1,18 +1,15 @@
 @extends('layouts.public')
-
 @section('bodyattr')class="gray-bg"@endsection
 <link rel="stylesheet" href="{{cdn('js/plugins/webuploader/single.css')}}">
 
 @section('body')
 
     <div class="wrapper wrapper-content">
-
         <div class="row m-b">
             <div class="col-sm-12">
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li ><a href="{{route('admin.exhibitmanage.disinfection')}}">查询</a></li>
-
                         <li class="active" ><a href="{{route('admin.exhibitmanage.add_disinfection')}}">新增</a></li>
                     </ul>
                 </div>
@@ -24,12 +21,27 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
                         <form method="post" action="{{route('admin.exhibitmanage.disinfection_save')}}" class="form-horizontal">
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">类型</label>
+                                <div class="col-sm-4">
+                                    <select name="type" id="type" class="form-control">
+                                        @foreach(\App\Dao\ConstDao::$type_desc as $k=>$v)
+                                            <option
+                                                    value="{{$k}}">
+                                                {{$v}}
+                                            </option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">藏品名称</label>
                                 <div class="col-sm-4">
-                                    <select name="exhibit_sum_register_id" class="form-control">
+                                    <select name="exhibit_sum_register_id" id="exhibit_sum_register_id" class="form-control">
                                         @foreach($exhibit_list as $exhibit)
-
                                             <option
                                                     value="{{$exhibit['exhibit_sum_register_id']}}">
                                                 {{$exhibit['name']}}
@@ -43,6 +55,8 @@
                                            value="{{csrf_token()}}" required/>
                                 </div>
                             </div>
+
+
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">清洁方式</label>
@@ -105,6 +119,25 @@
         });
         $('#poi_4_box').find('.img-div>span').click(function () {
             sUploadDel($(this), 'poi_4')
+        });
+
+        //获得不同类型的账目明细
+        function get_item_list() {
+            $.ajax('{{route("admin.accountmanage.item_list")}}', {
+                method: 'get',
+                data: {'type': $("#type").val()},
+                dataType: 'json'
+            }).done(function (response) {
+                len = response.data.length
+                $("#exhibit_sum_register_id").html('');
+                for (i=0;i<len;i++){
+                    $("#exhibit_sum_register_id").append("<option value='"+response.data[i].register_id+"'>"+response.data[i].name+"</option>");
+                }
+            });
+        }
+        get_item_list();
+        $("#type").change(function(){
+            get_item_list();
         });
     </script>
 @endsection

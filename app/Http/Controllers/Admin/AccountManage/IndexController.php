@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use \App\Http\Controllers\Admin\BaseAdminController;
 use App\Models\Exhibit;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Dao\ConstDao;
+use Illuminate\Support\Facades\DB;
 
 class IndexController extends BaseAdminController
 {
@@ -116,5 +118,21 @@ class IndexController extends BaseAdminController
     public function view_sumaccount(){
         $res['info'] = Exhibit::where('exhibit_sum_register_id', \request('exhibit_sum_register_id'))->first();
         return view('admin.accountmanage.view_sumaccount', $res);
+    }
+
+    /**
+     * 获得明细
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function item_list(){
+        $type = \request('type', ConstDao::ACCOUNT_SUM);
+        $list = array();
+        if($type == ConstDao::ACCOUNT_SUM){
+            $list = Exhibit::select(DB::Raw('exhibit_sum_register_id as register_id'),'name')->get();
+        }
+        elseif($type == ConstDao::ACCOUNT_SUB){
+            $list = Subsidiary::select(DB::Raw('subsidiary_id as register_id'), 'name')->get();
+        }
+        return response_json(1,$list,'获得信息');
     }
 }
