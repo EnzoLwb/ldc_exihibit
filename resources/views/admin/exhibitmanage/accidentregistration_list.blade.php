@@ -76,8 +76,7 @@
                         </table>
                         <div class="row">
                             <div class="col-sm-12">
-                                <div>共 {{ $exhibit_list->total() }} 条记录</div>
-                                {!! $exhibit_list->links() !!}
+                                {!! $paginator->render() !!}
                             </div>
                         </div>
                     </div>
@@ -128,6 +127,10 @@
             url += 'accident_id['+i.toString()+"]="+collect_apply_ids[i]+"&";
         }
         window.open(url);
+    }
+    
+    function del_accident() {
+        alert(111);
     }
 </script>
 

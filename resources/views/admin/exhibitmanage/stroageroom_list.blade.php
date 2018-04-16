@@ -45,13 +45,13 @@
                             </thead>
                             @foreach($exhibit_list as $exhibit)
                                 <tr class="gradeA">
-                                    <td>{{$exhibit->exhibit_sum_register_num}}</td>
-                                    <td>{{$exhibit->name}}</td>
-                                    <td> <a href="{{route('admin.exhibitmanage.add_storageroom')."?exhibit_sum_register_id=".$exhibit->exhibit_sum_register_id}}">
-                                            @if(empty($exhibit->room_name))
+                                    <td>{{$exhibit['exhibit_sum_register_num']}}</td>
+                                    <td>{{$exhibit['name']}}</td>
+                                    <td> <a href="{{route('admin.exhibitmanage.add_storageroom')."?exhibit_sum_register_id=".$exhibit['exhibit_sum_register_id']}}">
+                                            @if(empty($exhibit['room_name']))
                                                 暂无库房信息
                                             @else
-                                                {{$exhibit->room_name}}
+                                                {{$exhibit['room_name']}}
                                             @endif
                                             </a></td>
                                 </tr>
@@ -59,8 +59,7 @@
                         </table>
                         <div class="row">
                             <div class="col-sm-12">
-                                <div>共 {{ $exhibit_list->total() }} 条记录</div>
-                                {!! $exhibit_list->links() !!}
+                                {!! $paginator->render() !!}
                             </div>
                         </div>
                     </div>

@@ -37,11 +37,13 @@ class DisinfectionController extends BaseAdminController
                 ->orderBy('clean_date','desc')->get()->toArray();
             $list = array_merge($list, $list_2);
         }else{
+            //文物信息
             $list = Disinfection::join('exhibit','disinfection.exhibit_sum_register_id','=','exhibit.exhibit_sum_register_id')
                 ->select('name', DB::Raw('ldc_disinfection.exhibit_sum_register_id'), 'disinfection_way', 'clean_date', DB::Raw('ldc_disinfection.disinfection_id'),
                     'exhibit_sum_register_num', 'clean_way')
                 ->where('disinfection.type', ConstDao::ACCOUNT_SUM)
                 ->where('name','like','%'.$title."%")->orderBy('clean_date','desc')->get()->toArray();
+            //辅助文物信息
             $list_2 = Disinfection::join('subsidiary','disinfection.exhibit_sum_register_id','=','subsidiary.subsidiary_id')
                 ->select('name', DB::Raw('ldc_disinfection.exhibit_sum_register_id'), 'disinfection_way', 'clean_date',DB::Raw('ldc_disinfection.disinfection_id'),
                     'exhibit_sum_register_num','clean_way')

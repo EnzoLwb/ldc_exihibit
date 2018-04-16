@@ -24,6 +24,8 @@ use App\Models\Subsidiary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ApplyController extends BaseAdminController
 {
@@ -128,7 +130,21 @@ class ApplyController extends BaseAdminController
             //入库申请
             $list = Exhibit2Room::join('exhibit','exhibit.exhibit_sum_register_id','=','exhibit_into_room.exhibit_sum_register_id')->join('storage_room',
                 'storage_room.room_number','=','exhibit_into_room.room_number')->select('exhibit_into_room_id','name','room_name','in_room_recipe_num',
-                DB::Raw('ldc_exhibit_into_room.status'))->paginate(parent::PERPAGE);
+                DB::Raw('ldc_exhibit_into_room.status'))->where('exhibit_into_room.type',ConstDao::ACCOUNT_SUM)->get()->toArray();
+            $list_2 = Exhibit2Room::join('subsidiary','subsidiary.subsidiary_id','=','exhibit_into_room.exhibit_sum_register_id')->join('storage_room',
+                'storage_room.room_number','=','exhibit_into_room.room_number')->select('exhibit_into_room_id','name','room_name','in_room_recipe_num',
+                DB::Raw('ldc_exhibit_into_room.status'))->where('exhibit_into_room.type',ConstDao::ACCOUNT_SUB)->get()->toArray();
+
+            $list = array_merge($list_2, $list);
+            $total = count($list); //记录总条数
+            $perPage =parent::PERPAGE; //每页的记录数 ( 常量 )
+            $current_page = \request('page',1); // 当前页
+            $path = Paginator::resolveCurrentPath(); // 获取当前的链接"http://localhost/admin/account"
+            $list = array_slice($list, ($current_page-1)*$perPage,$perPage);
+            $res['paginator'] = new LengthAwarePaginator($list, $total,$perPage, $current_page, [
+                'path' => $path ,  //设定个要分页的url地址。也可以手动通过 $paginator ->setPath(‘路径’) 设置
+                'pageName' => 'page', //链接的参数名 http://localhost/admin/manage?page=2
+            ]);
             $res['exhibit_list'] = $list;
             return view('admin.applymanage.into_room_apply', $res);
         }
@@ -423,7 +439,14 @@ class ApplyController extends BaseAdminController
         $exhibit2rooms = Exhibit2Room::whereIn('exhibit_into_room_id',$exhibit_into_room_id)->get();
         if($audit == ConstDao::EXHIBIT_INTO_ROOM_STATUS_PASS){
             foreach ($exhibit2rooms as $exhibit2room){
-                Exhibit::where('exhibit_sum_register_id', $exhibit2room->exhibit_sum_register_id)->update(array('room_number'=>$exhibit2room->room_number));
+                //分开处理
+                if($exhibit2room->type == ConstDao::ACCOUNT_SUM){
+                    Exhibit::where('exhibit_sum_register_id', $exhibit2room->exhibit_sum_register_id)->update(array('room_number'=>$exhibit2room->room_number
+                    ,'frame_id'=>$exhibit2room->frame_id));
+                }else{
+                    Subsidiary::where('subsidiary_id', $exhibit2room->exhibit_sum_register_id)->update(array('room_number'=>$exhibit2room->room_number
+                    ,'frame_id'=>$exhibit2room->frame_id));
+                }
             }
         }
 

@@ -12,7 +12,6 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li ><a href="{{route('admin.exhibitmanage.instorageroom')}}">查询</a></li>
-
                         <li class="active" ><a href="{{route('admin.exhibitmanage.add_instorageroom')}}">编辑</a></li>
                     </ul>
                 </div>
@@ -30,6 +29,19 @@
                                 <tbody>
                                 <tr ><td colspan="4"><label class="control-label edit-title">入库信息</label></td></tr>
                                 <tr>
+                                    <td>类型</td>
+                                    <td>
+                                        <select name="type" id="type" class="form-control">
+                                            @foreach(\App\Dao\ConstDao::$type_desc as $k=>$v)
+                                                <option value="{{$k}}"
+                                                        @if($k == $info['type']) selected @endif
+                                                >{{$v}}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                </tr>
+
+                                <tr>
                                     <td>库房名称</td>
                                     <td>
                                         <select name="room_number" id="room_number" class="form-control">
@@ -43,14 +55,13 @@
                                     <td>排架名称</td>
                                     <td>
                                         <select name="frame_id" id="frame_id" class="form-control">
-
                                         </select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>展品名称</td>
                                     <td>
-                                        <select name="exhibit_sum_register_id" class="form-control">
+                                        <select name="exhibit_sum_register_id" id="exhibit_sum_register_id" class="form-control">
                                             @foreach($exhibit_list as $item)
                                                 <option @if($item['exhibit_sum_register_id'] == $info['exhibit_sum_register_id']) selected @endif value="{{$item['exhibit_sum_register_id']}}">{{$item['name']}}</option>
                                             @endforeach
@@ -97,27 +108,7 @@
             sUploadDel($(this), 'poi_4')
         });
         var frame_id = "{{$info['frame_id']}}"
-
-        $.ajax('{{route("admin.exhibitmanage.frame_list")}}', {
-            method: 'get',
-            data: {'room_number': $("#room_number").val()},
-            dataType: 'json'
-        }).done(function (response) {
-            len = response.data.length
-            for (i=0;i<len;i++){
-                is_select = false;
-                if(frame_id == response.data[i].frame_id){
-                    is_select = true;
-                }
-                if(is_select){
-                    $("#frame_id").append("<option selected value='"+response.data[i].frame_id+"'>"+response.data[i].frame_name+"</option>");
-                }else{
-                    $("#frame_id").append("<option value='"+response.data[i].frame_id+"'>"+response.data[i].frame_name+"</option>");
-                }
-
-            }
-        });
-        $("#room_number").change(function(){
+        function frame_list(){
             $.ajax('{{route("admin.exhibitmanage.frame_list")}}', {
                 method: 'get',
                 data: {'room_number': $("#room_number").val()},
@@ -135,9 +126,31 @@
                     }else{
                         $("#frame_id").append("<option value='"+response.data[i].frame_id+"'>"+response.data[i].frame_name+"</option>");
                     }
-
                 }
             });
+        }
+        frame_list();
+        $("#room_number").change(function(){
+            frame_list();
+        })
+
+        //获得不同类型的账目明细
+        function get_item_list() {
+            $.ajax('{{route("admin.accountmanage.item_list")}}', {
+                method: 'get',
+                data: {'type': $("#type").val()},
+                dataType: 'json'
+            }).done(function (response) {
+                len = response.data.length
+                $("#exhibit_sum_register_id").html('');
+                for (i=0;i<len;i++){
+                    $("#exhibit_sum_register_id").append("<option value='"+response.data[i].register_id+"'>"+response.data[i].name+"</option>");
+                }
+            });
+        }
+        get_item_list();
+        $("#type").change(function(){
+            get_item_list();
         });
     </script>
 @endsection

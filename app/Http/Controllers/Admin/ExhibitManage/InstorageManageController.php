@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Admin\BaseAdminController;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class InstorageManageController extends BaseAdminController
 {
@@ -23,10 +25,40 @@ class InstorageManageController extends BaseAdminController
      */
     public function index()
     {
-        $list = Exhibit2Room::join('exhibit','exhibit.exhibit_sum_register_id','=','exhibit_into_room.exhibit_sum_register_id')->join('storage_room',
-            'storage_room.room_number','=','exhibit_into_room.room_number')->select(
-            DB::Raw('ldc_exhibit_into_room.status'),'exhibit_into_room_id','in_room_recipe_num',DB::Raw('ldc_exhibit.name'),'room_name')
-            ->paginate(parent::PERPAGE);
+        $title = \request('title');
+        if(empty($title)){
+            $list = Exhibit2Room::join('exhibit','exhibit.exhibit_sum_register_id','=','exhibit_into_room.exhibit_sum_register_id')->join('storage_room',
+                'storage_room.room_number','=','exhibit_into_room.room_number')->select(
+                DB::Raw('ldc_exhibit_into_room.status'),'exhibit_into_room_id','in_room_recipe_num',DB::Raw('ldc_exhibit.name'),'room_name')
+                ->where('exhibit_into_room.type', ConstDao::ACCOUNT_SUM)->get()->toArray();
+            $list_2 = Exhibit2Room::join('subsidiary','subsidiary.subsidiary_id','=','exhibit_into_room.exhibit_sum_register_id')->join('storage_room',
+                'storage_room.room_number','=','exhibit_into_room.room_number')->select(
+                DB::Raw('ldc_exhibit_into_room.status'),'exhibit_into_room_id','in_room_recipe_num',DB::Raw('ldc_subsidiary.name'),'room_name')
+                ->where('exhibit_into_room.type', ConstDao::ACCOUNT_SUB)->get()->toArray();
+
+            $list = array_merge($list, $list_2);
+        }else{
+            $list = Exhibit2Room::join('exhibit','exhibit.exhibit_sum_register_id','=','exhibit_into_room.exhibit_sum_register_id')->join('storage_room',
+                'storage_room.room_number','=','exhibit_into_room.room_number')->select(
+                DB::Raw('ldc_exhibit_into_room.status'),'exhibit_into_room_id','in_room_recipe_num',DB::Raw('ldc_exhibit.name'),'room_name')
+                ->where('exhibit_into_room.type', ConstDao::ACCOUNT_SUM)->where('exhibit.name', 'like','%'.$title.'%')->get()->toArray();
+            $list_2 = Exhibit2Room::join('subsidiary','subsidiary.subsidiary_id','=','exhibit_into_room.exhibit_sum_register_id')->join('storage_room',
+                'storage_room.room_number','=','exhibit_into_room.room_number')->select(
+                DB::Raw('ldc_exhibit_into_room.status'),'exhibit_into_room_id','in_room_recipe_num',DB::Raw('ldc_subsidiary.name'),'room_name')
+                ->where('exhibit_into_room.type', ConstDao::ACCOUNT_SUB)->where('subsidiary.name', 'like','%'.$title.'%')->get()->toArray();
+            $list = array_merge($list, $list_2);
+        }
+        $total = count($list); //记录总条数
+        $perPage =parent::PERPAGE; //每页的记录数 ( 常量 )
+        $current_page = \request('page',1); // 当前页
+        $path = Paginator::resolveCurrentPath(); // 获取当前的链接"http://localhost/admin/account"
+        $list = array_slice($list, ($current_page-1)*$perPage,$perPage);
+        $infoList['paginator'] = new LengthAwarePaginator($list, $total,$perPage, $current_page, [
+            'path' => $path ,  //设定个要分页的url地址。也可以手动通过 $paginator ->setPath(‘路径’) 设置
+            'pageName' => 'page', //链接的参数名 http://localhost/admin/manage?page=2
+        ]);
+        $res['exhibit_list'] = $list;
+        $res['paginator'] = $infoList['paginator'];
         $res['exhibit_list'] = $list;
         return view('admin.exhibitmanage.instorage_list', $res);
     }
@@ -102,6 +134,7 @@ class InstorageManageController extends BaseAdminController
         if(empty(\request('exhibit_sum_register_id')) || empty(\request('room_number')) || empty(\request('in_room_recipe_num'))){
             return $this->error('参数有误');
         }
+        $exhibit2room->type = \request('type');
         $exhibit2room->exhibit_sum_register_id = \request('exhibit_sum_register_id');
         $exhibit2room->room_number = \request('room_number');
         $exhibit2room->in_room_recipe_num = \request('in_room_recipe_num');

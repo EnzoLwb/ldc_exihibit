@@ -28,9 +28,22 @@
                             <input type="hidden" name="accident_id" value="{{$info['accident_id'] or ''}}">
                             <input type="hidden" name="_token" value="{{csrf_token()}}">
                             <div class="form-group">
+                                <label class="col-sm-2 control-label">类型</label>
+                                <div class="col-sm-4">
+                                    <select name="type" id="type" class="form-control">
+                                    @foreach(\App\Dao\ConstDao::$type_desc as $k=>$v)
+                                        <option value="{{$k}}"
+                                                @if($k == $info['type']) selected @endif
+                                        >{{$v}}</option>
+                                    @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
                                 <label class="col-sm-2 control-label">文物选择</label>
                                 <div class="col-sm-4">
-                                    <select name="exhibit_sum_register_id" class="form-control">
+                                    <select name="exhibit_sum_register_id"  id="exhibit_sum_register_id" class="form-control">
                                         @foreach($exhibit_list as $exhibit)
                                             <option value="{{$exhibit->exhibit_sum_register_id}}">{{$exhibit->name}}</option>
                                         @endforeach
@@ -115,6 +128,27 @@
         $('#poi_4_box').find('.img-div>span').click(function () {
             sUploadDel($(this), 'poi_4')
         });
+
+
+        //获得不同类型的账目明细
+        function get_item_list() {
+            $.ajax('{{route("admin.accountmanage.item_list")}}', {
+                method: 'get',
+                data: {'type': $("#type").val()},
+                dataType: 'json'
+            }).done(function (response) {
+                len = response.data.length
+                $("#exhibit_sum_register_id").html('');
+                for (i=0;i<len;i++){
+                    $("#exhibit_sum_register_id").append("<option value='"+response.data[i].register_id+"'>"+response.data[i].name+"</option>");
+                }
+            });
+        }
+        get_item_list();
+        $("#type").change(function(){
+            get_item_list();
+        });
+
     </script>
 @endsection
 
