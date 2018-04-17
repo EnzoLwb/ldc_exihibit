@@ -27,9 +27,21 @@
                             <input type="hidden" name="logout_id" value="{{$data['logout_id']??''}}">
                             <input type="hidden" value="{{csrf_token()}}" name="_token">
                             <div class="form-group">
+                                <label class="col-sm-2 control-label">选择账目类型</label>
+                                <div class="col-sm-4">
+                                    <select name="account_type" id="account_type" class="form-control">
+                                        @foreach(\App\Dao\ConstDao::$type_desc as $k=>$v)
+                                            <option value="{{$k}}"
+                                                    @if(isset($data)&&$k == $data['account_type']) selected @endif
+                                            >{{$v}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-sm-2 control-label">藏品名称</label>
                                 <div class="col-sm-4">
-                                    <select name="exhibit_sum_register_id" class="form-control">
+                                    <select name="exhibit_sum_register_id" id="exhibit_sum_register_id" class="form-control">
                                         @foreach($exhibits as $v)
                                             @if(@$data['name']==$v['name']||old('exhibit_id')==$v['name'])
                                                 <option value="{{$v['id']}}" selected="selected">{{$v['name']}}</option>
@@ -138,5 +150,19 @@
             min: '1999-1-1 00:00:00',
             max: '2099-6-16 23:59:59',
         });
+        $('#account_type').change(function () {
+            //改变藏品的类型后改变下面的藏品名称  辅助账或者总账
+            $.ajax('{{route("admin.accountmanage.item_list")}}', {
+                method: 'get',
+                data: {'type': $("#account_type").val()},
+                dataType: 'json'
+            }).done(function (response) {
+                len = response.data.length
+                $("#exhibit_sum_register_id").html('');
+                for (i=0;i<len;i++){
+                    $("#exhibit_sum_register_id").append("<option value='"+response.data[i].register_id+"'>"+response.data[i].name+"</option>");
+                }
+            });
+        })
     </script>
 @endsection

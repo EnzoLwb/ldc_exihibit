@@ -34,12 +34,12 @@ class ApplyController extends BaseAdminController
         $res['type'] = $type;
         if($type == ConstDao::APPLY_TYPE_COLLECT){
             //征集申请
-            $res['exhibit_list'] = CollectApply::whereIn('status', array_keys(ConstDao::$collect_apply_desc))->paginate(parent::PERPAGE);
+            $res['exhibit_list'] = CollectApply::where('status', ConstDao::EXHIBIT_COLLECT_APPLY_WAITING_AUDIT)->paginate(parent::PERPAGE);
             return view('admin.applymanage.collect_apply', $res);
         }
         elseif($type == ConstDao::APPLY_TYPE_IDENTIFY) {
             //鉴定申请
-            $exhibit_list = IdentifyApply::whereIn('status', array_keys(ConstDao::$identify_desc))->paginate(parent::PERPAGE);
+            $exhibit_list = IdentifyApply::where('status',ConstDao::EXHIBIT_IDENTIFY_APPLY_WAITING_AUDIT)->paginate(parent::PERPAGE);
             //添加展品信息
             foreach ($exhibit_list as $key => $item) {
                 $exhibit_sum_register_id = $item->exhibit_sum_register_id;
@@ -71,7 +71,7 @@ class ApplyController extends BaseAdminController
 		}
 		elseif($type == ConstDao::APPLY_TYPE_OUTER){
             //出库申请
-            $exhibit_list = ExhibitUsedApply::where('status', '!=',ConstDao::EXHIBIT_USED_APPLY_STATUS_DRAFT)->paginate(parent::PERPAGE);
+            $exhibit_list = ExhibitUsedApply::where('status', ConstDao::EXHIBIT_USED_APPLY_STATUS_WAITING_AUDIT)->paginate(parent::PERPAGE);
             //添加展品信息
             foreach($exhibit_list as $key=>$item){
                 $exhibit_sum_register_id = $item->exhibit_list;
@@ -94,13 +94,14 @@ class ApplyController extends BaseAdminController
         elseif($type == ConstDao::APPLY_TYPE_ACCIDENT){
         	//事故申请
             $res['exhibit_list'] = Accident::join('exhibit','exhibit.exhibit_sum_register_id','=','accident.exhibit_sum_register_id')
-                ->where('accident.status','!=',ConstDao::ACCIDENT_STATUS_DRAFT)->select('accident_id','name','exhibit_sum_register_num','accident_time','accident_maker','accident_desc','proc_dependy'
+                ->where('accident.status','=',ConstDao::ACCIDENT_STATUS_WAITING_AUDIT)->select('accident_id','name','exhibit_sum_register_num','accident_time','accident_maker','accident_desc','proc_dependy'
                     ,'proc_suggestion','accident.status')->paginate(parent::PERPAGE);
             return view('admin.applymanage.accident_apply', $res);
         }
         elseif ($type == ConstDao::APPLY_TYPE_REPAIR){
 			//藏品修复申请
 			$repair_type=(\request('repair_type'));
+//			$res['show']='dwd';
 			if ($repair_type=='outside'){
 				$res['exhibit_list']=OutsideRepair::where('apply_status',1)->paginate(parent::PERPAGE);
 				return view('admin.applymanage.repairexhibit.repairout_apply', $res);
@@ -113,12 +114,11 @@ class ApplyController extends BaseAdminController
 			}
 		}
 		elseif($type == ConstDao::APPLY_TYPE_SHOW){
-            $res['data'] = ShowApply::where('status','!=',ConstDao::SHOW_APPLY_STATUS_DRAFT)->paginate(parent::PERPAGE);
+            $res['data'] = ShowApply::where('status',ConstDao::SHOW_APPLY_STATUS_WAITING_AUDIT)->paginate(parent::PERPAGE);
             return view('admin.applymanage.show_apply', $res);
         }
         elseif($type == ConstDao::APPLY_TYPE_SUMACCOUNT){
-            $list = FakeExhibit::whereIn('audit_status',
-                array(ConstDao::FAKE_EXHIBIT_STATUS_WAITING_AUDIT, ConstDao::FAKE_EXHIBIT_STATUS_PASS,ConstDao::FAKE_EXHIBIT_STATUS_REFUSE))->paginate(parent::PERPAGE);
+            $list = FakeExhibit::where('audit_status', ConstDao::FAKE_EXHIBIT_STATUS_WAITING_AUDIT)->paginate(parent::PERPAGE);
             $res['exhibit_list'] = $list;
             return view('admin.applymanage.sumaccount_apply', $res);
         }elseif ($type == ConstDao::APPLY_TYPE_SUBSIDIARY){
@@ -130,11 +130,12 @@ class ApplyController extends BaseAdminController
             //入库申请
             $list = Exhibit2Room::join('exhibit','exhibit.exhibit_sum_register_id','=','exhibit_into_room.exhibit_sum_register_id')->join('storage_room',
                 'storage_room.room_number','=','exhibit_into_room.room_number')->select('exhibit_into_room_id','name','room_name','in_room_recipe_num',
-                DB::Raw('ldc_exhibit_into_room.status'))->where('exhibit_into_room.type',ConstDao::ACCOUNT_SUM)->get()->toArray();
+                DB::Raw('ldc_exhibit_into_room.status'))->where('exhibit_into_room.type',ConstDao::ACCOUNT_SUM)
+				->where(DB::Raw('ldc_exhibit_into_room.status'),ConstDao::EXHIBIT_INTO_ROOM_STATUS_WAITING_AUDIT)->get()->toArray();
             $list_2 = Exhibit2Room::join('subsidiary','subsidiary.subsidiary_id','=','exhibit_into_room.exhibit_sum_register_id')->join('storage_room',
                 'storage_room.room_number','=','exhibit_into_room.room_number')->select('exhibit_into_room_id','name','room_name','in_room_recipe_num',
-                DB::Raw('ldc_exhibit_into_room.status'))->where('exhibit_into_room.type',ConstDao::ACCOUNT_SUB)->get()->toArray();
-
+                DB::Raw('ldc_exhibit_into_room.status'))->where('exhibit_into_room.type',ConstDao::ACCOUNT_SUB)
+				->where(DB::Raw('ldc_exhibit_into_room.status'),ConstDao::EXHIBIT_INTO_ROOM_STATUS_WAITING_AUDIT)->get()->toArray();
             $list = array_merge($list_2, $list);
             $total = count($list); //记录总条数
             $perPage =parent::PERPAGE; //每页的记录数 ( 常量 )
@@ -151,6 +152,143 @@ class ApplyController extends BaseAdminController
         return $this->error('参数有误');
     }
 
+	/**
+	 * 历史申请列表
+	 * @author lwb 20180417
+	 */
+	public function history_apply(){
+		$type = \request('apply_type', ConstDao::APPLY_TYPE_COLLECT);
+		$res['type'] = $type;
+		if($type == ConstDao::APPLY_TYPE_COLLECT){
+			//征集申请通过和拒绝的
+			$res['exhibit_list'] = CollectApply::whereIn('status', [ConstDao::EXHIBIT_COLLECT_APPLY_AUDITED,ConstDao::EXHIBIT_COLLECT_APPLY_REFUSED])->paginate(parent::PERPAGE);
+			$res['show']='history';
+			return view('admin.applymanage.collect_apply', $res);
+		}
+		elseif($type == ConstDao::APPLY_TYPE_IDENTIFY) {
+			//鉴定申请
+			$exhibit_list = IdentifyApply::whereIn('status', [ConstDao::EXHIBIT_IDENTIFY_APPLY_AUDITED,ConstDao::EXHIBIT_IDENTIFY_APPLY_REFUSED])->paginate(parent::PERPAGE);
+			//添加展品信息
+			foreach ($exhibit_list as $key => $item) {
+				$exhibit_sum_register_id = $item->exhibit_sum_register_id;
+				$exhibit_sum_register_ids = explode(',', $exhibit_sum_register_id);
+
+				$new_names = '';
+				if (!empty($exhibit_sum_register_ids)) {
+					$list = Exhibit::whereIn('exhibit_sum_register_id', $exhibit_sum_register_ids)->select('name')->get();
+
+					foreach ($list as $item1) {
+						$name = $item1->name;
+						$new_names = $new_names . $name . ",";
+					}
+				}
+				$exhibit_list[$key]['exhibit_names'] = $new_names;
+			}
+			$res['exhibit_list'] = $exhibit_list;$res['show']='history';
+			return view('admin.applymanage.identify_apply', $res);
+		} elseif ($type == ConstDao::APPLY_TYPE_STORAGE_CHECK){
+			//库房盘点申请
+			$res['exhibit_list']=RoomList::whereIn('apply_status',[1,0])->paginate(parent::PERPAGE);
+			$res['show']='history';
+			return view('admin.applymanage.storageCheck_apply', $res);
+		}
+		elseif ($type == ConstDao::APPLY_TYPE_LOGOUT){
+			//藏品注销申请
+			$exhibit_Logout=new ExhibitLogout();
+			$res['exhibit_list']=$exhibit_Logout->joinLeft()->whereIn('exhibit_logout.status',[2,3])->paginate(parent::PERPAGE);
+			$res['show']='history';
+			return view('admin.applymanage.logOut_apply', $res);
+		}
+		elseif($type == ConstDao::APPLY_TYPE_OUTER){
+			//出库申请
+			$exhibit_list = ExhibitUsedApply::whereIn('status',[ConstDao::EXHIBIT_USED_APPLY_STATUS_AUDITED,ConstDao::EXHIBIT_USED_APPLY_STATUS_REFUSED])->paginate(parent::PERPAGE);
+			//添加展品信息
+			foreach($exhibit_list as $key=>$item){
+				$exhibit_sum_register_id = $item->exhibit_list;
+				$exhibit_sum_register_ids = explode(',',$exhibit_sum_register_id);
+
+				$new_names = '';
+				if(!empty($exhibit_sum_register_ids)){
+					$list = Exhibit::whereIn('exhibit_sum_register_id',$exhibit_sum_register_ids)->select('name')->get();
+
+					foreach($list as $item1){
+						$name = $item1->name;
+						$new_names = $new_names.$name.",";
+					}
+				}
+				$exhibit_list[$key]['exhibit_names'] = $new_names;
+			}
+			$res['exhibit_list'] = $exhibit_list;$res['show']='history';
+			return view('admin.applymanage.exhibit_used_apply', $res);
+		}
+		elseif($type == ConstDao::APPLY_TYPE_ACCIDENT){
+			//事故申请
+			$res['exhibit_list'] = Accident::join('exhibit','exhibit.exhibit_sum_register_id','=','accident.exhibit_sum_register_id')
+				->whereIn('accident.status',[ConstDao::ACCIDENT_STATUS_AUDIENTED,ConstDao::ACCIDENT_STATUS_REFUSE])->select('accident_id','name','exhibit_sum_register_num','accident_time','accident_maker','accident_desc','proc_dependy'
+					,'proc_suggestion','accident.status')->paginate(parent::PERPAGE);
+			$res['show']='history';
+			return view('admin.applymanage.accident_apply', $res);
+		}
+		elseif ($type == ConstDao::APPLY_TYPE_REPAIR){
+			//藏品修复申请
+			$repair_type=(\request('repair_type'));
+			$res['show']='history';
+			if ($repair_type=='outside'){
+
+				$res['exhibit_list']=OutsideRepair::whereIn('apply_status',[2,3])->paginate(parent::PERPAGE);
+
+				return view('admin.applymanage.repairexhibit.repairout_apply', $res);
+			}elseif ($repair_type=='inside'){
+				$res['exhibit_list']=InsideRepair::whereIn('apply_status',[2,3])->paginate(parent::PERPAGE);
+				return view('admin.applymanage.repairexhibit.repairin_apply', $res);
+			}else{
+				$res['exhibit_list']=RepairApply::whereIn('apply_status',[2,3])->paginate(parent::PERPAGE);
+
+				return view('admin.applymanage.repairexhibit.repair_apply', $res);
+			}
+		}
+		elseif($type == ConstDao::APPLY_TYPE_SHOW){
+			$res['data'] = ShowApply::whereIn('status',[ConstDao::SHOW_APPLY_STATUS_AUDITED,ConstDao::SHOW_APPLY_STATUS_REFUSE])->paginate(parent::PERPAGE);
+			$res['show']='history';
+			return view('admin.applymanage.show_apply', $res);
+		}
+		elseif($type == ConstDao::APPLY_TYPE_SUMACCOUNT){
+			$list = FakeExhibit::whereIn('audit_status',
+				array(ConstDao::FAKE_EXHIBIT_STATUS_PASS,ConstDao::FAKE_EXHIBIT_STATUS_REFUSE))->paginate(parent::PERPAGE);
+			$res['exhibit_list'] = $list;$res['show']='history';
+			return view('admin.applymanage.sumaccount_apply', $res);
+		}elseif ($type == ConstDao::APPLY_TYPE_SUBSIDIARY){
+			//其它文物登记申请
+			$res['exhibit_list']=Subsidiary::whereIn('apply_status',[2,3])->paginate(parent::PERPAGE);
+			$res['show']='history';
+			return view('admin.applymanage.subsidiary', $res);
+		}
+		elseif($type == ConstDao::APPLY_TYPE_INTO_ROOM){
+			//入库申请
+			$list = Exhibit2Room::join('exhibit','exhibit.exhibit_sum_register_id','=','exhibit_into_room.exhibit_sum_register_id')->join('storage_room',
+				'storage_room.room_number','=','exhibit_into_room.room_number')->select('exhibit_into_room_id','name','room_name','in_room_recipe_num',
+				DB::Raw('ldc_exhibit_into_room.status'))->where('exhibit_into_room.type',ConstDao::ACCOUNT_SUM)
+				->whereIn(DB::Raw('ldc_exhibit_into_room.status'),[ConstDao::EXHIBIT_INTO_ROOM_STATUS_PASS,ConstDao::EXHIBIT_INTO_ROOM_STATUS_REFUSE])->get()->toArray();
+			$list_2 = Exhibit2Room::join('subsidiary','subsidiary.subsidiary_id','=','exhibit_into_room.exhibit_sum_register_id')->join('storage_room',
+				'storage_room.room_number','=','exhibit_into_room.room_number')->select('exhibit_into_room_id','name','room_name','in_room_recipe_num',
+				DB::Raw('ldc_exhibit_into_room.status'))->where('exhibit_into_room.type',ConstDao::ACCOUNT_SUB)
+				->whereIn(DB::Raw('ldc_exhibit_into_room.status'),[ConstDao::EXHIBIT_INTO_ROOM_STATUS_PASS,ConstDao::EXHIBIT_INTO_ROOM_STATUS_REFUSE])->get()->toArray();
+
+			$list = array_merge($list_2, $list);
+			$total = count($list); //记录总条数
+			$perPage =parent::PERPAGE; //每页的记录数 ( 常量 )
+			$current_page = \request('page',1); // 当前页
+			$path = Paginator::resolveCurrentPath(); // 获取当前的链接"http://localhost/admin/account"
+			$list = array_slice($list, ($current_page-1)*$perPage,$perPage);
+			$res['paginator'] = new LengthAwarePaginator($list, $total,$perPage, $current_page, [
+				'path' => $path ,  //设定个要分页的url地址。也可以手动通过 $paginator ->setPath(‘路径’) 设置
+				'pageName' => 'page', //链接的参数名 http://localhost/admin/manage?page=2
+			]);
+			$res['exhibit_list'] = $list;$res['show']='history';
+			return view('admin.applymanage.into_room_apply', $res);
+		}
+		return $this->error('参数有误');
+	}
     /**
      * 批量审核通过
      */

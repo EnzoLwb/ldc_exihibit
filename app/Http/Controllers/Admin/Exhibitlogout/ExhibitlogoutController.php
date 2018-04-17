@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers\Admin\Exhibitlogout;
 
+use App\Dao\ConstDao;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Models\CollectExhibit;
+use App\Models\Exhibit;
 use App\Models\ExhibitLogout;
+use App\Models\Subsidiary;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 /**
@@ -54,7 +58,6 @@ class ExhibitlogoutController extends BaseAdminController
 			'exhibits'=>$exhibit_Logout->collectName()
 		]);
 	}
-
 	/**
 	 * 提交申请
 	 */

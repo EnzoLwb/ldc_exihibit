@@ -52,6 +52,7 @@
                         <table class="table table-striped table-bordered table-hover">
                             <tr class="gradeA">
                                 <th>选择</th>
+                                <th>账目类型</th>
                                 <th>藏品名称</th>
                                 <th>修复前</th>
                                 <th>修复中</th>
@@ -69,6 +70,7 @@
                                     <td>
                                         <input type="checkbox" name="outside_repair_id" value="{{$v['outside_repair_id']}}">
                                     </td>
+                                    <td>{{\App\Dao\ConstDao::$type_desc[$v['account_type']]}}</td>
                                     <td>{{$v['name']}}</td>
                                     <td>
                                         @if($v['before_pic']!='')

@@ -6,6 +6,8 @@ Route::group([
 ], function () {
     //待审批的申请列表(默认是征集申请)
     Route::get('export_collect_apply', 'ApplyController@export_collect_apply')->name('admin.applymanage.export_collect_apply');
+    //历史申请记录列表(默认是征集申请)
+    Route::get('history_apply', 'ApplyController@history_apply')->name('admin.applymanage.history_apply');
 
     //征集申请拒绝批量审核通过
     Route::post('collect_apply_pass', 'ApplyController@collect_apply_pass')->name('admin.applymanage.collect_apply_pass');

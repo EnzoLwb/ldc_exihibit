@@ -78,6 +78,18 @@
                                 @endif
                             </div>
                             <div class="form-group">
+                                <label class="col-sm-2 control-label">选择账目类型</label>
+                                <div class="col-sm-4">
+                                    <select name="account_type" id="account_type" class="form-control">
+                                        @foreach(\App\Dao\ConstDao::$type_desc as $k=>$v)
+                                            <option value="{{$k}}"
+                                                    @if(isset($data)&&$k == $data['account_type']) selected @endif
+                                            >{{$v}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-sm-2 control-label">藏品名称(*)</label>
                                 <div class="col-sm-4">
                                     <select name="exhibit_sum_register_id" id="exhibit_id" autocomplete="off" class="form-control">
@@ -86,12 +98,12 @@
                                         @endforeach
                                     </select><br/>
                                     <input type="hidden" value="" name="name" id="exhibit_name">
-                                    分类号   <input class="form-control" id="type_no" type="text" placeholder="选择藏品" disabled>
-                                    年代     <input class="form-control" id="age" type="text" placeholder="选择藏品" disabled>
-                                    质地     <input class="form-control" id="quality" type="text" placeholder="选择藏品" disabled>
-                                    藏品级别 <input class="form-control" id="level" type="text" placeholder="选择藏品" disabled>
-                                    器物尺寸 <input class="form-control" id="size" type="text" placeholder="选择藏品" disabled>
-                                    重量     <input class="form-control" id="weight" type="text" placeholder="选择藏品" disabled>
+                                    分类号   <input class="form-control" id="type_no" type="text" disabled>
+                                    年代     <input class="form-control" id="age" type="text" disabled>
+                                    质地     <input class="form-control" id="quality" type="text"  disabled>
+                                    藏品级别 <input class="form-control" id="level" type="text"  disabled>
+                                    器物尺寸 <input class="form-control" id="size" type="text"  disabled>
+                                    重量     <input class="form-control" id="weight" type="text"  disabled>
                                 </div>
                                 @if ($errors->has('name'))
                                     <span class="help-block">
@@ -221,9 +233,10 @@
         //查询商品详情
         function ajaxExhibitDetail() {
             var exhibit_id=$("#exhibit_id").val();
+            var account_type=$('#account_type').val();
             $.ajax('{{route("admin.repaireexhibit.exhibit.detail")}}', {
                 method: 'POST',
-                data: {'exhibit_id':exhibit_id},
+                data: {'exhibit_id':exhibit_id,'account_type':account_type},
                 dataType: 'json'
             }).done(function (response) {
                 $('#type_no').val(response.type_no);
@@ -234,6 +247,20 @@
                 $('#weight').val(response.weight);
             });
         }
+        $('#account_type').change(function () {
+            //改变藏品的类型后改变下面的藏品名称  辅助账或者总账
+            $.ajax('{{route("admin.accountmanage.item_list")}}', {
+                method: 'get',
+                data: {'type': $("#account_type").val()},
+                dataType: 'json'
+            }).done(function (response) {
+                len = response.data.length
+                $("#exhibit_id").html('');
+                for (i=0;i<len;i++){
+                    $("#exhibit_id").append("<option value='"+response.data[i].register_id+"'>"+response.data[i].name+"</option>");
+                }
+            });
+        })
         //藏品详情 显示  绑定藏品信息
         $(function(){
             $('#exhibit_name').val($('#exhibit_id option:selected').text());

@@ -24,12 +24,13 @@ class CreateOutsideRepairTable extends Migration
 			$table->integer('exhibit_sum_register_id',false,true)->comment('藏品id');
 			$table->string('name',50)->comment('藏品名称');
 			$table->tinyInteger('apply_status',false,true)->default('0')->comment('申请状态 0 未提交申请，1 等待审批 2 审批通过 3 审批拒绝');
-			$table->tinyInteger('repair_num',false,true)->comment('修复数量')->nullable();
+			$table->integer('repair_num',false,true)->comment('修复数量')->nullable();
 			$table->integer('plan_price',false,true)->comment('估价')->nullable();
 			$table->string('expert_signature',50)->comment('专家签字')->nullable();
 			$table->text('incomplete_status')->comment('残缺情况')->nullable();
 			$table->text('repair_require')->comment('修复要求')->nullable();
 			$table->timestamp('date')->comment('日期');
+			$table->string('account_type', 50)->default('exhibit')->comment('账目类型 exhibit为总账类型 subsidiary为辅助账类型');
 			$table->timestamps();
 			if (env('DB_CONNECTION') == 'oracle') {
 				$table->comment = $this->tableComment;

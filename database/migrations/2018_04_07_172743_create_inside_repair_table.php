@@ -40,6 +40,7 @@ class CreateInsideRepairTable extends Migration
 			$table->timestamp('pickup_date')->comment('提取日期');
 			$table->timestamp('return_date')->comment('归还日期');
 			$table->string('acceptor',20)->nullable()->comment('验收人');
+			$table->string('account_type', 50)->default('exhibit')->comment('账目类型 exhibit为总账类型 subsidiary为辅助账类型');
 			$table->timestamps();
 			if (env('DB_CONNECTION') == 'oracle') {
 				$table->comment = $this->tableComment;

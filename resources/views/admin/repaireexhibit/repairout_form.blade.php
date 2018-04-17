@@ -67,7 +67,18 @@
                                 </div>
                                 <input type="hidden" id="files_3" name="after_pic" value="{{$data['after_pic']  or ''}}"/>
                             </div>
-
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">选择账目类型</label>
+                                <div class="col-sm-4">
+                                    <select name="account_type" id="account_type" class="form-control">
+                                        @foreach(\App\Dao\ConstDao::$type_desc as $k=>$v)
+                                            <option value="{{$k}}"
+                                                    @if(isset($data)&&$k == $data['account_type']) selected @endif
+                                            >{{$v}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">藏品名称(*)</label>
                                 <div class="col-sm-4">
@@ -164,9 +175,10 @@
         //查询商品详情
         function ajaxExhibitDetail() {
             var exhibit_id=$("#exhibit_id").val();
+            var account_type=$('#account_type').val();
             $.ajax('{{route("admin.repaireexhibit.exhibit.detail")}}', {
                 method: 'POST',
-                data: {'exhibit_id':exhibit_id},
+                data: {'exhibit_id':exhibit_id,'account_type':account_type},
                 dataType: 'json'
             }).done(function (response) {
                 $('#type_no').val(response.type_no);
@@ -177,6 +189,30 @@
                 $('#weight').val(response.weight);
             });
         }
+        $('#account_type').change(function () {
+            //改变藏品的类型后改变下面的藏品名称  辅助账或者总账
+            $.ajax('{{route("admin.accountmanage.item_list")}}', {
+                method: 'get',
+                data: {'type': $("#account_type").val()},
+                dataType: 'json'
+            }).done(function (response) {
+                len = response.data.length
+                $("#exhibit_id").html('');
+                for (i=0;i<len;i++){
+                    $("#exhibit_id").append("<option value='"+response.data[i].register_id+"'>"+response.data[i].name+"</option>");
+                }
+            });
+        })
+        //藏品详情 显示  绑定藏品信息
+        $(function(){
+            $('#exhibit_name').val($('#exhibit_id option:selected').text());
+            ajaxExhibitDetail();
+            $("#exhibit_id").bind("change",function () {
+                //传入藏品名称给hidden
+                $('#exhibit_name').val($('#exhibit_id option:selected').text());
+                ajaxExhibitDetail();
+            });
+        });
         //藏品详情 显示  绑定藏品信息
         $(function(){
             $('#exhibit_name').val($('#exhibit_id option:selected').text());

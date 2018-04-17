@@ -42,6 +42,7 @@
                         <table class="table table-striped table-bordered table-hover">
                             <tr class="gradeA">
                                 <th>选择</th>
+                                <th>账目类型</th>
                                 <th>藏品名称</th>
                                 <th>注销凭证号</th>
                                 <th>注销凭证名称</th>
@@ -59,6 +60,7 @@
                                     <td>
                                         <input type="checkbox" name="logout_id" value="{{$v['logout_id']}}">
                                     </td>
+                                    <td>{{\App\Dao\ConstDao::$type_desc[$v['account_type']]}}</td>
                                     <td>{{$v['name']}}</td>
                                     <td>{{$v['logout_num']}}</td>
                                     <td>{{$v['logout_name']}}</td>

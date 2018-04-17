@@ -18,7 +18,7 @@ class CreateExhibitLogoutTable extends Migration
     {
         Schema::create('exhibit_logout', function (Blueprint $table) {
             $table->increments($this->primaryKey);
-            $table->integer('exhibit_sum_register_id',false,true)->comment('藏品id')->nullable();
+            $table->integer('exhibit_sum_register_id',false,true)->comment('藏品id');
 			$table->string('logout_num',50)->comment('注销凭证号');
 			$table->string('logout_name', 50)->comment('注销凭证名称');
 			$table->string('logout_date', 50)->comment('注销日期');
@@ -26,6 +26,7 @@ class CreateExhibitLogoutTable extends Migration
 			$table->string('logout_reason', 50)->comment('注销原因')->nullable();
 			$table->string('logout_desc', 50)->comment('详情描述')->nullable();
 			$table->string('register', 50)->comment('登记人')->nullable();
+			$table->string('account_type', 50)->default('exhibit')->comment('账目类型 exhibit为总账类型 subsidiary为辅助账类型');
 			$table->timestamp('register_date')->comment('登记日期')->nullable();
 			$table->tinyInteger("status")->default(0)->nullable()->comment('状态：0 未提交申请，1 等待审批 2 审批通过 3 审批拒绝');
             $table->timestamps();

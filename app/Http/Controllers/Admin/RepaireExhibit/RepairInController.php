@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin\RepaireExhibit;
 
+use App\Dao\ConstDao;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\RepairinPost;
 use App\Models\Exhibit;
 use App\Models\ExhibitRepair\InsideRepair;
+use App\Models\Subsidiary;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -70,8 +72,15 @@ class RepairInController extends BaseAdminController
 	 */
 	public function exhibit_detail(Request $request)
 	{
-		$res=Exhibit::find($request->exhibit_id);
-		$data=['size'=>$res->size,'weight'=>$res->quality,'type_no'=>$res->type_num,'age'=>$res->age,'level'=>$res->exhibit_level,'quality'=>$res->textaure1];
+		if ($request->account_type==ConstDao::ACCOUNT_SUM){
+			//总账类型
+			$res=Exhibit::find($request->exhibit_id);
+			$data=['size'=>$res->size,'weight'=>$res->quality,'type_no'=>$res->type_num,'age'=>$res->age,'level'=>$res->exhibit_level,'quality'=>$res->textaure1];
+		}elseif ($request->account_type==ConstDao::ACCOUNT_SUB){
+			//辅助账
+			$res=Subsidiary::find($request->exhibit_id);
+			$data=['size'=>'','weight'=>'','type_no'=>$res->type_num,'age'=>$res->age,'level'=>'','quality'=>$res->textaure1];
+		}
 		return response()->json($data);
 	}
 	/**

@@ -69,17 +69,16 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="col-sm-2 control-label">账目类型</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" name="name" value="{{\App\Dao\ConstDao::$type_desc[$data['account_type']]}}" disabled/>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-sm-2 control-label">藏品信息</label>
                                 <div class="col-sm-4">
                                     <input type="text" class="form-control" name="name" value="{{$data['name']}}" disabled/>
                                     <input type="hidden" class="form-control" id="exhibit_id" value="{{$data['exhibit_sum_register_id']}}" disabled/>
-                                    <br/>
-                                    分类号   <input class="form-control" id="type_no" type="text"  disabled>
-                                    年代     <input class="form-control" id="age" type="text"  disabled>
-                                    质地     <input class="form-control" id="quality" type="text" disabled>
-                                    藏品级别 <input class="form-control" id="level" type="text"  disabled>
-                                    器物尺寸 <input class="form-control" id="size" type="text"  disabled>
-                                    重量     <input class="form-control" id="weight" type="text"  disabled>
                                 </div>
                             </div>
                             <div class="form-group">

@@ -52,6 +52,7 @@
                             <tr class="gradeA">
                                 <th>选择</th>
                                 <th>档案号</th>
+                                <th>账目类型</th>
                                 <th>藏品名称</th>
                                 <th>提取日期</th>
                                 <th>归还时间</th>
@@ -67,6 +68,7 @@
                                         <input type="checkbox" name="inside_repair_id" value="{{$v['inside_repair_id']}}">
                                     </td>
                                     <td>{{$v['repair_order_name']}}</td>
+                                    <td>{{\App\Dao\ConstDao::$type_desc[$v['account_type']]}}</td>
                                     <td>{{$v['name']}}</td>
                                     <td>{{$v['pickup_date']}}</td>
                                     <td>{{$v['return_date']}}</td>
