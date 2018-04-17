@@ -29,7 +29,10 @@ Route::group([
     Route::post('instorageroom_save', 'InstorageManageController@instorageroom_save')->name('admin.exhibitmanage.instorageroom_save');
     //出库申请
     Route::get('outstorageroom/oustorageapply', 'InstorageManageController@oustorageapply')->name('admin.exhibitmanage.outstorageroom.oustorageapply');
+    //新增文物出库申请
     Route::get('outstorageroom/add_oustorageapply', 'InstorageManageController@add_oustorageapply')->name('admin.exhibitmanage.outstorageroom.add_oustorageapply');
+    //新增辅助文物出库申请
+    Route::get('outstorageroom/add_sub_oustorageapply', 'InstorageManageController@add_sub_oustorageapply')->name('admin.exhibitmanage.outstorageroom.add_sub_oustorageapply');
     Route::post('outstorageroom/oustorageapply_submit', 'InstorageManageController@oustorageapply_submit')->name('admin.exhibitmanage.outstorageroom.oustorageapply_submit');
     //提交审核
     Route::post('outstorageroom/oustorageapply_save', 'InstorageManageController@oustorageapply_save')->name('admin.exhibitmanage.outstorageroom.oustorageapply_save');

@@ -177,9 +177,9 @@
 
 
                                     <div id="poi_4_picker">选择附件</div>
-                                    @if(isset($exhibit) && $exhibit['squar_list_img'] != '')
+                                    @if(isset($exhibit) && isset($exhibit['files'])&& $exhibit['files'] != '')
                                         <div class="img-div">
-                                            <img src="{{get_file_url($exhibit['squar_list_img'])}}"/>
+                                            <img src="{{get_file_url($exhibit['files'])}}"/>
                                             <span class="cancel">×</span>
                                         </div>
                                     @endif

@@ -10,6 +10,7 @@ use App\Models\ExhibitUsedApply;
 use App\Models\ExhibitUseItem;
 use App\Models\Frame;
 use App\Models\Storageroommanage\StorageRoom;
+use App\Models\Subsidiary;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Admin\BaseAdminController;
@@ -158,15 +159,24 @@ class InstorageManageController extends BaseAdminController
         }
         foreach ($list as $key => $item) {
             $exhibit_ids = $item->exhibit_list;
-            $exhibit_ids = explode(",", $exhibit_ids);
+            $exhibit_ids = \json_decode($exhibit_ids, true);
+            $list[$key]->apply_type = $exhibit_ids['type'];
+            $exhibit_ids = $exhibit_ids['ids'];
+            $exhibits = array();
             $names = '';
             if (!empty($exhibit_ids)) {
-                $exhibits = Exhibit::whereIn('exhibit_sum_register_id', $exhibit_ids)->get();
+                if($list[$key]->apply_type == ConstDao::ACCOUNT_SUM){
+                    $exhibits = Exhibit::whereIn('exhibit_sum_register_id', $exhibit_ids)->get();
+                }else{
+                    $exhibits = Subsidiary::whereIn('subsidiary_id', $exhibit_ids)->get();
+                }
+
             }
             foreach ($exhibits as $exhibit) {
                 $names .= $exhibit->name . ",";
             }
             $list[$key]->exhibit_names = $names;
+
         }
         $res['exhibit_list'] = $list;
         return view('admin.exhibitmanage.oustorageapply_list', $res);
@@ -184,6 +194,16 @@ class InstorageManageController extends BaseAdminController
         return view('admin.exhibitmanage.add_oustorageapply', $res);
     }
 
+    /**
+     * 新增辅助文物出库申请
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function add_sub_oustorageapply(){
+        $exhibit_used_apply_id = \request('exhibit_used_apply_id');
+        $info = ExhibitUsedApply::where('exhibit_used_apply_id', $exhibit_used_apply_id)->first();
+        $res['info'] = $info;
+        return view('admin.exhibitmanage.add_sub_oustorageapply', $res);
+    }
 
     /**
      * 保存出库申请的相关信息
@@ -204,7 +224,16 @@ class InstorageManageController extends BaseAdminController
         }
         $exhibit_used_apply->type = ConstDao::EXHIBIT_USED_OUTER;
         $exhibit_used_apply->status = ConstDao::EXHIBIT_USED_APPLY_STATUS_DRAFT;
-        $exhibit_used_apply->exhibit_list = $exhibit_sum_register_ids;
+        $type = \request('type');
+        $ids = array();
+        $raw_ids = explode(',', $exhibit_sum_register_ids);
+        foreach($raw_ids as $id){
+            if(!empty($id)){
+                $ids[] = $id;
+            }
+        }
+        $exhibit_id_list = array('type'=>$type, 'ids'=>$ids);
+        $exhibit_used_apply->exhibit_list = \json_encode($exhibit_id_list);
         $exhibit_used_apply->save();
         return $this->success('oustorageapply', "保存成功");
     }
@@ -253,11 +282,21 @@ class InstorageManageController extends BaseAdminController
             $exhibit_use_model = ExhibitUse::where('exhibit_use_id', $exhibit_use_id)->first();
         }
         $res['exhibit_use_info'] = $exhibit_use_model;
-        $items = ExhibitUseItem::join('exhibit', 'exhibit.exhibit_sum_register_id', '=', 'exhibit_use_item.exhibit_sum_register_id')
-            ->where('exhibit_use_id', $exhibit_use_id)->select('exhibit_use_item_id', 'exhibit_sum_register_num', 'name',
+        $items_1 = ExhibitUseItem::join('exhibit', 'exhibit.exhibit_sum_register_id', '=', 'exhibit_use_item.exhibit_sum_register_id')
+            ->where('exhibit_use_id', $exhibit_use_id)->where('exhibit_use_item.type', ConstDao::ACCOUNT_SUM)->select('exhibit_use_item_id', 'exhibit_sum_register_num', 'name',
                 DB::Raw('ldc_exhibit_use_item.num as t_num'), 'exhibit_level', 'backup_time',
-                'complete_degree', DB::Raw('ldc_exhibit_use_item.backup as t_backup'))->get();
-        $res['exhibit_list'] = $items;
+                'complete_degree', DB::Raw('ldc_exhibit_use_item.backup as t_backup'))->get()->toArray();
+        $items_2 = ExhibitUseItem::join('subsidiary', 'subsidiary.subsidiary_id', '=', 'exhibit_use_item.exhibit_sum_register_id')
+            ->where('exhibit_use_id', $exhibit_use_id)->where('exhibit_use_item.type', ConstDao::ACCOUNT_SUB)
+            ->select('exhibit_use_item_id', 'exhibit_sum_register_num', 'name',
+                DB::Raw('ldc_exhibit_use_item.num as t_num'),  'backup_time',
+                 DB::Raw('ldc_exhibit_use_item.backup as t_backup'))->get()->toArray();
+        foreach ($items_2 as $k=>$v){
+            $items_2[$k]['exhibit_level'] = '一级';
+            $items_2[$k]['complete_degree'] = '未知';
+        }
+
+        $res['exhibit_list'] = array_merge($items_1, $items_2);
         return view('admin.exhibitmanage.add_exhibitout', $res);
     }
 
