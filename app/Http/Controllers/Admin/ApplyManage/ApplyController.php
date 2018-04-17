@@ -379,11 +379,14 @@ class ApplyController extends BaseAdminController
             $exhibit_use->save();
             //增加审核条目
             $exhibit_ids = $exhibit_apply_model->exhibit_list;
-            $exhibit_ids = explode(',', $exhibit_ids);
+            $exhibit_ids = \json_decode( $exhibit_ids, true);
+            $type = $exhibit_ids['type'];
+            $exhibit_ids = $exhibit_ids['ids'];
             foreach($exhibit_ids as $exhibit_id){
                 $item = new ExhibitUseItem();
                 $item->exhibit_sum_register_id = $exhibit_id;
                 $item->exhibit_use_id = $exhibit_use->exhibit_use_id;
+                $item->type = $type;
                 $item->save();
             }
         }

@@ -14,7 +14,8 @@
                         <li><a href="javascript:void(0)" onclick="apply_submit()">提交申请</a></li>
                         <li><a href="javascript:void(0)" onclick="export_xls()">导出</a></li>
                         <li><a href="{{route('admin.exhibitmanage.outstorageroom.oustorageapply')}}">打印</a></li>
-                        <li ><a href="{{route('admin.exhibitmanage.outstorageroom.add_oustorageapply')}}">新增</a></li>
+                        <li ><a href="{{route('admin.exhibitmanage.outstorageroom.add_oustorageapply')}}">新增文物出库申请</a></li>
+                        <li ><a href="{{route('admin.exhibitmanage.outstorageroom.add_sub_oustorageapply')}}">新增辅助文物出库申请</a></li>
                     </ul>
                 </div>
             </div>
@@ -68,7 +69,11 @@
                                     <td>{{\App\Dao\ConstDao::$exhibit_used_apply_desc[$exhibit['status']]}} </td>
                                     <td>
                                         @if($exhibit['status'] == \App\Dao\ConstDao::EXHIBIT_USED_APPLY_STATUS_DRAFT)
-                                            <a href="{{route('admin.exhibitmanage.outstorageroom.add_oustorageapply')."?exhibit_used_apply_id=".$exhibit['exhibit_used_apply_id']}}">修改</a> |
+                                            @if($exhibit['apply_type'] == \App\Dao\ConstDao::ACCOUNT_SUM)
+                                                <a href="{{route('admin.exhibitmanage.outstorageroom.add_oustorageapply')."?exhibit_used_apply_id=".$exhibit['exhibit_used_apply_id']}}">修改</a> |
+                                            @elseif($exhibit['apply_type'] == \App\Dao\ConstDao::ACCOUNT_SUB)
+                                                <a href="{{route('admin.exhibitmanage.outstorageroom.add_sub_oustorageapply')."?exhibit_used_apply_id=".$exhibit['exhibit_used_apply_id']}}">修改</a> |
+                                            @endif
                                             <a href="">删除</a>
                                         @endif
                                     </td>

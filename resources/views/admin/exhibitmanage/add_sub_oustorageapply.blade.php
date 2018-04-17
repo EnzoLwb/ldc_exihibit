@@ -77,10 +77,10 @@
                                            value="{{$info['outer_destination'] or ''}}" />
                                 </div>
                             </div>
-                            <input type="hidden" name="type" id="type" value="{{\App\Dao\ConstDao::ACCOUNT_SUM}}">
                             <input type="hidden" name="exhibit_sum_register_id" id="exhibit_sum_register_ids" value="">
+                            <input type="hidden" name="type" id="type" value="{{\App\Dao\ConstDao::ACCOUNT_SUB}}">
                             <iframe class="J_iframe" name="rIframe" id="rIframe" width="100%" height="100%" frameborder="0"
-                                    src="{{route('admin.exhibitidentify.get_exhibit_list')}}"></iframe>
+                                    src="{{route('admin.exhibitidentify.get_sub_exhibit_list')}}"></iframe>
                             <div class="form-group">
                                 <div class="col-sm-4 col-sm-offset-2">
                                     <button class="btn btn-primary" type="submit">保存</button>

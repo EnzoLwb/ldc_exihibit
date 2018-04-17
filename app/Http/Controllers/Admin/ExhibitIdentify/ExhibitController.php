@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Admin\ExhibitIdentify;
 
 use App\Dao\ConstDao;
 use App\Models\IdentifyApply;
+use App\Models\Subsidiary;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Models\Exhibit;
+use Illuminate\Support\Facades\DB;
+
 /**
  * 鉴定相关功能
  * Class ExhibitController
@@ -128,5 +131,13 @@ class ExhibitController extends BaseAdminController
         }
         $res['exhibit_list'] = $exhibit_list;
         return view('admin.exhibitidentify.manage', $res);
+    }
+
+    /**
+     * 辅助文物列表
+     */
+    public function get_sub_exhibit_list(){
+        $res['exhibit_list'] = Subsidiary::select(DB::Raw('subsidiary_id as exhibit_sum_register_id'), 'name')->paginate(parent::PERPAGE);
+        return view('admin.exhibitidentify.exhibit_list', $res);
     }
 }

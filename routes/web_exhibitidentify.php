@@ -9,6 +9,9 @@ Route::group([
     Route::get('apply', 'ExhibitController@apply')->name('admin.exhibitidentify.exhibit');
     //鉴定申请提供数据
     Route::get('get_exhibit_list', 'ExhibitController@get_exhibit_list')->name('admin.exhibitidentify.get_exhibit_list');
+    //获得辅助文物列表
+    Route::get('get_sub_exhibit_list', 'ExhibitController@get_sub_exhibit_list')->name('admin.exhibitidentify.get_sub_exhibit_list');
+
     //鉴定申请添加页面展示
     Route::get('add', 'ExhibitController@add')->name('admin.exhibitidentify.add');
     //鉴定申请保存
