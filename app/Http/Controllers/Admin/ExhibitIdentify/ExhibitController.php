@@ -52,7 +52,13 @@ class ExhibitController extends BaseAdminController
         $res['exhibit_sum_register_ids'] = explode(',',$ids);
         return view('admin.exhibitidentify.exhibit_list', $res);
     }
-
+	/**
+	 * 辅助账列表
+	 */
+	public function get_subsidiary_list(){
+		$res['subsidiary_list'] = Subsidiary::paginate(parent::PERPAGE);
+		return view('admin.exhibitidentify.subsidiary_list', $res);
+	}
     /**
      * 鉴定申请保存，信息编辑
      */

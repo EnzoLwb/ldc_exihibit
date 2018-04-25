@@ -9,6 +9,7 @@ Route::group([
     Route::get('apply', 'ExhibitController@apply')->name('admin.exhibitidentify.exhibit');
     //鉴定申请提供数据
     Route::get('get_exhibit_list', 'ExhibitController@get_exhibit_list')->name('admin.exhibitidentify.get_exhibit_list');
+    Route::get('get_subsidiary_list', 'ExhibitController@get_subsidiary_list')->name('admin.exhibitidentify.get_subsidiary_list');
     //获得辅助文物列表
     Route::get('get_sub_exhibit_list', 'ExhibitController@get_sub_exhibit_list')->name('admin.exhibitidentify.get_sub_exhibit_list');
 

@@ -57,7 +57,10 @@
                                     <td>
                                         <input type="checkbox" name="repair_id" value="{{$v['repair_id']}}">
                                     </td>
-                                    <td>{{$v->exhibitName($v['exhibit_sum_register_id'])}}</td>
+                                    <td>
+                                        {{$v->exhibitName($v['exhibit_sum_register_id'])}}<br/>
+                                        {{$v->subsidiaryName($v['subsidiary_id'])}}
+                                    </td>
                                     <td>{{$v['repair_order_no']}}</td>
                                     <td>{{$v['repair_order_name']}}</td>
                                     <td>{{$v['plan_expense']}}</td>

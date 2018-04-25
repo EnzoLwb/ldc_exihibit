@@ -67,10 +67,22 @@
                                 </div>
                             </div>
                             <input type="hidden" name="exhibit_sum_register_id" id="exhibit_sum_register_ids" value="">
-                            <iframe class="J_iframe" name="rIframe" id="rIframe" width="100%" height="200%" frameborder="0" src="{{route('admin.exhibitidentify.get_exhibit_list')}}"></iframe>
+                            <input type="hidden" name="subsidiary_id" id="subsidiary_ids" value="">
+                            <div>
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">从以下列表中选择藏品(至少一件)</label>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <iframe class="J_iframe" name="rIframe" id="rIframe" width="100%" style="height: 200px;" frameborder="0" src="{{route('admin.exhibitidentify.get_exhibit_list')}}"></iframe>
+                                </div>
+                                <div class="col-sm-5">
+                                    <iframe class="J_iframe" name="rIframe" id="rIframe" width="100%" style="height: 200px;" frameborder="0" src="{{route('admin.exhibitidentify.get_subsidiary_list')}}"></iframe>
+                                </div>
+                            </div>
 
-                            <div class="form-group">
-                                <div class="col-sm-4 col-sm-offset-2">
+                            <div class="form-group" >
+                                <div class="col-sm-6 col-sm-offset-4" style="margin-top: 80px">
                                     <button class="btn btn-primary" type="submit">保存</button>
                                     <button class="btn btn-white" type="button" id="backBtn">返回</button>
                                 </div>

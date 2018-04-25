@@ -4,6 +4,7 @@ namespace App\Models\ExhibitRepair;
 
 use App\Models\BaseMdl;
 use App\Models\Exhibit;
+use App\Models\Subsidiary;
 
 /**
  * 藏品修复申请模型
@@ -24,20 +25,42 @@ class RepairApply extends BaseMdl
 	{
 		return $key>3?'未知状态':$this->apply_status[$key];
 	}
-	//藏品名称
+	//总账藏品名称
 	public function exhibitName($exhibit_sum_register_id)
 	{
 		$exhibit_sum_register_ids = explode(',',$exhibit_sum_register_id);
 
 		$new_names = '';
-		if(!empty($exhibit_sum_register_ids)){
+		if(!empty($exhibit_sum_register_ids[0])){
 			$list = Exhibit::whereIn('exhibit_sum_register_id',$exhibit_sum_register_ids)->select('name')->get();
 
 			foreach($list as $item1){
 				$name = $item1->name;
 				$new_names = $new_names.$name.",";
 			}
+			$names='总账藏品：'.$new_names;
+		}else{
+			$names='无总账藏品';
 		}
-		return rtrim($new_names,',');
+		return rtrim($names,',');
+	}
+	//辅助账藏品名称
+	public function subsidiaryName($subsidiary_id)
+	{
+		$subsidiary_ids = explode(',',$subsidiary_id);
+
+		$new_names = '';
+		if(!empty($subsidiary_ids[0])){
+			$list = Subsidiary::whereIn('subsidiary_id',$subsidiary_ids)->select('name')->get();
+
+			foreach($list as $item1){
+				$name = $item1->name;
+				$new_names = $new_names.$name.",";
+			}
+			$names='辅助账藏品：'.$new_names;
+		}else{
+			$names='无辅助账藏品';
+		}
+		return rtrim($names,',');
 	}
 }

@@ -37,7 +37,7 @@
             <div class="col-sm-12">
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
-                        <li><a href="javascript:void(0)" onclick="do_submit()">提交申请</a></li>
+                        <!--<li><a href="javascript:void(0)" onclick="do_submit()">提交申请</a></li>-->
                         <li><a href="javascript:void(0)" onclick="export_list()">导出</a></li>
                         <li><a href="javascript:void(0)" onclick="do_print()">打印</a></li>
                     </ul>
@@ -59,7 +59,7 @@
                                 <th>主持人</th>
                                 <th>修复人</th>
                                 <th>文物现状</th>
-                                <th>申请状态</th>
+                                {{--<th>申请状态</th>--}}
                                 <th>操作</th>
                             </tr>
                             @foreach($data as $k => $v)
@@ -75,7 +75,7 @@
                                     <td>{{$v['host']}}</td>
                                     <td>{{$v['restorer']}}</td>
                                     <td>{{$v['exhibit_status']}}</td>
-                                    <td>{{$v->applyStatus($v['apply_status'])}}</td>
+{{--                                    <td>{{$v->applyStatus($v['apply_status'])}}</td>--}}
                                     <td>
                                         <a href="{{route('admin.repaireexhibit.repairin.detail',['inside_repair_id'=>$v['inside_repair_id']])}}">查看详情</a>
                                         <a href="{{route('admin.repaireexhibit.repairin.delete',['inside_repair_id'=>$v['inside_repair_id']])}}"
