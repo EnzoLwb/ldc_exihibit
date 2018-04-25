@@ -79,7 +79,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">完残程度</label>
                                 <div class="col-sm-4">
-                                    <input type="number" class="form-control" id="complete_degree" name="complete_degree"
+                                    <input type="text" class="form-control" id="complete_degree" name="complete_degree"
                                            value="{{$info['complete_degree'] or ''}}" />
                                 </div>
                             </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\ExhibitIdentify;
 
 use App\Dao\ConstDao;
+use App\Models\Expert;
 use App\Models\IdentifyApply;
 use App\Models\Subsidiary;
 use Illuminate\Http\Request;
@@ -47,6 +48,8 @@ class ExhibitController extends BaseAdminController
      */
     public function get_exhibit_list(){
         $res['exhibit_list'] = Exhibit::paginate(parent::PERPAGE);
+        $ids = \request('exhibit_sum_register_id');
+        $res['exhibit_sum_register_ids'] = explode(',',$ids);
         return view('admin.exhibitidentify.exhibit_list', $res);
     }
 	/**
@@ -111,6 +114,8 @@ class ExhibitController extends BaseAdminController
     public function add(){
         $identify_apply_id = \request('identify_apply_id');
         $res['info'] = IdentifyApply::findorNew($identify_apply_id);
+        $res['exhibit_sum_register_id'] = $res['info']->exhibit_sum_register_id;
+        $res['expert_list'] =Expert::join('admin_users','expert.admin_user_id','=','admin_users.uid')->select('expert_id','username')->get();
         return view('admin.exhibitidentify.add', $res);
     }
 

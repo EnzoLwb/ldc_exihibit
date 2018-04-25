@@ -129,10 +129,10 @@ class IndexController extends BaseAdminController
         $type = \request('type', ConstDao::ACCOUNT_SUM);
         $list = array();
         if($type == ConstDao::ACCOUNT_SUM){
-            $list = Exhibit::select(DB::Raw('exhibit_sum_register_id as register_id'),'name')->get();
+            $list = Exhibit::select(DB::Raw('exhibit_sum_register_id as register_id'),'name','room_number')->get();
         }
         elseif($type == ConstDao::ACCOUNT_SUB){
-            $list = Subsidiary::select(DB::Raw('subsidiary_id as register_id'), 'name')->get();
+            $list = Subsidiary::select(DB::Raw('subsidiary_id as register_id'), 'name','room_number')->get();
         }
         return response_json(1,$list,'获得信息');
     }

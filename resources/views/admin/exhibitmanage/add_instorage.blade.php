@@ -144,7 +144,10 @@
                 len = response.data.length
                 $("#exhibit_sum_register_id").html('');
                 for (i=0;i<len;i++){
-                    $("#exhibit_sum_register_id").append("<option value='"+response.data[i].register_id+"'>"+response.data[i].name+"</option>");
+                    if(response.data[i].room_number.length == 0){
+                        $("#exhibit_sum_register_id").append("<option value='"+response.data[i].register_id+"'>"+response.data[i].name+"</option>");
+                    }
+
                 }
             });
         }
