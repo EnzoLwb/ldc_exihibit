@@ -15,4 +15,6 @@ Route::group([
 
     //根据总账或者辅助账类型，获得明细
     Route::get('item_list', 'IndexController@item_list')->name('admin.accountmanage.item_list');
+    //修复申请中涉及的藏品
+    Route::get('repair_item_list', 'IndexController@repair_item_list')->name('admin.accountmanage.repair_item_list');
 });

@@ -34,9 +34,9 @@ class RepairInController extends BaseAdminController
 		$inside_repair=new InsideRepair();
 		//搜索项 搜索藏品名称
 		if (!empty( $request->repair_order_name)){
-			$data=$inside_repair->where('repair_order_name','like',"%{$request->repair_order_name}%")->paginate(parent::PERPAGE);
+			$data=$inside_repair->where('repair_order_name','like',"%{$request->repair_order_name}%")->latest()->paginate(parent::PERPAGE);
 		}else{
-			$data=$inside_repair->paginate(parent::PERPAGE);
+			$data=$inside_repair->latest()->paginate(parent::PERPAGE);
 		}
         return view('admin.repaireexhibit.repairin', [
 			'data' => $data
@@ -61,9 +61,9 @@ class RepairInController extends BaseAdminController
 	 */
 	public function add()
 	{
-		//返回藏品名称和id
-		$res=Exhibit::select('exhibit_sum_register_id as exhibit_id','name')->get()->toArray();
-		return view('admin.repaireexhibit.repairin_form',['exhibit'=>$res]);
+		//返回藏品名称和id  (需求更改后 就不显示)
+//		$res=Exhibit::select('exhibit_sum_register_id as exhibit_id','name')->get()->toArray();
+		return view('admin.repaireexhibit.repairin_form');
 	}
 	/**
 	 * 藏品详情查询

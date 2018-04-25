@@ -78,9 +78,10 @@
                                 @endif
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">选择账目类型</label>
+                                <label class="col-sm-2 control-label">账目类型</label>
                                 <div class="col-sm-4">
                                     <select name="account_type" id="account_type" class="form-control">
+                                        <option>请选择</option>
                                         @foreach(\App\Dao\ConstDao::$type_desc as $k=>$v)
                                             <option value="{{$k}}"
                                                     @if(isset($data)&&$k == $data['account_type']) selected @endif
@@ -93,9 +94,7 @@
                                 <label class="col-sm-2 control-label">藏品名称(*)</label>
                                 <div class="col-sm-4">
                                     <select name="exhibit_sum_register_id" id="exhibit_id" autocomplete="off" class="form-control">
-                                        @foreach($exhibit as $v)
-                                            <option value="{{$v['exhibit_id']}}" {{@$data['exhibit_sum_register_id']==$v['exhibit_id']||old('exhibit_sum_register_id')==$v['exhibit_id']?'selected':''}}>{{$v['name']}}</option>
-                                        @endforeach
+                                       <option>请先选择账目类型</option>
                                     </select><br/>
                                     <input type="hidden" value="" name="name" id="exhibit_name">
                                     分类号   <input class="form-control" id="type_no" type="text" disabled>
@@ -248,29 +247,28 @@
             });
         }
         $('#account_type').change(function () {
-            //改变藏品的类型后改变下面的藏品名称  辅助账或者总账
-            $.ajax('{{route("admin.accountmanage.item_list")}}', {
-                method: 'get',
-                data: {'type': $("#account_type").val()},
-                dataType: 'json'
-            }).done(function (response) {
-                len = response.data.length
-                $("#exhibit_id").html('');
-                for (i=0;i<len;i++){
-                    $("#exhibit_id").append("<option value='"+response.data[i].register_id+"'>"+response.data[i].name+"</option>");
-                }
-            });
-        })
+            //改变藏品的类型后改变下面的藏品名称  辅助账或者总账 除了请选择情况下
+            if ( $('#account_type').val()!=''){
+                $.ajax('{{route("admin.accountmanage.repair_item_list")}}', {
+                    method: 'get',
+                    data: {'type': $("#account_type").val()},
+                    dataType: 'json'
+                }).done(function (response) {
+                    len = response.data.length
+                    $("#exhibit_id").html('<option>选择具体藏品</option>');
+                    for (i=0;i<len;i++){
+                        $("#exhibit_id").append("<option value='"+response.data[i].register_id+"'>"+response.data[i].name+"</option>");
+                    }
+                });
+            }
+        });
         //藏品详情 显示  绑定藏品信息
-        $(function(){
+        $("#exhibit_id").bind("change",function () {
+            //传入藏品名称给hidden
             $('#exhibit_name').val($('#exhibit_id option:selected').text());
             ajaxExhibitDetail();
-            $("#exhibit_id").bind("change",function () {
-                //传入藏品名称给hidden
-                $('#exhibit_name').val($('#exhibit_id option:selected').text());
-                ajaxExhibitDetail();
-            });
         });
+
             //时间js
         var pickup_date = laydate.render({
             elem: '#pickup_date',

@@ -24,7 +24,7 @@
         </div>
         @include('layouts.apply')
 
-        <div class="row">
+       {{-- <div class="row">
             <div class="col-sm-12">
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
@@ -40,7 +40,7 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </div>--}}
         <div class="row">
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
@@ -65,7 +65,10 @@
                                             <input type="checkbox" name="repair_id" value="{{$v['repair_id']}}">
                                         </td>
                                     @endif
-                                    <td>{{$v->exhibitName($v['exhibit_sum_register_id'])}}</td>
+                                    <td>{{$v->exhibitName($v['exhibit_sum_register_id'])}}
+                                        <br/>
+                                        {{$v->subsidiaryName($v['subsidiary_id'])}}
+                                    </td>
                                     <td>{{$v['repair_order_no']}}</td>
                                     <td>{{$v['repair_order_name']}}</td>
                                     <td>{{$v['plan_expense']}}</td>

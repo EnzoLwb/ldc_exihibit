@@ -35,9 +35,9 @@ class RepairOutController extends BaseAdminController
 		$outside_repair=new OutsideRepair();
 		//搜索项 搜索藏品名称
 		if (!empty( $request->exhibit_name)){
-			$data=$outside_repair->where('name','like',"%{$request->exhibit_name}%")->paginate(parent::PERPAGE);
+			$data=$outside_repair->where('name','like',"%{$request->exhibit_name}%")->latest()->paginate(parent::PERPAGE);
 		}else{
-			$data=$outside_repair->paginate(parent::PERPAGE);
+			$data=$outside_repair->latest()->paginate(parent::PERPAGE);
 		}
 		return view('admin.repaireexhibit.repairout', [
 			'data' => $data
@@ -52,9 +52,7 @@ class RepairOutController extends BaseAdminController
 	 */
 	public function add()
 	{
-		//返回藏品名称和id
-		$res=Exhibit::select('exhibit_sum_register_id as exhibit_id','name')->get()->toArray();
-		return view('admin.repaireexhibit.repairout_form',['exhibit'=>$res]);
+		return view('admin.repaireexhibit.repairout_form');
 	}
 
 	/**
@@ -83,8 +81,6 @@ class RepairOutController extends BaseAdminController
 	 */
 	public function save(RepairOutPost $request)
 	{
-		// 保存数据
-//		dd($request->all());
 		try {
 			$inside = OutsideRepair::find($request->outside_repair_id);
 			if(!$inside){

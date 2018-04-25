@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\AccountManage;
 
+use App\Models\ExhibitRepair\RepairApply;
 use App\Models\Subsidiary;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -135,4 +136,23 @@ class IndexController extends BaseAdminController
         }
         return response_json(1,$list,'获得信息');
     }
+	/**
+	 * 修复申请中涉及的藏品
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	public function repair_item_list(){
+		$type = \request('type', ConstDao::ACCOUNT_SUM);
+		$list = array();
+		if($type == ConstDao::ACCOUNT_SUM){
+			//选择申请中的总账藏品id的集合
+			$exhibit_sum_register_ids = RepairApply::where('apply_status','2')->select(DB::Raw("TRIM(TRAILING ',' from group_concat(exhibit_sum_register_id SEPARATOR '')) as ids"))->get()->toArray();
+			//再去exhibit表中查询这些藏品信息
+			$res=Exhibit::whereRaw("exhibit_sum_register_id in({$exhibit_sum_register_ids[0]['ids']})")->select('exhibit_sum_register_id as register_id','name')->get()->toArray();
+		}
+		elseif($type == ConstDao::ACCOUNT_SUB){
+			$subsidiary_ids = RepairApply::where('apply_status','2')->select(DB::Raw("TRIM(TRAILING ',' from group_concat(subsidiary_id SEPARATOR '')) as ids"))->get()->toArray();
+			$res = Subsidiary::whereRaw("subsidiary_id in({$subsidiary_ids[0]['ids']})")->select('subsidiary_id as register_id','name')->get()->toArray();
+		}
+		return response_json(1,$res,'获得信息');
+	}
 }

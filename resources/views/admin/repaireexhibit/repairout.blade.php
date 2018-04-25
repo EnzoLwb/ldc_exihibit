@@ -38,7 +38,7 @@
             <div class="col-sm-12">
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
-                        <li><a href="javascript:void(0)" onclick="do_submit()">提交申请</a></li>
+                        {{--<li><a href="javascript:void(0)" onclick="do_submit()">提交申请</a></li>--}}
                         <li><a href="javascript:void(0)" onclick="export_list()">导出</a></li>
                         <li><a href="javascript:void(0)" onclick="do_print()">打印</a></li>
                     </ul>
@@ -57,7 +57,7 @@
                                 <th>修复前</th>
                                 <th>修复中</th>
                                 <th>修复后</th>
-                                <th>申请状态</th>
+                                {{--<th>申请状态</th>--}}
                                 <th>残损情况</th>
                                 <th>修复要求</th>
                                 <th>时间</th>
@@ -99,7 +99,7 @@
                                             <span>暂无修复后图片</span>
                                         @endif
                                     </td>
-                                    <td>{{$v->applyStatus($v['apply_status'])}}</td>
+{{--                                    <td>{{$v->applyStatus($v['apply_status'])}}</td>--}}
                                     <td>{{$v['incomplete_status']}}</td>
                                     <td>{{$v['repair_require']}}</td>
                                     <td>{{$v['date']}}</td>

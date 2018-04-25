@@ -10,6 +10,7 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
+                        <div>总账列表：</div>
                         <table class="table table-striped table-bordered table-hover dataTables-example dataTable">
                             <thead>
                             <tr role="row">
