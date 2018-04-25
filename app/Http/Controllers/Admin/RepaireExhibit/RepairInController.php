@@ -109,7 +109,7 @@ class RepairInController extends BaseAdminController
 	 */
 	public function save(RepairinPost $request)
 	{
-		// 保存数据
+
 		try {
 			$inside = InsideRepair::find($request->inside_repair_id);
 			if(!$inside){
