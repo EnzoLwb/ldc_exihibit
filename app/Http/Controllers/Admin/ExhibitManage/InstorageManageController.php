@@ -77,6 +77,7 @@ class InstorageManageController extends BaseAdminController
         foreach($exhibit_not_can_used as $item){
             $exhibit_not_can_used_ids[] = $item->exhibit_sum_register_id;
         }
+
         if(!empty($exhibit_not_can_used_ids)){
             if(!empty($exhibit2room)){
                 $list = Exhibit::whereNotIn('exhibit_sum_register_id', $exhibit_not_can_used_ids)->orwhere('exhibit_sum_register_id','=',
@@ -85,19 +86,30 @@ class InstorageManageController extends BaseAdminController
                 $list = Exhibit::whereNotIn('exhibit_sum_register_id', $exhibit_not_can_used_ids)->get()->toArray();
             }
         }else{
-                $list = Exhibit::all()->toArray();
+                $raw =  Exhibit::where('room_number', '')->get()->toArray();
+                $list = array();
+                foreach($raw as $item){
+
+                    if(empty($item['room_number']))
+                    {
+                        $list[]=['exhibit_sum_register_id'=>$item['exhibit_sum_register_id']];
+                    }
+                }
         }
+
         //获得exhibit_id
         $exhibit_sum_register_ids = array();
         foreach($list as $item){
             $exhibit_sum_register_ids[] = $item['exhibit_sum_register_id'];
         }
+
         if(!empty($exhibit_sum_register_ids)){
             $list = Exhibit::whereIn('exhibit_sum_register_id', $exhibit_sum_register_ids)->where('room_number', '')->get()->toArray();
         }
         if(empty($list)){
             return $this->error('暂无可入库的展品');
         }
+
         $res['exhibit_list'] = $list;
         $res['room_list'] = StorageRoom::all();
         $res['info'] = $exhibit2room;
