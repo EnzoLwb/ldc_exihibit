@@ -19,7 +19,11 @@
                             </thead>
                             @foreach($exhibit_list as $exhibit)
                                 <tr class="gradeA">
-                                    <td><input type="checkbox" onclick="change_status(this)" name="collect_apply_id"  value="{{$exhibit['exhibit_sum_register_id']}}"></td>
+                                    <td><input type="checkbox" onclick="change_status(this)"
+                                               @if(isset($exhibit_sum_register_ids) &&in_array($exhibit['exhibit_sum_register_id'], $exhibit_sum_register_ids))
+                                                       checked
+                                               @endif
+                                               name="collect_apply_id"  value="{{$exhibit['exhibit_sum_register_id']}}"></td>
                                     <td>{{$exhibit['name']}}</td>
                                 </tr>
                             @endforeach

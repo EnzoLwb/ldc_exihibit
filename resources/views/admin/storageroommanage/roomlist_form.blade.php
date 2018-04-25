@@ -105,7 +105,7 @@
                             <div class="hr-line-dashed"></div>
                             <div class="form-group">
                                 <div class="col-sm-4 col-sm-offset-2">
-                                    <button class="btn btn-primary" type="submit">结束盘点</button>
+                                    <button class="btn btn-primary" type="submit">保存</button>
                                     <button class="btn btn-white" type="button" id="backBtn">返回</button>
                                 </div>
                             </div>

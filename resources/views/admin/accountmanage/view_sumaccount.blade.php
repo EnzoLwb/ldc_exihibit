@@ -143,7 +143,7 @@
                             </tr>
 
                             <tr><td >文物级别</td><td >
-                                    <select name="exhibit_level" id="exhibit_level" class="form-control" readonly>
+                                    <select name="exhibit_level" id="exhibit_level" class="form-control" disabled>
                                         @foreach(\App\Dao\ConstDao::$exhibit_level_desc as $item)
                                             <option value="{{$item}}"
                                                     @if($item == $info['exhibit_level']) selected @endif
@@ -200,7 +200,7 @@
 
 
                             <td>藏品状态</td><td>
-                                <select class="form-control" name="status" readonly>
+                                <select class="form-control" name="status" disabled>
                                     @foreach(\App\Dao\ConstDao::$exhibit_status_desc as $k=>$v)
 
                                         <option value="{{$k}}"     @if($info['status'] == $k) selected

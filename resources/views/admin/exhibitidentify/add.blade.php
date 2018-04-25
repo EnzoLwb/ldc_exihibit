@@ -57,8 +57,13 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">拟鉴定专家</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="identify_expert" name="identify_expert"
-                                           value="{{$info['identify_expert'] or ''}}" required/>
+                                    <select id="identify_expert" class="form-control" name="identify_expert">
+                                        @foreach($expert_list as $item)
+                                            <option @if($item['expert_id'] == $info['identify_expert']) selected  @endif
+                                                    value="{{$item['expert_id']}}">{{$item['username']}}</option>
+                                        @endforeach
+                                    </select>
+
                                 </div>
                             </div>
 
@@ -77,8 +82,8 @@
                                            value="{{$info['register'] or ''}}" required/>
                                 </div>
                             </div>
-                            <input type="hidden" name="exhibit_sum_register_id" id="exhibit_sum_register_ids" value="">
-                            <iframe class="J_iframe" name="rIframe" id="rIframe" width="100%" height="100%" frameborder="0" src="{{route('admin.exhibitidentify.get_exhibit_list')}}"></iframe>
+                            <input type="hidden" name="exhibit_sum_register_id" id="exhibit_sum_register_ids" value="{{$info['exhibit_sum_register_id'] or ''}}">
+                            <iframe class="J_iframe" name="rIframe" id="rIframe" width="100%" height="100%" frameborder="0" src="{{route('admin.exhibitidentify.get_exhibit_list')."?exhibit_sum_register_id=".$exhibit_sum_register_id}}"></iframe>
 
                             <div class="form-group">
                                 <div class="col-sm-4 col-sm-offset-2">

@@ -25,9 +25,9 @@ class CreateAccidentTable extends Migration
             $table->string('result_maker')->nullable()->comment('事故处理单位');
             $table->string('recorder')->nullable()->comment('录入人');
             $table->tinyInteger('status')->nullable()->default(0)->comment('状态，草稿或者审核通过，或者审核拒绝');
-            $table->text('accident_desc')->comment('事故描述');
-            $table->text('proc_dependy')->comment('处理依据');
-            $table->text('proc_suggestion')->comment('处理意见');
+            $table->text('accident_desc')->nullable()->comment('事故描述');
+            $table->text('proc_dependy')->nullable()->comment('处理依据');
+            $table->text('proc_suggestion')->nullable()->comment('处理意见');
 
             $table->timestamps();
             if (env('DB_CONNECTION') == 'oracle') {
