@@ -27,6 +27,10 @@
                             </div>
                             &nbsp;&nbsp;
                             <div class="form-group">
+                                <label class="sr-only">文件描述</label>
+                                <input type="text" name="file_desc" placeholder="文件描述" class="form-control" value="{{request('file_desc')}}">
+                            </div>
+                            <div class="form-group">
                                 <label>添加时间</label>
                                 <input placeholder="开始日期" class="form-control layer-date laydate-icon" id="start" type="text" name="created_at_from" value="{{request('created_at_from')}}"
                                        style="width: 140px;">
@@ -60,7 +64,8 @@
                             <tr role="row">
                                 <th width="2%"><input type="checkbox" class="checkAll"/></th>
                                 <th width="5%">ID</th>
-                                <th width="11%">文件MIME</th>
+                                <th width="11%">文件类型</th>
+                                <th width="11%">文件描述</th>
                                 <th width="25%">文件名 (原始文件名)</th>
                                 <th width="10%" class="sorting" orderby="file_size">文件大小</th>
                                 <th width="15%">存储路径</th>
@@ -74,6 +79,7 @@
                                     <td><input type="checkbox" class="checkItem" value="{{$file['file_id']}}"/></td>
                                     <td>{{$file['file_id']}}</td>
                                     <td>{{$file['file_mime']}}</td>
+                                    <td>{{$file['file_desc']}}</td>
                                     <td>{{$file['file_name']}}<br/>({{$file['file_oldname']}})</td>
                                     <td>{{file_size_format($file['file_size'])}}</td>
                                     <td>{{$file['file_path']}}</td>

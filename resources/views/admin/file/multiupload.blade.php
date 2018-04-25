@@ -30,6 +30,7 @@
                             <table id="thelist" class="table table-striped table-bordered table-hover dataTables-example dataTable">
                                 <thead>
                                 <tr role="row">
+                                    <td width="15%">文件描述</td>
                                     <td width="30%">文件名</td>
                                     <td width="10%">大小</td>
                                     <td width="15%">类型</td>
@@ -60,7 +61,7 @@
             var $btn = $('#ctlBtn'), state = 'pending';
             var md5Array = [];
             var partMd5Array = [];
-
+            var ifdesc=true;
             WebUploader.Uploader.register({
                 'before-send': 'checkChunk'
             }, {
@@ -94,13 +95,14 @@
                 chunkSize: 1024 * 1024,
                 threads: 2,
                 formData: {
-                    '_token': '{{csrf_token()}}'
+                    '_token': '{{csrf_token()}}',
                 }
             });
 
             uploader.on('fileQueued', function (file) {
                 file.setStatus('cancelled');
                 $('#thelist').append('<tr class="gradeA" id="' + file.id + '">' +
+                    '<td><input class="form-control desc" type="text" name="desc" placeholder="请填写文件描述"></td>' +
                     '<td>' + file.name + '</td>' + '<td>' + WebUploader.formatSize(file.size) + '</td>' + '<td>' + file.type + '</td>' +
                     '<td id="md5progress">计算MD5中...<div class="progress progress-striped active"><div style="width: 0%" role="progressbar" class="progress-bar progress-bar-success"></div></div></td>' +
                     '<td class="stateTd"><span class="state">等待上传...</span></td>' +
@@ -145,8 +147,12 @@
             });
 
             uploader.on('uploadBeforeSend', function (block, data, headers) {
+                var data_id=block.file.id.split('_');
+                data.desc=$('.desc').get(data_id[2]).value;
                 data.chunkmd5 = md5Array[block.file.id + '_' + block.chunk];
                 data.md5 = md5Array[block.file.id];
+                //
+
             });
 
             uploader.on('uploadSuccess', function (file) {
@@ -181,7 +187,18 @@
                 if (state === 'uploading') {
                     uploader.stop(true);
                 } else {
-                    uploader.upload();
+                    $(".desc").each(function(){
+                        if ($(this).val()==''){
+                            //没有填写描述
+                            ifdesc=false;
+                        }
+                    });
+                    if (!ifdesc){
+                        alert('请填写描述 用于标识');
+                        ifdesc=true;
+                    }else{
+                        uploader.upload();
+                    }
                 }
             });
 
