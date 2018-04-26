@@ -8,6 +8,7 @@ use App\Models\Multiupload;
 use App\Models\MultiuploadPart;
 use App\Models\UploadedFile;
 use App\Models\UploadedType;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesser;
@@ -38,11 +39,15 @@ class FileController extends BaseAdminController
 		// 处理排序
 		$sort = request('sort', 'created_at');
 		$order = request('order', 'desc');
-
 		$query = UploadedFile::orderBy($sort, $order);
+
 		// 筛选原始文件名
 		if (request('file_oldname')) {
 			$query->where('file_oldname', 'LIKE', "%" . request('file_oldname') . "%");
+		}
+		// 筛选文件描述
+		if (request('file_desc')) {
+			$query->where('file_desc', 'LIKE', "%" . request('file_desc') . "%");
 		}
 		// 筛选添加时间
 		if (request('created_at_from')) {
@@ -51,14 +56,13 @@ class FileController extends BaseAdminController
 		if (request('created_at_to')) {
 			$query->where('created_at', '<=', date('Y-m-d', strtotime(request('created_at_to') . " +1 day")));
 		}
-		if (request()->has('file_status')) {
+		if (request('file_status')) {
 			$query->where('file_status', request('file_status'));
 		}
 		// 取得列表
 		$files = $query->paginate(parent::PERPAGE);
 		// 将查询参数拼接到分页链接中
 		$files->appends(app('request')->all());
-
 		return view('admin.file.file', [
 			'files' => $files,
 			'fileStatus' => $this->fileStatus
@@ -234,6 +238,7 @@ class FileController extends BaseAdminController
 
 						// 保存数据
 						$uploadedFile = new UploadedFile();
+						$uploadedFile->file_desc = request('desc');
 						$uploadedFile->file_mime = $fileMime;
 						$uploadedFile->file_size = $fileSize;
 						$uploadedFile->file_name = $fileNewName;

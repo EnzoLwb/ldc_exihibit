@@ -22,6 +22,7 @@ class CreateUploadedFileTable extends Migration
 			$table->string('file_mime', 255)->comment('文件类型')->nullable();
 			$table->integer('file_size')->comment('文件大小')->default(0);
 			$table->string('file_name', 255)->comment('文件名')->nullable();
+			$table->string('file_desc', 255)->comment('文件注释')->nullable();
 			$table->string('file_oldname', 255)->comment('原文件名')->nullable();
 			$table->string('file_path', 255)->comment('文件路径')->nullable();
 			$table->char('file_md5', 32)->comment('文件MD5验证')->nullable();
