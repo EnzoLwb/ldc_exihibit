@@ -86,4 +86,11 @@ class AccidentRegistrationController extends BaseAdminController
         Accident::whereIn('accident_id', $accident_ids)->update(array('status'=>ConstDao::ACCIDENT_STATUS_WAITING_AUDIT));
         return response_json(1,array(),'成功提交');
     }
+
+
+    public function accident_del(){
+        $accident_id = \request('accident_id');
+        Accident::where('accident_id', $accident_id)->delete();
+        return response_json(1,array(),'成功删除');
+    }
 }

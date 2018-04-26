@@ -68,7 +68,7 @@
                                     <td>{{\App\Dao\ConstDao::$accident_desc[$exhibit['status']]}} </td>
                                     <td>
                                         @if($exhibit['status'] == \App\Dao\ConstDao::ACCIDENT_STATUS_DRAFT)
-                                        <a href="{{route('admin.exhibitmanage.add_accidentregistration')."?accident_id=".$exhibit['accident_id']}}">修改</a> <a href="javascript:void(0)" onclick="del_accident()">删除</a>
+                                        <a href="{{route('admin.exhibitmanage.add_accidentregistration')."?accident_id=".$exhibit['accident_id']}}">修改</a> <a href="javascript:void(0)" onclick="del_accident({{$exhibit['accident_id']}})">删除</a>
                                         @endif
                                     </td>
                                 </tr>
@@ -129,8 +129,15 @@
         window.open(url);
     }
     
-    function del_accident() {
-        alert(111);
+    function del_accident(accident_id) {
+        $.ajax('{{route("admin.exhibitmanage.accident_del")}}', {
+            method: 'POST',
+            data: {'accident_id':accident_id,"_token":"{{csrf_token()}}"},
+            dataType: 'json'
+        }).done(function (response) {
+            layer.alert(response.msg)
+            setTimeout("location.reload()",3000);
+        });
     }
 </script>
 

@@ -62,6 +62,8 @@ Route::group([
     Route::post('accidentregistration_submit', 'AccidentRegistrationController@accidentregistration_submit')->name('admin.exhibitmanage.accidentregistration_submit');
     Route::post('accidentregistration_save', 'AccidentRegistrationController@accidentregistration_save')->name('admin.exhibitmanage.accidentregistration_save');
     Route::get('add_accidentregistration', 'AccidentRegistrationController@add_accidentregistration')->name('admin.exhibitmanage.add_accidentregistration');
+    Route::post('accident_del', 'AccidentRegistrationController@accident_del')->name('admin.exhibitmanage.accident_del');
+
     //根据库房room_number获得排架列表
     Route::get('frame_list', 'InstorageManageController@frame_list')->name('admin.exhibitmanage.frame_list');
 });
