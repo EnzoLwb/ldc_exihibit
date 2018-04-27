@@ -99,6 +99,7 @@ class ConstDao
     const EXPERT_ROLE_ID = 3;// 专家角色ID
     const LEADER_ROLE_ID = 4 ;//审批管理员
     const GCXT_ROLE_ID = 2;//普通管理员
+    const HD_ADMIN = 5;//恒达用户
     //专家性别描述
     const EXPERT_SEX_MAN = 1;
     const EXPERT_SEX_FEMALE = 0;

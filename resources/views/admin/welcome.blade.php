@@ -21,15 +21,15 @@
     <div class="rcont1" id="rmenu">
     	<div class="list_out">
 	    	<div class="list">
-				@if($groupid == \App\Dao\ConstDao::EXPERT_ROLE_ID)
+				@if($groupid == \App\Dao\ConstDao::EXPERT_ROLE_ID || $groupid == \App\Dao\ConstDao::HD_ADMIN)
 					<a href="{{route('admin.recordidentify.recordidentify')}}"><img src="{{cdn('img/add/menu/menu_icon3.png')}}">录入鉴定结果</a>
 				@endif
 
-				@if($groupid == \App\Dao\ConstDao::LEADER_ROLE_ID)
+				@if($groupid == \App\Dao\ConstDao::LEADER_ROLE_ID || $groupid == \App\Dao\ConstDao::HD_ADMIN)
 						<a href="{{ route('admin.applymanage.export_collect_apply')}}" title="申请管理申请管理"><img src="{{cdn('img/add/menu/menu_icon2.png')}}">申请管理申请管理</a>
 				@endif
 
-				@if($groupid == \App\Dao\ConstDao::GCXT_ROLE_ID)
+				@if($groupid == \App\Dao\ConstDao::GCXT_ROLE_ID || $groupid == \App\Dao\ConstDao::HD_ADMIN)
 						<a href="{{route('admin.exhibitcollect.apply')}}" title="藏品征集"><img src="{{cdn('img/add/menu/menu_icon1.png')}}">藏品征集</a>
 						<a href="{{ route('admin.exhibitidentify.exhibit')}}"><img src="{{cdn('img/add/menu/menu_icon4.png')}}">藏品鉴定</a>
 						<a href="{{route('admin.inforegister.exhibitmanage')}}"><img src="{{cdn('img/add/menu/menu_icon5.png')}}">信息登记</a>
