@@ -21,15 +21,15 @@
     <div class="rcont1" id="rmenu">
     	<div class="list_out">
 	    	<div class="list">
-				@if($groupid == \App\Dao\ConstDao::EXPERT_ROLE_ID || $groupid == \App\Dao\ConstDao::HD_ADMIN)
+				@if($groupid == \App\Dao\ConstDao::EXPERT_ROLE_ID )
 					<a href="{{route('admin.recordidentify.recordidentify')}}"><img src="{{cdn('img/add/menu/menu_icon3.png')}}">录入鉴定结果</a>
 				@endif
 
-				@if($groupid == \App\Dao\ConstDao::LEADER_ROLE_ID || $groupid == \App\Dao\ConstDao::HD_ADMIN)
+				@if($groupid == \App\Dao\ConstDao::LEADER_ROLE_ID )
 						<a href="{{ route('admin.applymanage.export_collect_apply')}}" title="申请管理申请管理"><img src="{{cdn('img/add/menu/menu_icon2.png')}}">申请管理申请管理</a>
 				@endif
 
-				@if($groupid == \App\Dao\ConstDao::GCXT_ROLE_ID || $groupid == \App\Dao\ConstDao::HD_ADMIN)
+				@if($groupid == \App\Dao\ConstDao::GCXT_ROLE_ID )
 						<a href="{{route('admin.exhibitcollect.apply')}}" title="藏品征集"><img src="{{cdn('img/add/menu/menu_icon1.png')}}">藏品征集</a>
 						<a href="{{ route('admin.exhibitidentify.exhibit')}}"><img src="{{cdn('img/add/menu/menu_icon4.png')}}">藏品鉴定</a>
 						<a href="{{route('admin.inforegister.exhibitmanage')}}"><img src="{{cdn('img/add/menu/menu_icon5.png')}}">信息登记</a>
@@ -44,6 +44,21 @@
 						<a href="{{ route('admin.digitalsearch.exhibit')}}"><img src="{{cdn('img/add/menu/menu_icon2.png')}}">数据查询</a>
 					<!--<a href="#"><img src="{{cdn('img/add/menu/menu_icon14.png')}}">用户</a>
 	    		<a href="#"><img src="{{cdn('img/add/menu/menu_icon15.png')}}">设置</a>-->
+				@else
+						<a href="{{route('admin.recordidentify.recordidentify')}}"><img src="{{cdn('img/add/menu/menu_icon3.png')}}">录入鉴定结果</a>
+						<a href="{{ route('admin.applymanage.export_collect_apply')}}" title="申请管理申请管理"><img src="{{cdn('img/add/menu/menu_icon2.png')}}">申请管理申请管理</a>
+						<a href="{{route('admin.exhibitcollect.apply')}}" title="藏品征集"><img src="{{cdn('img/add/menu/menu_icon1.png')}}">藏品征集</a>
+						<a href="{{ route('admin.exhibitidentify.exhibit')}}"><img src="{{cdn('img/add/menu/menu_icon4.png')}}">藏品鉴定</a>
+						<a href="{{route('admin.inforegister.exhibitmanage')}}"><img src="{{cdn('img/add/menu/menu_icon5.png')}}">信息登记</a>
+						<a href="{{ route('admin.accountmanage.sumaccount')}}"><img src="{{cdn('img/add/menu/menu_icon6.png')}}">账目管理</a>
+						<a href="{{route('admin.exhibitmanage.storageroom')}}"><img src="{{cdn('img/add/menu/menu_icon7.png')}}">藏品保管</a>
+						<a href="{{route('admin.storageroommanage.peopleinoutmanage')}}"><img src="{{cdn('img/add/menu/menu_icon8.png')}}">库房日常管理</a>
+						<a href="{{ route('admin.exhibitshow.apply')}}"><img src="{{cdn('img/add/menu/menu_icon9.png')}}">藏品展览</a>
+						<a href="{{route('admin.repaireexhibit.apply')}}"><img src="{{cdn('img/add/menu/menu_icon10.png')}}">藏品修复</a>
+						<a href="{{route('admin.exhibitlogout')}}"><img src="{{cdn('img/add/menu/menu_icon11.png')}}">藏品注销</a>
+						<a href="{{route('admin.file.file')}}"><img src="{{cdn('img/add/menu/menu_icon12.png')}}">数字资源管理</a>
+						<a href="{{ route('admin.statics.identify')}}"><img src="{{cdn('img/add/menu/menu_icon13.png')}}">统计分析</a>
+						<a href="{{ route('admin.digitalsearch.exhibit')}}"><img src="{{cdn('img/add/menu/menu_icon2.png')}}">数据查询</a>
 				@endif
 
 	    	</div>
