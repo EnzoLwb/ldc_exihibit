@@ -15,19 +15,14 @@
 </style>
 @section('body')
     <div style="height: 100%;  width: 100%; background: url(../img/bg.jpg) center center;    background-size: 100% 100%;    min-width: 1200px;    overflow: hidden;">
-    <div class="middle-box text-center loginscreen">
-        <div id="loginBox" style="    width: 98%;
-    height: 320px;
-    margin-left: -192%;
-    margin-top: 132%;
-    float: left;
-    position: relative; ">
-            <h3>{{$system_name}}</h3>
+    <div class="middle-box text-center loginscreen" style=" position: relative; top: 40%; transform: translateY(-50%);">
+        <div id="loginBox" style=" width:300px; height: auto; margin: 0 auto;">
+            <div style=" margin-bottom: 20px; font-size: 35px; color: #fff; text-align: center;">{{$system_name}}</div>
 
-            <form class="m-t" role="form" method="POST" action="{{ route('admin.login') }}">
+            <form class="m-t" role="form" method="POST" action="{{ route('admin.login') }}" style=" width: 250px; margin: 0 auto;">
                 {{ csrf_field() }}
                 <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
-                    <input type="text" name="username" class="form-control" placeholder="手机/邮箱/用户名" required="" value="{{ old('username') }}"/>
+                    <input type="text" name="username" class="form-control" placeholder="请输入用户名" required="" value="{{ old('username') }}"/>
                     @if ($errors->has('username'))
                         <span class="help-block">
                             <strong>{{ $errors->first('username') }}</strong>
@@ -58,9 +53,7 @@
             </form>
 
         </div>
-        <div id="login_br">
-            <img src="http://47.93.81.30:81/img/login-bronze.png">
-        </div>
+
     </div>
     </div>
 @endsection
