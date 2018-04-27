@@ -87,7 +87,10 @@ class AccidentRegistrationController extends BaseAdminController
         return response_json(1,array(),'成功提交');
     }
 
-
+    /**
+     * 事故登记的删除操作
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function accident_del(){
         $accident_id = \request('accident_id');
         Accident::where('accident_id', $accident_id)->delete();

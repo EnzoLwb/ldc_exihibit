@@ -1,10 +1,27 @@
 @extends('layouts.public')
 
 @section('title', '登录')
+<style type="text/css">
+    *{
+        font-size:100%;
+    }
+    input, textarea {
+        color: #000;
+    }
 
+    .placeholder {
+        color: #aaa;
+    }
+</style>
 @section('body')
+    <div style="height: 100%;  width: 100%; background: url(../img/bg.jpg) center center;    background-size: 100% 100%;    min-width: 1200px;    overflow: hidden;">
     <div class="middle-box text-center loginscreen">
-        <div>
+        <div id="loginBox" style="    width: 98%;
+    height: 320px;
+    margin-left: -192%;
+    margin-top: 132%;
+    float: left;
+    position: relative; ">
             <h3>{{$system_name}}</h3>
 
             <form class="m-t" role="form" method="POST" action="{{ route('admin.login') }}">
@@ -39,6 +56,11 @@
 
                 <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
             </form>
+
         </div>
+        <div id="login_br">
+            <img src="http://47.93.81.30:81/img/login-bronze.png">
+        </div>
+    </div>
     </div>
 @endsection
