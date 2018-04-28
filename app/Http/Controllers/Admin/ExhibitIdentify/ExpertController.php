@@ -23,15 +23,12 @@ class ExpertController extends BaseAdminController
         }else{
             $list = AdminUsers::join('expert','expert.admin_user_id','=','admin_users.uid')->where('username','like','%'.$title."%")->where('groupid', ConstDao::EXPERT_ROLE_ID)->paginate(parent::PERPAGE);
         }
-        $res = array();
         foreach($list as $key=>$item){
             $admin_user_id = $item['uid'];
             $expert = Expert::where('admin_user_id', $admin_user_id)->first();
-
             $list[$key]->sex = $expert->sex;
             $list[$key]->status = $expert->status;
             $list[$key]->expert_id = $expert->expert_id;
-
         }
         $res['exhibit_list'] = $list;
         return view('admin.exhibitidentify.expert', $res);
@@ -73,8 +70,9 @@ class ExpertController extends BaseAdminController
             $usersMod->password = $password;
             $usersMod->salt = $salt;
             $usersMod->lastloginip = app('request')->ip();
-            $usersMod->save();
             $usersMod->groupid = ConstDao::EXPERT_ROLE_ID;
+            $usersMod->save();
+
             //保存扩展信息
             $expert = Expert::where('admin_user_id', $usersMod->uid)->first();
             if(empty($expert)){
