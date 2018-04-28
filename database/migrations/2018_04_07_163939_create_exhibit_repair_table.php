@@ -22,7 +22,7 @@ class CreateExhibitRepairTable extends Migration
 			$table->string('repair_order_name',50)->comment('修复申请单名称');
 			$table->string('exhibit_sum_register_id',255)->nullable()->comment('总账藏品id');
 			$table->string('subsidiary_id',255)->nullable()->comment('辅助账藏品id');
-			$table->integer('plan_expense')->default(0)->nullable()->comment('经费预算');
+			$table->string('plan_expense')->default(0)->nullable()->comment('经费预算');
 			$table->tinyInteger('apply_status',false,true)->default('0')->comment('申请状态 0 未提交申请，1 等待审批 2 审批通过 3 审批拒绝');
 			$table->string('register_member',20)->nullable()->comment('登记人');
 			$table->timestamp('register_date')->nullable()->comment('登记日期');

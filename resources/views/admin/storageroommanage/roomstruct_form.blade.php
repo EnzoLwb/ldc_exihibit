@@ -63,7 +63,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">库房类型</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="room_type" value="{{$data['room_type']??old('room_type')}}"/>
+                                    <input type="text" class="form-control"  name="room_type" value="{{$data['room_type']??old('room_type')}}"/>
                                 </div>
                             </div>
                             <div class="form-group">

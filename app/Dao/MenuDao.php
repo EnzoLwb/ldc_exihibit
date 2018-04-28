@@ -144,21 +144,21 @@ class MenuDao extends BaseMdl
 				'priv' => 'exhibitmanage',
 				'icon' => 'fa fa-cog',
 				'nodes' => [
-					[
-						'text' => '移库管理',
-						'url' => route('admin.exhibitmanage.storageroom'),
-						'priv' => 'admin-exhibitmanage-index'
-					],
+                    [
+                        'text' => '入库管理',
+                        'url' => route('admin.exhibitmanage.instorageroom'),
+                        'priv' => 'admin-exhibitmanage-instoragemanage'
+                    ],
 					[
 						'text' => '消毒登记',
 						'url' => route('admin.exhibitmanage.disinfection'),
 						'priv' => 'admin-exhibitmanage-disinfection'
 					],
-					[
-						'text' => '入库管理',
-						'url' => route('admin.exhibitmanage.instorageroom'),
-						'priv' => 'admin-exhibitmanage-instoragemanage'
-					],
+                    [
+                        'text' => '移库管理',
+                        'url' => route('admin.exhibitmanage.storageroom'),
+                        'priv' => 'admin-exhibitmanage-index'
+                    ],
 					[
 						'text' => '藏品出库',
 						'url' => route('admin.exhibitmanage.outstorageroom.oustorageapply'),

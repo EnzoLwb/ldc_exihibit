@@ -25,7 +25,7 @@ class CreateReturnStorageTable extends Migration
             $table->string('return_date')->nullable()->comment('归还日期');
             $table->string('recorder')->nullable()->comment('录入人');
             $table->tinyInteger('status')->nullable()->default(0)->comment('状态，草稿或者提交生效');
-            $table->text('mark')->comment('备注');
+            $table->text('mark')->nullable()->comment('备注');
             $table->timestamps();
             if (env('DB_CONNECTION') == 'oracle') {
                 $table->comment = $this->tableComment;
