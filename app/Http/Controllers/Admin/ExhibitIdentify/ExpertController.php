@@ -26,11 +26,14 @@ class ExpertController extends BaseAdminController
         foreach($list as $key=>$item){
             $admin_user_id = $item['uid'];
             $expert = Expert::where('admin_user_id', $admin_user_id)->first();
+            if(empty($expert)) {
+                unset($list[$key]);
+            }
             $list[$key]->sex = $expert->sex;
             $list[$key]->status = $expert->status;
             $list[$key]->expert_id = $expert->expert_id;
         }
-
+        $list = array_values($list);
         $res['exhibit_list'] = $list;
         return view('admin.exhibitidentify.expert', $res);
     }
