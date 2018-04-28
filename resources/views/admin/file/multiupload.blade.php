@@ -194,7 +194,7 @@
                         }
                     });
                     if (!ifdesc){
-                        alert('请填写描述 用于标识');
+                        layer.alert('请填写描述 用于标识');
                         ifdesc=true;
                     }else{
                         uploader.upload();
