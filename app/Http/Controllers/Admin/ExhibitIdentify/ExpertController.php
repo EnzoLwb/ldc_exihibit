@@ -28,6 +28,7 @@ class ExpertController extends BaseAdminController
             $expert = Expert::where('admin_user_id', $admin_user_id)->first();
             if(empty($expert)) {
                 unset($list[$key]);
+                continue;
             }
             $list[$key]->sex = $expert->sex;
             $list[$key]->status = $expert->status;
