@@ -23,6 +23,7 @@ class ExpertController extends BaseAdminController
         }else{
             $list = AdminUsers::where('username','like','%'.$title."%")->where('groupid', ConstDao::EXPERT_ROLE_ID)->paginate(parent::PERPAGE);
         }
+        $res = array();
         foreach($list as $key=>$item){
             $admin_user_id = $item['uid'];
             $expert = Expert::where('admin_user_id', $admin_user_id)->first();
@@ -33,9 +34,9 @@ class ExpertController extends BaseAdminController
             $list[$key]->sex = $expert->sex;
             $list[$key]->status = $expert->status;
             $list[$key]->expert_id = $expert->expert_id;
+            $res[] = $list[$key];
         }
-        $list = array_values($list);
-        $res['exhibit_list'] = $list;
+        $res['exhibit_list'] = $res;
         return view('admin.exhibitidentify.expert', $res);
     }
 
